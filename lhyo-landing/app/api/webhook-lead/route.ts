@@ -41,7 +41,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ status: "PIPELINE_EXECUTED", latency: "EDGE_OK" }, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ status: "SYSTEM_ERROR", message: error.message }, { status: 500 });
+  } catch (err: unknown) {
+    const errorMessage = err instanceof Error ? err.message : "UNKNOWN_SYSTEM_ERROR";
+    return NextResponse.json({ status: "SYSTEM_ERROR", message: errorMessage }, { status: 500 });
   }
 }
