@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       },
     };
 
-    const targetMakeUrl = process.env.MAKE_WEBHOOK_URL || "PEGA_AQUI_TU_URL_DE_MAKE";
+    const targetMakeUrl = process.env.MAKE_WEBHOOK_URL || "https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l";
 
     const makeResponse = await fetch(targetMakeUrl, {
       method: "POST",
