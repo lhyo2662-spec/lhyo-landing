@@ -37,10 +37,10 @@ export async function POST(request: Request) {
       if (!rawCompany && (label.includes("web") || label.includes("instagram") || label.includes("empresa") || label.includes("sitio"))) {
         rawCompany = val;
       }
-      if (!rawBottleneck && (label.includes("cuello") || label.includes("botella") || label.includes("negocio") || label.includes("necesidad"))) {
+      if (!rawBottleneck && (label.includes("objetivo") || label.includes("mejorar") || label.includes("lograr") || label.includes("cuello") || label.includes("negocio"))) {
         rawBottleneck = val;
       }
-      if (!rawPlan && (label.includes("plan") || label.includes("servicio") || label.includes("catálogo") || label.includes("catalogo"))) {
+      if (!rawPlan && (label.includes("plan") || label.includes("servicio") || label.includes("catálogo") || label.includes("catalogo") || label.includes("selección") || label.includes("seleccion"))) {
         rawPlan = val;
       }
     }
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       },
     };
 
-    const targetMakeUrl = process.env.MAKE_WEBHOOK_URL || "";
+    const targetMakeUrl = "https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l";
 
     await fetch(targetMakeUrl, {
       method: "POST",
