@@ -9,7 +9,6 @@ interface SystemPlan {
   title: string;
   shortDesc: string;
   benefitTag: string;
-  simpleExplanation: string;
   includedItems: string[];
   customOptions: string[];
   idealFor: string;
@@ -20,91 +19,88 @@ interface SystemPlan {
 const SYSTEMS_DATA: SystemPlan[] = [
   {
     id: "PLAN-1",
-    badge: "SERVICIO 1 · ATENCIÓN AL CLIENTE AUTOMÁTICA",
+    badge: "SERVICIO 01 · ATENCIÓN Y VENTAS AUTOMATIZADAS",
     title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
-    shortDesc: "No pierdas más clientes por tardar en contestar. Creamos un asistente virtual inteligente que responde los mensajes de tu negocio día y noche en segundos, aclara dudas como una persona real y agenda tus citas de venta.",
-    benefitTag: "Responde en 3 segundos día y noche",
-    simpleExplanation: "Se conecta a tu WhatsApp e Instagram con toda la información de tus productos o servicios. Cuando alguien escribe, lo atiende con amabilidad, le pregunta qué necesita y te deja la cita lista en tu calendario.",
+    shortDesc: "Atienda a cada cliente de forma inmediata sin importar la hora. Implementamos asistentes inteligentes entrenados a la medida de su empresa para responder consultas, brindar información precisa y agendar reuniones comerciales automáticamente.",
+    benefitTag: "Respuesta inmediata 24/7",
     includedItems: [
-      "Atención inmediata las 24 horas (incluso fines de semana o mientras duermes).",
-      "Respuestas naturales y amables: tus clientes sentirán que hablan con tu mejor vendedor.",
-      "Descubre qué busca el cliente y cuál es su presupuesto antes de pasártelo a ti.",
-      "Agenda las llamadas o visitas directamente en tu calendario sin que tengas que intervenir.",
-      "Guarda el nombre, teléfono y necesidad de cada persona en tu lista de control."
+      "Atención continua las 24 horas del día, los 7 días de la semana, sin tiempos de espera.",
+      "Comunicación fluida, profesional y alineada con la identidad de su negocio.",
+      "Identificación automática de las necesidades e intereses de cada cliente potencial.",
+      "Agendamiento directo de citas y reuniones comerciales en su calendario.",
+      "Registro ordenado de cada contacto para un control comercial impecable."
     ],
     customOptions: [
-      "Atender mi WhatsApp automáticamente",
-      "Atender mis mensajes de Instagram",
-      "Que agende citas en mi calendario solo",
-      "Filtrar curiosos de clientes reales"
+      "Automatizar la atención en WhatsApp",
+      "Automatizar las respuestas en Instagram",
+      "Agendamiento automático de citas en calendario",
+      "Cualificación previa de clientes potenciales"
     ],
-    idealFor: "Ideal para comercios, profesionales, médicos, clínicas, inmobiliarias y empresas que reciben mensajes todos los días y quieren vender más rápido.",
+    idealFor: "Empresas, clínicas, firmas profesionales y comercios que buscan multiplicar su capacidad de respuesta y convertir más conversaciones en ventas.",
     crmBaseName: "PLAN 1 (Asistente WhatsApp/IG 24/7)",
-    buttonText: "QUIERO ESTE ASISTENTE · AGENDAR CON LHYO"
+    buttonText: "SOLICITAR ESTE SERVICIO · AGENDAR REUNIÓN"
   },
   {
     id: "PLAN-2",
-    badge: "SERVICIO 2 · PRESENCIA EN INTERNET DE PRIMER NIVEL",
-    title: "Páginas Web Modernas y Catálogos Interactivos",
-    shortDesc: "Tener una página lenta o confusa espanta a las personas. Construimos tu página web elegante, rápida y tan clara que desde un joven de 15 años hasta un adulto de 70 entenderán qué vendes y podrán contratarte con un toque.",
-    benefitTag: "Imagen de prestigio y fácil de usar",
-    simpleExplanation: "Diseñamos tu vitrina digital a medida para que se vea impecable en cualquier celular o computadora, mostrando tus servicios de forma interactiva y conectada directo a tu agenda y WhatsApp.",
+    badge: "SERVICIO 02 · PRESENCIA DIGITAL CORPORATIVA",
+    title: "Páginas Web Modernas y Catálogos Digitales",
+    shortDesc: "Proyecte una imagen sólida, confiable y de alto nivel. Desarrollamos plataformas web rápidas, elegantes e intuitivas que presentan sus servicios con claridad y facilitan el contacto directo con sus clientes.",
+    benefitTag: "Imagen ejecutiva y alta conversión",
     includedItems: [
-      "Diseño elegante y moderno que genera confianza inmediata en quien visita tu negocio.",
-      "Carga ultra rápida en cualquier teléfono para que nadie se vaya por esperar.",
-      "Catálogo interactivo donde tus clientes pueden tocar cada servicio y ver qué ofreces.",
-      "Botones inteligentes conectados directo a tu calendario de citas o WhatsApp.",
-      "Preparada para que las personas encuentren tu negocio fácilmente en Google."
+      "Diseño corporativo de alta gama que transmite autoridad y confianza desde el primer instante.",
+      "Navegación fluida y velocidad de carga superior en teléfonos móviles y computadoras.",
+      "Presentación estructurada y dinámica de todos sus servicios o líneas de negocio.",
+      "Integración directa con su calendario de reservas y canales de contacto.",
+      "Estructura optimizada para destacar su marca en los motores de búsqueda."
     ],
     customOptions: [
-      "Crear mi página web desde cero",
-      "Renovar mi página web actual",
-      "Incluir catálogo interactivo de servicios",
-      "Incluir sistema de reservas de citas"
+      "Desarrollo de página web corporativa desde cero",
+      "Renovación y modernización de sitio web actual",
+      "Integración de catálogo dinámico de servicios",
+      "Sistema de agendamiento directo en la web"
     ],
-    idealFor: "Ideal para negocios, marcas personales, consultoras y empresas que quieren verse profesionales y transformar visitantes en clientes reales.",
-    crmBaseName: "PLAN 2 (Página Web Moderna)",
-    buttonText: "QUIERO MI PÁGINA WEB · AGENDAR CON LHYO"
+    idealFor: "Organizaciones, consultoras, profesionales y marcas que desean consolidar su prestigio en internet y captar clientes de forma constante.",
+    crmBaseName: "PLAN 2 (Página Web Corporativa)",
+    buttonText: "SOLICITAR PÁGINA WEB · AGENDAR REUNIÓN"
   },
   {
     id: "PLAN-3",
-    badge: "SERVICIO 3 · ORDEN Y CONTROL SIN TRABAJO MANUAL",
+    badge: "SERVICIO 03 · GESTIÓN Y CONTROL COMERCIAL",
     title: "Organización Automática de Clientes y Ventas (CRM)",
-    shortDesc: "Olvídate de anotar en cuadernos o perder conversaciones importantes. Conectamos tu agenda y tus redes a una tabla inteligente donde cada cliente queda registrado, ordenado y clasificado automáticamente.",
-    benefitTag: "Todo tu negocio ordenado sin esfuerzo",
-    simpleExplanation: "Cada vez que una persona se interesa en tus servicios o agenda contigo, el sistema toma sus datos, los guarda en tu hoja de control y te indica cuáles son los clientes más importantes.",
+    shortDesc: "Centralice toda la información de su negocio en un solo lugar. Conectamos sus canales de contacto y su agenda a un sistema inteligente que registra, ordena y clasifica cada oportunidad comercial sin trabajo manual.",
+    benefitTag: "Control total de su cartera de clientes",
     includedItems: [
-      "Registro automático de cada cliente nuevo con su nombre, correo, teléfono y lo que desea comprar.",
-      "Clasificación inteligente que separa a los clientes de mayor presupuesto para que los atiendas primero.",
-      "Eliminación del trabajo aburrido de copiar y pegar datos a mano todos los días.",
-      "Panel claro y fácil de leer desde tu celular o computadora en cualquier momento.",
-      "Avisos inmediatos para que nunca olvides dar seguimiento a una venta."
+      "Captura y registro automático de los datos de cada nuevo prospecto o cliente.",
+      "Clasificación inteligente de contactos según su prioridad y volumen comercial.",
+      "Eliminación de tareas operativas repetitivas para ahorrar horas de gestión semanal.",
+      "Panel de control estructurado y accesible desde cualquier dispositivo.",
+      "Seguimiento comercial organizado para maximizar el cierre de oportunidades."
     ],
     customOptions: [
-      "Guardar todos mis clientes en una tabla automática",
-      "Separar clientes por presupuesto automáticamente",
-      "Conectar mi calendario con mi hoja de control",
-      "Automatizar el seguimiento de mis ventas"
+      "Centralización automática de clientes en CRM",
+      "Clasificación de prospectos por nivel de prioridad",
+      "Sincronización entre calendario y base de datos",
+      "Automatización del flujo de seguimiento comercial"
     ],
-    idealFor: "Ideal para dueños de negocio que quieren tener orden total en su lista de clientes y saber exactamente a quién llamar para cerrar más ventas.",
+    idealFor: "Negocios y equipos comerciales que buscan orden operativo, trazabilidad exacta y eficiencia en el manejo de sus clientes.",
     crmBaseName: "PLAN 3 (Organización y Automatización CRM)",
-    buttonText: "QUIERO ORGANIZAR MI NEGOCIO · AGENDAR CON LHYO"
+    buttonText: "SOLICITAR AUTOMATIZACIÓN · AGENDAR REUNIÓN"
   }
 ];
+
+const FULL_PACKAGE_LABEL = "Paquete Completo (Todo Incluido)";
 
 export default function InteractiveCatalog() {
   const [openId, setOpenId] = useState<string | null>("PLAN-1");
 
-  // Estado interactivo de lo que la persona marca dentro de cada plan (Punto 3)
   const [selectedFeatures, setSelectedFeatures] = useState<Record<string, string[]>>({
-    "PLAN-1": ["Atender mi WhatsApp automáticamente", "Que agende citas en mi calendario solo"],
-    "PLAN-2": ["Crear mi página web desde cero", "Incluir catálogo interactivo de servicios"],
-    "PLAN-3": ["Guardar todos mis clientes en una tabla automática", "Separar clientes por presupuesto automáticamente"]
+    "PLAN-1": ["Automatizar la atención en WhatsApp", "Agendamiento automático de citas en calendario"],
+    "PLAN-2": ["Desarrollo de página web corporativa desde cero", "Integración de catálogo dinámico de servicios"],
+    "PLAN-3": ["Centralización automática de clientes en CRM", "Clasificación de prospectos por nivel de prioridad"]
   });
 
-  // Estado interactivo para el configurador del Catálogo Privado (Punto 4)
   const [privCountry, setPrivCountry] = useState<string>("Uruguay");
-  const [privInterest, setPrivInterest] = useState<string>("Paquete Completo (Todo Incluido)");
+  const [privInterests, setPrivInterests] = useState<string[]>([FULL_PACKAGE_LABEL]);
   const [privStage, setPrivStage] = useState<string>("Negocio en marcha buscando crecer");
 
   const togglePlan = (id: string) => {
@@ -122,16 +118,33 @@ export default function InteractiveCatalog() {
     });
   };
 
-  const privateCatalogSummary = `SOLICITUD CATÁLOGO PRIVADO | País: ${privCountry} | Interés: ${privInterest} | Etapa: ${privStage}`;
+  // Máquina de estado para selección múltiple excluyente en la Columna 2 del Catálogo Privado
+  const handlePrivInterestToggle = (option: string) => {
+    if (option === FULL_PACKAGE_LABEL) {
+      setPrivInterests([FULL_PACKAGE_LABEL]);
+    } else {
+      setPrivInterests((prev) => {
+        const withoutFull = prev.filter((item) => item !== FULL_PACKAGE_LABEL);
+        if (withoutFull.includes(option)) {
+          const updated = withoutFull.filter((item) => item !== option);
+          return updated.length === 0 ? [FULL_PACKAGE_LABEL] : updated;
+        } else {
+          return [...withoutFull, option];
+        }
+      });
+    }
+  };
+
+  const privateCatalogSummary = `SOLICITUD CATÁLOGO PRIVADO | País: ${privCountry} | Interés: ${privInterests.join(" + ")} | Etapa: ${privStage}`;
 
   return (
     <div>
-      {/* LISTA DE LOS 3 PLANES INTERACTIVOS */}
+      {/* LISTA DE LOS 3 PLANES DEL CATÁLOGO */}
       <div className="grid grid-cols-1 gap-6">
         {SYSTEMS_DATA.map((item) => {
           const isOpen = openId === item.id;
           const userPicks = selectedFeatures[item.id] || [];
-          const customPlanPayload = `${item.crmBaseName} | Eligió: ${userPicks.length > 0 ? userPicks.join(" + ") : "Servicio completo"}`;
+          const customPlanPayload = `${item.crmBaseName} | Selección: ${userPicks.length > 0 ? userPicks.join(" + ") : "Servicio integral"}`;
 
           return (
             <article
@@ -145,7 +158,7 @@ export default function InteractiveCatalog() {
                 <div className="flex flex-wrap justify-between items-center text-xs font-bold tracking-wide text-gray-300 mb-4 pb-4 border-b border-[#1E293B]">
                   <span className="text-[#BF953F] uppercase">{item.badge}</span>
                   <span className="text-[#BF953F] font-bold mt-2 sm:mt-0 bg-[#070707] px-3 py-1.5 border border-[#BF953F]/40">
-                    {isOpen ? "▲ Ocultar detalles de este servicio" : "▼ Toca aquí para abrir y personalizar este servicio"}
+                    {isOpen ? "▲ Ocultar detalles del servicio" : "▼ Ver alcance y personalizar servicio"}
                   </span>
                 </div>
 
@@ -167,35 +180,34 @@ export default function InteractiveCatalog() {
               {isOpen && (
                 <div className="mt-8 pt-8 border-t border-[#1E293B] bg-[#070707] p-6 md:p-8">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Columna Izquierda: Explicación clara de qué incluye */}
-                    <div className="lg:col-span-7">
-                      <h4 className="text-sm font-bold text-[#BF953F] uppercase tracking-wide mb-4">
-                        ¿Qué incluye este servicio para tu negocio?
-                      </h4>
-                      <ul className="space-y-3 mb-6">
-                        {item.includedItems.map((mod, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-gray-200">
-                            <span className="text-[#BF953F] font-bold">✓</span>
-                            <span>{mod}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="text-sm text-gray-300 border-t border-[#1E293B] pt-4 leading-relaxed">
-                        <strong className="text-white">En palabras simples:</strong> {item.simpleExplanation}
+                    {/* Columna Izquierda: Alcance y Perfil Ideal (Sin "En palabras simples") */}
+                    <div className="lg:col-span-7 flex flex-col justify-between">
+                      <div>
+                        <h4 className="text-sm font-bold text-[#BF953F] uppercase tracking-wide mb-4">
+                          Alcance y Beneficios Incluidos
+                        </h4>
+                        <ul className="space-y-3 mb-6">
+                          {item.includedItems.map((mod, idx) => (
+                            <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-gray-200">
+                              <span className="text-[#BF953F] font-bold">✓</span>
+                              <span>{mod}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="text-sm text-gray-300 mt-3 leading-relaxed">
+                      <div className="text-sm text-gray-300 border-t border-[#1E293B] pt-4 leading-relaxed">
                         <strong className="text-white">¿Para quién es ideal?:</strong> {item.idealFor}
                       </div>
                     </div>
 
-                    {/* Columna Derecha: Personalizador Interactivo de este Plan (Punto 3) */}
+                    {/* Columna Derecha: Personalización Ejecutiva del Servicio */}
                     <div className="lg:col-span-5 border border-[#BF953F]/50 bg-[#0B132B]/70 p-6 flex flex-col justify-between">
                       <div>
                         <div className="text-xs font-bold text-[#BF953F] uppercase tracking-wide mb-1">
-                          PASO INTERACTIVO · PERSONALIZA TU ELECCIÓN
+                          CONFIGURACIÓN A MEDIDA
                         </div>
                         <p className="text-sm text-white font-semibold mb-4">
-                          Toca las opciones que más te interesan de este servicio (se enviarán a nuestra llamada):
+                          Seleccione las prioridades que desea implementar en su empresa:
                         </p>
 
                         <div className="space-y-2.5 mb-6">
@@ -213,8 +225,8 @@ export default function InteractiveCatalog() {
                                 }`}
                               >
                                 <span>{option}</span>
-                                <span className="font-bold text-[#BF953F]">
-                                  {isSelected ? "✓ Seleccionado" : "+ Elegir"}
+                                <span className="font-bold text-[#BF953F] ml-2 shrink-0">
+                                  {isSelected ? "✓ Incluido" : "+ Añadir"}
                                 </span>
                               </button>
                             );
@@ -222,7 +234,7 @@ export default function InteractiveCatalog() {
                         </div>
 
                         <div className="text-xs text-gray-300 bg-[#070707] p-3 border border-[#1E293B] mb-5">
-                          <strong className="text-[#BF953F]">Resumen que recibirá Lhyo:</strong> {customPlanPayload}
+                          <strong className="text-[#BF953F]">Resumen de solicitud:</strong> {customPlanPayload}
                         </div>
                       </div>
 
@@ -242,25 +254,25 @@ export default function InteractiveCatalog() {
         })}
       </div>
 
-      {/* SECCIÓN 4: CONFIGURADOR PERSONALIZADO PARA SOLICITAR EL CATÁLOGO PRIVADO (PUNTO 4) */}
+      {/* SECCIÓN CATÁLOGO PRIVADO CON MULTISELECCIÓN EXCLUYENTE EN COLUMNA 2 */}
       <div className="mt-16 p-8 md:p-10 border-2 border-[#BF953F] bg-[#0B132B]">
         <div className="max-w-3xl mb-8">
           <span className="text-xs font-bold text-[#BF953F] uppercase tracking-wider block mb-2">
-            SOLICITUD DE TARIFAS Y PLANES A MEDIDA SEGÚN TU PAÍS
+            PROPUESTA ECONÓMICA Y PLANES SEGÚN SU MERCADO
           </span>
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
             ¿Deseas recibir nuestro Catálogo Privado con los precios para tu país?
           </h3>
           <p className="text-sm md:text-base text-gray-300 leading-relaxed">
-            Como atendemos negocios en distintos países y provincias, entregamos nuestro catálogo de precios de forma personalizada. Selecciona estas 3 opciones rápidas para preparar tu Catálogo Privado antes de nuestra videollamada:
+            Operamos en distintos mercados internacionales, por lo que nuestras tarifas se estructuran de forma personalizada según su región y alcance. Seleccione sus preferencias a continuación para preparar su Catálogo Privado previo a nuestra reunión:
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Pregunta Interactiva 1: País */}
+          {/* Columna 1: País */}
           <div className="bg-[#070707] p-5 border border-[#1E293B]">
             <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              1. ¿En qué país está tu negocio?
+              1. ¿EN QUÉ PAÍS ESTÁ TU NEGOCIO?
             </label>
             <div className="space-y-2">
               {["Uruguay", "Venezuela", "Otro País / Internacional"].map((pais) => (
@@ -281,39 +293,42 @@ export default function InteractiveCatalog() {
             </div>
           </div>
 
-          {/* Pregunta Interactiva 2: Qué precios desea ver */}
+          {/* Columna 2: Selección Múltiple Excluyente */}
           <div className="bg-[#070707] p-5 border border-[#1E293B]">
             <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              2. ¿Qué deseas cotizar en el catálogo?
+              2. ¿QUÉ DESEAS COTIZAR EN EL CATÁLOGO?
             </label>
             <div className="space-y-2">
               {[
-                "Paquete Completo (Todo Incluido)",
+                FULL_PACKAGE_LABEL,
                 "Asistente de WhatsApp / IG 24/7",
                 "Página Web Moderna",
                 "Organización de Clientes (CRM)"
-              ].map((interes) => (
-                <button
-                  key={interes}
-                  type="button"
-                  onClick={() => setPrivInterest(interes)}
-                  className={`w-full text-left px-3 py-2 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
-                    privInterest === interes
-                      ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
-                      : "border-[#1E293B] text-gray-400 hover:border-gray-600"
-                  }`}
-                >
-                  <span>{interes}</span>
-                  {privInterest === interes && <span className="text-[#BF953F]">✓</span>}
-                </button>
-              ))}
+              ].map((interes) => {
+                const isSelected = privInterests.includes(interes);
+                return (
+                  <button
+                    key={interes}
+                    type="button"
+                    onClick={() => handlePrivInterestToggle(interes)}
+                    className={`w-full text-left px-3 py-2 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
+                      isSelected
+                        ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
+                        : "border-[#1E293B] text-gray-400 hover:border-gray-600"
+                    }`}
+                  >
+                    <span>{interes}</span>
+                    {isSelected && <span className="text-[#BF953F]">✓</span>}
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          {/* Pregunta Interactiva 3: Etapa actual */}
+          {/* Columna 3: Etapa */}
           <div className="bg-[#070707] p-5 border border-[#1E293B]">
             <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              3. ¿En qué etapa está tu negocio hoy?
+              3. ¿EN QUÉ ETAPA ESTÁ TU NEGOCIO HOY?
             </label>
             <div className="space-y-2">
               {[

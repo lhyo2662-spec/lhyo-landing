@@ -3,16 +3,16 @@ import AuditTriggerButton from "@/components/AuditTriggerButton";
 import InteractiveCatalog from "@/components/InteractiveCatalog";
 
 export const metadata: Metadata = {
-  title: "LHYO GROUP | Páginas Web, Asistentes Inteligentes y Automatización",
-  description: "Ayudamos a tu negocio a atender más rápido, verse profesional y organizar sus ventas en automático.",
+  title: "LHYO GROUP | Soluciones Digitales, Páginas Web y Automatización",
+  description: "Impulsamos el crecimiento de su empresa mediante páginas web de alto nivel, asistentes inteligentes 24/7 y automatización comercial.",
   robots: { index: true, follow: true },
 };
 
 const TRUST_SEALS = [
-  { badge: "COMPROMISO 01", title: "CALIDAD SUPERIOR", subtitle: "Sistemas rápidos, elegantes y hechos a la medida de tu negocio" },
-  { badge: "COMPROMISO 02", title: "ATENCIÓN 24 HORAS", subtitle: "Tus clientes reciben respuesta inmediata aunque estés ocupado" },
-  { badge: "COMPROMISO 03", title: "CERO COMPLICACIONES", subtitle: "Nosotros dejamos todo listo y funcionando paso a paso por ti" },
-  { badge: "COMPROMISO 04", title: "PRESENCIA GLOBAL", subtitle: "Atención personalizada en Uruguay, Venezuela y todo el mundo" },
+  { title: "CALIDAD SUPERIOR", subtitle: "Sistemas rápidos, elegantes y desarrollados a la medida de su empresa." },
+  { title: "ATENCIÓN 24 HORAS", subtitle: "Sus clientes reciben respuesta inmediata en todo momento." },
+  { title: "CERO COMPLICACIONES", subtitle: "Nos encargamos de toda la implementación técnica de principio a fin." },
+  { title: "PRESENCIA GLOBAL", subtitle: "Atención ejecutiva en Uruguay, Venezuela y a nivel internacional." },
 ];
 
 export default function LandingPage() {
@@ -37,16 +37,15 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* SECCIÓN PRINCIPAL (PRIMER BOTÓN INTACTO PARA AUDITORÍA NORMAL) */}
       <section className="border-b border-[#1E293B] px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="mb-4 text-xs font-bold tracking-wider text-[#BF953F] uppercase">
-          SOLUCIONES MODERNAS Y FÁCILES DE ENTENDER PARA TU EMPRESA
+          INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
         </div>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight mb-8 max-w-4xl">
-          Hacemos que tu negocio venda más, se vea increíble y atienda en automático
+          Impulsamos el crecimiento de su negocio con tecnología inteligente y diseño de alto nivel
         </h1>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mb-12 font-normal leading-relaxed">
-          Diseñamos páginas web modernas, creamos asistentes virtuales que responden tu WhatsApp las 24 horas y organizamos toda tu lista de clientes para que no pierdas ni una sola venta.
+          Desarrollamos páginas web corporativas, asistentes inteligentes que atienden a sus clientes las 24 horas y sistemas automatizados que organizan sus ventas con total precisión.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <AuditTriggerButton 
@@ -56,11 +55,11 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* TARJETAS DE GARANTÍA SIN LA PALABRA "COMPROMISO" EN AMARILLO */}
       <section id="garantia" className="border-b border-[#1E293B] bg-[#0B132B]/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {TRUST_SEALS.map((seal) => (
-            <div key={seal.badge} className="border border-[#1E293B] bg-[#070707] p-6">
-              <div className="text-xs font-bold text-[#BF953F] mb-1">{seal.badge}</div>
+            <div key={seal.title} className="border border-[#1E293B] bg-[#070707] p-6">
               <div className="font-bold text-base tracking-wide text-white">{seal.title}</div>
               <div className="text-xs text-gray-300 mt-2 leading-relaxed">{seal.subtitle}</div>
             </div>
@@ -68,22 +67,24 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* SECCIÓN CATÁLOGO DE SERVICIOS (SIN LA PALABRA "INTERACTIVO") */}
       <section id="catalogo" className="px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-[#1E293B]">
         <div className="flex flex-col md:flex-row justify-between md:items-end mb-12 border-b border-[#1E293B] pb-6">
           <div>
             <span className="text-xs font-bold text-[#BF953F] uppercase tracking-wider">
-              EXPLORA Y PERSONALIZA LO QUE NECESITAS
+              SOLUCIONES EMPRESARIALES A MEDIDA
             </span>
-            <h2 className="text-3xl font-bold mt-2">CATÁLOGO INTERACTIVO DE SERVICIOS</h2>
+            <h2 className="text-3xl font-bold mt-2">CATÁLOGO DE SERVICIOS</h2>
           </div>
           <span className="text-sm text-gray-300 mt-2 md:mt-0">
-            Toca cualquier servicio para ver qué incluye y marcar las opciones que te interesan
+            Seleccione cualquier servicio para conocer su alcance y personalizar su solicitud
           </span>
         </div>
 
         <InteractiveCatalog />
       </section>
 
+      {/* PIE DE PÁGINA INTACTO */}
       <footer id="contacto" className="px-6 py-16 md:px-16 lg:px-24 max-w-7xl mx-auto text-sm text-gray-300">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#1E293B]">
           <div>
