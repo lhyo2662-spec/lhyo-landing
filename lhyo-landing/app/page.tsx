@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import AuditTriggerButton from "@/components/AuditTriggerButton";
 
 export const metadata: Metadata = {
