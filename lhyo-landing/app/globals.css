@@ -11,7 +11,6 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 6rem;
 }
 
 body {
@@ -60,7 +59,6 @@ body {
   border-color: var(--gold-primary);
 }
 
-/* CUADROS DE GARANTÍA CON TINTE DORADO Y EFECTO REFLEJO INTERACTIVO */
 .seal-card-lhyo {
   position: relative;
   overflow: hidden;

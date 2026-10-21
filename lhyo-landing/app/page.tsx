@@ -31,7 +31,7 @@ const TRUST_SEALS = [
 export default function LandingPage() {
   return (
     <main className="min-h-screen bg-[#070707] text-white selection:bg-[#BF953F] selection:text-[#070707]">
-      {/* BARRA SUPERIOR CON EL LOGO OFICIAL HORIZONTAL (IMAGEN 7) */}
+      {/* BARRA SUPERIOR FIJA (ALTURA EXACTA: 80px / h-20) */}
       <header className="border-b border-[#1E293B] bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <BrandLogo />
@@ -43,7 +43,7 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* SECCIÓN HERO CON EL ISOTIPO MINIMALISTA "L" (IMAGEN 5) UBICADO EN EL FONDO DERECHO (IMAGEN 4) */}
+      {/* SECCIÓN HERO */}
       <section className="relative overflow-hidden border-b border-[#1E293B] px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="relative z-10 max-w-3xl">
           <div className="mb-4 text-xs font-bold tracking-wider text-[#BF953F] uppercase">
@@ -63,7 +63,7 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* ISOTIPO MINIMALISTA "L" DE FONDO EN LA ZONA MARCADA (IMÁGENES 4 Y 5) */}
+        {/* ISOTIPO MINIMALISTA "L" DE FONDO */}
         <div
           aria-hidden="true"
           className="pointer-events-none select-none absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-0 opacity-20 md:opacity-35 transition-opacity duration-500"
@@ -81,14 +81,12 @@ export default function LandingPage() {
                 <stop offset="100%" stopColor="#BF953F" stopOpacity="0.55" />
               </linearGradient>
             </defs>
-            {/* Trazo Principal de la "L" Minimalista (Idéntico a Imagen 5) */}
             <path
               fillRule="evenodd"
               clipRule="evenodd"
               d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
               fill="url(#lhyoMonogramGrad)"
             />
-            {/* Barra Vertical Superior Derecha de la "L" */}
             <path
               d="M48 11 L58 3 L58 63 L48 63 Z"
               fill="url(#lhyoMonogramGrad)"
@@ -97,8 +95,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECCIÓN NUESTRA GARANTÍA */}
-      <section id="garantia" className="scroll-mt-24 border-b border-[#1E293B] bg-[#0B132B]/40">
+      {/* SECCIÓN NUESTRA GARANTÍA (MANTIENE SU POSICIÓN PERFECTA) */}
+      <section id="garantia" className="scroll-mt-36 border-b border-[#1E293B] bg-[#0B132B]/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {TRUST_SEALS.map((seal) => (
@@ -121,9 +119,9 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECCIÓN CATÁLOGO DE SERVICIOS */}
-      <section id="catalogo" className="scroll-mt-24 px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-[#1E293B]">
-        <div className="flex flex-col md:flex-row justify-between md:items-end mb-12 border-b border-[#1E293B] pb-6">
+      {/* SECCIÓN CATÁLOGO DE SERVICIOS (FRENA EXACTAMENTE A 80px DEL TOPE SIN MOSTRAR LA SECCIÓN ANTERIOR) */}
+      <section id="catalogo" className="scroll-mt-20 px-6 pt-12 pb-24 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-[#1E293B]">
+        <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 border-b border-[#1E293B] pb-6">
           <div>
             <span className="text-xs font-bold text-[#BF953F] uppercase tracking-wider">
               SOLUCIONES EMPRESARIALES A MEDIDA
@@ -138,8 +136,8 @@ export default function LandingPage() {
         <InteractiveCatalog />
       </section>
 
-      {/* PIE DE PÁGINA SIMÉTRICO */}
-      <footer id="contacto" className="scroll-mt-24 px-6 py-16 md:px-16 lg:px-24 max-w-7xl mx-auto text-sm text-gray-300">
+      {/* PIE DE PÁGINA (MANTIENE SU POSICIÓN PERFECTA) */}
+      <footer id="contacto" className="scroll-mt-20 px-6 py-16 md:px-16 lg:px-24 max-w-7xl mx-auto text-sm text-gray-300">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#1E293B] items-start">
           <div>
             <div className="font-bold text-xs text-[#BF953F] uppercase tracking-wider mb-3">
