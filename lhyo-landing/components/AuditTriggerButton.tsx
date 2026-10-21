@@ -1,16 +1,18 @@
-"use client";
+﻿"use client";
 
 import { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 
 interface AuditButtonProps {
   label?: string;
-  serviceTag?: string;
+  selectedPlan?: string;
+  fullWidth?: boolean;
 }
 
 export default function AuditTriggerButton({ 
-  label = "AGENDAR AUDITORÍA", 
-  serviceTag = "general_audit" 
+  label = "AGENDAR AUDITORÍA Y RECIBIR CATÁLOGO", 
+  selectedPlan = "AUDITORÍA GENERAL (Botón Principal)",
+  fullWidth = false
 }: AuditButtonProps) {
   
   useEffect(() => {
@@ -29,8 +31,13 @@ export default function AuditTriggerButton({
     <button
       data-cal-namespace="auditoria-lhyo"
       data-cal-link="lhyonneth-araque-hdkdtz/auditoria-sistemas"
-      data-cal-config={`{"layout":"month_view","metadata":{"source_component":"${serviceTag}"}}`}
-      className="btn-primary-lhyo"
+      data-cal-config={JSON.stringify({
+        layout: "month_view",
+        plan_elegido: selectedPlan,
+        notes: `Selección del cliente en la web: ${selectedPlan}`,
+        metadata: { source_component: selectedPlan }
+      })}
+      className={`btn-primary-lhyo ${fullWidth ? "w-full" : ""}`}
     >
       {label}
     </button>

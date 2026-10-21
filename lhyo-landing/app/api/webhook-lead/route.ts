@@ -26,6 +26,7 @@ export async function POST(request: Request) {
     let rawRevenue = extractVal("facturacion_mensual");
     let rawCompany = extractVal("company_url");
     let rawBottleneck = extractVal("cuello_botella");
+    let rawPlan = extractVal("plan_elegido") || extractVal("notes");
 
     for (const [k, v] of Object.entries(responses)) {
       const val = typeof v === "object" && v !== null && "value" in v ? (v as { value: unknown }).value : v;
@@ -36,12 +37,21 @@ export async function POST(request: Request) {
       if (!rawCompany && (label.includes("web") || label.includes("instagram") || label.includes("empresa") || label.includes("sitio"))) {
         rawCompany = val;
       }
-      if (!rawBottleneck && (label.includes("cuello") || label.includes("botella") || label.includes("negocio"))) {
+      if (!rawBottleneck && (label.includes("cuello") || label.includes("botella") || label.includes("negocio") || label.includes("necesidad"))) {
         rawBottleneck = val;
+      }
+      if (!rawPlan && (label.includes("plan") || label.includes("servicio") || label.includes("catálogo") || label.includes("catalogo"))) {
+        rawPlan = val;
       }
     }
 
     const cleanRevenue = Number(String(rawRevenue || "0").replace(/[^0-9.]/g, "")) || 0;
+    const selectedPlanFinal = String(
+      rawPlan || 
+      body.payload?.metadata?.source_component || 
+      body.payload?.description || 
+      "AUDITORÍA GENERAL (Botón Principal)"
+    );
 
     const normalizedPayload = {
       timestamp: new Date().toISOString(),
@@ -51,16 +61,17 @@ export async function POST(request: Request) {
         email: attendees[0]?.email || extractVal("email") || "sin-email@lhyogroup.com",
         company_url: String(rawCompany || "No especificada"),
         monthly_revenue_usd: cleanRevenue,
-        bottleneck: String(rawBottleneck || body.payload?.description || "Sin especificar"),
+        bottleneck: String(rawBottleneck || "Sin especificar"),
+        selected_plan: selectedPlanFinal
       },
       booking_meta: {
         booking_uid: body.payload?.uid || "cal_uid_live",
         start_time: body.payload?.startTime || new Date().toISOString(),
-        source_component: body.payload?.metadata?.source_component || "cal_live",
+        source_component: selectedPlanFinal,
       },
     };
 
-    const targetMakeUrl = "https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l";
+    const targetMakeUrl = process.env.MAKE_WEBHOOK_URL || "";
 
     await fetch(targetMakeUrl, {
       method: "POST",
