@@ -56,10 +56,9 @@ export default function LandingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* SECCIÓN HERO - Retícula Suiza */}
       <section className="border-b border-[#1E293B] px-6 py-28 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="mb-4 text-xs font-mono tracking-widest text-[#BF953F] uppercase">
-          [ SISTEMA OPERATIVO DE ESCALADO B2B // V.2026 ]
+          {"[ SISTEMA OPERATIVO DE ESCALADO B2B // V.2026 ]"}
         </div>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-none mb-8 max-w-4xl">
           Ingeniería de Sistemas y Automatización para Escalar sin Fricción
@@ -70,12 +69,11 @@ export default function LandingPage() {
         <AuditTriggerButton label="AGENDAR AUDITORÍA" serviceTag="hero_cta" />
       </section>
 
-      {/* SECCIÓN CATÁLOGO - Tarjetas 1px sin sombras difusas */}
       <section className="px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="flex justify-between items-end mb-12 border-b border-[#1E293B] pb-6">
           <div>
             <span className="text-xs font-mono text-[#BF953F] uppercase tracking-widest">
-              // INFRAESTRUCTURA DE SERVICIOS
+              {"// INFRAESTRUCTURA DE SERVICIOS"}
             </span>
             <h2 className="text-3xl font-bold mt-2">CATÁLOGO DE SISTEMAS</h2>
           </div>
