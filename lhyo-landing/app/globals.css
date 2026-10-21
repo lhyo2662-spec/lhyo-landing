@@ -9,6 +9,11 @@
   --border-swiss: #1E293B;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
 body {
   background-color: var(--bg-obsidian);
   color: #FFFFFF;
@@ -53,4 +58,44 @@ body {
 
 .swiss-card:hover {
   border-color: var(--gold-primary);
+}
+
+/* CUADROS DE GARANTÍA CON TINTE DORADO Y EFECTO REFLEJO INTERACTIVO */
+.seal-card-lhyo {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(191, 149, 63, 0.10) 0%, #070707 55%, rgba(191, 149, 63, 0.05) 100%);
+  border: 1px solid rgba(191, 149, 63, 0.35);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.seal-card-lhyo::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 65%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(252, 246, 186, 0.22),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: left 0.65s ease;
+  pointer-events: none;
+}
+
+.seal-card-lhyo:hover {
+  transform: scale(1.04) translateY(-3px);
+  border-color: #FCF6BA;
+  background: linear-gradient(145deg, rgba(191, 149, 63, 0.22) 0%, #0B132B 60%, rgba(252, 246, 186, 0.12) 100%);
+  box-shadow: 0 12px 28px -8px rgba(191, 149, 63, 0.35), inset 0 0 18px rgba(252, 246, 186, 0.10);
+}
+
+.seal-card-lhyo:hover::after {
+  left: 140%;
 }

@@ -10,6 +10,7 @@ interface SystemPlan {
   shortDesc: string;
   benefitTag: string;
   includedItems: string[];
+  executionGuarantee: string;
   customOptions: string[];
   idealFor: string;
   crmBaseName: string;
@@ -25,11 +26,13 @@ const SYSTEMS_DATA: SystemPlan[] = [
     benefitTag: "Respuesta inmediata 24/7",
     includedItems: [
       "Atención continua las 24 horas del día, los 7 días de la semana, sin tiempos de espera.",
-      "Comunicación fluida, profesional y alineada con la identidad de su negocio.",
+      "Comunicación fluida, ejecutiva y alineada con la identidad comercial de su negocio.",
       "Identificación automática de las necesidades e intereses de cada cliente potencial.",
       "Agendamiento directo de citas y reuniones comerciales en su calendario.",
-      "Registro ordenado de cada contacto para un control comercial impecable."
+      "Registro ordenado de cada contacto para un control comercial impecable.",
+      "Entrenamiento personalizado con su catálogo de servicios, preguntas frecuentes y políticas."
     ],
+    executionGuarantee: "Entrega llave en mano: Nuestro equipo configura, entrena y deja el asistente operando directamente en sus canales oficiales con soporte continuo.",
     customOptions: [
       "Automatizar la atención en WhatsApp",
       "Automatizar las respuestas en Instagram",
@@ -50,9 +53,11 @@ const SYSTEMS_DATA: SystemPlan[] = [
       "Diseño corporativo de alta gama que transmite autoridad y confianza desde el primer instante.",
       "Navegación fluida y velocidad de carga superior en teléfonos móviles y computadoras.",
       "Presentación estructurada y dinámica de todos sus servicios o líneas de negocio.",
-      "Integración directa con su calendario de reservas y canales de contacto.",
-      "Estructura optimizada para destacar su marca en los motores de búsqueda."
+      "Integración directa con su calendario de reservas y canales de atención en WhatsApp.",
+      "Estructura optimizada para destacar su marca en los motores de búsqueda de internet.",
+      "Panel interactivo donde sus visitantes pueden personalizar su solicitud antes de agendar."
     ],
+    executionGuarantee: "Desarrollo integral: Nos encargamos de la estructura visual, programación completa, publicación en servidores de alta velocidad y conexión con su agenda.",
     customOptions: [
       "Desarrollo de página web corporativa desde cero",
       "Renovación y modernización de sitio web actual",
@@ -73,9 +78,11 @@ const SYSTEMS_DATA: SystemPlan[] = [
       "Captura y registro automático de los datos de cada nuevo prospecto o cliente.",
       "Clasificación inteligente de contactos según su prioridad y volumen comercial.",
       "Eliminación de tareas operativas repetitivas para ahorrar horas de gestión semanal.",
-      "Panel de control estructurado y accesible desde cualquier dispositivo.",
-      "Seguimiento comercial organizado para maximizar el cierre de oportunidades."
+      "Panel de control estructurado y accesible desde cualquier teléfono o computadora.",
+      "Seguimiento comercial organizado para maximizar el cierre de oportunidades.",
+      "Historial detallado del servicio exacto que cada cliente seleccionó antes de la reunión."
     ],
+    executionGuarantee: "Sincronización total: Dejamos conectada su agenda, sus formularios y su base de datos para que cada nuevo contacto se clasifique en tiempo real.",
     customOptions: [
       "Centralización automática de clientes en CRM",
       "Clasificación de prospectos por nivel de prioridad",
@@ -118,7 +125,6 @@ export default function InteractiveCatalog() {
     });
   };
 
-  // Máquina de estado para selección múltiple excluyente en la Columna 2 del Catálogo Privado
   const handlePrivInterestToggle = (option: string) => {
     if (option === FULL_PACKAGE_LABEL) {
       setPrivInterests([FULL_PACKAGE_LABEL]);
@@ -139,7 +145,6 @@ export default function InteractiveCatalog() {
 
   return (
     <div>
-      {/* LISTA DE LOS 3 PLANES DEL CATÁLOGO */}
       <div className="grid grid-cols-1 gap-6">
         {SYSTEMS_DATA.map((item) => {
           const isOpen = openId === item.id;
@@ -157,7 +162,7 @@ export default function InteractiveCatalog() {
               >
                 <div className="flex flex-wrap justify-between items-center text-xs font-bold tracking-wide text-gray-300 mb-4 pb-4 border-b border-[#1E293B]">
                   <span className="text-[#BF953F] uppercase">{item.badge}</span>
-                  <span className="text-[#BF953F] font-bold mt-2 sm:mt-0 bg-[#070707] px-3 py-1.5 border border-[#BF953F]/40">
+                  <span className="text-[#BF953F] font-bold mt-2 sm:mt-0 bg-[#070707] px-3.5 py-1.5 border border-[#BF953F]/40">
                     {isOpen ? "▲ Ocultar detalles del servicio" : "▼ Ver alcance y personalizar servicio"}
                   </span>
                 </div>
@@ -170,7 +175,7 @@ export default function InteractiveCatalog() {
                     </p>
                   </div>
                   <div className="text-left md:text-right shrink-0">
-                    <span className="text-xs font-semibold text-[#BF953F] border border-[#1E293B] bg-[#070707] px-4 py-2.5 inline-block">
+                    <span className="text-xs font-semibold text-[#BF953F] border border-[#BF953F]/40 bg-[#070707] px-4 py-2.5 inline-block">
                       ★ {item.benefitTag}
                     </span>
                   </div>
@@ -179,28 +184,37 @@ export default function InteractiveCatalog() {
 
               {isOpen && (
                 <div className="mt-8 pt-8 border-t border-[#1E293B] bg-[#070707] p-6 md:p-8">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Columna Izquierda: Alcance y Perfil Ideal (Sin "En palabras simples") */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    {/* Columna Izquierda Nivelada (6 Beneficios + Modalidad de Implementación + Perfil Ideal) */}
                     <div className="lg:col-span-7 flex flex-col justify-between">
                       <div>
                         <h4 className="text-sm font-bold text-[#BF953F] uppercase tracking-wide mb-4">
                           Alcance y Beneficios Incluidos
                         </h4>
-                        <ul className="space-y-3 mb-6">
+                        <ul className="space-y-3.5 mb-6">
                           {item.includedItems.map((mod, idx) => (
-                            <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-gray-200">
-                              <span className="text-[#BF953F] font-bold">✓</span>
+                            <li key={idx} className="flex items-start gap-3 text-sm md:text-base text-gray-200 leading-relaxed">
+                              <span className="text-[#BF953F] font-bold shrink-0">✓</span>
                               <span>{mod}</span>
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <div className="text-sm text-gray-300 border-t border-[#1E293B] pt-4 leading-relaxed">
-                        <strong className="text-white">¿Para quién es ideal?:</strong> {item.idealFor}
+
+                      <div className="space-y-4 pt-4 border-t border-[#1E293B]">
+                        <div className="bg-[#0B132B]/50 border border-[#1E293B] p-4 text-xs md:text-sm text-gray-300 leading-relaxed">
+                          <strong className="text-[#BF953F] uppercase tracking-wide block mb-1 text-xs">
+                            Modalidad de Implementación y Soporte
+                          </strong>
+                          {item.executionGuarantee}
+                        </div>
+                        <div className="text-sm text-gray-300 leading-relaxed">
+                          <strong className="text-white">¿Para quién es ideal?:</strong> {item.idealFor}
+                        </div>
                       </div>
                     </div>
 
-                    {/* Columna Derecha: Personalización Ejecutiva del Servicio */}
+                    {/* Columna Derecha: Configuración a Medida */}
                     <div className="lg:col-span-5 border border-[#BF953F]/50 bg-[#0B132B]/70 p-6 flex flex-col justify-between">
                       <div>
                         <div className="text-xs font-bold text-[#BF953F] uppercase tracking-wide mb-1">
@@ -233,7 +247,7 @@ export default function InteractiveCatalog() {
                           })}
                         </div>
 
-                        <div className="text-xs text-gray-300 bg-[#070707] p-3 border border-[#1E293B] mb-5">
+                        <div className="text-xs text-gray-300 bg-[#070707] p-3.5 border border-[#1E293B] mb-5 leading-relaxed">
                           <strong className="text-[#BF953F]">Resumen de solicitud:</strong> {customPlanPayload}
                         </div>
                       </div>
@@ -254,7 +268,7 @@ export default function InteractiveCatalog() {
         })}
       </div>
 
-      {/* SECCIÓN CATÁLOGO PRIVADO CON MULTISELECCIÓN EXCLUYENTE EN COLUMNA 2 */}
+      {/* SECCIÓN CATÁLOGO PRIVADO */}
       <div className="mt-16 p-8 md:p-10 border-2 border-[#BF953F] bg-[#0B132B]">
         <div className="max-w-3xl mb-8">
           <span className="text-xs font-bold text-[#BF953F] uppercase tracking-wider block mb-2">
@@ -268,88 +282,91 @@ export default function InteractiveCatalog() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {/* Columna 1: País */}
-          <div className="bg-[#070707] p-5 border border-[#1E293B]">
-            <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              1. ¿EN QUÉ PAÍS ESTÁ TU NEGOCIO?
-            </label>
-            <div className="space-y-2">
-              {["Uruguay", "Venezuela", "Otro País / Internacional"].map((pais) => (
-                <button
-                  key={pais}
-                  type="button"
-                  onClick={() => setPrivCountry(pais)}
-                  className={`w-full text-left px-3 py-2.5 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
-                    privCountry === pais
-                      ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
-                      : "border-[#1E293B] text-gray-400 hover:border-gray-600"
-                  }`}
-                >
-                  <span>{pais}</span>
-                  {privCountry === pais && <span className="text-[#BF953F]">✓</span>}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Columna 2: Selección Múltiple Excluyente */}
-          <div className="bg-[#070707] p-5 border border-[#1E293B]">
-            <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              2. ¿QUÉ DESEAS COTIZAR EN EL CATÁLOGO?
-            </label>
-            <div className="space-y-2">
-              {[
-                FULL_PACKAGE_LABEL,
-                "Asistente de WhatsApp / IG 24/7",
-                "Página Web Moderna",
-                "Organización de Clientes (CRM)"
-              ].map((interes) => {
-                const isSelected = privInterests.includes(interes);
-                return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-stretch">
+          <div className="bg-[#070707] p-5 border border-[#1E293B] flex flex-col justify-between">
+            <div>
+              <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
+                1. ¿EN QUÉ PAÍS ESTÁ TU NEGOCIO?
+              </label>
+              <div className="space-y-2.5">
+                {["Uruguay", "Venezuela", "Otro País / Internacional"].map((pais) => (
                   <button
-                    key={interes}
+                    key={pais}
                     type="button"
-                    onClick={() => handlePrivInterestToggle(interes)}
-                    className={`w-full text-left px-3 py-2 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
-                      isSelected
+                    onClick={() => setPrivCountry(pais)}
+                    className={`w-full text-left px-3.5 py-3 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
+                      privCountry === pais
                         ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
                         : "border-[#1E293B] text-gray-400 hover:border-gray-600"
                     }`}
                   >
-                    <span>{interes}</span>
-                    {isSelected && <span className="text-[#BF953F]">✓</span>}
+                    <span>{pais}</span>
+                    {privCountry === pais && <span className="text-[#BF953F]">✓</span>}
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Columna 3: Etapa */}
-          <div className="bg-[#070707] p-5 border border-[#1E293B]">
-            <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
-              3. ¿EN QUÉ ETAPA ESTÁ TU NEGOCIO HOY?
-            </label>
-            <div className="space-y-2">
-              {[
-                "Negocio en marcha buscando crecer",
-                "Proyecto nuevo por lanzar",
-                "Empresa consolidada / Alto volumen"
-              ].map((etapa) => (
-                <button
-                  key={etapa}
-                  type="button"
-                  onClick={() => setPrivStage(etapa)}
-                  className={`w-full text-left px-3 py-2.5 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
-                    privStage === etapa
-                      ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
-                      : "border-[#1E293B] text-gray-400 hover:border-gray-600"
-                  }`}
-                >
-                  <span>{etapa}</span>
-                  {privStage === etapa && <span className="text-[#BF953F]">✓</span>}
-                </button>
-              ))}
+          <div className="bg-[#070707] p-5 border border-[#1E293B] flex flex-col justify-between">
+            <div>
+              <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
+                2. ¿QUÉ DESEAS COTIZAR EN EL CATÁLOGO?
+              </label>
+              <div className="space-y-2">
+                {[
+                  FULL_PACKAGE_LABEL,
+                  "Asistente de WhatsApp / IG 24/7",
+                  "Página Web Moderna",
+                  "Organización de Clientes (CRM)"
+                ].map((interes) => {
+                  const isSelected = privInterests.includes(interes);
+                  return (
+                    <button
+                      key={interes}
+                      type="button"
+                      onClick={() => handlePrivInterestToggle(interes)}
+                      className={`w-full text-left px-3.5 py-2.5 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
+                        isSelected
+                          ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
+                          : "border-[#1E293B] text-gray-400 hover:border-gray-600"
+                      }`}
+                    >
+                      <span>{interes}</span>
+                      {isSelected && <span className="text-[#BF953F]">✓</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-[#070707] p-5 border border-[#1E293B] flex flex-col justify-between">
+            <div>
+              <label className="text-xs font-bold text-[#BF953F] uppercase block mb-3">
+                3. ¿EN QUÉ ETAPA ESTÁ TU NEGOCIO HOY?
+              </label>
+              <div className="space-y-2.5">
+                {[
+                  "Negocio en marcha buscando crecer",
+                  "Proyecto nuevo por lanzar",
+                  "Empresa consolidada / Alto volumen"
+                ].map((etapa) => (
+                  <button
+                    key={etapa}
+                    type="button"
+                    onClick={() => setPrivStage(etapa)}
+                    className={`w-full text-left px-3.5 py-3 text-xs md:text-sm font-medium border transition flex justify-between items-center ${
+                      privStage === etapa
+                        ? "border-[#BF953F] bg-[#BF953F]/20 text-white font-bold"
+                        : "border-[#1E293B] text-gray-400 hover:border-gray-600"
+                    }`}
+                  >
+                    <span>{etapa}</span>
+                    {privStage === etapa && <span className="text-[#BF953F]">✓</span>}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
