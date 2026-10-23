@@ -10,7 +10,6 @@ export async function GET(request: Request) {
   const empresa = url.searchParams.get("empresa") || "No especificada";
   const plan = url.searchParams.get("plan") || "Auditoría Lhyo Group";
 
-  // Parsear "2026-10-24 | 11:00 AM"
   let datePart = "2026-10-26";
   let timePart = "11:00 AM";
   if (slot.includes("|")) {
@@ -32,7 +31,6 @@ export async function GET(request: Request) {
     if (ampm === "AM" && hour === 12) hour = 0;
   }
 
-  // Convertir hora de Montevideo (UTC-3) a UTC (+3 horas)
   const startUtc = new Date(Date.UTC(year, month - 1, day, hour + 3, minute, 0));
   const endUtc = new Date(startUtc.getTime() + 30 * 60 * 1000);
 
@@ -40,7 +38,7 @@ export async function GET(request: Request) {
   const datesParam = `${fmt(startUtc)}/${fmt(endUtc)}`;
 
   const title = `Reunión Lhyo Group: ${ceo} (${empresa})`;
-  const details = `Cliente: ${ceo}\nCorreo: ${email}\nEmpresa: ${empresa}\nSolicitud: ${plan}\n\nCatálogo Privado: https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(ceo)}&empresa=${encodeURIComponent(empresa)}`;
+  const details = `Ejecutivo / Cliente: ${ceo}\nCorreo: ${email}\nEmpresa: ${empresa}\nServicio: ${plan}\n\nCatálogo Privado: https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(ceo)}&empresa=${encodeURIComponent(empresa)}`;
 
   const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${datesParam}&details=${encodeURIComponent(details)}&add=${encodeURIComponent(email)},lhyoaraque2662@gmail.com`;
 

@@ -25,7 +25,7 @@ const MONTH_NAMES = [
 
 const DAY_HEADERS = ["LU", "MA", "MI", "JU", "VI", "SA", "DO"];
 
-const STORAGE_KEY = "lhyo_booked_slots_v10";
+const STORAGE_KEY = "lhyo_booked_slots_v12";
 
 function formatYMD(year: number, month: number, day: number): string {
   const m = String(month + 1).padStart(2, "0");
@@ -50,13 +50,11 @@ export default function AuditTriggerButton({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // Estado del Calendario Personalizado Lhyo Group
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [viewYear, setViewYear] = useState(2026);
   const [viewMonth, setViewMonth] = useState(9);
   const [minDateYMD, setMinDateYMD] = useState("");
 
-  // Campos del formulario
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
   const [fullName, setFullName] = useState("");
@@ -65,7 +63,6 @@ export default function AuditTriggerButton({
   const [revenue, setRevenue] = useState("");
   const [objective, setObjective] = useState("");
 
-  // Registro de turnos ocupados y errores de validación elegantes
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -75,7 +72,6 @@ export default function AuditTriggerButton({
     const todayYMD = formatYMD(now.getFullYear(), now.getMonth(), now.getDate());
     setMinDateYMD(todayYMD);
 
-    // Por defecto iniciar en el próximo día hábil disponible (mañana, o lunes si mañana es domingo)
     const nextDay = new Date(now);
     nextDay.setDate(nextDay.getDate() + 1);
     if (nextDay.getDay() === 0) {
@@ -86,7 +82,6 @@ export default function AuditTriggerButton({
     setViewYear(nextDay.getFullYear());
     setViewMonth(nextDay.getMonth());
 
-    // Cargar turnos ya ocupados desde memoria local y desde el servidor
     try {
       const localSaved = localStorage.getItem(STORAGE_KEY);
       if (localSaved) {
@@ -104,7 +99,6 @@ export default function AuditTriggerButton({
       .catch(() => {});
   }, []);
 
-  // Si la hora seleccionada está ocupada en ese día, saltar automáticamente a la primera hora libre
   useEffect(() => {
     if (!selectedDate) return;
     const currentKey = `${selectedDate} | ${selectedTime}`;
@@ -116,17 +110,15 @@ export default function AuditTriggerButton({
     }
   }, [selectedDate, bookedSlots, selectedTime]);
 
-  // Construcción matemática de los días del mes (Lunes a Domingo)
   const calendarDays = useMemo(() => {
     const firstDayOfMonth = new Date(viewYear, viewMonth, 1);
     const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
-    // Convertir Domingo=0..Sábado=6 a Lunes=0..Domingo=6
     const startOffset = (firstDayOfMonth.getDay() + 6) % 7;
 
-    const cells: Array<{ day: number | null; ymd: string; disabled: boolean; fullyBooked: boolean }> = [];
+    const cells: Array<{ day: number | null; ymd: string; disabled: boolean }> = [];
 
     for (let i = 0; i < startOffset; i++) {
-      cells.push({ day: null, ymd: "", disabled: true, fullyBooked: false });
+      cells.push({ day: null, ymd: "", disabled: true });
     }
 
     for (let d = 1; d <= daysInMonth; d++) {
@@ -140,7 +132,6 @@ export default function AuditTriggerButton({
         day: d,
         ymd,
         disabled: isPast || isSunday || allSlotsTaken,
-        fullyBooked: allSlotsTaken,
       });
     }
     return cells;
@@ -166,31 +157,30 @@ export default function AuditTriggerButton({
     }
   };
 
-  // Validador Ejecutivo Personalizado (Sin carteles blancos anticuados del navegador)
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     const slotKey = `${selectedDate} | ${selectedTime}`;
 
     if (!selectedDate || (minDateYMD && selectedDate < minDateYMD)) {
-      newErrors.date = "Selecciona una fecha vigente en el calendario.";
+      newErrors.date = "Selecciona una fecha disponible en el calendario.";
     }
     if (bookedSlots.includes(slotKey)) {
       newErrors.time = "Este horario ya se encuentra reservado. Elige otra hora.";
     }
     if (!fullName.trim()) {
-      newErrors.fullName = "Ingresa tu nombre y apellido para personalizar tu expediente.";
+      newErrors.fullName = "Ingresa tu nombre completo para personalizar tu catálogo.";
     }
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
-      newErrors.email = "Ingresa un correo electrónico válido donde enviaremos el catálogo.";
+      newErrors.email = "Ingresa un correo electrónico válido.";
     }
     if (!companyUrl.trim()) {
-      newErrors.companyUrl = "Indica el nombre, sitio web o Instagram de tu negocio.";
+      newErrors.companyUrl = "Indica el nombre, sitio web o Instagram de tu empresa.";
     }
     if (!revenue.trim() || isNaN(Number(revenue))) {
       newErrors.revenue = "Indica tu facturación mensual aproximada en números (ej: 10000).";
     }
     if (!objective.trim()) {
-      newErrors.objective = "Coméntanos brevemente qué área deseas impulsar en tu empresa.";
+      newErrors.objective = "Coméntanos brevemente qué área deseas impulsar en tu negocio.";
     }
 
     setErrors(newErrors);
@@ -204,7 +194,7 @@ export default function AuditTriggerButton({
     setIsSubmitting(true);
     const slotKey = `${selectedDate} | ${selectedTime}`;
     const cleanRevenue = Number(String(revenue).replace(/[^0-9.]/g, "")) || 0;
-    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
+    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_TICKET";
 
     try {
       const payload = {
@@ -231,40 +221,12 @@ export default function AuditTriggerButton({
       });
 
       if (res.status === 409) {
-        setErrors({ time: "Este turno acaba de ser ocupado. Por favor elige otro horario." });
+        setErrors({ time: "Este horario acaba de ser ocupado. Por favor selecciona otra hora." });
         setBookedSlots((prev) => Array.from(new Set([...prev, slotKey])));
         setIsSubmitting(false);
         return;
       }
 
-      // Si por alguna razón el servidor reporta fallo con Make, disparo directo de respaldo hacia Make.com
-      if (!res.ok) {
-        const directMakePayload = {
-          timestamp: new Date().toISOString(),
-          event_type: "BOOKING_CREATED",
-          lead_data: {
-            full_name: fullName.trim(),
-            email: email.trim(),
-            company_url: companyUrl.trim(),
-            monthly_revenue_usd: cleanRevenue,
-            bottleneck: objective.trim(),
-            selected_plan: selectedPlan,
-            classification: autoTier,
-          },
-          booking_meta: {
-            booking_uid: `lhyo_${Date.now()}`,
-            start_time: slotKey,
-            source_component: selectedPlan,
-          },
-        };
-        await fetch("https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(directMakePayload),
-        }).catch(() => {});
-      }
-
-      // Bloquear inmediatamente la fecha y hora para que no se pueda repetir
       const updatedSlots = Array.from(new Set([...bookedSlots, slotKey]));
       setBookedSlots(updatedSlots);
       try {
@@ -285,6 +247,8 @@ export default function AuditTriggerButton({
     setCalendarOpen(false);
     setErrors({});
   };
+
+  const slotFullString = `${selectedDate} | ${selectedTime}`;
 
   const modalUI = isOpen ? (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/88 backdrop-blur-md p-4 overflow-y-auto">
@@ -307,7 +271,7 @@ export default function AuditTriggerButton({
               Reserva tu Sesión y Recibe nuestro Catálogo Privado
             </h3>
             <p className="text-xs md:text-sm text-gray-300 mb-6 leading-relaxed">
-              Selecciona un día y horario disponible. Al confirmar, registraremos tu espacio exclusivo y enviaremos nuestro Catálogo Privado B2B a tu correo electrónico.
+              Selecciona un día y horario disponible. Al confirmar, registraremos tu reunión y enviaremos nuestro Catálogo Privado B2B a tu correo electrónico.
             </p>
 
             <div className="bg-[#0B132B]/70 border-l-2 border-[#BF953F] p-3.5 mb-6 text-xs text-gray-200">
@@ -318,7 +282,6 @@ export default function AuditTriggerButton({
             </div>
 
             <form noValidate onSubmit={handleSubmit} className="space-y-5">
-              {/* SELECTOR DE FECHA CON CALENDARIO SUIZO PROPIO EN NEGRO Y ORO */}
               <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
                 <div className="md:col-span-6 relative">
                   <label className="text-xs font-bold text-[#FCF6BA] uppercase block mb-2">
@@ -345,7 +308,6 @@ export default function AuditTriggerButton({
                     </div>
                   )}
 
-                  {/* DESPLEGABLE DE CALENDARIO INTERACTIVO SUIZO */}
                   {calendarOpen && (
                     <div className="mt-2 p-4 bg-[#050505] border border-[#BF953F] shadow-[0_18px_45px_rgba(0,0,0,0.95)] z-50">
                       <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#1E293B]">
@@ -408,13 +370,12 @@ export default function AuditTriggerButton({
 
                       <div className="mt-3 pt-2 border-t border-[#1E293B] flex justify-between items-center text-[10px] text-gray-400">
                         <span>* Días pasados y domingos bloqueados</span>
-                        <span className="text-[#FCF6BA]">Zona horaria local</span>
+                        <span className="text-[#FCF6BA]">Horario Oficial</span>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* BOTONES INTERACTIVOS DE HORARIO CON BLOQUEO DE TURNOS OCUPADOS */}
                 <div className="md:col-span-6">
                   <label className="text-xs font-bold text-[#FCF6BA] uppercase block mb-2">
                     Horario Disponible *
@@ -453,7 +414,6 @@ export default function AuditTriggerButton({
                 </div>
               </div>
 
-              {/* DATOS DEL EJECUTIVO CON VALIDACIÓN PERSONALIZADA */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-bold text-[#FCF6BA] uppercase block mb-1.5">
@@ -599,32 +559,40 @@ export default function AuditTriggerButton({
             </form>
           </div>
         ) : (
-          <div className="py-8 text-center">
+          <div className="py-6 text-center">
             <div className="w-16 h-16 mx-auto mb-5 border-2 border-[#BF953F] bg-[#BF953F]/15 flex items-center justify-center text-2xl text-[#FCF6BA] font-bold">
               ✓
             </div>
             <span className="text-xs font-bold text-[#BF953F] uppercase tracking-widest block mb-2">
-              TURNO BLOQUEADO Y REGISTRADO CON ÉXITO
+              TURNO RESERVADO Y ENVIADO A TU CORREO
             </span>
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
               ¡Tu sesión ha quedado confirmada, {fullName}!
             </h3>
             <p className="text-sm md:text-base text-gray-300 max-w-lg mx-auto mb-6 leading-relaxed">
-              Hemos reservado en exclusiva tu espacio para el <strong>{formatDisplayDate(selectedDate)}</strong> a las <strong>{selectedTime}</strong>. Nuestro sistema ya registró tu solicitud y enviará tu <strong>Catálogo Privado B2B</strong> directamente a <strong>{email}</strong>.
+              Hemos reservado tu espacio exclusivo para el <strong>{formatDisplayDate(selectedDate)}</strong> a las <strong>{selectedTime}</strong> y hemos enviado una copia de tu <strong>Catálogo Privado B2B</strong> a <strong>{email}</strong>.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-6">
+            <div className="flex flex-col gap-3 max-w-md mx-auto mt-6">
               <a
                 href={`/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl || "Mi Empresa")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary-lhyo text-xs uppercase"
+                className="btn-primary-lhyo text-xs uppercase w-full"
               >
-                ABRIR MI CATÁLOGO PRIVADO AHORA MISMO →
+                1. ABRIR Y DESCARGAR MI CATÁLOGO PRIVADO (PDF) →
+              </a>
+              <a
+                href={`/api/agendar-calendario?slot=${encodeURIComponent(slotFullString)}&ceo=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&empresa=${encodeURIComponent(companyUrl)}&plan=${encodeURIComponent(selectedPlan)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-4 border border-[#BF953F] bg-[#0B132B] text-xs font-bold text-[#FCF6BA] hover:bg-[#BF953F]/20 transition uppercase tracking-wider w-full"
+              >
+                2. GUARDAR ESTA REUNIÓN EN GOOGLE CALENDAR →
               </a>
               <button
                 type="button"
                 onClick={resetAndClose}
-                className="px-6 py-4 border border-[#1E293B] bg-[#090D16] text-xs font-bold text-gray-300 hover:border-[#BF953F] hover:text-white transition"
+                className="px-6 py-3 border border-[#1E293B] bg-[#090D16] text-xs font-bold text-gray-400 hover:text-white transition"
               >
                 VOLVER A LA PÁGINA
               </button>
@@ -648,4 +616,3 @@ export default function AuditTriggerButton({
     </>
   );
 }
-

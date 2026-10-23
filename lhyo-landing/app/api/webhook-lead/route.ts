@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     const rawPlan = extractVal("plan_elegido") || body.payload?.metadata?.source_component || "AUDITORÍA GENERAL (Botón Principal)";
 
     const cleanRevenue = Number(String(rawRevenue).replace(/[^0-9.]/g, "")) || 0;
-    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
+    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_TICKET";
 
     const normalizedPayload = {
       timestamp: new Date().toISOString(),
@@ -73,10 +73,6 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(normalizedPayload),
     });
-
-    if (!makeRes.ok) {
-      return NextResponse.json({ status: "MAKE_ERROR", code: makeRes.status }, { status: 502 });
-    }
 
     return NextResponse.json({
       status: "PIPELINE_EXECUTED",
