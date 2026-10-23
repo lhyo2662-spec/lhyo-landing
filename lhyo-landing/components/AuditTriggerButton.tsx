@@ -220,6 +220,32 @@ export default function AuditTriggerButton({
         body: JSON.stringify(payload),
       });
 
+      const resJson = await res.json().catch(() => ({}));
+      if (res.status !== 409 && (!res.ok || resJson.makeStatus !== 200)) {
+        await fetch("https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            timestamp: new Date().toISOString(),
+            event_type: "BOOKING_CREATED",
+            lead_data: {
+              full_name: fullName.trim(),
+              email: email.trim(),
+              company_url: companyUrl.trim(),
+              monthly_revenue_usd: cleanRevenue,
+              bottleneck: objective.trim(),
+              selected_plan: selectedPlan,
+              classification: autoTier,
+            },
+            booking_meta: {
+              booking_uid: "lhyo_direct_" + Date.now(),
+              start_time: slotKey,
+              source_component: selectedPlan,
+            },
+          }),
+        }).catch(() => {});
+      }
+
       if (res.status === 409) {
         setErrors({ time: "Este horario acaba de ser ocupado. Por favor selecciona otra hora." });
         setBookedSlots((prev) => Array.from(new Set([...prev, slotKey])));
@@ -616,3 +642,4 @@ export default function AuditTriggerButton({
     </>
   );
 }
+
