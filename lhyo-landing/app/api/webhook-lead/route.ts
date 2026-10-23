@@ -46,6 +46,8 @@ export async function POST(request: Request) {
     }
 
     const cleanRevenue = Number(String(rawRevenue || "0").replace(/[^0-9.]/g, "")) || 0;
+    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
+
     const selectedPlanFinal = String(
       rawPlan || 
       body.payload?.metadata?.source_component || 
@@ -62,7 +64,8 @@ export async function POST(request: Request) {
         company_url: String(rawCompany || "No especificada"),
         monthly_revenue_usd: cleanRevenue,
         bottleneck: String(rawBottleneck || "Sin especificar"),
-        selected_plan: selectedPlanFinal
+        selected_plan: selectedPlanFinal,
+        classification: autoTier
       },
       booking_meta: {
         booking_uid: body.payload?.uid || "cal_uid_live",
@@ -79,7 +82,7 @@ export async function POST(request: Request) {
       body: JSON.stringify(normalizedPayload),
     });
 
-    return NextResponse.json({ status: "PIPELINE_EXECUTED", latency: "EDGE_OK" }, { status: 200 });
+    return NextResponse.json({ status: "PIPELINE_EXECUTED", tier: autoTier }, { status: 200 });
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : "UNKNOWN_SYSTEM_ERROR";
     return NextResponse.json({ status: "HANDLED", message: errorMessage }, { status: 200 });

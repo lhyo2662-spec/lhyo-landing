@@ -6,6 +6,7 @@
   --bg-obsidian: #070707;
   --bg-navy: #0B132B;
   --gold-primary: #BF953F;
+  --gold-light: #FCF6BA;
   --border-swiss: #1E293B;
 }
 
@@ -22,18 +23,20 @@ body {
   padding: 0;
 }
 
+/* BOTÓN DORADO PRINCIPAL CON EFECTO DE BRILLO Y ELEVACIÓN */
 .btn-primary-lhyo {
   background: linear-gradient(135deg, #BF953F 0%, #FCF6BA 50%, #B38728 100%);
   color: #070707;
   font-weight: 800;
-  letter-spacing: 0.03em;
-  padding: 1rem 2rem;
+  letter-spacing: 0.04em;
+  padding: 1.05rem 2.2rem;
   border: 1px solid #FCF6BA;
-  transition: transform 0.15s ease, filter 0.15s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   display: inline-block;
   text-align: center;
   width: 100%;
+  box-shadow: 0 8px 25px -6px rgba(191, 149, 63, 0.45);
 }
 
 @media (min-width: 640px) {
@@ -43,27 +46,17 @@ body {
 }
 
 .btn-primary-lhyo:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
+  filter: brightness(1.1);
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 14px 32px -6px rgba(252, 246, 186, 0.55);
 }
 
-.swiss-card {
-  background-color: var(--bg-navy);
-  border: 1px solid var(--border-swiss);
-  border-radius: 0px;
-  transition: border-color 0.2s ease;
-  box-shadow: none !important;
-}
-
-.swiss-card:hover {
-  border-color: var(--gold-primary);
-}
-
+/* CUADROS DE GARANTÍA SUPERIORES */
 .seal-card-lhyo {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(145deg, rgba(191, 149, 63, 0.10) 0%, #070707 55%, rgba(191, 149, 63, 0.05) 100%);
-  border: 1px solid rgba(191, 149, 63, 0.35);
+  background: linear-gradient(145deg, rgba(191, 149, 63, 0.11) 0%, #070707 55%, rgba(191, 149, 63, 0.05) 100%);
+  border: 1px solid rgba(191, 149, 63, 0.38);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
   cursor: default;
   user-select: none;
@@ -76,12 +69,7 @@ body {
   left: -120%;
   width: 65%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(252, 246, 186, 0.22),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(252, 246, 186, 0.22), transparent);
   transform: skewX(-25deg);
   transition: left 0.65s ease;
   pointer-events: none;
@@ -96,4 +84,71 @@ body {
 
 .seal-card-lhyo:hover::after {
   left: 140%;
+}
+
+/* NUEVAS BARRAS INTERACTIVAS DE LUJO PARA EL CATÁLOGO DE SERVICIOS */
+.luxury-service-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(191, 149, 63, 0.09) 0%, #070707 38%, #090D18 75%, rgba(191, 149, 63, 0.06) 100%);
+  border: 1px solid rgba(191, 149, 63, 0.35);
+  transition: all 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-service-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(252, 246, 186, 0.14), transparent);
+  transform: skewX(-25deg);
+  transition: left 0.75s ease;
+  pointer-events: none;
+}
+
+.luxury-service-card:hover {
+  transform: translateY(-4px);
+  border-color: #FCF6BA;
+  box-shadow: 0 18px 42px -12px rgba(191, 149, 63, 0.32), inset 0 0 22px rgba(191, 149, 63, 0.08);
+}
+
+.luxury-service-card:hover::before {
+  left: 145%;
+}
+
+.luxury-service-card-active {
+  background: linear-gradient(135deg, rgba(191, 149, 63, 0.16) 0%, #070707 30%, #080B12 70%, rgba(191, 149, 63, 0.10) 100%);
+  border: 1px solid #BF953F;
+  box-shadow: 0 22px 50px -12px rgba(191, 149, 63, 0.38);
+}
+
+/* BÓVEDA INTERACTIVA DEL CATÁLOGO PRIVADO */
+.luxury-vault-container {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at top right, rgba(191, 149, 63, 0.18), transparent 55%),
+              linear-gradient(145deg, #070707 0%, #090D16 60%, #070707 100%);
+  border: 1px solid #BF953F;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px -10px rgba(191, 149, 63, 0.28);
+}
+
+.vault-step-card {
+  background: linear-gradient(160deg, rgba(191, 149, 63, 0.07) 0%, #070707 65%);
+  border: 1px solid rgba(191, 149, 63, 0.3);
+  transition: all 0.25s ease;
+}
+
+.vault-step-card:hover {
+  border-color: rgba(252, 246, 186, 0.75);
+  box-shadow: 0 10px 25px -8px rgba(191, 149, 63, 0.22);
+}
+
+.interactive-option-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interactive-option-btn:hover {
+  transform: translateX(3px);
 }
