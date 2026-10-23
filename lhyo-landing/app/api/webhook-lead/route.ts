@@ -6,7 +6,8 @@ const bookedSlotsRegistry = new Set<string>();
 
 export async function GET() {
   return NextResponse.json({
-    status: "ARKOS_V15_ONLINE",
+    status: "ARKOS_V15_2_ONLINE",
+    webhook: "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb",
     bookedSlots: Array.from(bookedSlotsRegistry),
   }, { status: 200 });
 }
