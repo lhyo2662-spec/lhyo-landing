@@ -4,14 +4,14 @@ export const runtime = "edge";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const ceo = (url.searchParams.get("ceo") || "EJECUTIVO ACREDITADO").toUpperCase();
-  const empresa = (url.searchParams.get("empresa") || "EXPEDIENTE RESERVADO B2B").toUpperCase();
+  const ceo = (url.searchParams.get("ceo") || "CLIENTE DISTINGUIDO").toUpperCase();
+  const empresa = (url.searchParams.get("empresa") || "DIRECCIÓN GENERAL").toUpperCase();
 
   const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>LHYO GROUP | Catálogo Privado B2B - ${ceo}</title>
+<title>LHYO GROUP | Catálogo Privado de Soluciones - ${ceo}</title>
 <style>
   @page { size: A4 portrait; margin: 0; }
   * {
@@ -100,24 +100,24 @@ export async function GET(request: Request) {
   .brand-logo-svg { background: transparent !important; display: block; }
   .header-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; }
   .eyebrow-confidential { font-size: 9pt; color: #8E8E93; letter-spacing: 2px; text-transform: uppercase; text-align: right; line-height: 1.4; }
-  .h1-hero { font-size: 42pt; font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: #F8F9FA; text-transform: uppercase; margin-bottom: 10mm; }
-  .subtitle-hero { border-left: 3px solid #BF953F; padding-left: 6mm; font-size: 14pt; font-weight: 400; color: #8E8E93; max-width: 145mm; line-height: 1.45; }
-  .footer-meta { border-top: 1px solid rgba(191, 149, 63, 0.35); padding-top: 5mm; font-family: 'Courier New', monospace; font-size: 9.5pt; letter-spacing: 1.5px; color: #8E8E93; text-transform: uppercase; }
+  .h1-hero { font-size: 40pt; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: #F8F9FA; text-transform: uppercase; margin-bottom: 10mm; }
+  .subtitle-hero { border-left: 3px solid #BF953F; padding-left: 6mm; font-size: 14pt; font-weight: 400; color: #D1D5DB; max-width: 148mm; line-height: 1.5; }
+  .footer-meta { border-top: 1px solid rgba(191, 149, 63, 0.35); padding-top: 5mm; font-size: 9.5pt; letter-spacing: 1.5px; color: #8E8E93; text-transform: uppercase; }
   .footer-meta strong { color: #F8F9FA; font-weight: 700; }
-  .h2-section { font-size: 28pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.12; text-transform: uppercase; color: #F8F9FA; margin-bottom: 8mm; }
+  .h2-section { font-size: 26pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; text-transform: uppercase; color: #F8F9FA; margin-bottom: 8mm; }
   .gold-divider { width: 100%; height: 1px; background-color: #BF953F; margin-bottom: 10mm; opacity: 0.6; }
   .two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; align-items: start; }
-  .body-copy { font-size: 11pt; color: #8E8E93; line-height: 1.65; margin-bottom: 6mm; }
-  .quote-box { border-left: 3px solid #BF953F; padding-left: 6mm; margin-top: 8mm; font-size: 15pt; font-weight: 700; color: #F8F9FA; line-height: 1.35; }
-  .service-row { display: grid; grid-template-columns: 28mm 1fr; gap: 6mm; padding: 8mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
+  .body-copy { font-size: 11.2pt; color: #CCCCCC; line-height: 1.65; margin-bottom: 6mm; }
+  .quote-box { border-left: 3px solid #BF953F; padding-left: 6mm; margin-top: 8mm; font-size: 14.5pt; font-weight: 700; color: #F8F9FA; line-height: 1.4; }
+  .service-row { display: grid; grid-template-columns: 28mm 1fr; gap: 6mm; padding: 7.5mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
   .service-num { font-size: 34pt; font-weight: 800; color: #BF953F; line-height: 1; letter-spacing: -0.03em; }
   .service-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3mm; }
-  .service-title { font-size: 14pt; font-weight: 700; color: #F8F9FA; text-transform: uppercase; }
+  .service-title { font-size: 13.5pt; font-weight: 700; color: #F8F9FA; text-transform: uppercase; }
   .badge-gold { background: linear-gradient(135deg, #BF953F 0%, #B38728 100%); color: #070707; font-size: 7.5pt; font-weight: 800; padding: 1.5mm 3.5mm; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.8px; }
   .boxed-frame { border: 1px solid #262629; background-color: rgba(17, 17, 18, 0.65); padding: 12mm; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
   .phase-table { width: 100%; border: 1px solid rgba(191, 149, 63, 0.5); border-collapse: collapse; margin-top: 6mm; }
-  .phase-table th { text-align: left; padding: 4mm 5mm; font-size: 11pt; font-weight: 700; color: #F8F9FA; border-bottom: 1px solid rgba(191, 149, 63, 0.5); background-color: rgba(191, 149, 63, 0.06); }
-  .phase-table td { width: 50%; padding: 3.5mm 5mm; font-size: 9.5pt; color: #8E8E93; border-bottom: 1px solid #1C1C1E; border-right: 1px solid #1C1C1E; }
+  .phase-table th { text-align: left; padding: 4mm 5mm; font-size: 11pt; font-weight: 700; color: #F8F9FA; border-bottom: 1px solid rgba(191, 149, 63, 0.5); background-color: rgba(191, 149, 63, 0.08); }
+  .phase-table td { width: 50%; padding: 3.5mm 5mm; font-size: 9.8pt; color: #D1D5DB; border-bottom: 1px solid #1C1C1E; border-right: 1px solid #1C1C1E; }
   .center-header { text-align: center; margin-bottom: 10mm; }
   .rule-item { display: grid; grid-template-columns: 16mm 1fr; gap: 4mm; padding: 6mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
   .rule-num { font-size: 28pt; font-weight: 800; color: #BF953F; line-height: 1; }
@@ -127,7 +127,7 @@ export async function GET(request: Request) {
 </head>
 <body>
   <div class="top-action-bar">
-    <span style="font-size: 11px; letter-spacing: 0.15em; color: #F8F9FA; font-weight: 700;">LHYO GROUP // EXPEDIENTE CONFIDENCIAL DE: ${ceo}</span>
+    <span style="font-size: 11px; letter-spacing: 0.15em; color: #F8F9FA; font-weight: 700;">LHYO GROUP // CATÁLOGO PRIVADO PREPARADO PARA: ${ceo}</span>
     <button class="btn-download-pdf" onclick="window.print()">DESCARGAR / GUARDAR EN PDF (A4) ↓</button>
   </div>
 
@@ -146,16 +146,19 @@ export async function GET(request: Request) {
   </svg>
 
   <div class="doc-wrapper">
+    <!-- PÁGINA 1: PORTADA -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <header class="header-bar">
           <svg class="brand-logo-svg" width="210" height="55"><use href="#lhyo-full-logo"/></svg>
-          <div class="eyebrow-confidential">DOCUMENTO CONFIDENCIAL //<br>PRE-AUDITORÍA ESTRATÉGICA</div>
+          <div class="eyebrow-confidential">CATÁLOGO PRIVADO OFICIAL //<br>PRESENTACIÓN EJECUTIVA</div>
         </header>
         <div>
-          <h1 class="h1-hero">EL SISTEMA<br>OPERATIVO DEL<br>ESCALADO B2B.</h1>
-          <div class="subtitle-hero">Arquitectura de Sistemas, Agentes Cognitivos y Embudos de Alta Conversión exclusivos para empresas superando su techo operativo.</div>
+          <h1 class="h1-hero">SOLUCIONES DIGITALES<br>PARA MULTIPLICAR<br>TUS VENTAS.</h1>
+          <div class="subtitle-hero">
+            Páginas web de primer nivel, asistentes inteligentes que atienden a tus clientes las 24 horas y sistemas que organizan todo tu negocio de forma automática.
+          </div>
         </div>
         <footer class="footer-meta">
           PREPARADO EXCLUSIVAMENTE PARA:<br>
@@ -164,102 +167,159 @@ export async function GET(request: Request) {
       </div>
     </section>
 
+    <!-- PÁGINA 2: POR QUÉ LO NECESITAS -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <div>
-          <h2 class="h2-section">TU CRECIMIENTO<br>ESTÁ SECUESTRADO<br>POR LA LATENCIA<br>HUMANA.</h2>
+          <h2 class="h2-section">EL SECRETO DE LOS<br>NEGOCIOS QUE CRECEN<br>SIN DETENERSE.</h2>
           <div class="gold-divider"></div>
           <div class="two-col-grid">
             <div>
-              <p class="body-copy">Agendaste esta auditoría porque tu empresa tiene un techo operativo. Y ese techo está hecho de carne, hueso y horarios de oficina.</p>
-              <p class="body-copy">Si actualmente dependes de humanos para responder mensajes a tiempo, calificar prospectos, mover datos de una hoja de cálculo a un CRM, o perseguir seguimientos... estás perdiendo capital cada segundo.</p>
+              <p class="body-copy">
+                Hoy en día, los clientes buscan rapidez, confianza y atención inmediata. Cuando una persona escribe a tu negocio y tarda horas en recibir respuesta, o entra a una página que no le transmite seguridad, simplemente se va con la competencia.
+              </p>
+              <p class="body-copy">
+                Si todavía dependes de responder cada mensaje a mano, agendar citas una por una o anotar clientes de forma manual, estás perdiendo tiempo valioso y dejando escapar ventas todos los días.
+              </p>
             </div>
             <div>
-              <p class="body-copy">La competencia no duerme. El tráfico se encarece. Y el cliente moderno exige gratificación instantánea. En Lhyo Group no vendemos "herramientas de marketing". Instalamos infraestructura de alto rendimiento para que las máquinas asuman el trabajo táctico.</p>
-              <div class="quote-box">El talento humano es para dirigir.<br>Todo lo demás, es trabajo de máquinas.</div>
+              <p class="body-copy">
+                En Lhyo Group transformamos la imagen y el funcionamiento de tu empresa. Instalamos soluciones elegantes, rápidas y fáciles de usar que trabajan por ti día y noche para captar y atender más clientes.
+              </p>
+              <div class="quote-box">
+                Tu tiempo es para dirigir y hacer crecer tu negocio.<br>Nuestro sistema se encarga del resto.
+              </div>
             </div>
           </div>
         </div>
-        <footer class="footer-meta">LHYO GROUP // DIAGNÓSTICO DE LATENCIA OPERATIVA</footer>
+        <footer class="footer-meta">LHYO GROUP // INNOVACIÓN Y CRECIMIENTO COMERCIAL</footer>
       </div>
     </section>
 
+    <!-- PÁGINA 3: NUESTROS 3 SERVICIOS PRINCIPALES -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <div>
-          <h2 class="h2-section">INFRAESTRUCTURA DE<br>CONVERSIÓN A LA CARTA</h2>
+          <h2 class="h2-section">NUESTROS SERVICIOS<br>DISEÑADOS PARA TU EMPRESA</h2>
           <div class="gold-divider"></div>
+
           <div class="service-row">
             <div class="service-num">01</div>
             <div>
-              <div class="service-header"><div class="service-title">EMPLEADOS DIGITALES AUTÓNOMOS</div><span class="badge-gold">AGENTES IA</span></div>
-              <p class="body-copy">Olvida los bots rígidos con respuestas pre-programadas. Desplegamos Agentes Cognitivos entrenados con el ADN y la base de datos de tu empresa. Resuelven objeciones complejas, califican leads y agendan citas en WhatsApp o Instagram a las 3:00 AM.</p>
+              <div class="service-header">
+                <div class="service-title">ASISTENTES INTELIGENTES 24/7 (WHATSAPP E INSTAGRAM)</div>
+                <span class="badge-gold">ATENCIÓN 24/7</span>
+              </div>
+              <p class="body-copy">
+                Nunca más dejes a un cliente esperando. Creamos un asistente virtual entrenado con toda la información de tu negocio que responde consultas al instante, guía al cliente con amabilidad y agenda tus citas de venta incluso mientras descansas.
+              </p>
             </div>
           </div>
+
           <div class="service-row">
             <div class="service-num">02</div>
             <div>
-              <div class="service-header"><div class="service-title">INTERFACES B2B DE ALTA CONVERSIÓN</div><span class="badge-gold">WEB ÉLITE</span></div>
-              <p class="body-copy">Una web que solo "se ve bien" es un pasivo financiero. Construimos arquitecturas web bajo rigor estético suizo con un único objetivo matemático: capturar tráfico frío, inyectar autoridad inmediata y forzarlos hacia tu calendario de ventas.</p>
+              <div class="service-header">
+                <div class="service-title">PÁGINAS WEB MODERNAS Y CATÁLOGOS DIGITALES</div>
+                <span class="badge-gold">WEB DE LUJO</span>
+              </div>
+              <p class="body-copy">
+                Proyecta una imagen impecable y de alto prestigio. Desarrollamos tu página web rápida, elegante y muy fácil de usar en celulares y computadoras, diseñada para que tus visitantes conozcan tus servicios y te contraten con un solo clic.
+              </p>
             </div>
           </div>
+
           <div class="service-row">
             <div class="service-num">03</div>
             <div>
-              <div class="service-header"><div class="service-title">AUTOMATIZACIÓN DE ECOSISTEMAS</div><span class="badge-gold">FLUJO CRM</span></div>
-              <p class="body-copy">Centralizamos tu caos operativo. Interconectamos tus pasarelas de pago, correos, calendarios y CRM. Cuando un lead entra, el sistema lo nutre, lo clasifica y notifica a tu equipo de ventas sin que un solo humano tenga que teclear un dato.</p>
+              <div class="service-header">
+                <div class="service-title">ORGANIZACIÓN AUTOMÁTICA DE CLIENTES (CRM)</div>
+                <span class="badge-gold">ORDEN TOTAL</span>
+              </div>
+              <p class="body-copy">
+                Ten el control absoluto de todas tus ventas en un solo lugar. Cada persona que se interesa o agenda contigo queda registrada y ordenada automáticamente con su nombre, contacto, presupuesto y servicio de interés, sin trabajo manual.
+              </p>
             </div>
           </div>
         </div>
-        <footer class="footer-meta">LHYO GROUP // ARSENAL TÁCTICO B2B</footer>
+        <footer class="footer-meta">LHYO GROUP // CATÁLOGO DE SOLUCIONES EMPRESARIALES</footer>
       </div>
     </section>
 
+    <!-- PÁGINA 4: EL PAQUETE COMPLETO -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <div class="boxed-frame">
           <div>
-            <h2 class="h2-section" style="font-size: 24pt;">THE FULL STACK<br>ARCHITECTURE: EL SISTEMA<br>NERVIOSO CENTRAL</h2>
-            <p class="body-copy">Contratar sistemas aislados resuelve problemas aislados. El verdadero apalancamiento ocurre cuando la captura, la persuasión y la automatización operan bajo un solo cerebro.</p>
+            <h2 class="h2-section" style="font-size: 23pt;">SISTEMA INTEGRAL LHYO GROUP:<br>TODO TU NEGOCIO CONECTADO<br>Y FUNCIONANDO EN AUTOMÁTICO</h2>
+            <p class="body-copy">
+              Puedes contratar cualquiera de nuestros servicios por separado, o implementar nuestro Paquete Completo donde tu página web, tu asistente de WhatsApp y tu base de datos trabajan juntos para multiplicar tus resultados.
+            </p>
+
             <table class="phase-table">
-              <thead><tr><th colspan="2">Fase I: Despliegue de Infraestructura</th></tr></thead>
+              <thead><tr><th colspan="2">Etapa 1: Creación e Instalación Completa (Llave en Mano)</th></tr></thead>
               <tbody>
-                <tr><td>Ingeniería de Sistemas B2B</td><td>Inyección de Código de Producción</td></tr>
-                <tr><td>Diseño UI/UX bajo Canon Suizo</td><td>Automatización de Tuberías CRM</td></tr>
-                <tr><td>Entrenamiento de Agentes IA</td><td>Integración de Pasarelas y Calendarios</td></tr>
-                <tr><td>Arquitectura de Conversión</td><td>Despliegue Único de Instalación</td></tr>
+                <tr><td>Diseño y programación de tu Página Web</td><td>Configuración de tu Catálogo Interactivo</td></tr>
+                <tr><td>Entrenamiento de tu Asistente Inteligente</td><td>Conexión directa con tu WhatsApp e Instagram</td></tr>
+                <tr><td>Instalación de tu Agenda de Citas Online</td><td>Creación de tu Panel de Control de Clientes</td></tr>
+                <tr><td>Pruebas completas de funcionamiento</td><td>Entrega lista para recibir clientes desde el día 1</td></tr>
               </tbody>
             </table>
+
             <table class="phase-table" style="margin-top: 8mm;">
-              <thead><tr><th colspan="2">Fase II: Mantenimiento Cognitivo y Optimización</th></tr></thead>
+              <thead><tr><th colspan="2">Etapa 2: Acompañamiento, Soporte y Mejora Continua</th></tr></thead>
               <tbody>
-                <tr><td>Hosting de Modelos de IA</td><td>Soporte Dedicado de Servidores</td></tr>
-                <tr><td>Iteración Matemática de Prompts</td><td>Mantenimiento Cognitivo Continuo</td></tr>
-                <tr><td>Optimización de Conversión</td><td>Auditoría de Flujos sin Fricción</td></tr>
-                <tr><td>Seguridad del Ecosistema</td><td>Licencia Operativa Mensual</td></tr>
+                <tr><td>Mantenimiento activo de toda tu plataforma</td><td>Actualización de información y promociones</td></tr>
+                <tr><td>Ajuste continuo de respuestas del asistente</td><td>Soporte técnico directo con nuestro equipo</td></tr>
+                <tr><td>Respaldo seguro de tu lista de clientes</td><td>Optimización constante para mejorar tus ventas</td></tr>
+                <tr><td>Servidores rápidos y seguros las 24 horas</td><td>Tranquilidad total sin complicaciones técnicas</td></tr>
               </tbody>
             </table>
           </div>
-          <footer class="footer-meta" style="border-top: none; padding-top: 0;">NOTA: INVERSIÓN CALIBRADA EN AUDITORÍA SEGÚN VOLUMEN OPERATIVO.</footer>
+          <footer class="footer-meta" style="border-top: none; padding-top: 0;">
+            NOTA: TARIFAS PERSONALIZADAS EN REUNIÓN SEGÚN TU PAÍS Y SERVICIOS ELEGIDOS.
+          </footer>
         </div>
       </div>
     </section>
 
+    <!-- PÁGINA 5: PREPARACIÓN PARA NUESTRA REUNIÓN -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <div>
-          <div class="center-header"><h2 class="h2-section" style="font-size: 24pt;">LA AUDITORÍA NO ES UNA<br>CHARLA. ES UN DIAGNÓSTICO<br>QUIRÚRGICO.</h2></div>
-          <div class="rule-item"><div class="rule-num">1</div><p class="body-copy" style="margin-bottom:0;"><strong style="color:#F8F9FA;">Conoce tus métricas:</strong> Necesitaremos saber tu costo de adquisición (CAC), volumen de leads actual y ticket promedio para proyectar el retorno de inversión.</p></div>
-          <div class="rule-item"><div class="rule-num">2</div><p class="body-copy" style="margin-bottom:0;"><strong style="color:#F8F9FA;">Entorno aislado:</strong> Ingresa a la sala de Zoom desde una computadora de escritorio. Sin distracciones. Sin llamadas en movimiento.</p></div>
-          <div class="rule-item"><div class="rule-num">3</div><p class="body-copy" style="margin-bottom:0;"><strong style="color:#F8F9FA;">Capacidad de decisión:</strong> Si requieres la aprobación de un socio para ejecutar cambios de infraestructura operativa, asegúrate de que esté presente en la sesión.</p></div>
+          <div class="center-header">
+            <h2 class="h2-section" style="font-size: 24pt;">CÓMO APROVECHAR AL MÁXIMO<br>NUESTRA REUNIÓN PERSONALIZADA</h2>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-num">1</div>
+            <p class="body-copy" style="margin-bottom:0;">
+              <strong style="color:#F8F9FA;">Define tus prioridades:</strong> Piensa en cuál de los 3 servicios (o el paquete completo) le daría el mayor impulso a tu negocio en este momento.
+            </p>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-num">2</div>
+            <p class="body-copy" style="margin-bottom:0;">
+              <strong style="color:#F8F9FA;">Espacio tranquilo:</strong> Conéctate a nuestra llamada desde un lugar cómodo donde podamos conversar con calma y mostrarte cómo funcionará tu sistema.
+            </p>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-num">3</div>
+            <p class="body-copy" style="margin-bottom:0;">
+              <strong style="color:#F8F9FA;">Propuesta a tu medida:</strong> En la sesión te entregaremos los precios exactos correspondientes a tu país y el plan de trabajo paso a paso para comenzar.
+            </p>
+          </div>
         </div>
+
         <div class="seal-footer">
           <svg class="brand-logo-svg" width="230" height="60"><use href="#lhyo-full-logo"/></svg>
-          <div class="seal-caption">LHYO GROUP &nbsp;|&nbsp; DIVISIÓN DE ESCALADO B2B</div>
+          <div class="seal-caption">LHYO GROUP &nbsp;|&nbsp; SOLUCIONES DIGITALES Y AUTOMATIZACIÓN</div>
         </div>
       </div>
     </section>
