@@ -6,7 +6,7 @@ const bookedSlotsRegistry = new Set<string>();
 
 export async function GET() {
   return NextResponse.json({
-    status: "ARKOS_WEBHOOK_ONLINE",
+    status: "ARKOS_V15_ONLINE",
     bookedSlots: Array.from(bookedSlotsRegistry),
   }, { status: 200 });
 }
@@ -15,18 +15,14 @@ export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => ({}));
 
-    if (body.triggerEvent === "PING") {
-      return NextResponse.json({ status: "PING_OK", system: "ARKOS_ONLINE" }, { status: 200 });
-    }
-
-    const slotKey = body.payload?.slotKey || body.payload?.startTime || "";
-    if (slotKey && bookedSlotsRegistry.has(slotKey)) {
+    const slotKey = String(body.payload?.slotKey || body.payload?.startTime || "Horario por definir");
+    if (slotKey !== "Horario por definir" && bookedSlotsRegistry.has(slotKey)) {
       return NextResponse.json(
         { error: "SLOT_ALREADY_BOOKED", message: "Este horario ya fue reservado. Por favor selecciona otra hora." },
         { status: 409 }
       );
     }
-    if (slotKey) {
+    if (slotKey !== "Horario por definir") {
       bookedSlotsRegistry.add(slotKey);
     }
 
@@ -35,53 +31,53 @@ export async function POST(request: Request) {
 
     const extractVal = (keyName: string) => {
       const item = responses[keyName];
-      if (item === undefined || item === null) return null;
-      return typeof item === "object" && "value" in item ? item.value : item;
+      if (item === undefined || item === null) return "";
+      return typeof item === "object" && "value" in item ? String(item.value) : String(item);
     };
 
+    const fullName = String(attendees[0]?.name || "Cliente Ejecutivo").trim();
+    const email = String(attendees[0]?.email || "sin-correo@lhyogroup.com").trim();
+    const companyUrl = extractVal("company_url") || "No especificada";
     const rawRevenue = extractVal("facturacion_mensual") || "0";
-    const rawCompany = extractVal("company_url") || "No especificada";
-    const rawBottleneck = extractVal("cuello_botella") || "Sin especificar";
-    const rawPlan = extractVal("plan_elegido") || body.payload?.metadata?.source_component || "AUDITORÍA GENERAL (Botón Principal)";
+    const bottleneck = extractVal("cuello_botella") || "Impulsar crecimiento comercial";
+    const selectedPlan = extractVal("plan_elegido") || String(body.payload?.metadata?.source_component || "AUDITORÍA GENERAL");
 
-    const cleanRevenue = Number(String(rawRevenue).replace(/[^0-9.]/g, "")) || 0;
-    const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_TICKET";
+    const cleanRevenue = Number(rawRevenue.replace(/[^0-9.]/g, "")) || 0;
+    const classification = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
 
-    const normalizedPayload = {
-      timestamp: new Date().toISOString(),
-      event_type: "BOOKING_CREATED",
-      lead_data: {
-        full_name: String(attendees[0]?.name || "Cliente Agendado"),
-        email: String(attendees[0]?.email || "sin-email@lhyogroup.com"),
-        company_url: String(rawCompany),
-        monthly_revenue_usd: cleanRevenue,
-        bottleneck: String(rawBottleneck),
-        selected_plan: String(rawPlan),
-        classification: autoTier,
-      },
-      booking_meta: {
-        booking_uid: String(body.payload?.uid || `lhyo_${Date.now()}`),
-        start_time: String(body.payload?.startTime || new Date().toISOString()),
-        source_component: String(rawPlan),
-      },
+    const nowFormatted = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
+
+    const makePayload = {
+      fecha_registro: nowFormatted,
+      horario_cita: slotKey,
+      nombre_cliente: fullName,
+      email_cliente: email,
+      empresa_web: companyUrl,
+      facturacion_usd: cleanRevenue,
+      clasificacion: classification,
+      servicio_elegido: selectedPlan,
+      objetivo_cliente: bottleneck,
+      resumen_crm: `${selectedPlan} || Objetivo: ${bottleneck}`,
+      link_catalogo_pdf: `https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl)}`,
+      link_google_calendar: `https://lhyogroup.vercel.app/api/agendar-calendario?slot=${encodeURIComponent(slotKey)}&ceo=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&empresa=${encodeURIComponent(companyUrl)}&plan=${encodeURIComponent(selectedPlan)}`
     };
 
-    const targetMakeUrl = "https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l";
+    const makeWebhookUrl = "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb";
 
-    const makeRes = await fetch(targetMakeUrl, {
+    const makeResponse = await fetch(makeWebhookUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(normalizedPayload),
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify(makePayload),
     });
 
     return NextResponse.json({
-      status: "PIPELINE_EXECUTED",
-      makeStatus: makeRes.status,
-      tier: autoTier,
+      status: "CONNECTED_OK",
+      makeHttpCode: makeResponse.status,
+      classification: classification,
       bookedSlot: slotKey,
     }, { status: 200 });
   } catch (err: unknown) {
-    const errorMessage = err instanceof Error ? err.message : "UNKNOWN_SYSTEM_ERROR";
-    return NextResponse.json({ status: "ERROR", message: errorMessage }, { status: 500 });
+    const msg = err instanceof Error ? err.message : "INTERNAL_ERROR";
+    return NextResponse.json({ status: "ERROR", message: msg }, { status: 500 });
   }
 }
