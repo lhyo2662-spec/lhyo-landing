@@ -74,6 +74,10 @@ export async function POST(request: Request) {
       body: JSON.stringify(normalizedPayload),
     });
 
+    if (!makeRes.ok) {
+      return NextResponse.json({ status: "MAKE_ERROR", code: makeRes.status }, { status: 502 });
+    }
+
     return NextResponse.json({
       status: "PIPELINE_EXECUTED",
       makeStatus: makeRes.status,
