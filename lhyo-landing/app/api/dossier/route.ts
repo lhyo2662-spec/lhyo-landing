@@ -69,7 +69,7 @@ export async function GET(request: Request) {
     width: 210mm;
     height: 297mm;
     background-color: #070707;
-    padding: 22mm 20mm;
+    padding: 20mm 20mm;
     overflow: hidden;
     page-break-after: always;
     display: flex;
@@ -102,22 +102,53 @@ export async function GET(request: Request) {
   .eyebrow-confidential { font-size: 9pt; color: #8E8E93; letter-spacing: 2px; text-transform: uppercase; text-align: right; line-height: 1.4; }
   .h1-hero { font-size: 40pt; font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; color: #F8F9FA; text-transform: uppercase; margin-bottom: 10mm; }
   .subtitle-hero { border-left: 3px solid #BF953F; padding-left: 6mm; font-size: 14pt; font-weight: 400; color: #D1D5DB; max-width: 148mm; line-height: 1.5; }
-  .footer-meta { border-top: 1px solid rgba(191, 149, 63, 0.35); padding-top: 5mm; font-size: 9.5pt; letter-spacing: 1.5px; color: #8E8E93; text-transform: uppercase; }
+  .footer-meta { border-top: 1px solid rgba(191, 149, 63, 0.35); padding-top: 4.5mm; font-size: 9pt; letter-spacing: 1.5px; color: #8E8E93; text-transform: uppercase; }
   .footer-meta strong { color: #F8F9FA; font-weight: 700; }
-  .h2-section { font-size: 26pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; text-transform: uppercase; color: #F8F9FA; margin-bottom: 8mm; }
-  .gold-divider { width: 100%; height: 1px; background-color: #BF953F; margin-bottom: 10mm; opacity: 0.6; }
+  .h2-section { font-size: 26pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; text-transform: uppercase; color: #F8F9FA; margin-bottom: 7mm; }
+  .gold-divider { width: 100%; height: 1px; background-color: #BF953F; margin-bottom: 9mm; opacity: 0.6; }
   .two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12mm; align-items: start; }
-  .body-copy { font-size: 11.2pt; color: #CCCCCC; line-height: 1.65; margin-bottom: 6mm; }
+  .body-copy { font-size: 11pt; color: #CCCCCC; line-height: 1.62; margin-bottom: 5mm; }
   .quote-box { border-left: 3px solid #BF953F; padding-left: 6mm; margin-top: 8mm; font-size: 14.5pt; font-weight: 700; color: #F8F9FA; line-height: 1.4; }
-  .service-row { display: grid; grid-template-columns: 28mm 1fr; gap: 6mm; padding: 7.5mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
+  .service-row { display: grid; grid-template-columns: 28mm 1fr; gap: 6mm; padding: 7mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
   .service-num { font-size: 34pt; font-weight: 800; color: #BF953F; line-height: 1; letter-spacing: -0.03em; }
-  .service-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3mm; }
+  .service-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.5mm; }
   .service-title { font-size: 13.5pt; font-weight: 700; color: #F8F9FA; text-transform: uppercase; }
   .badge-gold { background: linear-gradient(135deg, #BF953F 0%, #B38728 100%); color: #070707; font-size: 7.5pt; font-weight: 800; padding: 1.5mm 3.5mm; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.8px; }
-  .boxed-frame { border: 1px solid #262629; background-color: rgba(17, 17, 18, 0.65); padding: 12mm; height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
-  .phase-table { width: 100%; border: 1px solid rgba(191, 149, 63, 0.5); border-collapse: collapse; margin-top: 6mm; }
-  .phase-table th { text-align: left; padding: 4mm 5mm; font-size: 11pt; font-weight: 700; color: #F8F9FA; border-bottom: 1px solid rgba(191, 149, 63, 0.5); background-color: rgba(191, 149, 63, 0.08); }
-  .phase-table td { width: 50%; padding: 3.5mm 5mm; font-size: 9.8pt; color: #D1D5DB; border-bottom: 1px solid #1C1C1E; border-right: 1px solid #1C1C1E; }
+  
+  /* PÁGINA 4 CALIBRADA AL MILÍMETRO PARA ENCUADRE PERFECTO DENTRO DEL MARCO */
+  .boxed-frame {
+    border: 1px solid #262629;
+    background-color: rgba(17, 17, 18, 0.65);
+    padding: 10mm 11mm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .phase-table {
+    width: 100%;
+    border: 1px solid rgba(191, 149, 63, 0.5);
+    border-collapse: collapse;
+    margin-top: 4.5mm;
+  }
+  .phase-table th {
+    text-align: left;
+    padding: 3mm 4.5mm;
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #F8F9FA;
+    border-bottom: 1px solid rgba(191, 149, 63, 0.5);
+    background-color: rgba(191, 149, 63, 0.08);
+  }
+  .phase-table td {
+    width: 50%;
+    padding: 2.6mm 4.5mm;
+    font-size: 9.4pt;
+    color: #D1D5DB;
+    border-bottom: 1px solid #1C1C1E;
+    border-right: 1px solid #1C1C1E;
+    line-height: 1.35;
+  }
   .center-header { text-align: center; margin-bottom: 10mm; }
   .rule-item { display: grid; grid-template-columns: 16mm 1fr; gap: 4mm; padding: 6mm 0; border-bottom: 1px solid #1C1C1E; align-items: start; }
   .rule-num { font-size: 28pt; font-weight: 800; color: #BF953F; line-height: 1; }
@@ -248,14 +279,14 @@ export async function GET(request: Request) {
       </div>
     </section>
 
-    <!-- PÁGINA 4: EL PAQUETE COMPLETO -->
+    <!-- PÁGINA 4: EL PAQUETE COMPLETO (ENCUADRE INTERNO CALIBRADO) -->
     <section class="page">
       <div class="watermark-container"><svg viewBox="0 0 200 200" width="100%" height="100%"><use href="#lhyo-monogram"/></svg></div>
       <div class="content-layer">
         <div class="boxed-frame">
           <div>
-            <h2 class="h2-section" style="font-size: 23pt;">SISTEMA INTEGRAL LHYO GROUP:<br>TODO TU NEGOCIO CONECTADO<br>Y FUNCIONANDO EN AUTOMÁTICO</h2>
-            <p class="body-copy">
+            <h2 class="h2-section" style="font-size: 20.5pt; margin-bottom: 4.5mm;">SISTEMA INTEGRAL LHYO GROUP:<br>TODO TU NEGOCIO CONECTADO<br>Y FUNCIONANDO EN AUTOMÁTICO</h2>
+            <p class="body-copy" style="font-size: 10.3pt; line-height: 1.5; margin-bottom: 4mm;">
               Puedes contratar cualquiera de nuestros servicios por separado, o implementar nuestro Paquete Completo donde tu página web, tu asistente de WhatsApp y tu base de datos trabajan juntos para multiplicar tus resultados.
             </p>
 
@@ -269,7 +300,7 @@ export async function GET(request: Request) {
               </tbody>
             </table>
 
-            <table class="phase-table" style="margin-top: 8mm;">
+            <table class="phase-table" style="margin-top: 5.5mm;">
               <thead><tr><th colspan="2">Etapa 2: Acompañamiento, Soporte y Mejora Continua</th></tr></thead>
               <tbody>
                 <tr><td>Mantenimiento activo de toda tu plataforma</td><td>Actualización de información y promociones</td></tr>
@@ -279,7 +310,7 @@ export async function GET(request: Request) {
               </tbody>
             </table>
           </div>
-          <footer class="footer-meta" style="border-top: none; padding-top: 0;">
+          <footer class="footer-meta" style="border-top: 1px solid rgba(191, 149, 63, 0.35); padding-top: 3.5mm; font-size: 8.5pt;">
             NOTA: TARIFAS PERSONALIZADAS EN REUNIÓN SEGÚN TU PAÍS Y SERVICIOS ELEGIDOS.
           </footer>
         </div>

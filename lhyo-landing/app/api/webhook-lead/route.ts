@@ -2,8 +2,13 @@
 
 export const runtime = "edge";
 
+const bookedSlotsRegistry = new Set<string>();
+
 export async function GET() {
-  return NextResponse.json({ status: "ARKOS_WEBHOOK_ONLINE" }, { status: 200 });
+  return NextResponse.json({
+    status: "ARKOS_WEBHOOK_ONLINE",
+    bookedSlots: Array.from(bookedSlotsRegistry),
+  }, { status: 200 });
 }
 
 export async function POST(request: Request) {
@@ -12,6 +17,17 @@ export async function POST(request: Request) {
 
     if (body.triggerEvent === "PING") {
       return NextResponse.json({ status: "PING_OK", system: "ARKOS_ONLINE" }, { status: 200 });
+    }
+
+    const slotKey = body.payload?.slotKey || body.payload?.startTime || "";
+    if (slotKey && bookedSlotsRegistry.has(slotKey)) {
+      return NextResponse.json(
+        { error: "SLOT_ALREADY_BOOKED", message: "Este horario ya fue reservado. Por favor selecciona otra hora." },
+        { status: 409 }
+      );
+    }
+    if (slotKey) {
+      bookedSlotsRegistry.add(slotKey);
     }
 
     const responses = body.payload?.responses || {};
@@ -23,68 +39,49 @@ export async function POST(request: Request) {
       return typeof item === "object" && "value" in item ? item.value : item;
     };
 
-    let rawRevenue = extractVal("facturacion_mensual");
-    let rawCompany = extractVal("company_url");
-    let rawBottleneck = extractVal("cuello_botella");
-    let rawPlan = extractVal("plan_elegido") || extractVal("notes");
+    const rawRevenue = extractVal("facturacion_mensual") || "0";
+    const rawCompany = extractVal("company_url") || "No especificada";
+    const rawBottleneck = extractVal("cuello_botella") || "Sin especificar";
+    const rawPlan = extractVal("plan_elegido") || body.payload?.metadata?.source_component || "AUDITORÍA GENERAL (Botón Principal)";
 
-    for (const [k, v] of Object.entries(responses)) {
-      const val = typeof v === "object" && v !== null && "value" in v ? (v as { value: unknown }).value : v;
-      const label = typeof v === "object" && v !== null && "label" in v ? String((v as { label: unknown }).label).toLowerCase() : k.toLowerCase();
-      if (!rawRevenue && (label.includes("facturaci") || label.includes("usd") || label.includes("mensual"))) {
-        rawRevenue = val;
-      }
-      if (!rawCompany && (label.includes("web") || label.includes("instagram") || label.includes("empresa") || label.includes("sitio"))) {
-        rawCompany = val;
-      }
-      if (!rawBottleneck && (label.includes("objetivo") || label.includes("mejorar") || label.includes("lograr") || label.includes("cuello") || label.includes("negocio"))) {
-        rawBottleneck = val;
-      }
-      if (!rawPlan && (label.includes("plan") || label.includes("servicio") || label.includes("catálogo") || label.includes("catalogo") || label.includes("selección") || label.includes("seleccion"))) {
-        rawPlan = val;
-      }
-    }
-
-    const cleanRevenue = Number(String(rawRevenue || "0").replace(/[^0-9.]/g, "")) || 0;
+    const cleanRevenue = Number(String(rawRevenue).replace(/[^0-9.]/g, "")) || 0;
     const autoTier = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
-
-    const selectedPlanFinal = String(
-      rawPlan || 
-      body.payload?.metadata?.source_component || 
-      body.payload?.description || 
-      "AUDITORÍA GENERAL (Botón Principal)"
-    );
 
     const normalizedPayload = {
       timestamp: new Date().toISOString(),
-      event_type: body.triggerEvent || "BOOKING_CREATED",
+      event_type: "BOOKING_CREATED",
       lead_data: {
-        full_name: attendees[0]?.name || extractVal("name") || "Cliente Agendado",
-        email: attendees[0]?.email || extractVal("email") || "sin-email@lhyogroup.com",
-        company_url: String(rawCompany || "No especificada"),
+        full_name: String(attendees[0]?.name || "Cliente Agendado"),
+        email: String(attendees[0]?.email || "sin-email@lhyogroup.com"),
+        company_url: String(rawCompany),
         monthly_revenue_usd: cleanRevenue,
-        bottleneck: String(rawBottleneck || "Sin especificar"),
-        selected_plan: selectedPlanFinal,
-        classification: autoTier
+        bottleneck: String(rawBottleneck),
+        selected_plan: String(rawPlan),
+        classification: autoTier,
       },
       booking_meta: {
-        booking_uid: body.payload?.uid || "cal_uid_live",
-        start_time: body.payload?.startTime || new Date().toISOString(),
-        source_component: selectedPlanFinal,
+        booking_uid: String(body.payload?.uid || `lhyo_${Date.now()}`),
+        start_time: String(body.payload?.startTime || new Date().toISOString()),
+        source_component: String(rawPlan),
       },
     };
 
     const targetMakeUrl = "https://hook.us2.make.com/hx3nve3zt02sp8wkejegujyb5pyxiy6l";
 
-    await fetch(targetMakeUrl, {
+    const makeRes = await fetch(targetMakeUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(normalizedPayload),
     });
 
-    return NextResponse.json({ status: "PIPELINE_EXECUTED", tier: autoTier }, { status: 200 });
+    return NextResponse.json({
+      status: "PIPELINE_EXECUTED",
+      makeStatus: makeRes.status,
+      tier: autoTier,
+      bookedSlot: slotKey,
+    }, { status: 200 });
   } catch (err: unknown) {
     const errorMessage = err instanceof Error ? err.message : "UNKNOWN_SYSTEM_ERROR";
-    return NextResponse.json({ status: "HANDLED", message: errorMessage }, { status: 200 });
+    return NextResponse.json({ status: "ERROR", message: errorMessage }, { status: 500 });
   }
 }
