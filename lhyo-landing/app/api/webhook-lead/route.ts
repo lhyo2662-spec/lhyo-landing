@@ -6,8 +6,9 @@ const bookedSlotsRegistry = new Set<string>();
 
 export async function GET() {
   return NextResponse.json({
-    status: "ARKOS_V15_2_ONLINE",
+    status: "ARKOS_V15_3_ONLINE",
     webhook: "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb",
+    meetRoom: "https://meet.google.com/krc-vdii-zzh",
     bookedSlots: Array.from(bookedSlotsRegistry),
   }, { status: 200 });
 }
@@ -17,12 +18,6 @@ export async function POST(request: Request) {
     const body = await request.json().catch(() => ({}));
 
     const slotKey = String(body.payload?.slotKey || body.payload?.startTime || "Horario por definir");
-    if (slotKey !== "Horario por definir" && bookedSlotsRegistry.has(slotKey)) {
-      return NextResponse.json(
-        { error: "SLOT_ALREADY_BOOKED", message: "Este horario ya fue reservado. Por favor selecciona otra hora." },
-        { status: 409 }
-      );
-    }
     if (slotKey !== "Horario por definir") {
       bookedSlotsRegistry.add(slotKey);
     }
@@ -37,7 +32,8 @@ export async function POST(request: Request) {
     };
 
     const fullName = String(attendees[0]?.name || "Cliente Ejecutivo").trim();
-    const email = String(attendees[0]?.email || "sin-correo@lhyogroup.com").trim();
+    const rawEmail = String(attendees[0]?.email || "").trim();
+    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail) ? rawEmail : "lhyoaraque2662@gmail.com";
     const companyUrl = extractVal("company_url") || "No especificada";
     const rawRevenue = extractVal("facturacion_mensual") || "0";
     const bottleneck = extractVal("cuello_botella") || "Impulsar crecimiento comercial";
@@ -47,6 +43,7 @@ export async function POST(request: Request) {
     const classification = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
 
     const nowFormatted = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
+    const meetLink = "https://meet.google.com/krc-vdii-zzh";
 
     const makePayload = {
       fecha_registro: nowFormatted,
@@ -59,6 +56,7 @@ export async function POST(request: Request) {
       servicio_elegido: selectedPlan,
       objetivo_cliente: bottleneck,
       resumen_crm: `${selectedPlan} || Objetivo: ${bottleneck}`,
+      link_videollamada_meet: meetLink,
       link_catalogo_pdf: `https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl)}`,
       link_google_calendar: `https://lhyogroup.vercel.app/api/agendar-calendario?slot=${encodeURIComponent(slotKey)}&ceo=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&empresa=${encodeURIComponent(companyUrl)}&plan=${encodeURIComponent(selectedPlan)}`
     };
@@ -76,6 +74,7 @@ export async function POST(request: Request) {
       makeHttpCode: makeResponse.status,
       classification: classification,
       bookedSlot: slotKey,
+      meetRoom: meetLink,
     }, { status: 200 });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "INTERNAL_ERROR";

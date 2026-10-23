@@ -9,6 +9,7 @@ export async function GET(request: Request) {
   const email = url.searchParams.get("email") || "";
   const empresa = url.searchParams.get("empresa") || "No especificada";
   const plan = url.searchParams.get("plan") || "Auditoría Lhyo Group";
+  const meetLink = "https://meet.google.com/krc-vdii-zzh";
 
   let datePart = "2026-10-26";
   let timePart = "11:00 AM";
@@ -38,9 +39,9 @@ export async function GET(request: Request) {
   const datesParam = `${fmt(startUtc)}/${fmt(endUtc)}`;
 
   const title = `Reunión Lhyo Group: ${ceo} (${empresa})`;
-  const details = `Ejecutivo / Cliente: ${ceo}\nCorreo: ${email}\nEmpresa: ${empresa}\nServicio: ${plan}\n\nCatálogo Privado: https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(ceo)}&empresa=${encodeURIComponent(empresa)}`;
+  const details = `Sala de Videollamada (Google Meet): ${meetLink}\n\nEjecutivo / Cliente: ${ceo}\nCorreo: ${email}\nEmpresa: ${empresa}\nServicio: ${plan}\n\nCatálogo Privado: https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(ceo)}&empresa=${encodeURIComponent(empresa)}`;
 
-  const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${datesParam}&details=${encodeURIComponent(details)}&add=${encodeURIComponent(email)},lhyoaraque2662@gmail.com`;
+  const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${datesParam}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(meetLink)}&add=${encodeURIComponent(email)},lhyoaraque2662@gmail.com`;
 
   return NextResponse.redirect(gcalUrl, 302);
 }
