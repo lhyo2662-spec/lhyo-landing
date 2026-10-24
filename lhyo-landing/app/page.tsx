@@ -4,8 +4,30 @@ import InteractiveCatalog from "@/components/InteractiveCatalog";
 import BrandLogo from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
-  title: "LHYO GROUP | Soluciones Digitales, Páginas Web y Automatización",
-  description: "Impulsamos el crecimiento de su empresa mediante páginas web de alto nivel, asistentes inteligentes 24/7 y automatización comercial.",
+  title: "LHYO GROUP (Lhyo Growth) | Soluciones Digitales, Páginas Web y Automatización IA",
+  description: "Lhyo Group & Lhyo Growth: Impulsamos el crecimiento de su empresa mediante páginas web corporativas de alto nivel, asistentes inteligentes 24/7 en WhatsApp e Instagram y automatización comercial CRM.",
+  keywords: [
+    "Lhyo Group",
+    "Lhyo Growth",
+    "Lhyo Systems",
+    "Lhyonneth Araque",
+    "automatización de negocios",
+    "agentes de inteligencia artificial WhatsApp",
+    "diseño de páginas web corporativas",
+    "automatización CRM Uruguay Venezuela"
+  ],
+  authors: [{ name: "Lhyonneth Araque - Lhyo Group" }],
+  alternates: {
+    canonical: "https://lhyogroup.vercel.app",
+  },
+  openGraph: {
+    title: "LHYO GROUP | Soluciones Digitales, Páginas Web y Automatización IA",
+    description: "Páginas web corporativas, asistentes inteligentes 24/7 y sistemas automatizados de ventas.",
+    url: "https://lhyogroup.vercel.app",
+    siteName: "Lhyo Group (Lhyo Growth)",
+    locale: "es_UY",
+    type: "website",
+  },
   robots: { index: true, follow: true },
 };
 
@@ -29,9 +51,27 @@ const TRUST_SEALS = [
 ];
 
 export default function LandingPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Lhyo Group",
+    alternateName: ["Lhyo Growth", "LHYO GROUP", "Lhyo Systems"],
+    url: "https://lhyogroup.vercel.app",
+    founder: {
+      "@type": "Person",
+      name: "Lhyonneth Araque"
+    },
+    description: "Firma especializada en páginas web corporativas, asistentes inteligentes de atención 24/7 y automatización comercial B2B.",
+    areaServed: ["UY", "VE", "US", "ES"]
+  };
+
   return (
     <main className="min-h-screen bg-[#070707] text-white selection:bg-[#BF953F] selection:text-[#070707]">
-      {/* BARRA SUPERIOR FIJA (ALTURA EXACTA: 80px / h-20) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <header className="border-b border-[#1E293B] bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <BrandLogo />
@@ -43,7 +83,6 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* SECCIÓN HERO */}
       <section className="relative overflow-hidden border-b border-[#1E293B] px-6 py-24 md:px-16 lg:px-24 max-w-7xl mx-auto">
         <div className="relative z-10 max-w-3xl">
           <div className="mb-4 text-xs font-bold tracking-wider text-[#BF953F] uppercase">
@@ -63,7 +102,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* ISOTIPO MINIMALISTA "L" DE FONDO */}
         <div
           aria-hidden="true"
           className="pointer-events-none select-none absolute right-4 md:right-12 lg:right-20 top-1/2 -translate-y-1/2 z-0 opacity-20 md:opacity-35 transition-opacity duration-500"
@@ -95,7 +133,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECCIÓN NUESTRA GARANTÍA (MANTIENE SU POSICIÓN PERFECTA) */}
       <section id="garantia" className="scroll-mt-36 border-b border-[#1E293B] bg-[#0B132B]/40">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 py-14">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
@@ -119,7 +156,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* SECCIÓN CATÁLOGO DE SERVICIOS (FRENA EXACTAMENTE A 80px DEL TOPE SIN MOSTRAR LA SECCIÓN ANTERIOR) */}
       <section id="catalogo" className="scroll-mt-20 px-6 pt-12 pb-24 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-[#1E293B]">
         <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 border-b border-[#1E293B] pb-6">
           <div>
@@ -136,7 +172,6 @@ export default function LandingPage() {
         <InteractiveCatalog />
       </section>
 
-      {/* PIE DE PÁGINA (MANTIENE SU POSICIÓN PERFECTA) */}
       <footer id="contacto" className="scroll-mt-20 px-6 py-16 md:px-16 lg:px-24 max-w-7xl mx-auto text-sm text-gray-300">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#1E293B] items-start">
           <div>
