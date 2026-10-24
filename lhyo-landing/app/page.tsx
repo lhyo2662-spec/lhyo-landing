@@ -31,6 +31,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Lhyonneth Araque", url: "https://lhyogroup.vercel.app" }],
   creator: "Lhyo Group",
   publisher: "Lhyo Group",
+  verification: {
+    google: "yFCVXdhuZSVXSoIv7r9xV69G6QO2B028ZX9ZWGZIG8o",
+  },
   alternates: {
     canonical: "https://lhyogroup.vercel.app",
   },
