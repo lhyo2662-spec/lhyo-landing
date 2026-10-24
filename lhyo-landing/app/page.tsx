@@ -4,31 +4,62 @@ import InteractiveCatalog from "@/components/InteractiveCatalog";
 import BrandLogo from "@/components/BrandLogo";
 
 export const metadata: Metadata = {
-  title: "LHYO GROUP (Lhyo Growth) | Soluciones Digitales, Páginas Web y Automatización IA",
-  description: "Lhyo Group & Lhyo Growth: Impulsamos el crecimiento de su empresa mediante páginas web corporativas de alto nivel, asistentes inteligentes 24/7 en WhatsApp e Instagram y automatización comercial CRM.",
+  metadataBase: new URL("https://lhyogroup.vercel.app"),
+  title: {
+    default: "LHYO GROUP | Páginas Web, Asistentes IA 24/7 para WhatsApp y Automatización CRM",
+    template: "%s | LHYO GROUP",
+  },
+  description:
+    "Lhyo Group (Lhyo Growth): Especialistas en desarrollo de páginas web corporativas modernas, asistentes inteligentes con IA para WhatsApp e Instagram 24/7 y sistemas de automatización de clientes (CRM) en Uruguay, Venezuela e Internacional.",
   keywords: [
     "Lhyo Group",
     "Lhyo Growth",
     "Lhyo Systems",
     "Lhyonneth Araque",
-    "automatización de negocios",
-    "agentes de inteligencia artificial WhatsApp",
+    "agencia de automatización e inteligencia artificial",
+    "asistentes inteligentes para WhatsApp",
+    "chatbots con IA para WhatsApp e Instagram",
+    "automatizar ventas por WhatsApp",
     "diseño de páginas web corporativas",
-    "automatización CRM Uruguay Venezuela"
+    "crear página web profesional para empresas",
+    "desarrollo web moderno Uruguay",
+    "desarrollo web moderno Venezuela",
+    "sistema CRM automatizado para negocios",
+    "organizar clientes y ventas automáticamente",
+    "soluciones digitales para empresas B2B"
   ],
-  authors: [{ name: "Lhyonneth Araque - Lhyo Group" }],
+  authors: [{ name: "Lhyonneth Araque", url: "https://lhyogroup.vercel.app" }],
+  creator: "Lhyo Group",
+  publisher: "Lhyo Group",
   alternates: {
     canonical: "https://lhyogroup.vercel.app",
   },
   openGraph: {
-    title: "LHYO GROUP | Soluciones Digitales, Páginas Web y Automatización IA",
-    description: "Páginas web corporativas, asistentes inteligentes 24/7 y sistemas automatizados de ventas.",
+    title: "LHYO GROUP | Soluciones Digitales, Páginas Web y Automatización con IA",
+    description:
+      "Impulsamos el crecimiento de su negocio con páginas web de alto nivel, asistentes inteligentes 24/7 en WhatsApp e Instagram y automatización comercial CRM.",
     url: "https://lhyogroup.vercel.app",
-    siteName: "Lhyo Group (Lhyo Growth)",
+    siteName: "LHYO GROUP",
     locale: "es_UY",
     type: "website",
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: "LHYO GROUP | Páginas Web, Asistentes IA 24/7 y Automatización CRM",
+    description:
+      "Desarrollamos páginas web corporativas, asistentes inteligentes que atienden 24/7 y sistemas automatizados de ventas.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 const TRUST_SEALS = [
@@ -51,25 +82,75 @@ const TRUST_SEALS = [
 ];
 
 export default function LandingPage() {
-  const jsonLd = {
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "Lhyo Group",
-    alternateName: ["Lhyo Growth", "LHYO GROUP", "Lhyo Systems"],
-    url: "https://lhyogroup.vercel.app",
-    founder: {
-      "@type": "Person",
-      name: "Lhyonneth Araque"
-    },
-    description: "Firma especializada en páginas web corporativas, asistentes inteligentes de atención 24/7 y automatización comercial B2B.",
-    areaServed: ["UY", "VE", "US", "ES"]
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://lhyogroup.vercel.app/#organization",
+        name: "Lhyo Group",
+        alternateName: ["LHYO GROUP", "Lhyo Growth", "Lhyo Systems"],
+        url: "https://lhyogroup.vercel.app",
+        founder: {
+          "@type": "Person",
+          name: "Lhyonneth Araque",
+          jobTitle: "CEO & Founder"
+        },
+        description:
+          "Empresa especializada en desarrollo de páginas web corporativas, asistentes inteligentes de atención automatizada 24/7 para WhatsApp e Instagram y sistemas CRM para negocios y profesionales.",
+        areaServed: [
+          { "@type": "Country", name: "Uruguay" },
+          { "@type": "Country", name: "Venezuela" },
+          { "@type": "Country", name: "United States" },
+          { "@type": "Country", name: "Spain" }
+        ],
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Catálogo de Soluciones Digitales y Automatización",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
+                description: "Atención automatizada 24/7, cualificación de clientes y agendamiento automático de citas comerciales."
+              }
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Páginas Web Modernas y Catálogos Digitales Corporativos",
+                description: "Diseño y programación de sitios web corporativos rápidos, elegantes y enfocados en conversión de clientes."
+              }
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Organización Automática de Clientes y Ventas (CRM)",
+                description: "Centralización automática de prospectos, clasificación por prioridad y seguimiento comercial."
+              }
+            }
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://lhyogroup.vercel.app/#website",
+        url: "https://lhyogroup.vercel.app",
+        name: "LHYO GROUP | Soluciones Digitales y Automatización IA",
+        publisher: { "@id": "https://lhyogroup.vercel.app/#organization" },
+        inLanguage: "es"
+      }
+    ]
   };
 
   return (
     <main className="min-h-screen bg-[#070707] text-white selection:bg-[#BF953F] selection:text-[#070707]">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <header className="border-b border-[#1E293B] bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
