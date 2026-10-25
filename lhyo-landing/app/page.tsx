@@ -2,6 +2,9 @@
 import AuditTriggerButton from "@/components/AuditTriggerButton";
 import InteractiveCatalog from "@/components/InteractiveCatalog";
 import BrandLogo from "@/components/BrandLogo";
+import LiveAiSimulator from "@/components/LiveAiSimulator";
+import DirectContactSection from "@/components/DirectContactSection";
+import FloatingOmniDock from "@/components/FloatingOmniDock";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lhyogroup.vercel.app"),
@@ -256,38 +259,10 @@ export default function LandingPage() {
         <InteractiveCatalog />
       </section>
 
-      <footer id="contacto" className="scroll-mt-20 px-6 py-16 md:px-16 lg:px-24 max-w-7xl mx-auto text-sm text-gray-300">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-[#1E293B] items-start">
-          <div>
-            <div className="font-bold text-xs text-[#BF953F] uppercase tracking-wider mb-3">
-              LHYO GROUP
-            </div>
-            <p className="text-xs leading-relaxed text-gray-300">
-              Especialistas en impulsar empresas y profesionales mediante páginas web corporativas de alto nivel, asistentes de atención automatizada y sistemas de organización comercial.
-            </p>
-          </div>
-          <div>
-            <div className="font-bold text-xs text-[#BF953F] uppercase tracking-wider mb-3">
-              CONTACTO DIRECTO
-            </div>
-            <p className="text-xs mb-2 text-gray-300">Atención Ejecutiva / WhatsApp: +598 00 000 000</p>
-            <p className="text-xs mb-2 text-gray-300">Email Corporativo: contacto@lhyogroup.com</p>
-            <p className="text-xs text-gray-300">Dirección General: Lhyonneth Araque (CEO)</p>
-          </div>
-          <div>
-            <div className="font-bold text-xs text-[#BF953F] uppercase tracking-wider mb-3">
-              OPERACIÓN INTERNACIONAL
-            </div>
-            <p className="text-xs mb-2 text-gray-300">• Uruguay (Montevideo)</p>
-            <p className="text-xs mb-2 text-gray-300">• Venezuela (Mérida / Nacional)</p>
-            <p className="text-xs text-gray-300">• Cobertura Online Internacional</p>
-          </div>
-        </div>
-        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
-          <span>© 2026 LHYO GROUP. TODOS LOS DERECHOS RESERVADOS.</span>
-          <span>SOLUCIONES DIGITALES Y AUTOMATIZACIÓN</span>
-        </div>
-      </footer>
+      <LiveAiSimulator />
+      <DirectContactSection />
+      <FloatingOmniDock />
     </main>
   );
 }
+
