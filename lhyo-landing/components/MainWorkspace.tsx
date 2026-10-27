@@ -52,97 +52,70 @@ export default function MainWorkspace() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
+  const navItems: Array<{ id: ActiveView; label: string }> = [
+    { id: "inicio", label: "INICIO" },
+    { id: "catalogo", label: "SERVICIOS Y PLANES" },
+    { id: "garantia", label: "NUESTRA GARANTÍA" },
+    { id: "contacto", label: "CONTACTO" },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#070707] text-white">
-      {/* BARRA DE NAVEGACIÓN INTERACTIVA POR SECCIONES */}
-      <header className="border-b border-[#1E293B] bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
+      {/* BARRA DE NAVEGACIÓN DE LUJO (SIN CUADRADOS RÍGIDOS, CON LÍNEA DORADA INFERIOR) */}
+      <header className="border-b border-white/10 bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <div onClick={() => switchView("inicio")} className="cursor-pointer">
             <BrandLogo />
           </div>
 
-          <nav className="hidden md:flex items-center gap-3 lg:gap-6 text-xs font-bold tracking-wider">
-            <button
-              type="button"
-              onClick={() => switchView("inicio")}
-              className={`px-3.5 py-2 transition border ${
-                activeView === "inicio"
-                  ? "text-[#FCF6BA] border-[#BF953F] bg-[#BF953F]/15"
-                  : "text-gray-300 border-transparent hover:text-[#BF953F]"
-              }`}
-            >
-              INICIO
-            </button>
-            <button
-              type="button"
-              onClick={() => switchView("catalogo")}
-              className={`px-3.5 py-2 transition border ${
-                activeView === "catalogo"
-                  ? "text-[#FCF6BA] border-[#BF953F] bg-[#BF953F]/15"
-                  : "text-gray-300 border-transparent hover:text-[#BF953F]"
-              }`}
-            >
-              SERVICIOS Y PLANES
-            </button>
-            <button
-              type="button"
-              onClick={() => switchView("garantia")}
-              className={`px-3.5 py-2 transition border ${
-                activeView === "garantia"
-                  ? "text-[#FCF6BA] border-[#BF953F] bg-[#BF953F]/15"
-                  : "text-gray-300 border-transparent hover:text-[#BF953F]"
-              }`}
-            >
-              NUESTRA GARANTÍA
-            </button>
-            <button
-              type="button"
-              onClick={() => switchView("contacto")}
-              className={`px-3.5 py-2 transition border ${
-                activeView === "contacto"
-                  ? "text-[#FCF6BA] border-[#BF953F] bg-[#BF953F]/15"
-                  : "text-gray-300 border-transparent hover:text-[#BF953F]"
-              }`}
-            >
-              CONTACTO
-            </button>
+          <nav className="hidden md:flex items-center gap-8 text-xs font-medium tracking-[0.14em]">
+            {navItems.map((tab) => {
+              const isActive = activeView === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => switchView(tab.id)}
+                  className={`relative py-2 transition-colors duration-200 ${
+                    isActive ? "text-[#FCF6BA] font-semibold" : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {tab.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#BF953F] rounded-full" />
+                  )}
+                </button>
+              );
+            })}
           </nav>
 
-          {/* Selector rápido en pantallas móviles */}
-          <div className="flex md:hidden items-center gap-1.5">
+          {/* Navegación móvil minimalista sin cajas */}
+          <div className="flex md:hidden items-center gap-4 text-[11px] font-medium tracking-wider">
             <button
               type="button"
               onClick={() => switchView("inicio")}
-              className={`px-2.5 py-1.5 text-[10px] font-bold border ${
-                activeView === "inicio" ? "border-[#BF953F] text-[#FCF6BA] bg-[#BF953F]/20" : "border-[#1E293B] text-gray-300"
-              }`}
+              className={activeView === "inicio" ? "text-[#FCF6BA] border-b border-[#BF953F] pb-1" : "text-gray-400"}
             >
               INICIO
             </button>
             <button
               type="button"
               onClick={() => switchView("catalogo")}
-              className={`px-2.5 py-1.5 text-[10px] font-bold border ${
-                activeView === "catalogo" ? "border-[#BF953F] text-[#FCF6BA] bg-[#BF953F]/20" : "border-[#1E293B] text-gray-300"
-              }`}
+              className={activeView === "catalogo" ? "text-[#FCF6BA] border-b border-[#BF953F] pb-1" : "text-gray-400"}
             >
               SERVICIOS
             </button>
             <button
               type="button"
               onClick={() => switchView("garantia")}
-              className={`px-2.5 py-1.5 text-[10px] font-bold border ${
-                activeView === "garantia" ? "border-[#BF953F] text-[#FCF6BA] bg-[#BF953F]/20" : "border-[#1E293B] text-gray-300"
-              }`}
+              className={activeView === "garantia" ? "text-[#FCF6BA] border-b border-[#BF953F] pb-1" : "text-gray-400"}
             >
               GARANTÍA
             </button>
             <button
               type="button"
               onClick={() => switchView("contacto")}
-              className={`px-2.5 py-1.5 text-[10px] font-bold border ${
-                activeView === "contacto" ? "border-[#BF953F] text-[#FCF6BA] bg-[#BF953F]/20" : "border-[#1E293B] text-gray-300"
-              }`}
+              className={activeView === "contacto" ? "text-[#FCF6BA] border-b border-[#BF953F] pb-1" : "text-gray-400"}
             >
               CONTACTO
             </button>
@@ -150,20 +123,19 @@ export default function MainWorkspace() {
         </div>
       </header>
 
-      {/* CONTENIDO DINÁMICO SEGÚN LA SECCIÓN SELECCIONADA */}
       <div className="flex-1">
         {activeView === "inicio" && (
           <div>
-            {/* PORTADA PRINCIPAL CALIBRADA AL MILÍMETRO (SEGÚN IMAGEN 2) */}
-            <section className="relative overflow-hidden border-b border-[#1E293B] px-6 pt-10 pb-16 md:px-16 md:pt-12 md:pb-20 lg:px-24 max-w-7xl mx-auto">
+            {/* PORTADA PRINCIPAL ELEVADA (PUNTO 1: pt-5 md:pt-7 PARA CERO SEPARACIÓN EXCESIVA) */}
+            <section className="relative overflow-hidden border-b border-white/10 px-6 pt-5 pb-14 md:px-16 md:pt-7 md:pb-16 lg:px-24 max-w-7xl mx-auto">
               <div className="relative z-10 max-w-3xl">
-                <div className="mb-3 text-xs font-bold tracking-wider text-[#BF953F] uppercase">
+                <div className="mb-2.5 text-[11px] font-semibold tracking-[0.18em] text-[#BF953F] uppercase">
                   INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
                 </div>
-                <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.08] mb-6">
+                <h1 className="text-4xl md:text-[56px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
                   Impulsamos el crecimiento de su negocio con tecnología inteligente y diseño de alto nivel
                 </h1>
-                <p className="text-base md:text-xl text-gray-300 max-w-2xl mb-9 font-normal leading-relaxed">
+                <p className="text-base md:text-lg text-gray-300/90 max-w-2xl mb-8 font-normal leading-relaxed">
                   Desarrollamos páginas web corporativas, asistentes inteligentes que atienden a sus clientes las 24 horas y sistemas automatizados que organizan sus ventas con total precisión.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
@@ -174,21 +146,21 @@ export default function MainWorkspace() {
                   <button
                     type="button"
                     onClick={() => switchView("catalogo")}
-                    className="px-7 py-4 border border-[#BF953F]/60 bg-[#090D16] text-xs font-extrabold tracking-wider uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/15 transition text-center"
+                    className="px-7 py-4 rounded-md border border-[#BF953F]/45 bg-white/[0.02] text-xs font-semibold tracking-[0.1em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/10 transition text-center"
                   >
-                    EXPLORAR CATÁLOGO DE SERVICIOS →
+                    Explorar Catálogo de Servicios →
                   </button>
                 </div>
               </div>
 
-              {/* MONOGRAMA "L" CENTRADO Y ELEVADO SEGÚN LA IMAGEN 2 */}
+              {/* MONOGRAMA "L" ELEVADO AL 41% */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none select-none absolute right-6 md:right-14 lg:right-20 top-[44%] -translate-y-1/2 z-0 opacity-25 md:opacity-40 transition-opacity duration-500"
+                className="pointer-events-none select-none absolute right-6 md:right-14 lg:right-20 top-[41%] -translate-y-1/2 z-0 opacity-25 md:opacity-40 transition-opacity duration-500"
               >
                 <svg
                   viewBox="0 0 120 110"
-                  className="w-64 h-64 md:w-96 md:h-96 lg:w-[420px] lg:h-[420px] -rotate-[22deg] drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
+                  className="w-64 h-64 md:w-96 md:h-96 lg:w-[415px] lg:h-[415px] -rotate-[22deg] drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -213,24 +185,22 @@ export default function MainWorkspace() {
               </div>
             </section>
 
-            {/* SIMULADOR EN VIVO EN LA PÁGINA PRINCIPAL */}
             <LiveAiSimulator />
 
-            {/* ACCESOS RÁPIDOS A LAS SECCIONES INDEPENDIENTES */}
-            <section className="px-6 py-12 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-[#1E293B]">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <section className="px-6 py-12 md:px-16 lg:px-24 max-w-7xl mx-auto border-b border-white/10">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <button
                   type="button"
                   onClick={() => switchView("catalogo")}
                   className="seal-card-lhyo p-6 text-left cursor-pointer"
                 >
-                  <span className="text-[10px] font-bold text-[#BF953F] uppercase tracking-widest block mb-1">
-                    SECCIÓN 01 · SOLUCIONES A MEDIDA
+                  <span className="text-[10px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-1.5">
+                    01 · SOLUCIONES A MEDIDA
                   </span>
-                  <div className="text-lg font-bold text-[#FCF6BA] mb-1">
-                    Abrir Catálogo de Servicios y Planes →
+                  <div className="text-lg font-semibold text-[#FCF6BA] mb-1">
+                    Catálogo de Servicios y Planes →
                   </div>
-                  <p className="text-xs text-gray-300">
+                  <p className="text-xs text-gray-300/90 leading-relaxed">
                     Conozca el alcance de cada servicio y configure su Catálogo Privado.
                   </p>
                 </button>
@@ -240,13 +210,13 @@ export default function MainWorkspace() {
                   onClick={() => switchView("garantia")}
                   className="seal-card-lhyo p-6 text-left cursor-pointer"
                 >
-                  <span className="text-[10px] font-bold text-[#BF953F] uppercase tracking-widest block mb-1">
-                    SECCIÓN 02 · ESTÁNDAR DE EXCELENCIA
+                  <span className="text-[10px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-1.5">
+                    02 · ESTÁNDAR DE EXCELENCIA
                   </span>
-                  <div className="text-lg font-bold text-[#FCF6BA] mb-1">
-                    Conocer Nuestra Garantía Corporativa →
+                  <div className="text-lg font-semibold text-[#FCF6BA] mb-1">
+                    Nuestra Garantía Corporativa →
                   </div>
-                  <p className="text-xs text-gray-300">
+                  <p className="text-xs text-gray-300/90 leading-relaxed">
                     Calidad superior, atención 24 horas, implementación integral y presencia global.
                   </p>
                 </button>
@@ -256,13 +226,13 @@ export default function MainWorkspace() {
                   onClick={() => switchView("contacto")}
                   className="seal-card-lhyo p-6 text-left cursor-pointer"
                 >
-                  <span className="text-[10px] font-bold text-[#BF953F] uppercase tracking-widest block mb-1">
-                    SECCIÓN 03 · COMUNICACIÓN EJECUTIVA
+                  <span className="text-[10px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-1.5">
+                    03 · COMUNICACIÓN EJECUTIVA
                   </span>
-                  <div className="text-lg font-bold text-[#FCF6BA] mb-1">
-                    Ir a Contacto Directo y Redes →
+                  <div className="text-lg font-semibold text-[#FCF6BA] mb-1">
+                    Contacto Directo y Redes →
                   </div>
-                  <p className="text-xs text-gray-300">
+                  <p className="text-xs text-gray-300/90 leading-relaxed">
                     Envíenos una consulta directa o contáctenos por WhatsApp, Instagram y LinkedIn.
                   </p>
                 </button>
@@ -273,31 +243,16 @@ export default function MainWorkspace() {
 
         {activeView === "catalogo" && (
           <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            <div className="mb-8 flex justify-between items-center">
-              <button
-                type="button"
-                onClick={() => switchView("inicio")}
-                className="px-4 py-2 border border-[#BF953F]/50 bg-[#090D16] text-xs font-bold text-[#FCF6BA] hover:border-[#FCF6BA] transition"
-              >
-                ← VOLVER A LA PORTADA PRINCIPAL
-              </button>
-              <button
-                type="button"
-                onClick={() => switchView("contacto")}
-                className="text-xs font-bold text-[#BF953F] hover:text-[#FCF6BA] transition"
-              >
-                Ir a Contacto Directo →
-              </button>
-            </div>
-
-            <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 border-b border-[#1E293B] pb-6">
+            <div className="flex flex-col md:flex-row justify-between md:items-end mb-10 border-b border-white/10 pb-6">
               <div>
-                <span className="text-xs font-bold text-[#BF953F] uppercase tracking-wider">
+                <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em]">
                   SOLUCIONES EMPRESARIALES A MEDIDA
                 </span>
-                <h2 className="text-3xl font-bold mt-2">CATÁLOGO DE SERVICIOS</h2>
+                <h2 className="text-3xl md:text-4xl font-semibold mt-1.5 tracking-tight">
+                  Catálogo de Servicios
+                </h2>
               </div>
-              <span className="text-sm text-gray-300 mt-2 md:mt-0">
+              <span className="text-sm text-gray-300/90 mt-2 md:mt-0">
                 Seleccione cualquier servicio para conocer su alcance y personalizar su solicitud
               </span>
             </div>
@@ -308,32 +263,14 @@ export default function MainWorkspace() {
 
         {activeView === "garantia" && (
           <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            <div className="mb-8 flex justify-between items-center">
-              <button
-                type="button"
-                onClick={() => switchView("inicio")}
-                className="px-4 py-2 border border-[#BF953F]/50 bg-[#090D16] text-xs font-bold text-[#FCF6BA] hover:border-[#FCF6BA] transition"
-              >
-                ← VOLVER A LA PORTADA PRINCIPAL
-              </button>
-              <button
-                type="button"
-                onClick={() => switchView("catalogo")}
-                className="text-xs font-bold text-[#BF953F] hover:text-[#FCF6BA] transition"
-              >
-                Ver Catálogo de Servicios →
-              </button>
-            </div>
-
-            <div className="mb-12 border-b border-[#1E293B] pb-6">
-              <div className="w-12 h-0.5 bg-[#BF953F] mb-4" />
-              <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-widest block mb-2">
+            <div className="mb-12 border-b border-white/10 pb-6">
+              <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-2">
                 RESPALDO Y COMPROMISO EJECUTIVO
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                NUESTRA GARANTÍA CORPORATIVA
+              <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+                Nuestra Garantía Corporativa
               </h2>
-              <p className="text-sm md:text-base text-gray-300 max-w-3xl mt-3 leading-relaxed">
+              <p className="text-sm md:text-base text-gray-300/90 max-w-3xl mt-3 leading-relaxed">
                 Cada sistema desarrollado por Lhyo Group se construye bajo estándares rigurosos de velocidad, estabilidad y acompañamiento continuo para garantizar el retorno de inversión de su empresa:
               </p>
             </div>
@@ -345,12 +282,12 @@ export default function MainWorkspace() {
                   className="seal-card-lhyo p-7 h-full flex flex-col justify-between"
                 >
                   <div>
-                    <div className="w-8 h-0.5 bg-[#BF953F] mb-4" />
-                    <h3 className="font-bold text-base tracking-wide text-[#FCF6BA] mb-2">
+                    <div className="w-8 h-[1.5px] bg-[#BF953F] mb-4" />
+                    <h3 className="font-semibold text-base tracking-wide text-[#FCF6BA] mb-2">
                       {seal.title}
                     </h3>
                   </div>
-                  <p className="text-xs text-gray-200 leading-relaxed">
+                  <p className="text-xs text-gray-300 leading-relaxed">
                     {seal.subtitle}
                   </p>
                 </div>
@@ -359,13 +296,13 @@ export default function MainWorkspace() {
 
             <div className="luxury-vault-container p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
               <div className="max-w-2xl">
-                <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-wider block mb-1">
+                <span className="text-[11px] font-semibold text-[#FCF6BA] uppercase tracking-[0.14em] block mb-1.5">
                   EJECUCIÓN LLAVE EN MANO
                 </span>
-                <h3 className="text-2xl font-bold text-white mb-2">
+                <h3 className="text-2xl font-semibold text-white mb-2">
                   Nos encargamos de toda la arquitectura técnica por usted
                 </h3>
-                <p className="text-sm text-gray-300 leading-relaxed">
+                <p className="text-sm text-gray-300/90 leading-relaxed">
                   Desde el diseño corporativo hasta el entrenamiento de sus asistentes inteligentes y la conexión con su CRM, nuestro equipo entrega el ecosistema probado y funcionando.
                 </p>
               </div>
@@ -380,22 +317,12 @@ export default function MainWorkspace() {
         )}
 
         {activeView === "contacto" && (
-          <div className="pt-6">
-            <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24">
-              <button
-                type="button"
-                onClick={() => switchView("inicio")}
-                className="px-4 py-2 border border-[#BF953F]/50 bg-[#090D16] text-xs font-bold text-[#FCF6BA] hover:border-[#FCF6BA] transition"
-              >
-                ← VOLVER A LA PORTADA PRINCIPAL
-              </button>
-            </div>
+          <div className="pt-4">
             <DirectContactSection />
           </div>
         )}
       </div>
 
-      {/* BARRA LEGAL COMPACTA (En vistas donde no está abierto el pie de contacto completo) */}
       {activeView !== "contacto" && (
         <div className="px-6 py-8 md:px-16 lg:px-24 max-w-7xl mx-auto w-full flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
           <span>© 2026 LHYO GROUP. TODOS LOS DERECHOS RESERVADOS.</span>

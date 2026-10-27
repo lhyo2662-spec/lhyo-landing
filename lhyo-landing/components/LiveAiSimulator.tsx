@@ -124,7 +124,7 @@ export default function LiveAiSimulator() {
             </div>
           </div>
 
-          <div className="bg-[#090D16] border-l-2 border-[#BF953F] p-3.5 text-[11px] font-mono text-[#FCF6BA] tracking-wide">
+          <div className="bg-[#090D16] border-l-2 border-[#BF953F] p-3.5 text-[11px] font-medium text-[#FCF6BA] tracking-wide">
             ⚡ ACCIÓN INTERNA AUTOMÁTICA: {activeScenario.crmAction}
           </div>
         </div>
@@ -207,3 +207,4 @@ export default function LiveAiSimulator() {
     </section>
   );
 }
+
