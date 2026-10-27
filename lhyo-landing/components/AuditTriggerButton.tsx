@@ -598,6 +598,12 @@ export default function AuditTriggerButton({
             <p className="text-sm md:text-base text-gray-300 max-w-lg mx-auto mb-6 leading-relaxed">
               Hemos reservado tu espacio exclusivo para el <strong>{formatDisplayDate(selectedDate)}</strong> a las <strong>{selectedTime}</strong> y hemos enviado una copia de tu <strong>Catálogo Privado B2B</strong> a <strong>{email}</strong>.
             </p>
+                        <div className="max-w-lg mx-auto mb-6 p-4 bg-[#0B132B]/90 border border-[#BF953F] text-xs text-gray-200 leading-relaxed text-left shadow-lg">
+              <strong className="text-[#FCF6BA] uppercase tracking-wider block mb-1">
+                ⚠️ IMPORTANTE · REVISA TU CARPETA DE SPAM O PROMOCIONES:
+              </strong>
+              Si no visualizas nuestro correo en tu bandeja principal en los próximos 2 minutos, por favor revisa tu carpeta de <strong>Spam (Correo no deseado)</strong> o <strong>Promociones</strong> y márcalo como <em>&ldquo;No es spam&rdquo;</em> para acceder a tu Catálogo Privado y a tu enlace de videollamada.
+            </div>
             <div className="flex flex-col gap-3 max-w-md mx-auto mt-6">
               <a
                 href={`/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl || "Mi Empresa")}`}
@@ -642,4 +648,5 @@ export default function AuditTriggerButton({
     </>
   );
 }
+
 
