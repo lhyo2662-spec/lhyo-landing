@@ -110,45 +110,34 @@ export default function MainWorkspace() {
       <div className="flex-1">
         {activeView === "inicio" && (
           <div>
-            {/* PORTADA CON SIMETRÍA AXIAL PERFECTA ENTRE EL BLOQUE DE TEXTO Y EL MONOGRAMA "L" */}
+            {/* PORTADA CON ANCLAJE EXACTO ENTRE LAS DOS LÍNEAS ROJAS */}
             <section className="relative overflow-hidden border-b border-white/10 px-6 pt-10 pb-16 md:px-16 lg:px-24 max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 relative z-10">
-                {/* Columna Izquierda (7 columnas): Título equilibrado en 4 líneas y 2 botones de 52px idénticos */}
-                <div className="lg:col-span-7">
-                  <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-3">
-                    INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
-                  </span>
-                  <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.08] mb-6 text-white max-w-[640px]">
+              {/* Subtítulo superior (por encima de la línea roja superior) */}
+              <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-3">
+                INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
+              </span>
+
+              {/* CONTENEDOR ANCLADO: Top = Borde superior de "Impulsamos el" | Bottom = Base de "con total precisión." */}
+              <div className="relative mb-9">
+                <div className="relative z-10 max-w-[680px]">
+                  <h1 className="text-4xl sm:text-5xl md:text-[54px] font-semibold tracking-tight leading-[1.08] mb-6 text-white">
                     Impulsamos el crecimiento de su negocio con tecnología inteligente y diseño de alto nivel
                   </h1>
-                  <p className="text-base md:text-lg text-gray-300/90 max-w-[590px] mb-9 font-normal leading-relaxed">
+                  <p className="text-base md:text-lg text-gray-300/90 max-w-[590px] mb-0 font-normal leading-relaxed">
                     Desarrollamos páginas web corporativas, asistentes inteligentes que atienden a sus clientes las 24 horas y sistemas automatizados que organizan sus ventas con total precisión.
                   </p>
-
-                  {/* Dos botones 100% simétricos: misma altura (52px) y una sola línea */}
-                  <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-                    <AuditTriggerButton 
-                      label="AGENDAR AUDITORÍA Y RECIBIR CATÁLOGO" 
-                      selectedPlan="AUDITORÍA GENERAL (Botón Principal)" 
-                    />
-                    <button
-                      type="button"
-                      onClick={() => switchView("catalogo")}
-                      className="h-[52px] px-7 rounded-md border border-[#BF953F]/55 bg-white/[0.03] text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/15 transition inline-flex items-center justify-center whitespace-nowrap"
-                    >
-                      EXPLORAR CATÁLOGO DE SERVICIOS →
-                    </button>
-                  </div>
                 </div>
 
-                {/* Columna Derecha (5 columnas): Monograma "L" centrado matemática y simétricamente en su propio eje */}
+                {/* MONOGRAMA "L" RECORTADO AL MILÍMETRO (viewBox="8.5 7.5 96.5 97.5"):
+                    - Su punta más alta toca exactamente el borde superior de H1 (Línea Roja Superior).
+                    - Su punta más baja toca exactamente la base de P (Línea Roja Inferior). */}
                 <div
                   aria-hidden="true"
-                  className="hidden lg:flex lg:col-span-5 items-center justify-center pointer-events-none select-none"
+                  className="hidden md:flex items-center justify-end pointer-events-none select-none absolute right-2 lg:right-8 top-[4px] bottom-[2px] z-0"
                 >
                   <svg
-                    viewBox="0 0 120 110"
-                    className="w-[380px] h-[380px] xl:w-[410px] xl:h-[410px] -rotate-[22deg] opacity-40 drop-shadow-[0_24px_40px_rgba(0,0,0,0.9)] -mt-4"
+                    viewBox="8.5 7.5 96.5 97.5"
+                    className="h-full w-auto opacity-40 drop-shadow-[0_24px_40px_rgba(0,0,0,0.9)]"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
@@ -159,18 +148,35 @@ export default function MainWorkspace() {
                         <stop offset="100%" stopColor="#BF953F" stopOpacity="0.60" />
                       </linearGradient>
                     </defs>
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
-                      fill="url(#lhyoMonogramGrad)"
-                    />
-                    <path
-                      d="M48 11 L58 3 L58 63 L48 63 Z"
-                      fill="url(#lhyoMonogramGrad)"
-                    />
+                    <g transform="rotate(-22 60 55)">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
+                        fill="url(#lhyoMonogramGrad)"
+                      />
+                      <path
+                        d="M48 11 L58 3 L58 63 L48 63 Z"
+                        fill="url(#lhyoMonogramGrad)"
+                      />
+                    </g>
                   </svg>
                 </div>
+              </div>
+
+              {/* Botones inferiores (por debajo de la línea roja inferior) */}
+              <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+                <AuditTriggerButton 
+                  label="AGENDAR AUDITORÍA Y RECIBIR CATÁLOGO" 
+                  selectedPlan="AUDITORÍA GENERAL (Botón Principal)" 
+                />
+                <button
+                  type="button"
+                  onClick={() => switchView("catalogo")}
+                  className="h-[52px] px-7 rounded-md border border-[#BF953F]/55 bg-white/[0.03] text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/15 transition inline-flex items-center justify-center whitespace-nowrap"
+                >
+                  EXPLORAR CATÁLOGO DE SERVICIOS →
+                </button>
               </div>
             </section>
 
