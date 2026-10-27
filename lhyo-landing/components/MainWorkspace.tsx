@@ -61,7 +61,6 @@ export default function MainWorkspace() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#070707] text-white">
-      {/* BARRA DE NAVEGACIÓN SIMÉTRICA */}
       <header className="border-b border-white/10 bg-[#070707]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <div onClick={() => switchView("inicio")} className="cursor-pointer">
@@ -111,65 +110,67 @@ export default function MainWorkspace() {
       <div className="flex-1">
         {activeView === "inicio" && (
           <div>
-            {/* PORTADA CON LA MISMA DISTANCIA SUPERIOR EXACTA (pt-10) DE NUESTRA GARANTÍA */}
+            {/* PORTADA CON SIMETRÍA AXIAL PERFECTA ENTRE EL BLOQUE DE TEXTO Y EL MONOGRAMA "L" */}
             <section className="relative overflow-hidden border-b border-white/10 px-6 pt-10 pb-16 md:px-16 lg:px-24 max-w-7xl mx-auto">
-              <div className="relative z-10 max-w-3xl">
-                <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-2">
-                  INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
-                </span>
-                <h1 className="text-4xl md:text-[54px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
-                  Impulsamos el crecimiento de su negocio con tecnología inteligente y diseño de alto nivel
-                </h1>
-                <p className="text-base md:text-lg text-gray-300/90 max-w-2xl mb-8 font-normal leading-relaxed">
-                  Desarrollamos páginas web corporativas, asistentes inteligentes que atienden a sus clientes las 24 horas y sistemas automatizados que organizan sus ventas con total precisión.
-                </p>
+              <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-8 relative z-10">
+                {/* Columna Izquierda (7 columnas): Título equilibrado en 4 líneas y 2 botones de 52px idénticos */}
+                <div className="lg:col-span-7">
+                  <span className="text-[11px] font-semibold text-[#BF953F] uppercase tracking-[0.16em] block mb-3">
+                    INNOVACIÓN, PRESENCIA DIGITAL Y AUTOMATIZACIÓN COMERCIAL
+                  </span>
+                  <h1 className="text-4xl sm:text-5xl lg:text-[56px] font-semibold tracking-tight leading-[1.08] mb-6 text-white max-w-[640px]">
+                    Impulsamos el crecimiento de su negocio con tecnología inteligente y diseño de alto nivel
+                  </h1>
+                  <p className="text-base md:text-lg text-gray-300/90 max-w-[590px] mb-9 font-normal leading-relaxed">
+                    Desarrollamos páginas web corporativas, asistentes inteligentes que atienden a sus clientes las 24 horas y sistemas automatizados que organizan sus ventas con total precisión.
+                  </p>
 
-                {/* DOS BOTONES SIMÉTRICOS DE IGUAL ALTURA Y UNA SOLA LÍNEA */}
-                <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-                  <div className="sm:w-auto">
+                  {/* Dos botones 100% simétricos: misma altura (52px) y una sola línea */}
+                  <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
                     <AuditTriggerButton 
                       label="AGENDAR AUDITORÍA Y RECIBIR CATÁLOGO" 
                       selectedPlan="AUDITORÍA GENERAL (Botón Principal)" 
                     />
+                    <button
+                      type="button"
+                      onClick={() => switchView("catalogo")}
+                      className="h-[52px] px-7 rounded-md border border-[#BF953F]/55 bg-white/[0.03] text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/15 transition inline-flex items-center justify-center whitespace-nowrap"
+                    >
+                      EXPLORAR CATÁLOGO DE SERVICIOS →
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => switchView("catalogo")}
-                    className="px-7 py-4 rounded-md border border-[#BF953F]/50 bg-white/[0.03] text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#BF953F]/15 transition text-center whitespace-nowrap"
-                  >
-                    EXPLORAR CATÁLOGO DE SERVICIOS →
-                  </button>
                 </div>
-              </div>
 
-              <div
-                aria-hidden="true"
-                className="pointer-events-none select-none absolute right-6 md:right-14 lg:right-20 top-1/2 -translate-y-1/2 z-0 opacity-25 md:opacity-40 transition-opacity duration-500"
-              >
-                <svg
-                  viewBox="0 0 120 110"
-                  className="w-64 h-64 md:w-96 md:h-96 lg:w-[415px] lg:h-[415px] -rotate-[22deg] drop-shadow-[0_20px_35px_rgba(0,0,0,0.85)]"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                {/* Columna Derecha (5 columnas): Monograma "L" centrado matemática y simétricamente en su propio eje */}
+                <div
+                  aria-hidden="true"
+                  className="hidden lg:flex lg:col-span-5 items-center justify-center pointer-events-none select-none"
                 >
-                  <defs>
-                    <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#F8FAFC" stopOpacity="0.95" />
-                      <stop offset="55%" stopColor="#E2E8F0" stopOpacity="0.75" />
-                      <stop offset="100%" stopColor="#BF953F" stopOpacity="0.55" />
-                    </linearGradient>
-                  </defs>
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
-                    fill="url(#lhyoMonogramGrad)"
-                  />
-                  <path
-                    d="M48 11 L58 3 L58 63 L48 63 Z"
-                    fill="url(#lhyoMonogramGrad)"
-                  />
-                </svg>
+                  <svg
+                    viewBox="0 0 120 110"
+                    className="w-[380px] h-[380px] xl:w-[410px] xl:h-[410px] -rotate-[22deg] opacity-40 drop-shadow-[0_24px_40px_rgba(0,0,0,0.9)] -mt-4"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#F8FAFC" stopOpacity="0.95" />
+                        <stop offset="55%" stopColor="#CBD5E1" stopOpacity="0.78" />
+                        <stop offset="100%" stopColor="#BF953F" stopOpacity="0.60" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
+                      fill="url(#lhyoMonogramGrad)"
+                    />
+                    <path
+                      d="M48 11 L58 3 L58 63 L48 63 Z"
+                      fill="url(#lhyoMonogramGrad)"
+                    />
+                  </svg>
+                </div>
               </div>
             </section>
 
