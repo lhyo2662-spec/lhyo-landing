@@ -6,7 +6,7 @@ const bookedSlotsRegistry = new Set<string>();
 
 export async function GET() {
   return NextResponse.json({
-    status: "ARKOS_V15_3_ONLINE",
+    status: "ARKOS_V21_ENTERPRISE_ONLINE",
     webhook: "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb",
     meetRoom: "https://meet.google.com/krc-vdii-zzh",
     bookedSlots: Array.from(bookedSlotsRegistry),
@@ -16,6 +16,10 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => ({}));
+    const reqUrl = new URL(request.url);
+    const baseDomain = reqUrl.origin.includes("localhost")
+      ? "https://lhyogroup.com"
+      : reqUrl.origin;
 
     const slotKey = String(body.payload?.slotKey || body.payload?.startTime || "Horario por definir");
     if (slotKey !== "Horario por definir") {
@@ -31,16 +35,22 @@ export async function POST(request: Request) {
       return typeof item === "object" && "value" in item ? String(item.value) : String(item);
     };
 
-    const fullName = String(attendees[0]?.name || "Cliente Ejecutivo").trim();
+    const fullName = String(attendees[0]?.name || "Cliente Corporativo").trim();
     const rawEmail = String(attendees[0]?.email || "").trim();
-    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail) ? rawEmail : "lhyoaraque2662@gmail.com";
+    const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(rawEmail) ? rawEmail : "ceo@lhyogroup.com";
     const companyUrl = extractVal("company_url") || "No especificada";
     const rawRevenue = extractVal("facturacion_mensual") || "0";
-    const bottleneck = extractVal("cuello_botella") || "Impulsar crecimiento comercial";
+    const bottleneck = extractVal("cuello_botella") || "Escalamiento e infraestructura corporativa";
     const selectedPlan = extractVal("plan_elegido") || String(body.payload?.metadata?.source_component || "AUDITORÍA GENERAL");
 
     const cleanRevenue = Number(rawRevenue.replace(/[^0-9.]/g, "")) || 0;
-    const classification = cleanRevenue >= 5000 ? "VIP_QUALIFIED" : "LOW_QUALIFIED";
+    const isEnterpriseRequest = selectedPlan.toUpperCase().includes("ENTERPRISE");
+
+    const classification = isEnterpriseRequest
+      ? "VIP_ENTERPRISE"
+      : cleanRevenue >= 5000
+      ? "VIP_QUALIFIED"
+      : "LOW_QUALIFIED";
 
     const nowFormatted = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
     const meetLink = "https://meet.google.com/krc-vdii-zzh";
@@ -57,8 +67,8 @@ export async function POST(request: Request) {
       objetivo_cliente: bottleneck,
       resumen_crm: `${selectedPlan} || Objetivo: ${bottleneck}`,
       link_videollamada_meet: meetLink,
-      link_catalogo_pdf: `https://lhyogroup.vercel.app/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl)}`,
-      link_google_calendar: `https://lhyogroup.vercel.app/api/agendar-calendario?slot=${encodeURIComponent(slotKey)}&ceo=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&empresa=${encodeURIComponent(companyUrl)}&plan=${encodeURIComponent(selectedPlan)}`
+      link_catalogo_pdf: `${baseDomain}/api/dossier?ceo=${encodeURIComponent(fullName)}&empresa=${encodeURIComponent(companyUrl)}&tier=${encodeURIComponent(classification)}`,
+      link_google_calendar: `${baseDomain}/api/agendar-calendario?slot=${encodeURIComponent(slotKey)}&ceo=${encodeURIComponent(fullName)}&email=${encodeURIComponent(email)}&empresa=${encodeURIComponent(companyUrl)}&plan=${encodeURIComponent(selectedPlan)}`
     };
 
     const makeWebhookUrl = "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb";
@@ -70,7 +80,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      status: "CONNECTED_OK",
+      status: "ENTERPRISE_PIPELINE_OK",
       makeHttpCode: makeResponse.status,
       classification: classification,
       bookedSlot: slotKey,
