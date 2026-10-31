@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import BrandLogo from "./BrandLogo";
 import AuditTriggerButton from "./AuditTriggerButton";
 import InteractiveCatalog from "./InteractiveCatalog";
+import EnterpriseCatalog from "./EnterpriseCatalog";
 import LiveAiSimulator from "./LiveAiSimulator";
 import DirectContactSection from "./DirectContactSection";
 import FloatingOmniDock from "./FloatingOmniDock";
 
-type ActiveView = "inicio" | "catalogo" | "garantia" | "contacto";
+type ActiveView = "inicio" | "enterprise" | "catalogo" | "garantia" | "contacto";
 
 const TRUST_SEALS = [
   {
@@ -54,6 +55,7 @@ export default function MainWorkspace() {
 
   const navItems: Array<{ id: ActiveView; label: string }> = [
     { id: "inicio", label: "INICIO" },
+    { id: "enterprise", label: "INFRAESTRUCTURA ENTERPRISE" },
     { id: "catalogo", label: "SERVICIOS Y PLANES" },
     { id: "garantia", label: "NUESTRA GARANTÍA" },
     { id: "contacto", label: "CONTACTO" },
@@ -236,6 +238,10 @@ export default function MainWorkspace() {
           </div>
         )}
 
+        {activeView === "enterprise" && (
+          <EnterpriseCatalog />
+        )}
+
         {activeView === "catalogo" && (
           <section className="px-6 pt-10 pb-28 md:px-16 lg:px-24 max-w-7xl mx-auto">
             <div className="mb-12 border-b border-white/10 pb-6 flex flex-col md:flex-row justify-between md:items-end gap-4">
@@ -327,3 +333,4 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
