@@ -176,7 +176,7 @@ export default function MainWorkspace() {
         {activeView === "inicio" && (
           <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
             {/* PRIMERA PANTALLA 100% AISLADA: Mantiene la distancia superior exacta (pt-8) y empuja el segundo bloque fuera de la vista inicial */}
-            <div className="min-h-[calc(100vh-5rem)] pt-8 pb-10 flex flex-col justify-start">
+            <div className="min-h-[calc(100vh-5rem)] pt-8 pb-7 flex flex-col justify-between">
               <div>
               <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
                 ✦ TECNOLOGÍA DEL FUTURO E INGENIERÍA DE LUJO · SISTEMAS INTELIGENTES 24/7
@@ -420,5 +420,6 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
 
 
