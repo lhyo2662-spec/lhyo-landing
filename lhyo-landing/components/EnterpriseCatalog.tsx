@@ -6,105 +6,105 @@ import AuditTriggerButton from "./AuditTriggerButton";
 const ENTERPRISE_SOLUTIONS = [
   {
     id: "ENT-1",
-    num: "01",
-    badge: "ARQUITECTURA 01 · AUTOMATIZACIÓN PROPIA SIN MENSUALIDADES",
-    title: "AUTOMATIZACIÓN LIBRE DE COSTOS (Infraestructura n8n)",
+    num: "04",
+    badge: "SOLUCIÓN 04 · DUEÑO TOTAL DE TU AUTOMATIZACIÓN",
+    title: "Motor Automático Propio (Sin Pagar Mensualidades a Terceros)",
     shortDesc:
-      "Migramos su operación a n8n en servidores privados (Self-hosted). Eliminamos sus costos mensuales de herramientas de terceros y construimos un motor de procesos ilimitado.",
+      "Deja de pagar alquiler mensual por cada mensaje o tarea. Instalamos el motor automático privado de tu empresa (tecnología n8n en servidor propio) para que todo tu negocio funcione sin límites.",
     plainExplanation:
-      "En palabras simples: En lugar de pagar mensualidades caras en otras plataformas cada vez que tu sistema envía un mensaje o registra un cliente, instalamos tu propio motor automático privado para que tengas operaciones ilimitadas a costo $0 por tarea.",
-    statusBadge: "✦ Cero Costo por Operación · Ilimitado",
+      "¿Por qué te conviene? Las plataformas comunes te cobran cada vez que tu sistema trabaja. Nosotros te instalamos tu propio motor privado para que atiendas 1,000 o 100,000 clientes sin pagar ni un centavo extra por operación.",
+    statusBadge: "✦ Cero Costo por Tarea · Uso Ilimitado",
     metrics: [
-      { label: "Límite de Tareas", value: "Ilimitadas (∞)" },
-      { label: "Ahorro en Licencias", value: "Hasta 85% Anual" },
-      { label: "Dueño del Sistema", value: "100% Tu Empresa" }
+      { label: "Capacidad de Trabajo", value: "Ilimitada (∞)" },
+      { label: "Ahorro en Alquileres", value: "Hasta 85% Anual" },
+      { label: "Dueño del Motor", value: "100% Tu Empresa" }
     ],
     includedItems: [
-      "Instalación de tu propio motor de automatización n8n en un servidor privado exclusivo para tu empresa (sin depender de nadie).",
-      "Eliminación definitiva de cobros mensuales por cada mensaje, tarea o cliente atendido en plataformas de terceros.",
-      "Traslado completo y mejora de todas tus automatizaciones actuales sin detener ni un minuto el funcionamiento de tu negocio.",
-      "Capacidad industrial para atender miles de mensajes, correos y registros al mismo tiempo sin colapsos ni demoras.",
-      "Control total y privacidad absoluta de las contraseñas, contactos y movimientos de tu empresa.",
-      "Copias de seguridad automáticas todos los días y vigilancia técnica 24/7 para que nunca deje de funcionar."
+      "Instalación de tu propio motor automático privado (arquitectura n8n Self-Hosted) exclusivo para tu negocio.",
+      "Eliminación definitiva de cobros mensuales por cada mensaje, correo o cliente registrado.",
+      "Traslado completo y mejora de tus procesos actuales sin detener ni un minuto la atención de tu empresa.",
+      "Capacidad para procesar miles de clientes simultáneos al instante sin bloqueos ni límites.",
+      "Privacidad total: todas tus contraseñas, contactos y movimientos quedan dentro de tu propio servidor.",
+      "Copias de seguridad automáticas todos los días y supervisión técnica 24/7."
     ],
     executionGuarantee:
-      "Entrega llave en mano: Configuramos tu servidor privado, trasladamos todos tus procesos y dejamos tu motor trabajando en automático sin facturas por volumen.",
+      "Entrega llave en mano: Configuramos tu servidor privado, conectamos tus canales y te entregamos tu motor funcionando sin facturas por consumo.",
     customOptions: [
-      "Instalación de servidor privado n8n exclusivo para mi empresa",
-      "Eliminar cobros mensuales por cantidad de tareas o mensajes",
-      "Conectar WhatsApp, Correo, Calendario y CRM sin límites",
+      "Tener mi propio servidor automático exclusivo para mi empresa",
+      "Eliminar los cobros mensuales por cantidad de mensajes o tareas",
+      "Conectar mi WhatsApp, Correo, Calendario y CRM sin límites",
       "Respaldo diario automático y soporte técnico continuo"
     ],
-    crmBaseName: "ENTERPRISE 01 (Infraestructura n8n Self-Hosted)",
-    buttonText: "SOLICITAR INFRAESTRUCTURA N8N · AGENDAR AUDITORÍA"
+    crmBaseName: "SOLUCIÓN 04 · Motor Automático Propio (n8n Self-Hosted)",
+    buttonText: "QUIERO MI PROPIO MOTOR AUTOMÁTICO · AGENDAR"
   },
   {
     id: "ENT-2",
-    num: "02",
-    badge: "ARQUITECTURA 02 · CEREBRO INTELIGENTE CON LOS DOCUMENTOS DE TU EMPRESA",
-    title: "AGENTES RAG (Memoria Institucional Privada)",
+    num: "05",
+    badge: "SOLUCIÓN 05 · INTELIGENCIA CON MEMORIA FOTOGRÁFICA DE TU NEGOCIO",
+    title: "Cerebro Privado con la Memoria de tu Empresa (IA Interna)",
     shortDesc:
-      "Cerebros de IA locales conectados a sus bases de datos, contratos y documentos internos. Privacidad absoluta para que su equipo consulte información corporativa en segundos.",
+      "Imagina un asistente experto que se ha leído todos tus contratos, precios, manuales y documentos, listo para responder cualquier pregunta a ti o a tu equipo en 1 segundo y en total secreto.",
     plainExplanation:
-      "En palabras simples: Es como tener un director experto con memoria fotográfica que se ha leído todos los contratos, listas de precios, PDFs y manuales de tu negocio, listo para responder cualquier duda a ti o a tu equipo en 1 segundo sin que tu información salga a internet.",
-    statusBadge: "✦ Privacidad Absoluta · Memoria Exacta",
+      "¿Por qué te conviene? En lugar de que tú o tus empleados pierdan horas buscando un dato entre cientos de carpetas o PDFs, le preguntas al Cerebro Privado de tu empresa y te da la respuesta exacta con página y cláusula al instante.",
+    statusBadge: "✦ Secreto Total · Respuesta en 1 Segundo",
     metrics: [
-      { label: "Exactitud de Respuesta", value: "99.4% Con Fuente" },
-      { label: "Fuga de Información", value: "0% (100% Privado)" },
-      { label: "Tiempo de Búsqueda", value: "Menos de 1 Segundo" }
+      { label: "Precisión al Responder", value: "99.4% Exacta" },
+      { label: "Seguridad de tus Datos", value: "100% Blindada" },
+      { label: "Velocidad de Búsqueda", value: "Menos de 1 Segundo" }
     ],
     includedItems: [
-      "Lectura y memorización inteligente de todos tus contratos, tarifarios, manuales, catálogos en PDF y hojas de Excel.",
-      "Respuestas exactas en 1 segundo indicando exactamente en qué documento y en qué página está el dato.",
-      "Máxima confidencialidad bancaria: los secretos y documentos de tu empresa están blindados y nadie externo puede verlos.",
-      "Disponible las 24 horas para que tú, tus vendedores o tu equipo resuelvan dudas al instante sin buscar entre miles de carpetas.",
-      "Actualización automática: cada vez que subes un archivo o precio nuevo, el cerebro lo aprende al instante.",
-      "Niveles de acceso seguros: tú decides qué información puede consultar cada empleado y qué información es solo para el dueño."
+      "Conexión de tu propio cerebro de Inteligencia Artificial (tecnología RAG privada) a tus contratos, listas de precios, PDFs y hojas de Excel.",
+      "Respuestas inmediatas indicando exactamente en qué archivo y en qué página se encuentra la información.",
+      "Privacidad bancaria absoluta: tus documentos jamás salen a internet público ni nadie externo puede verlos.",
+      "Disponible 24/7 para que el dueño, gerentes o vendedores resuelvan dudas internas en segundos.",
+      "Aprendizaje instantáneo: cada vez que agregas un documento o precio nuevo, el sistema lo memoriza en el acto.",
+      "Control por niveles: tú eliges qué archivos puede consultar cada miembro de tu equipo."
     ],
     executionGuarantee:
-      "Despliegue blindado: Conectamos el asistente privado a los documentos de tu empresa y verificamos que responda con exactitud milimétrica sin inventar jamás un dato.",
+      "Despliegue blindado: Entrenamos el cerebro privado con tus documentos reales y garantizamos que responda únicamente con datos exactos de tu empresa.",
     customOptions: [
-      "Conectar contratos, PDFs, listas de precios y manuales internos",
-      "Asistente privado en vivo para el dueño y el equipo de trabajo",
-      "Blindaje de privacidad (Cero salida de datos a internet público)",
-      "Actualización automática al subir nuevos documentos o Excel"
+      "Conectar mis contratos, PDFs, listas de precios y manuales internos",
+      "Buscador inteligente privado para mí y mi equipo de trabajo",
+      "Blindaje de seguridad (Cero salida de datos a internet público)",
+      "Aprendizaje automático cuando subo nuevos archivos o Excel"
     ],
-    crmBaseName: "ENTERPRISE 02 (Agentes RAG Memoria Privada)",
-    buttonText: "SOLICITAR AGENTE RAG PRIVADO · AGENDAR AUDITORÍA"
+    crmBaseName: "SOLUCIÓN 05 · Cerebro Privado con Memoria de Empresa (Agente RAG)",
+    buttonText: "QUIERO MI CEREBRO PRIVADO IA · AGENDAR"
   },
   {
     id: "ENT-3",
-    num: "03",
-    badge: "ARQUITECTURA 03 · EL PROGRAMA OFICIAL DE TU EMPRESA TODO EN UNO",
-    title: "SAAS CORPORATIVO INTERNO",
+    num: "06",
+    badge: "SOLUCIÓN 06 · TODA TU EMPRESA EN UNA SOLA PANTALLA",
+    title: "Tu Propio Programa y Panel Todo-en-Uno (Software a Medida)",
     shortDesc:
-      "Desarrollo de ecosistemas a medida. Unificamos sus operaciones en un panel de control centralizado, eliminando la dependencia de múltiples suscripciones ineficientes.",
+      "Deja de abrir 6 programas distintos y pagar múltiples suscripciones mensuales. Creamos la plataforma oficial de tu empresa con tu logo para que controles ventas, clientes, agenda y finanzas en un solo lugar.",
     plainExplanation:
-      "En palabras simples: En vez de tener 6 programas distintos abiertos y pagar 6 suscripciones todos los meses, creamos el sistema privado de tu empresa con tu propio logo para que controles ventas, clientes, agenda y finanzas desde una sola pantalla en tu celular o computadora.",
-    statusBadge: "✦ Tu Propio Software · Todo en 1 Panel",
+      "¿Por qué te conviene? En vez de alquilar varios programas sueltos que no se entienden entre sí, construimos el sistema propio de tu negocio a tu gusto para que veas todo desde tu celular o computadora con un solo clic.",
+    statusBadge: "✦ Tu Propia Plataforma · Todo en 1 Lugar",
     metrics: [
-      { label: "Dueño del Programa", value: "100% Tu Marca" },
-      { label: "Todo Conectado", value: "1 Sola Pantalla" },
-      { label: "Límite de Usuarios", value: "Sin Cobro Extra" }
+      { label: "Dueño del Sistema", value: "100% Tu Marca" },
+      { label: "Control de tu Negocio", value: "1 Sola Pantalla" },
+      { label: "Miembros de tu Equipo", value: "Sin Cobro Extra" }
     ],
     includedItems: [
-      "Creación de tu propia plataforma privada en internet con el nombre, los colores y el logo oficial de tu empresa.",
-      "Todo tu negocio en una sola pantalla: control de ventas, lista de clientes (CRM), agenda de citas, pagos y resultados del mes.",
-      "Ahorro inmediato al cancelar múltiples suscripciones mensuales de programas sueltos que no se comunican entre sí.",
-      "Accesos personalizados para tu equipo de trabajo y un portal elegante para que tus clientes vean el avance de sus servicios.",
-      "Conectado directamente con tu WhatsApp inteligente, tu calendario y tu base de datos en tiempo real.",
-      "Diseño ultra rápido y fácil de usar desde cualquier iPhone, teléfono Android, tablet o computadora."
+      "Desarrollo de tu propio programa privado en internet con el nombre, colores y logo oficial de tu negocio.",
+      "Unificación total: clientes (CRM), agenda de citas, ventas del mes, pagos y métricas en una sola pantalla clara.",
+      "Ahorro inmediato al cancelar varias suscripciones mensuales de herramientas externas innecesarias.",
+      "Accesos elegantes para tus empleados y un espacio privado para que tus clientes consulten sus servicios.",
+      "Conectado en vivo con tu asistente de WhatsApp 24/7, tu calendario y tu motor automático.",
+      "Funciona con máxima velocidad y comodidad desde cualquier iPhone, Android, tablet o computadora."
     ],
     executionGuarantee:
-      "Ingeniería a medida: Construimos el sistema exacto que necesita tu negocio para que seas dueño de tu propia plataforma sin pagar alquiler mensual por cada empleado.",
+      "Hecho a tu medida: Diseñamos y programamos el panel exacto que necesita tu operación para que seas dueño de tu propia tecnología para siempre.",
     customOptions: [
-      "Panel de control único para ver ventas, clientes y finanzas",
+      "Panel único para controlar ventas, clientes, agenda y finanzas",
       "Accesos para mi equipo de trabajo y portal para mis clientes",
-      "Unificar mis herramientas actuales para dejar de pagar varias mensualidades",
-      "Diseño personalizado con el logo de mi empresa para celular y PC"
+      "Reemplazar varios programas alquilados por uno solo propio",
+      "Diseño de lujo con el logo de mi empresa para celular y PC"
     ],
-    crmBaseName: "ENTERPRISE 03 (SaaS Corporativo Interno)",
-    buttonText: "SOLICITAR SAAS CORPORATIVO · AGENDAR AUDITORÍA"
+    crmBaseName: "SOLUCIÓN 06 · Programa Propio Todo-en-Uno (SaaS Corporativo)",
+    buttonText: "QUIERO MI PROPIO PROGRAMA TODO-EN-UNO · AGENDAR"
   }
 ];
 
@@ -138,16 +138,16 @@ export default function EnterpriseCatalog() {
 
   const [selectedModules, setSelectedModules] = useState<Record<string, string[]>>({
     "ENT-1": [
-      "Instalación de servidor privado n8n exclusivo para mi empresa",
-      "Eliminar cobros mensuales por cantidad de tareas o mensajes"
+      "Tener mi propio servidor automático exclusivo para mi empresa",
+      "Eliminar los cobros mensuales por cantidad de mensajes o tareas"
     ],
     "ENT-2": [
-      "Conectar contratos, PDFs, listas de precios y manuales internos",
-      "Asistente privado en vivo para el dueño y el equipo de trabajo"
+      "Conectar mis contratos, PDFs, listas de precios y manuales internos",
+      "Buscador inteligente privado para mí y mi equipo de trabajo"
     ],
     "ENT-3": [
-      "Panel de control único para ver ventas, clientes y finanzas",
-      "Unificar mis herramientas actuales para dejar de pagar varias mensualidades"
+      "Panel único para controlar ventas, clientes, agenda y finanzas",
+      "Reemplazar varios programas alquilados por uno solo propio"
     ]
   });
 
@@ -174,14 +174,14 @@ export default function EnterpriseCatalog() {
       <div className="mb-12 border-b border-white/10 pb-6 flex flex-col md:flex-row justify-between md:items-end gap-4">
         <div>
           <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-2">
-            DIVISIÓN CORPORATIVA HIGH-TICKET · LHYOGROUP.COM
+            SOLUCIONES 04, 05 Y 06 · INDEPENDENCIA Y PODER TOTAL PARA TU NEGOCIO
           </span>
           <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
-            INFRAESTRUCTURA ENTERPRISE
+            Sistemas Propios de Alta Gama
           </h2>
         </div>
         <span className="text-sm text-gray-300/90">
-          Interactúe con cada demostración para conocer cómo transformamos la operación de su empresa
+          Sé dueño de tu propio motor automático, tu propio cerebro IA y tu propio programa Todo-en-Uno
         </span>
       </div>
 
@@ -223,7 +223,7 @@ export default function EnterpriseCatalog() {
                   </p>
                   <div className="p-4 rounded-2xl bg-[#0A1128]/90 border-l-2 border-[#C5A059] text-xs sm:text-sm text-gray-200 leading-relaxed">
                     <strong className="text-[#FCF6BA] font-semibold block mb-0.5">
-                      ✦ ¿Qué significa esto para tu negocio?
+                      ✦ Explicado de forma simple:
                     </strong>
                     {item.plainExplanation}
                   </div>
@@ -255,7 +255,7 @@ export default function EnterpriseCatalog() {
                         : "text-gray-300 hover:text-white"
                     }`}
                   >
-                    ▶ 1. Ver Demostración Interactiva
+                    ▶ 1. Probar Demostración Interactiva
                   </button>
                   <button
                     type="button"
@@ -266,7 +266,7 @@ export default function EnterpriseCatalog() {
                         : "text-gray-300 hover:text-white"
                     }`}
                   >
-                    ✦ 2. Todo lo que Incluye ({item.includedItems.length} puntos)
+                    ✦ 2. Qué Incluye Exactamente ({item.includedItems.length} puntos)
                   </button>
                   <button
                     type="button"
@@ -291,7 +291,7 @@ export default function EnterpriseCatalog() {
                 <div className="p-6 rounded-2xl bg-[#050507] border border-[#C5A059]/35">
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-white/10">
                     <span className="text-xs font-semibold text-[#FCF6BA]">
-                      COMPARADOR INTERACTIVO EN VIVO:
+                      COMPARA TU MOTOR PROPIO VS PLATAFORMAS ALQUILADAS:
                     </span>
                     <div className="flex rounded-full bg-[#0A1128] p-1 border border-white/10">
                       <button
@@ -314,14 +314,14 @@ export default function EnterpriseCatalog() {
                             : "text-gray-400"
                         }`}
                       >
-                        ✦ Tu Servidor Propio Lhyo Group
+                        ✦ Tu Motor Propio Lhyo Group
                       </button>
                     </div>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4">
                     {[
                       "1. Cliente escribe en WhatsApp",
-                      "2. Tu Servidor n8n procesa",
+                      "2. Tu Motor Privado procesa",
                       "3. Se guarda en tu CRM",
                       "4. Envía Catálogo + Meet"
                     ].map((step, i) => (
@@ -332,8 +332,8 @@ export default function EnterpriseCatalog() {
                   </div>
                   <div className="text-xs text-gray-200 p-3.5 rounded-xl bg-[#0A1128]/50 border border-white/10">
                     {n8nCompareMode === "lhyo"
-                      ? "✓ Resultado en tu Servidor Propio Lhyo Group: Puedes procesar 10,000, 50,000 o 100,000 tareas al mes con $0.00 USD de cobro por operación."
-                      : "⚠ Resultado en Plataformas Alquiladas: Cada mensaje o paso consume créditos y te obliga a pagar planes cada vez más caros mes tras mes."}
+                      ? "✓ En tu Motor Propio Lhyo Group: Puedes atender 10,000, 50,000 o 100,000 clientes al mes con $0.00 USD de cobro por tarea."
+                      : "⚠ En Plataformas Alquiladas: Cada paso consume créditos y te obliga a pagar mensualidades cada vez más caras."}
                   </div>
                 </div>
               )}
@@ -341,7 +341,7 @@ export default function EnterpriseCatalog() {
               {activeTab === "demo" && item.id === "ENT-2" && (
                 <div className="p-6 rounded-2xl bg-[#050507] border border-[#C5A059]/35">
                   <p className="text-xs font-semibold text-[#FCF6BA] mb-3">
-                    TOCA UNA PREGUNTA PARA VER CÓMO RESPONDE EL CEREBRO PRIVADO LEYENDO TUS ARCHIVOS:
+                    TOCA UNA PREGUNTA PARA VER CÓMO RESPONDE EL CEREBRO PRIVADO DE TU NEGOCIO:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-4">
                     {RAG_SAMPLES.map((s, idx) => (
@@ -361,7 +361,7 @@ export default function EnterpriseCatalog() {
                   </div>
                   <div className="p-4 rounded-xl bg-[#0A1128]/85 border border-[#C5A059]/45">
                     <div className="text-[11px] text-[#FCF6BA] font-semibold mb-1">
-                      📄 Fuente encontrada en 0.4s: {RAG_SAMPLES[ragIdx].doc}
+                      📄 Archivo encontrado en 0.4s: {RAG_SAMPLES[ragIdx].doc}
                     </div>
                     <p className="text-xs sm:text-sm text-white">{RAG_SAMPLES[ragIdx].a}</p>
                   </div>
@@ -372,14 +372,14 @@ export default function EnterpriseCatalog() {
                 <div className="p-6 rounded-2xl bg-[#050507] border border-[#C5A059]/35">
                   <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
                     <span className="text-xs font-semibold text-[#FCF6BA]">
-                      MIRA CÓMO SE UNIFICA TODA TU EMPRESA EN 1 SOLO LUGAR:
+                      MIRA CÓMO SE UNE TODA TU EMPRESA EN 1 PANTALLA:
                     </span>
                     <button
                       type="button"
                       onClick={() => setSaasUnified((v) => !v)}
                       className="px-4 py-1.5 rounded-full bg-[#C5A059] text-[#050507] text-xs font-bold"
                     >
-                      {saasUnified ? "Ver Antes (6 Programas Sueltos)" : "✦ Unificar en 1 Panel"}
+                      {saasUnified ? "Ver Antes (6 Programas Sueltos)" : "✦ Unir Todo en 1 Panel"}
                     </button>
                   </div>
                   {!saasUnified ? (
@@ -412,8 +412,8 @@ export default function EnterpriseCatalog() {
                         <span className="text-xs font-bold text-white">Activo 24/7</span>
                       </div>
                       <div className="p-3 rounded-lg bg-[#050507]">
-                        <span className="text-[10px] text-gray-400 block">USUARIOS</span>
-                        <span className="text-xs font-bold text-[#FCF6BA]">Ilimitados</span>
+                        <span className="text-[10px] text-gray-400 block">MI EQUIPO</span>
+                        <span className="text-xs font-bold text-[#FCF6BA]">Sin Cobro Extra</span>
                       </div>
                     </div>
                   )}
@@ -473,7 +473,6 @@ export default function EnterpriseCatalog() {
         })}
       </div>
 
-      {/* CALCULADORA INTERACTIVA DE AHORRO ANUAL */}
       <div className="mt-14 p-8 md:p-10 rounded-3xl bg-gradient-to-br from-[#0A1128] via-[#060913] to-[#050507] border border-[#C5A059]/50 shadow-2xl">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7">
@@ -542,8 +541,8 @@ export default function EnterpriseCatalog() {
             </div>
 
             <AuditTriggerButton
-              label="SOLICITAR PAQUETE ENTERPRISE COMPLETO →"
-              selectedPlan={`ECOSISTEMA ENTERPRISE COMPLETO (n8n + Agente RAG + SaaS Interno) | Ahorro proyectado: $${annualRecoveredUSD} USD/año`}
+              label="SOLICITAR MIS SISTEMAS PROPIOS AHORA →"
+              selectedPlan={`PAQUETE COMPLETO DE SISTEMAS PROPIOS (Motor Propio + Cerebro IA + Programa Todo-en-Uno) | Ahorro proyectado: $${annualRecoveredUSD} USD/año`}
               fullWidth={true}
             />
           </div>

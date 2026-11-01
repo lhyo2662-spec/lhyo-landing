@@ -143,7 +143,7 @@ export default function MainWorkspace() {
 
   const navItems: Array<{ id: ActiveView; label: string; highlight?: boolean }> = [
     { id: "inicio", label: "INICIO" },
-    { id: "enterprise", label: "INFRAESTRUCTURA ENTERPRISE", highlight: true },
+    { id: "enterprise", label: "SISTEMAS PROPIOS" },
     { id: "catalogo", label: "SERVICIOS Y PLANES" },
     { id: "garantia", label: "NUESTRA GARANTÍA" },
     { id: "contacto", label: "CONTACTO" }
@@ -274,7 +274,7 @@ export default function MainWorkspace() {
                   onClick={() => switchView("enterprise")}
                   className="h-[52px] px-7 rounded-md border border-[#C5A059]/55 bg-white/[0.03] text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap"
                 >
-                  EXPLORAR INFRAESTRUCTURA ENTERPRISE →
+                  DESCUBRIR NUESTROS SISTEMAS PROPIOS →
                 </button>
               </div>
             </section>
@@ -480,7 +480,7 @@ export default function MainWorkspace() {
       {activeView !== "contacto" && (
         <div className="px-6 py-8 pb-24 md:px-16 lg:px-24 max-w-7xl mx-auto w-full flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500 gap-4">
           <span>© 2026 LHYO GROUP. TODOS LOS DERECHOS RESERVADOS.</span>
-          <span>SOLUCIONES DIGITALES, PÁGINAS WEB E INFRAESTRUCTURA ENTERPRISE</span>
+          <span>SOLUCIONES DIGITALES, PÁGINAS WEB Y SISTEMAS AUTOMÁTICOS INTELIGENTES</span>
         </div>
       )}
 
@@ -488,3 +488,4 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
