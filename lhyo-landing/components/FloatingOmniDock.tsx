@@ -6,7 +6,7 @@ export const SOCIAL_LINKS = {
   whatsappPhone: "59800000000",
   instagramUrl: "https://www.instagram.com/lhyogroup",
   linkedinUrl: "https://www.linkedin.com/company/lhyogroup",
-  emailAddress: "lhyoaraque2662@gmail.com"
+  emailAddress: "ceo@lhyogroup.com"
 };
 
 const QUICK_BOT_OPTIONS = [
@@ -141,3 +141,4 @@ export default function FloatingOmniDock() {
     </div>
   );
 }
+
