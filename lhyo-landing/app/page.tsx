@@ -2,78 +2,59 @@
 import MainWorkspace from "@/components/MainWorkspace";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lhyogroup.vercel.app"),
-  applicationName: "LHYO GROUP",
+  metadataBase: new URL("https://lhyogroup.com"),
+  applicationName: "Lhyo Group",
   title: {
-    default: "LHYO GROUP",
-    template: "%s | LHYO GROUP",
+    default: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
+    template: "%s | Lhyo Group",
   },
   description:
-    "Desarrollamos páginas web corporativas modernas, catálogos digitales, asistentes inteligentes con IA 24/7 para WhatsApp e Instagram y sistemas de organización automática de clientes y ventas (CRM) para impulsar el crecimiento de empresas y profesionales en Uruguay, Venezuela y a nivel internacional.",
+    "Firma de ingeniería e infraestructura Enterprise B2B. Migramos operaciones corporativas a servidores privados n8n (Self-hosted), construimos Agentes RAG con memoria institucional privada y desarrollamos ecosistemas SaaS internos a medida para mitigar la fuga de capital y escalar con soberanía tecnológica.",
   keywords: [
-    "LHYO GROUP",
     "Lhyo Group",
-    "Lhyo Growth",
-    "Lhyo Systems",
-    "Lhyonneth Araque",
-    "Lhyo Group oficial",
-    "agencia de inteligencia artificial",
-    "agencia de automatización de negocios",
-    "asistentes inteligentes para WhatsApp",
-    "asistentes inteligentes para Instagram",
-    "chatbot con inteligencia artificial WhatsApp 24/7",
-    "automatizar atención al cliente WhatsApp",
-    "vender más por WhatsApp automáticamente",
-    "agendamiento automático de citas por WhatsApp",
-    "diseño de páginas web corporativas",
-    "desarrollo de páginas web modernas para empresas",
-    "crear página web profesional",
-    "catálogos digitales interactivos",
-    "páginas web de alta conversión B2B",
-    "organización automática de clientes CRM",
-    "sistema CRM automatizado para empresas",
-    "automatización de ventas y seguimiento comercial",
-    "integración de Make y CRM para negocios",
-    "soluciones digitales para clínicas y consultorios",
-    "soluciones digitales para firmas de abogados y contadores",
-    "soluciones digitales para inmobiliarias y comercios",
-    "agencia de páginas web y automatización en Uruguay",
-    "agencia de páginas web y automatización en Montevideo",
-    "agencia de páginas web y automatización en Venezuela",
-    "agencia de páginas web y automatización en Mérida",
-    "consultoría de transformación digital e IA",
-    "implementación de sistemas comerciales automatizados"
+    "LHYO GROUP",
+    "infraestructura enterprise",
+    "automatización B2B",
+    "n8n self-hosted",
+    "servidores privados n8n",
+    "Agentes RAG",
+    "memoria institucional privada",
+    "inteligencia artificial corporativa privada",
+    "SaaS corporativo interno",
+    "desarrollo de ecosistemas SaaS B2B",
+    "mitigación de fuga de capital",
+    "arquitectura de sistemas empresariales",
+    "soberanía tecnológica",
+    "Lhyonneth Araque"
   ],
-  authors: [{ name: "Lhyonneth Araque - CEO LHYO GROUP", url: "https://lhyogroup.vercel.app" }],
-  creator: "LHYO GROUP",
-  publisher: "LHYO GROUP",
+  authors: [{ name: "Lhyo Group", url: "https://lhyogroup.com" }],
+  creator: "Lhyo Group",
+  publisher: "Lhyo Group",
   verification: {
     google: "yFCVXdhuZSVXSoIv7r9xV69G6QO2B028ZX9ZWGZIG8o",
   },
   alternates: {
-    canonical: "https://lhyogroup.vercel.app",
+    canonical: "https://lhyogroup.com",
   },
   icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: ["/icon.svg"],
     apple: ["/icon.svg"],
   },
   openGraph: {
-    title: "LHYO GROUP",
+    title: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
     description:
-      "Desarrollamos páginas web corporativas modernas, asistentes inteligentes con IA 24/7 para WhatsApp e Instagram y sistemas de organización automática de clientes y ventas (CRM) para empresas y profesionales.",
-    url: "https://lhyogroup.vercel.app",
-    siteName: "LHYO GROUP",
+      "Migramos su operación a n8n en servidores privados, desplegamos Agentes RAG de memoria institucional privada y desarrollamos SaaS corporativo interno para eliminar la fuga de capital en suscripciones ineficientes.",
+    url: "https://lhyogroup.com",
+    siteName: "Lhyo Group",
     locale: "es_UY",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "LHYO GROUP",
+    title: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
     description:
-      "Páginas web corporativas modernas, asistentes inteligentes 24/7 para WhatsApp e Instagram y sistemas de organización automática de clientes (CRM).",
+      "Infraestructura n8n Self-hosted, Agentes RAG privados y ecosistemas SaaS corporativos internos para mitigar la fuga de capital operativo.",
   },
   robots: {
     index: true,
@@ -94,60 +75,51 @@ export default function LandingPage() {
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://lhyogroup.vercel.app/#website",
-        url: "https://lhyogroup.vercel.app",
-        name: "LHYO GROUP",
-        alternateName: ["Lhyo Group", "Lhyo Growth"],
-        publisher: { "@id": "https://lhyogroup.vercel.app/#organization" },
+        "@id": "https://lhyogroup.com/#website",
+        url: "https://lhyogroup.com",
+        name: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
+        publisher: { "@id": "https://lhyogroup.com/#organization" },
         inLanguage: "es"
       },
       {
-        "@type": "ProfessionalService",
-        "@id": "https://lhyogroup.vercel.app/#organization",
-        name: "LHYO GROUP",
-        alternateName: ["Lhyo Group", "Lhyo Growth", "Lhyo Systems"],
-        url: "https://lhyogroup.vercel.app",
-        logo: "https://lhyogroup.vercel.app/icon.svg",
-        image: "https://lhyogroup.vercel.app/icon.svg",
+        "@type": "Corporation",
+        "@id": "https://lhyogroup.com/#organization",
+        name: "Lhyo Group",
+        url: "https://lhyogroup.com",
+        logo: "https://lhyogroup.com/icon.svg",
         founder: {
           "@type": "Person",
           name: "Lhyonneth Araque",
           jobTitle: "CEO & Founder"
         },
         description:
-          "Desarrollamos páginas web corporativas modernas, catálogos digitales, asistentes inteligentes con IA 24/7 para WhatsApp e Instagram y sistemas de organización automática de clientes y ventas (CRM) para empresas y profesionales.",
-        areaServed: [
-          { "@type": "Country", name: "Uruguay" },
-          { "@type": "Country", name: "Venezuela" },
-          { "@type": "Country", name: "United States" },
-          { "@type": "Country", name: "Spain" }
-        ],
+          "Firma de ingeniería e infraestructura Enterprise B2B especializada en migración a servidores privados n8n (Self-hosted), Agentes RAG de memoria institucional privada y desarrollo de ecosistemas SaaS corporativos internos.",
         hasOfferCatalog: {
           "@type": "OfferCatalog",
-          name: "Servicios de LHYO GROUP",
+          name: "Infraestructura Enterprise Lhyo Group",
           itemListElement: [
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
-                description: "Atención automatizada 24 horas, respuestas inmediatas a clientes y agendamiento automático de citas comerciales."
+                name: "Automatización Libre de Costos (Infraestructura n8n Self-Hosted)",
+                description: "Migración de operaciones a n8n en servidores privados eliminando costos mensuales de terceros."
               }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Páginas Web Modernas y Catálogos Digitales",
-                description: "Diseño y desarrollo de páginas web corporativas rápidas, elegantes y conectadas a WhatsApp y calendario de reservas."
+                name: "Agentes RAG (Memoria Institucional Privada)",
+                description: "Cerebros de IA locales conectados a bases de datos, contratos y documentos internos con privacidad absoluta."
               }
             },
             {
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Organización Automática de Clientes y Ventas (CRM)",
-                description: "Registro y clasificación automática de clientes potenciales y control total de oportunidades de venta."
+                name: "SaaS Corporativo Interno",
+                description: "Desarrollo de ecosistemas a medida unificando operaciones en un panel de control centralizado."
               }
             }
           ]
@@ -157,7 +129,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#070707] text-white selection:bg-[#BF953F] selection:text-[#070707]">
+    <main className="min-h-screen bg-[#050507] text-white selection:bg-[#C5A059] selection:text-[#050507]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

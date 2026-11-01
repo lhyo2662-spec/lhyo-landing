@@ -174,9 +174,10 @@ export default function MainWorkspace() {
 
       <div className="flex-1">
         {activeView === "inicio" && (
-          <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            {/* PORTADA ALINEADA EXACTAMENTE A pt-10 (SIN ESPACIO NEGRO EXCESIVO ARRIBA) */}
-            <div className="pb-16">
+          <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
+            {/* PRIMERA PANTALLA 100% AISLADA: Mantiene la distancia superior exacta (pt-8) y empuja el segundo bloque fuera de la vista inicial */}
+            <div className="min-h-[calc(100vh-5rem)] pt-8 pb-10 flex flex-col justify-between">
+              <div>
               <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
                 ARQUITECTURA DIGITAL DE ALTA GAMA · AUTOMATIZACIÓN 24/7
               </span>
@@ -237,10 +238,32 @@ export default function MainWorkspace() {
                   DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
                 </button>
               </div>
+              </div>
+
+              {/* BARRA TELEMÉTRICA AL PIE DE LA PRIMERA PANTALLA (EVITA QUE SE ASOME LA TARJETA INFERIOR) */}
+              <div className="pt-6 border-t border-white/[0.07] flex flex-wrap items-center justify-between gap-4 text-[11px] text-gray-400">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+                  <span className="uppercase tracking-[0.16em] text-[#FCF6BA]/80 font-medium">
+                    LHYO GROUP · INFRAESTRUCTURA ENTERPRISE &amp; SISTEMAS B2B
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("portal-intriga-lhyo");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="text-[#C5A059] hover:text-[#FCF6BA] font-semibold tracking-[0.14em] uppercase transition cursor-pointer flex items-center gap-1.5"
+                >
+                  <span>Deslizar para descubrir el ecosistema</span>
+                  <span>↓</span>
+                </button>
+              </div>
             </div>
 
-            {/* PORTAL INTERACTIVO DE INTRIGA */}
-            <div className="pt-10 border-t border-white/10">
+            {/* PORTAL INTERACTIVO DE INTRIGA (SOLO VISIBLE AL BAJAR CON EL RATÓN) */}
+            <div id="portal-intriga-lhyo" className="pt-14 scroll-mt-20">
               <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
                 <div className="pb-5 mb-6 border-b border-white/10">
                   <span className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.18em] block mb-1">
@@ -418,3 +441,4 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
