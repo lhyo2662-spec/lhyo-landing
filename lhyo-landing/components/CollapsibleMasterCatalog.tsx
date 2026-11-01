@@ -245,7 +245,7 @@ export default function CollapsibleMasterCatalog() {
                         ))}
                       </div>
                       <div className="p-3.5 rounded-xl bg-[#0A1128] border border-[#C5A059]/40 text-xs text-gray-200">
-                        <strong className="text-[#FCF6BA]">Garantía Llave en Mano:</strong>{" "}
+                        <strong className="text-[#FCF6BA]">✦ El resultado en su empresa:</strong>{" "}
                         {sol.executionGuarantee}
                       </div>
                     </div>
@@ -406,3 +406,4 @@ export default function CollapsibleMasterCatalog() {
     </div>
   );
 }
+

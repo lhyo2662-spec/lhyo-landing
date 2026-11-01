@@ -48,9 +48,9 @@ const GUARANTEE_TIMELINE_STEPS = [
   {
     step: "PASO 02",
     days: "Día 3 al 7",
-    title: "Nosotros construimos e instalamos todo",
+    title: "Construimos e instalamos tu ecosistema",
     simpleDesc:
-      "Nuestro equipo crea tu página, entrena a tu asistente inteligente con tus datos y conecta tu lista de clientes y tu agenda por ti.",
+      "Nuestro equipo crea tu plataforma, entrena a tu asistente inteligente con tus datos y deja conectada tu lista de clientes y tu agenda.",
     deliverable: "Todo tu sistema armado al 100% por nuestro equipo."
   },
   {
@@ -64,10 +64,10 @@ const GUARANTEE_TIMELINE_STEPS = [
   {
     step: "PASO 04",
     days: "Día 10 en adelante",
-    title: "Tu negocio empieza a trabajar en automático",
+    title: "Tu empresa proyecta su nueva dimensión",
     simpleDesc:
-      "Encendemos todo para que recibas y atiendas clientes las 24 horas, con nuestro acompañamiento directo siempre que nos necesites.",
-    deliverable: "Tu sistema produciendo + Soporte continuo."
+      "Encendemos todo para que recibas y atiendas clientes las 24 horas con una presencia imponente y nuestro respaldo continuo.",
+    deliverable: "Tu negocio operando al máximo nivel."
   }
 ];
 
@@ -81,8 +81,8 @@ const TRUST_SEALS = [
     subtitle: "Sus clientes reciben respuesta inmediata, ejecutiva y precisa en cualquier horario del día."
   },
   {
-    title: "EJECUCIÓN INTEGRAL",
-    subtitle: "Desarrollamos, conectamos y entregamos todo su ecosistema funcionando llave en mano por usted."
+    title: "IMPACTO INMEDIATO",
+    subtitle: "Transformamos su negocio en una empresa moderna, admirada y lista para liderar su mercado."
   },
   {
     title: "ALCANCE GLOBAL",
@@ -175,73 +175,97 @@ export default function MainWorkspace() {
       <div className="flex-1">
         {activeView === "inicio" && (
           <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            {/* PRIMERA PANTALLA 100% AISLADA: Mantiene la distancia superior exacta (pt-8) y empuja el segundo bloque fuera de la vista inicial */}
+            {/* PRIMERA PANTALLA COMPLETA CON DETALLE ARQUITECTÓNICO INFERIOR IZQUIERDO */}
             <div className="min-h-[calc(100vh-5rem)] pt-8 pb-7 flex flex-col justify-between">
               <div>
-              <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
-                ✦ TECNOLOGÍA DEL FUTURO E INGENIERÍA DE LUJO · SISTEMAS INTELIGENTES 24/7
-              </span>
+                <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.2em] block mb-3">
+                  ✦ TECNOLOGÍA DEL FUTURO E INGENIERÍA DE LUJO · SISTEMAS INTELIGENTES 24/7
+                </span>
 
-              <div className="relative mb-9">
-                <div className="relative z-10 max-w-[685px]">
-                  <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
-                    Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
-                  </h1>
-                  <p className="text-base md:text-lg text-gray-300/90 max-w-[605px] mb-0 font-normal leading-relaxed">
-                    Creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de máximo prestigio y atención inteligente 24/7 hasta ecosistemas propios que organizan y multiplican sus ventas en automático.
-                  </p>
-                </div>
+                <div className="relative mb-9">
+                  <div className="relative z-10 max-w-[685px]">
+                    <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
+                      Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
+                    </h1>
+                    <p className="text-base md:text-lg text-gray-300/90 max-w-[605px] mb-0 font-normal leading-relaxed">
+                      Creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de máximo prestigio y atención inteligente 24/7 hasta ecosistemas propios que organizan y multiplican sus ventas en automático.
+                    </p>
+                  </div>
 
-                <div
-                  aria-hidden="true"
-                  className="hidden md:flex items-center justify-end pointer-events-none select-none absolute right-2 lg:right-8 top-[4px] bottom-[2px] z-0"
-                >
-                  <svg
-                    viewBox="8.5 7.5 96.5 97.5"
-                    className="h-full w-auto opacity-45 drop-shadow-[0_24px_40px_rgba(0,0,0,0.95)]"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  <div
+                    aria-hidden="true"
+                    className="hidden md:flex items-center justify-end pointer-events-none select-none absolute right-2 lg:right-8 top-[4px] bottom-[2px] z-0"
                   >
-                    <defs>
-                      <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-                        <stop offset="55%" stopColor="#CBD5E1" stopOpacity="0.78" />
-                        <stop offset="100%" stopColor="#C5A059" stopOpacity="0.65" />
-                      </linearGradient>
-                    </defs>
-                    <g transform="rotate(-22 60 55)">
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
-                        fill="url(#lhyoMonogramGrad)"
-                      />
-                      <path
-                        d="M48 11 L58 3 L58 63 L48 63 Z"
-                        fill="url(#lhyoMonogramGrad)"
-                      />
-                    </g>
-                  </svg>
+                    <svg
+                      viewBox="8.5 7.5 96.5 97.5"
+                      className="h-full w-auto opacity-45 drop-shadow-[0_24px_40px_rgba(0,0,0,0.95)]"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs>
+                        <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                          <stop offset="55%" stopColor="#CBD5E1" stopOpacity="0.78" />
+                          <stop offset="100%" stopColor="#C5A059" stopOpacity="0.65" />
+                        </linearGradient>
+                      </defs>
+                      <g transform="rotate(-22 60 55)">
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
+                          fill="url(#lhyoMonogramGrad)"
+                        />
+                        <path
+                          d="M48 11 L58 3 L58 63 L48 63 Z"
+                          fill="url(#lhyoMonogramGrad)"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+                  <AuditTriggerButton
+                    label="AGENDAR REUNIÓN Y RECIBIR CATÁLOGO"
+                    selectedPlan="AUDITORÍA GENERAL (Botón Principal Portada)"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => switchView("catalogo")}
+                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap cursor-pointer"
+                  >
+                    DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
+                  </button>
                 </div>
               </div>
 
-              <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
-                <AuditTriggerButton
-                  label="AGENDAR REUNIÓN Y RECIBIR CATÁLOGO"
-                  selectedPlan="AUDITORÍA GENERAL (Botón Principal Portada)"
-                />
-                <button
-                  type="button"
-                  onClick={() => switchView("catalogo")}
-                  className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap cursor-pointer"
-                >
-                  DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
-                </button>
-              </div>
+              {/* DETALLE ARQUITECTÓNICO INFERIOR: Línea de horizonte dorada + 3 sellos de futuro y prestigio */}
+              <div className="max-w-[700px] pt-6 select-none">
+                <div className="flex items-center gap-3 mb-3.5">
+                  <span className="w-1.5 h-1.5 rotate-45 bg-[#C5A059] shadow-[0_0_10px_#C5A059]" />
+                  <div className="h-[1px] flex-1 bg-gradient-to-r from-[#C5A059]/60 via-[#FCF6BA]/25 to-transparent" />
+                </div>
+                <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[10px] font-semibold tracking-[0.18em] uppercase text-gray-400">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#C5A059]">01</span>
+                    <span className="text-[#FCF6BA]/90">VELOCIDAD QUE MULTIPLICA VENTAS</span>
+                  </div>
+                  <span className="hidden sm:inline-block h-3 w-[1px] bg-white/15" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#C5A059]">02</span>
+                    <span className="text-[#FCF6BA]/90">IMAGEN QUE IMPONE RESPETO</span>
+                  </div>
+                  <span className="hidden sm:inline-block h-3 w-[1px] bg-white/15" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#C5A059]">03</span>
+                    <span className="text-[#FCF6BA]/90">EL FUTURO DE SU EMPRESA HOY</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* PORTAL INTERACTIVO DE INTRIGA (SOLO VISIBLE AL BAJAR CON EL RATÓN) */}
+            {/* PORTAL INTERACTIVO DE INTRIGA (VISIBLE AL BAJAR CON EL RATÓN) */}
             <div id="portal-intriga-lhyo" className="pt-14 scroll-mt-20">
               <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
                 <div className="pb-5 mb-6 border-b border-white/10">
@@ -344,10 +368,10 @@ export default function MainWorkspace() {
 
             <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45">
               <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-1.5">
-                PASO A PASO · NOSOTROS HACEMOS TODO POR TI
+                EVOLUCIÓN PASO A PASO · DE LA IDEA A LA REALIDAD EN 10 DÍAS
               </span>
               <h3 className="text-xl sm:text-2xl font-semibold text-white mb-5">
-                Toca cada paso para ver cómo instalamos tu sistema en 10 días:
+                Toca cada etapa para ver cómo transformamos tu negocio:
               </h3>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
@@ -420,7 +444,3 @@ export default function MainWorkspace() {
     </div>
   );
 }
-
-
-
-
