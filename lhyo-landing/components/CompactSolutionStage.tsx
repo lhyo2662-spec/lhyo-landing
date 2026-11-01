@@ -71,8 +71,8 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     shortDesc:
       "Proyecte una imagen impecable y de alto prestigio. Creamos páginas web rápidas, elegantes y muy fáciles de usar en celulares y computadoras para que sus visitantes conozcan lo que ofrece y agenden en un clic.",
     plainExplanation:
-      "Explicado fácil: Construimos la casa digital de tu negocio (igual de elegante, rápida e interactiva que esta página que estás viendo) para que cualquier persona que entre confíe en ti de inmediato.",
-    benefitTag: "Imagen de lujo que atrae clientes",
+      "Explicado fácil: Sin importar cuál sea el rubro, profesión o especialidad de tu negocio, diseñamos y construimos una página única e impresionante a la medida exacta de tu empresa para que quien entre sienta confianza total y te elija a ti.",
+    benefitTag: "Imagen de lujo adaptada a tu rubro",
     metrics: [
       { label: "Velocidad al abrir", value: "Menos de 1 segundo" },
       { label: "Se ve perfecto en", value: "iPhone, Android y PC" },
@@ -470,3 +470,4 @@ export default function CompactSolutionStage({
     </div>
   );
 }
+

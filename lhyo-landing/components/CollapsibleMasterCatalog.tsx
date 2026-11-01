@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AuditTriggerButton from "./AuditTriggerButton";
 import { ALL_SOLUTIONS_DATA } from "./CompactSolutionStage";
 
@@ -8,6 +8,8 @@ export default function CollapsibleMasterCatalog() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [activeSubTab, setActiveSubTab] = useState<Record<string, string>>({});
   const [vaultExpanded, setVaultExpanded] = useState<boolean>(false);
+  const cardRefs = useRef<Record<string, HTMLElement | null>>({});
+  const vaultRef = useRef<HTMLDivElement | null>(null);
 
   const [customPicks, setCustomPicks] = useState<Record<string, string[]>>(() => {
     const init: Record<string, string[]> = {};
@@ -22,7 +24,39 @@ export default function CollapsibleMasterCatalog() {
   const [privStage, setPrivStage] = useState("Negocio en marcha buscando crecer");
 
   const toggleAccordion = (id: string) => {
-    setExpandedId((prev) => (prev === id ? null : id));
+    const isOpening = expandedId !== id;
+    setExpandedId(isOpening ? id : null);
+
+    if (isOpening) {
+      setTimeout(() => {
+        const el = cardRefs.current[id];
+        if (el && typeof window !== "undefined") {
+          const headerOffset = 94;
+          const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - headerOffset),
+            behavior: "smooth"
+          });
+        }
+      }, 90);
+    }
+  };
+
+  const toggleVaultDrawer = () => {
+    const nextState = !vaultExpanded;
+    setVaultExpanded(nextState);
+    if (nextState) {
+      setTimeout(() => {
+        if (vaultRef.current && typeof window !== "undefined") {
+          const headerOffset = 94;
+          const elementPosition = vaultRef.current.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - headerOffset),
+            behavior: "smooth"
+          });
+        }
+      }, 90);
+    }
   };
 
   const togglePick = (solId: string, opt: string) => {
@@ -80,7 +114,10 @@ export default function CollapsibleMasterCatalog() {
           return (
             <article
               key={sol.id}
-              className={`rounded-2xl transition-all duration-300 overflow-hidden ${
+              ref={(el) => {
+                cardRefs.current[sol.id] = el;
+              }}
+              className={`scroll-mt-24 rounded-2xl transition-all duration-300 overflow-hidden ${
                 isExpanded
                   ? "bg-gradient-to-br from-[#0A1128]/95 via-[#070A14] to-[#050507] border border-[#C5A059]/65 shadow-2xl"
                   : "bg-[#0A1128]/45 hover:bg-[#0A1128]/70 border border-white/10 hover:border-[#C5A059]/45"
@@ -247,10 +284,12 @@ export default function CollapsibleMasterCatalog() {
         })}
       </div>
 
-      {/* BÓVEDA RECOGIDA DE CATÁLOGO PRIVADO */}
-      <div className="mt-8 rounded-2xl border border-[#C5A059]/50 bg-gradient-to-r from-[#0A1128]/90 via-[#070A14] to-[#050507] overflow-hidden">
+      <div
+        ref={vaultRef}
+        className="mt-8 scroll-mt-24 rounded-2xl border border-[#C5A059]/50 bg-gradient-to-r from-[#0A1128]/90 via-[#070A14] to-[#050507] overflow-hidden"
+      >
         <div
-          onClick={() => setVaultExpanded((v) => !v)}
+          onClick={toggleVaultDrawer}
           className="p-6 cursor-pointer select-none flex flex-col sm:flex-row sm:items-center justify-between gap-4"
         >
           <div>

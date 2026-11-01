@@ -74,19 +74,19 @@ const GUARANTEE_TIMELINE_STEPS = [
 const TRUST_SEALS = [
   {
     title: "CALIDAD SUPERIOR",
-    subtitle: "Sistemas rápidos, estables y hechos a la medida de su negocio."
+    subtitle: "Arquitecturas veloces, sólidas y diseñadas a la medida exacta de las exigencias de su empresa."
   },
   {
     title: "ATENCIÓN 24 HORAS",
-    subtitle: "Sus clientes reciben respuesta inmediata y amable en todo momento."
+    subtitle: "Sus clientes reciben respuesta inmediata, ejecutiva y precisa en cualquier horario del día."
   },
   {
-    title: "NOSOTROS HACEMOS TODO",
-    subtitle: "Instalación completa llave en mano donde configuramos todo por usted."
+    title: "EJECUCIÓN INTEGRAL",
+    subtitle: "Desarrollamos, conectamos y entregamos todo su ecosistema funcionando llave en mano por usted."
   },
   {
-    title: "PRESENCIA INTERNACIONAL",
-    subtitle: "Atención activa en Uruguay, Venezuela y a nivel internacional."
+    title: "ALCANCE GLOBAL",
+    subtitle: "Operación corporativa activa en Uruguay, Venezuela y cobertura continua a nivel internacional."
   }
 ];
 
@@ -115,7 +115,6 @@ export default function MainWorkspace() {
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
-  // 4 BOTONES SIMÉTRICOS CON UNA SOLA VÍA HACIA SOLUCIONES
   const navItems: Array<{ id: ActiveView; label: string }> = [
     { id: "inicio", label: "INICIO" },
     { id: "catalogo", label: "SOLUCIONES" },
@@ -175,128 +174,133 @@ export default function MainWorkspace() {
 
       <div className="flex-1">
         {activeView === "inicio" && (
-          <section className="px-6 pt-10 pb-16 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
-              ARQUITECTURA DIGITAL DE ALTA GAMA · AUTOMATIZACIÓN 24/7
-            </span>
+          <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
+            {/* PRIMERA PANTALLA COMPLETA: SOLO LA PORTADA BIEN ARMADA Y CENTRADA */}
+            <div className="min-h-[calc(100vh-5.5rem)] flex flex-col justify-center py-10">
+              <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
+                ARQUITECTURA DIGITAL DE ALTA GAMA · AUTOMATIZACIÓN 24/7
+              </span>
 
-            <div className="relative mb-9">
-              <div className="relative z-10 max-w-[680px]">
-                <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
-                  Mientras otros negocios pierden clientes por tardar en responder, el suyo puede atender y vender solo las 24 horas
-                </h1>
-                <p className="text-base md:text-lg text-gray-300/90 max-w-[590px] mb-0 font-normal leading-relaxed">
-                  ¿Se ha preguntado cuántas oportunidades se escapan cada semana cuando nadie contesta a tiempo o su web no impacta? Creamos el ecosistema inteligente que trabaja por usted día y noche.
-                </p>
-              </div>
-
-              <div
-                aria-hidden="true"
-                className="hidden md:flex items-center justify-end pointer-events-none select-none absolute right-2 lg:right-8 top-[4px] bottom-[2px] z-0"
-              >
-                <svg
-                  viewBox="8.5 7.5 96.5 97.5"
-                  className="h-full w-auto opacity-45 drop-shadow-[0_24px_40px_rgba(0,0,0,0.95)]"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <defs>
-                    <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
-                      <stop offset="55%" stopColor="#CBD5E1" stopOpacity="0.78" />
-                      <stop offset="100%" stopColor="#C5A059" stopOpacity="0.65" />
-                    </linearGradient>
-                  </defs>
-                  <g transform="rotate(-22 60 55)">
-                    <path
-                      fillRule="evenodd"
-                      clipRule="evenodd"
-                      d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
-                      fill="url(#lhyoMonogramGrad)"
-                    />
-                    <path
-                      d="M48 11 L58 3 L58 63 L48 63 Z"
-                      fill="url(#lhyoMonogramGrad)"
-                    />
-                  </g>
-                </svg>
-              </div>
-            </div>
-
-            <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center mb-12">
-              <AuditTriggerButton
-                label="AGENDAR REUNIÓN Y RECIBIR CATÁLOGO"
-                selectedPlan="AUDITORÍA GENERAL (Botón Principal Portada)"
-              />
-              <button
-                type="button"
-                onClick={() => switchView("catalogo")}
-                className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap cursor-pointer"
-              >
-                DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
-              </button>
-            </div>
-
-            {/* PORTAL INTERACTIVO DE INTRIGA */}
-            <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
-              <div className="pb-5 mb-6 border-b border-white/10">
-                <span className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.18em] block mb-1">
-                  ✦ DESCUBRA EL SECRETO EN 10 SEGUNDOS
-                </span>
-                <h2 className="text-lg sm:text-xl font-semibold text-white">
-                  Toque cualquiera de estas 3 preguntas para revelar lo que ocurre dentro de un negocio automatizado:
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-6">
-                {INTRIGUE_PILLS.map((pill, idx) => {
-                  const active = intrigueIndex === idx;
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => setIntrigueIndex(idx)}
-                      className={`p-4 sm:p-5 rounded-2xl text-left border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
-                        active
-                          ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border-[#FCF6BA] shadow-xl scale-[1.01]"
-                          : "bg-[#050507]/85 border-white/10 text-gray-200 hover:border-[#C5A059]/55"
-                      }`}
-                    >
-                      <span
-                        className={`text-[10px] font-bold uppercase tracking-widest block mb-1.5 ${
-                          active ? "text-[#050507]/80" : "text-[#C5A059]"
-                        }`}
-                      >
-                        {pill.tag}
-                      </span>
-                      <span className="text-xs sm:text-sm font-bold leading-snug">
-                        {pill.question}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="p-5 sm:p-6 rounded-2xl bg-[#050507]/95 border border-[#C5A059]/40 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                <div className="space-y-2 max-w-3xl">
-                  <span className="inline-block px-3 py-1 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/40 text-[11px] font-semibold text-[#FCF6BA]">
-                    ✦ {INTRIGUE_PILLS[intrigueIndex].proofStat}
-                  </span>
-                  <h3 className="text-lg sm:text-xl font-semibold text-white">
-                    {INTRIGUE_PILLS[intrigueIndex].revealTitle}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                    {INTRIGUE_PILLS[intrigueIndex].revealDesc}
+              <div className="relative mb-9">
+                <div className="relative z-10 max-w-[685px]">
+                  <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white">
+                    Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
+                  </h1>
+                  <p className="text-base md:text-lg text-gray-300/90 max-w-[605px] mb-0 font-normal leading-relaxed">
+                    Sin importar el rubro de su negocio, creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de máximo prestigio y atención 24/7 hasta sus propios sistemas y programas a medida.
                   </p>
                 </div>
 
+                <div
+                  aria-hidden="true"
+                  className="hidden md:flex items-center justify-end pointer-events-none select-none absolute right-2 lg:right-8 top-[4px] bottom-[2px] z-0"
+                >
+                  <svg
+                    viewBox="8.5 7.5 96.5 97.5"
+                    className="h-full w-auto opacity-45 drop-shadow-[0_24px_40px_rgba(0,0,0,0.95)]"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <defs>
+                      <linearGradient id="lhyoMonogramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+                        <stop offset="55%" stopColor="#CBD5E1" stopOpacity="0.78" />
+                        <stop offset="100%" stopColor="#C5A059" stopOpacity="0.65" />
+                      </linearGradient>
+                    </defs>
+                    <g transform="rotate(-22 60 55)">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M10 42 L40 18 L40 70 L102 70 L84 96 L28 96 L28 80 L10 80 Z M20 46 L30 38 L30 70 L20 70 Z M40 80 L86 80 L80 87 L40 87 Z"
+                        fill="url(#lhyoMonogramGrad)"
+                      />
+                      <path
+                        d="M48 11 L58 3 L58 63 L48 63 Z"
+                        fill="url(#lhyoMonogramGrad)"
+                      />
+                    </g>
+                  </svg>
+                </div>
+              </div>
+
+              <div className="relative z-10 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+                <AuditTriggerButton
+                  label="AGENDAR REUNIÓN Y RECIBIR CATÁLOGO"
+                  selectedPlan="AUDITORÍA GENERAL (Botón Principal Portada)"
+                />
                 <button
                   type="button"
                   onClick={() => switchView("catalogo")}
-                  className="h-[46px] px-6 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs uppercase tracking-wider shrink-0 cursor-pointer"
+                  className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap cursor-pointer"
                 >
-                  VER LAS 6 SOLUCIONES →
+                  DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
                 </button>
+              </div>
+            </div>
+
+            {/* APARECE AL BAJAR CON EL RATÓN: PORTAL INTERACTIVO DE INTRIGA */}
+            <div className="pt-10 border-t border-white/10">
+              <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
+                <div className="pb-5 mb-6 border-b border-white/10">
+                  <span className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.18em] block mb-1">
+                    ✦ DESCUBRA EL SECRETO EN 10 SEGUNDOS
+                  </span>
+                  <h2 className="text-lg sm:text-xl font-semibold text-white">
+                    Toque cualquiera de estas 3 preguntas para revelar lo que ocurre dentro de un negocio automatizado:
+                  </h2>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-6">
+                  {INTRIGUE_PILLS.map((pill, idx) => {
+                    const active = intrigueIndex === idx;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setIntrigueIndex(idx)}
+                        className={`p-4 sm:p-5 rounded-2xl text-left border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                          active
+                            ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border-[#FCF6BA] shadow-xl scale-[1.01]"
+                            : "bg-[#050507]/85 border-white/10 text-gray-200 hover:border-[#C5A059]/55"
+                        }`}
+                      >
+                        <span
+                          className={`text-[10px] font-bold uppercase tracking-widest block mb-1.5 ${
+                            active ? "text-[#050507]/80" : "text-[#C5A059]"
+                          }`}
+                        >
+                          {pill.tag}
+                        </span>
+                        <span className="text-xs sm:text-sm font-bold leading-snug">
+                          {pill.question}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="p-5 sm:p-6 rounded-2xl bg-[#050507]/95 border border-[#C5A059]/40 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                  <div className="space-y-2 max-w-3xl">
+                    <span className="inline-block px-3 py-1 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/40 text-[11px] font-semibold text-[#FCF6BA]">
+                      ✦ {INTRIGUE_PILLS[intrigueIndex].proofStat}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white">
+                      {INTRIGUE_PILLS[intrigueIndex].revealTitle}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+                      {INTRIGUE_PILLS[intrigueIndex].revealDesc}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => switchView("catalogo")}
+                    className="h-[46px] px-6 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs uppercase tracking-wider shrink-0 cursor-pointer"
+                  >
+                    VER LAS 6 SOLUCIONES →
+                  </button>
+                </div>
               </div>
             </div>
           </section>
@@ -319,19 +323,20 @@ export default function MainWorkspace() {
               </h2>
             </div>
 
+            {/* 4 TARJETAS SIMÉTRICAS: 1 LÍNEA DE TÍTULO + 3 LÍNEAS DE DESCRIPCIÓN */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch mb-8">
               {TRUST_SEALS.map((seal) => (
                 <div
                   key={seal.title}
-                  className="seal-card-lhyo p-6 h-full flex flex-col justify-between"
+                  className="seal-card-lhyo p-6 h-full flex flex-col justify-start"
                 >
-                  <div>
-                    <div className="w-8 h-[1.5px] bg-[#C5A059] mb-3.5" />
-                    <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-1.5">
-                      {seal.title}
-                    </h3>
-                  </div>
-                  <p className="text-xs text-gray-300 leading-relaxed">{seal.subtitle}</p>
+                  <div className="w-8 h-[1.5px] bg-[#C5A059] mb-4" />
+                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-nowrap">
+                    {seal.title}
+                  </h3>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    {seal.subtitle}
+                  </p>
                 </div>
               ))}
             </div>
@@ -398,7 +403,6 @@ export default function MainWorkspace() {
         )}
       </div>
 
-      {/* LÍNEA FINAL Y PIE DE PÁGINA 100% CENTRADOS Y SIMÉTRICOS */}
       <footer className="w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 pt-8 pb-28">
         <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-[#C5A059]/45 to-transparent mb-6" />
         <div className="flex flex-col items-center justify-center text-center gap-1.5 text-xs text-gray-400">
