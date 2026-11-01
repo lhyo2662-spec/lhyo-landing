@@ -4,9 +4,33 @@ export const runtime = "edge";
 
 const bookedSlotsRegistry = new Set<string>();
 
+function getVenezuelaTimestamp(): string {
+  try {
+    const now = new Date();
+    const veFormatter = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Caracas",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    });
+    const parts = Object.fromEntries(
+      veFormatter.formatToParts(now).map((p) => [p.type, p.value])
+    );
+    return `${parts.year}-${parts.month}-${parts.day} | ${parts.hour}:${parts.minute} ${parts.dayPeriod}`;
+  } catch {
+    const fallback = new Date(Date.now() - 4 * 60 * 60 * 1000);
+    return fallback.toISOString().replace("T", " ").substring(0, 16);
+  }
+}
+
 export async function GET() {
   return NextResponse.json({
-    status: "ARKOS_V21_ENTERPRISE_ONLINE",
+    status: "ARKOS_V26_3_VENEZUELA_TIME_ACTIVE",
+    currentVenezuelaTime: getVenezuelaTimestamp(),
     webhook: "https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb",
     meetRoom: "https://meet.google.com/krc-vdii-zzh",
     bookedSlots: Array.from(bookedSlotsRegistry),
@@ -44,7 +68,11 @@ export async function POST(request: Request) {
     const selectedPlan = extractVal("plan_elegido") || String(body.payload?.metadata?.source_component || "AUDITORÍA GENERAL");
 
     const cleanRevenue = Number(rawRevenue.replace(/[^0-9.]/g, "")) || 0;
-    const isEnterpriseRequest = selectedPlan.toUpperCase().includes("ENTERPRISE");
+    const isEnterpriseRequest =
+      selectedPlan.toUpperCase().includes("ENTERPRISE") ||
+      selectedPlan.toUpperCase().includes("SOLUCIÓN 04") ||
+      selectedPlan.toUpperCase().includes("SOLUCIÓN 05") ||
+      selectedPlan.toUpperCase().includes("SOLUCIÓN 06");
 
     const classification = isEnterpriseRequest
       ? "VIP_ENTERPRISE"
@@ -52,11 +80,12 @@ export async function POST(request: Request) {
       ? "VIP_QUALIFIED"
       : "LOW_QUALIFIED";
 
-    const nowFormatted = new Date().toISOString().replace("T", " ").substring(0, 19) + " UTC";
+    // Hora exacta de Venezuela (America/Caracas, UTC-4 con formato AM/PM)
+    const nowVenezuela = getVenezuelaTimestamp();
     const meetLink = "https://meet.google.com/krc-vdii-zzh";
 
     const makePayload = {
-      fecha_registro: nowFormatted,
+      fecha_registro: nowVenezuela,
       horario_cita: slotKey,
       nombre_cliente: fullName,
       email_cliente: email,
@@ -80,11 +109,11 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      status: "ENTERPRISE_PIPELINE_OK",
+      status: "CONNECTED_OK",
+      fecha_registro_venezuela: nowVenezuela,
       makeHttpCode: makeResponse.status,
       classification: classification,
       bookedSlot: slotKey,
-      meetRoom: meetLink,
     }, { status: 200 });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : "INTERNAL_ERROR";

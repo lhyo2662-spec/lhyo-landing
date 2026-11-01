@@ -174,9 +174,9 @@ export default function MainWorkspace() {
 
       <div className="flex-1">
         {activeView === "inicio" && (
-          <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            {/* PRIMERA PANTALLA COMPLETA: SOLO LA PORTADA BIEN ARMADA Y CENTRADA */}
-            <div className="min-h-[calc(100vh-5.5rem)] flex flex-col justify-center py-10">
+          <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
+            {/* PORTADA ALINEADA EXACTAMENTE A pt-10 (SIN ESPACIO NEGRO EXCESIVO ARRIBA) */}
+            <div className="pb-16">
               <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.18em] block mb-3">
                 ARQUITECTURA DIGITAL DE ALTA GAMA · AUTOMATIZACIÓN 24/7
               </span>
@@ -187,7 +187,7 @@ export default function MainWorkspace() {
                     Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
                   </h1>
                   <p className="text-base md:text-lg text-gray-300/90 max-w-[605px] mb-0 font-normal leading-relaxed">
-                    Sin importar el rubro de su negocio, creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de máximo prestigio y atención 24/7 hasta sus propios sistemas y programas a medida.
+                    Creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de máximo prestigio y atención inteligente 24/7 hasta ecosistemas propios que organizan y multiplican sus ventas en automático.
                   </p>
                 </div>
 
@@ -239,7 +239,7 @@ export default function MainWorkspace() {
               </div>
             </div>
 
-            {/* APARECE AL BAJAR CON EL RATÓN: PORTAL INTERACTIVO DE INTRIGA */}
+            {/* PORTAL INTERACTIVO DE INTRIGA */}
             <div className="pt-10 border-t border-white/10">
               <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
                 <div className="pb-5 mb-6 border-b border-white/10">
@@ -323,7 +323,6 @@ export default function MainWorkspace() {
               </h2>
             </div>
 
-            {/* 4 TARJETAS SIMÉTRICAS: 1 LÍNEA DE TÍTULO + 3 LÍNEAS DE DESCRIPCIÓN */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch mb-8">
               {TRUST_SEALS.map((seal) => (
                 <div
