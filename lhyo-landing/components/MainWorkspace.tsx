@@ -111,6 +111,15 @@ export default function MainWorkspace() {
       }
     };
     handleHash();
+    const viewEventId = `lhyo_view_${Date.now()}`;
+    fetch("/api/meta-capi", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        eventName: "ViewContent",
+        eventId: viewEventId
+      })
+    }).catch(() => {});
     window.addEventListener("hashchange", handleHash);
     return () => window.removeEventListener("hashchange", handleHash);
   }, []);
@@ -444,4 +453,5 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
 
