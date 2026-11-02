@@ -100,7 +100,7 @@ export default function CollapsibleMasterCatalog() {
           </h2>
         </div>
         <span className="text-xs sm:text-sm text-gray-300/90">
-          Toque cualquiera de nuestras 6 soluciones para desplegar su alcance y personalizarla
+          Toque cualquiera de nuestras 6 soluciones para desplegar su alcance y configurarla a medida
         </span>
       </div>
 
@@ -208,7 +208,7 @@ export default function CollapsibleMasterCatalog() {
                             : "text-gray-300 hover:text-white"
                         }`}
                       >
-                        ✦ 1. Todo lo que Incluye ({sol.includedItems.length} puntos)
+                        ✦ 1. Alcance Incluido ({sol.includedItems.length} puntos)
                       </button>
                       <button
                         type="button"
@@ -221,7 +221,7 @@ export default function CollapsibleMasterCatalog() {
                             : "text-gray-300 hover:text-white"
                         }`}
                       >
-                        ⚙ 2. Personalizar a mi gusto ({userPicks.length} elegidas)
+                        ⚙ 2. Configurar a Medida ({userPicks.length} activos)
                       </button>
                     </div>
 
@@ -297,7 +297,7 @@ export default function CollapsibleMasterCatalog() {
               ✦ PROPUESTA ECONÓMICA PERSONALIZADA POR PAÍS
             </span>
             <h3 className="text-xl sm:text-2xl font-semibold text-white">
-              ¿Deseas recibir nuestro Catálogo Privado PDF con los precios para tu país?
+              ¿Desea recibir nuestro Catálogo Privado PDF con las tarifas para su país?
             </h3>
           </div>
           <span className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] text-xs font-bold uppercase tracking-wider shrink-0 self-start sm:self-center">
@@ -339,7 +339,7 @@ export default function CollapsibleMasterCatalog() {
                   {[
                     "Paquete Completo (Todo Incluido)",
                     "Asistente WhatsApp / IG 24/7",
-                    "Página Web Moderna",
+                    "Plataforma Web Moderna",
                     "Sistemas Propios (Motor / Cerebro / Panel)"
                   ].map((interes) => {
                     const sel = privInterests.includes(interes);
@@ -392,7 +392,7 @@ export default function CollapsibleMasterCatalog() {
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-4 border-t border-white/10">
               <div className="text-xs text-gray-300">
-                <strong className="text-[#FCF6BA] block">Resumen de tu solicitud:</strong>
+                <strong className="text-[#FCF6BA] block">Resumen de su solicitud:</strong>
                 {privateCatalogSummary}
               </div>
               <AuditTriggerButton
@@ -406,4 +406,3 @@ export default function CollapsibleMasterCatalog() {
     </div>
   );
 }
-

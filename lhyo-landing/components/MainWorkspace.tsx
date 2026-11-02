@@ -254,7 +254,7 @@ export default function MainWorkspace() {
                   <span className="hidden sm:inline-block h-3 w-[1px] bg-white/15" />
                   <div className="flex items-center gap-2">
                     <span className="text-[#C5A059]">02</span>
-                    <span className="text-[#FCF6BA]/90">IMAGEN QUE IMPONE RESPETO</span>
+                    <span className="text-[#FCF6BA]/90">AUTORIDAD Y PRESTIGIO CORPORATIVO</span>
                   </div>
                   <span className="hidden sm:inline-block h-3 w-[1px] bg-white/15" />
                   <div className="flex items-center gap-2">
@@ -444,3 +444,4 @@ export default function MainWorkspace() {
     </div>
   );
 }
+

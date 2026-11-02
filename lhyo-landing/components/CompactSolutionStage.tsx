@@ -28,222 +28,222 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     group: "comercial",
     num: "01",
     shortTabTitle: "01 · Atención 24/7 en WhatsApp e IG",
-    badge: "SOLUCIÓN 01 · EL VENDEDOR QUE NUNCA DUERME",
+    badge: "SOLUCIÓN 01 · ATENCIÓN Y CONVERSIÓN INMEDIATA",
     title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
-    curiosityHook: "¿Qué pasa si un cliente te escribe un domingo a las 2:00 AM? Mira cómo le respondemos en menos de 1 segundo y agendamos su cita.",
+    curiosityHook: "¿Qué ocurre si un cliente escribe un domingo a las 2:00 AM? Descubra cómo respondemos en menos de 1 segundo y agendamos su cita.",
     shortDesc:
       "Atienda a cada cliente de forma inmediata sin importar la hora. Creamos un asistente inteligente entrenado con la información de su negocio que responde preguntas, guía al cliente y agenda citas automáticamente.",
     plainExplanation:
-      "Explicado fácil: Si alguien escribe a tu WhatsApp o Instagram pidiendo precios mientras estás ocupado o durmiendo, tu asistente le contesta al instante con amabilidad y te deja la reunión agendada.",
+      "En resumen ejecutivo: Cuando un cliente potencial escribe a su WhatsApp o Instagram solicitando información fuera de horario, su asistente le responde al instante con precisión y deja la reunión agendada en su calendario.",
     benefitTag: "Respuesta inmediata las 24 horas",
     metrics: [
       { label: "Velocidad al responder", value: "Menos de 1 segundo" },
       { label: "Horario de atención", value: "24 horas · 365 días" },
-      { label: "Citas en tu agenda", value: "100% Automáticas" }
+      { label: "Citas en su agenda", value: "100% Automáticas" }
     ],
     includedItems: [
       "Atención continua las 24 horas del día, los 7 días de la semana, sin dejar a ningún cliente esperando.",
-      "Respuestas naturales, amables y con el estilo exacto de tu negocio.",
-      "Descubre qué necesita cada persona antes de pasarla a una reunión contigo.",
-      "Agenda citas directamente en tu calendario sin que tengas que intervenir.",
-      "Guarda automáticamente el nombre y teléfono de cada interesado.",
-      "Entrenado con tus precios, servicios, horarios y preguntas frecuentes."
+      "Respuestas naturales, ejecutivas y alineadas con la identidad exacta de su empresa.",
+      "Identificación de las necesidades de cada prospecto antes de agendar su reunión.",
+      "Reserva directa de citas en su calendario sin intervención manual.",
+      "Registro automático del nombre, teléfono y requerimiento de cada interesado.",
+      "Entrenamiento completo con sus tarifas, servicios, horarios y preguntas frecuentes."
     ],
     executionGuarantee:
-      "Nosotros hacemos todo por ti: Configuramos, entrenamos y dejamos tu asistente funcionando en tu WhatsApp e Instagram.",
+      "Configuramos, entrenamos y dejamos su asistente operando directamente en sus canales oficiales de WhatsApp e Instagram con respaldo continuo.",
     customOptions: [
       "Responder mensajes en WhatsApp las 24 horas",
       "Responder mensajes y comentarios en Instagram",
       "Agendar citas automáticamente en mi calendario",
-      "Preguntar qué busca el cliente antes de agendar"
+      "Calificar el interés del cliente antes de agendar"
     ],
     crmBaseName: "SOLUCIÓN 01 · Asistente WhatsApp e Instagram 24/7",
-    buttonText: "QUIERO ESTE ASISTENTE 24/7 · AGENDAR"
+    buttonText: "SOLICITAR ESTE ASISTENTE 24/7 · AGENDAR"
   },
   {
     id: "SOL-2",
     group: "comercial",
     num: "02",
-    shortTabTitle: "02 · Páginas Web y Catálogos de Lujo",
-    badge: "SOLUCIÓN 02 · LA VITRINA DIGITAL QUE ENAMORA EN 3 SEGUNDOS",
-    title: "Páginas Web Modernas y Catálogos Interactivos",
-    curiosityHook: "¿Por qué la gente cierra las páginas comunes tan rápido? Descubre cómo una web interactiva hace que te elijan a ti al instante.",
+    shortTabTitle: "02 · Plataformas Web y Catálogos de Lujo",
+    badge: "SOLUCIÓN 02 · PRESENCIA DIGITAL DE MÁXIMO PRESTIGIO",
+    title: "Plataformas Web Modernas y Catálogos Interactivos",
+    curiosityHook: "¿Por qué los clientes abandonan las páginas convencionales tan rápido? Descubra cómo una experiencia interactiva proyecta liderazgo inmediato.",
     shortDesc:
-      "Proyecte una imagen impecable y de alto prestigio. Creamos páginas web rápidas, elegantes y muy fáciles de usar en celulares y computadoras para que sus visitantes conozcan lo que ofrece y agenden en un clic.",
+      "Proyecte una imagen impecable y de máximo prestigio en su sector. Desarrollamos plataformas rápidas, elegantes y 100% adaptadas a la esencia de su empresa para convertir visitantes en clientes.",
     plainExplanation:
-      "Explicado fácil: Diseñamos y construimos una plataforma única, veloz e impresionante con la identidad de tu marca para que cada visitante sienta confianza absoluta y decida contratarte al instante.",
-    benefitTag: "Imagen de lujo adaptada a tu rubro",
+      "En resumen ejecutivo: Diseñamos y construimos una plataforma única, veloz e impresionante con la identidad de su marca para que cada visitante perciba autoridad absoluta y decida contratarle al instante.",
+    benefitTag: "Presencia de lujo y alta conversión",
     metrics: [
       { label: "Velocidad al abrir", value: "Menos de 1 segundo" },
-      { label: "Se ve perfecto en", value: "iPhone, Android y PC" },
-      { label: "Aparece en buscadores", value: "Listo para Google" }
+      { label: "Diseño exclusivo", value: "100% Alta Gama" },
+      { label: "Posicionamiento", value: "Optimizado para Google" }
     ],
     includedItems: [
-      "Diseño moderno y elegante que transmite confianza total desde el primer segundo.",
-      "Funciona súper rápido tanto en teléfonos celulares como en computadoras.",
-      "Botones interactivos para que el cliente explore tus servicios sin aburrirse leyendo textos largos.",
-      "Conectada directamente a tu WhatsApp y a tu calendario de citas.",
-      "Preparada para que las personas encuentren tu negocio cuando busquen en Google.",
-      "Catálogo descargable en PDF personalizado con el nombre de cada cliente."
+      "Diseño corporativo de alta gama que transmite solidez y confianza desde el primer segundo.",
+      "Rendimiento ultrarrápido tanto en teléfonos móviles (iPhone y Android) como en computadoras.",
+      "Módulos interactivos para que sus clientes exploren sus servicios de forma ágil y atractiva.",
+      "Integración directa con su WhatsApp corporativo y su calendario ejecutivo de reservas.",
+      "Estructura técnica optimizada para destacar su empresa en los motores de búsqueda (Google).",
+      "Catálogo corporativo descargable en PDF personalizado con el nombre de cada prospecto."
     ],
     executionGuarantee:
-      "Entrega completa llave en mano: Diseñamos, programamos y publicamos tu página en internet lista para recibir clientes.",
+      "Diseñamos, programamos y publicamos su plataforma en servidores de alta velocidad, lista para convertir visitantes en clientes desde el primer día.",
     customOptions: [
-      "Crear mi página web moderna desde cero",
-      "Renovar y mejorar la página web que ya tengo",
+      "Desarrollar mi plataforma web moderna desde cero",
+      "Renovar y elevar el nivel de mi sitio web actual",
       "Incluir un catálogo interactivo de mis servicios",
-      "Incluir calendario para que reserven citas solos"
+      "Incluir sistema de reserva de citas en línea"
     ],
-    crmBaseName: "SOLUCIÓN 02 · Página Web Moderna y Catálogo Digital",
-    buttonText: "QUIERO MI PÁGINA WEB DE LUJO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 02 · Plataforma Web Moderna y Catálogo Digital",
+    buttonText: "SOLICITAR MI PLATAFORMA WEB · AGENDAR"
   },
   {
     id: "SOL-3",
     group: "comercial",
     num: "03",
-    shortTabTitle: "03 · Lista de Clientes Automática",
-    badge: "SOLUCIÓN 03 · CERO CLIENTES PERDIDOS EN PAPEL O CHATS",
-    title: "Organización Automática de Clientes y Ventas",
-    curiosityHook: "¿Sabes cuántas ventas se pierden por olvidar dar seguimiento? Mira cómo cada cliente se guarda y ordena solo.",
+    shortTabTitle: "03 · Control Automático de Clientes (CRM)",
+    badge: "SOLUCIÓN 03 · CONTROL COMERCIAL AUTOMATIZADO",
+    title: "Organización Automática de Clientes y Ventas (CRM)",
+    curiosityHook: "¿Cuántas oportunidades se pierden por falta de seguimiento? Vea cómo cada prospecto queda registrado y clasificado en tiempo real.",
     shortDesc:
-      "Tenga todo su negocio ordenado en un solo lugar. Cada persona que pregunta o agenda queda guardada automáticamente con su nombre, contacto, presupuesto y el servicio que desea comprar.",
+      "Tenga toda su operación comercial ordenada en un solo lugar. Cada persona que consulta o agenda queda registrada automáticamente con su nombre, contacto, presupuesto y el servicio de su interés.",
     plainExplanation:
-      "Explicado fácil: Ya no tienes que anotar nada en cuadernos ni buscar entre cientos de chats. El sistema anota a cada cliente solo, te dice quién está listo para comprar y te avisa al correo al instante.",
-    benefitTag: "Orden total sin trabajo manual",
+      "En resumen ejecutivo: Elimine el registro manual en hojas sueltas o chats dispersos. El sistema organiza a cada cliente automáticamente, destaca a los prospectos prioritarios y le notifica al instante.",
+    benefitTag: "Orden ejecutivo sin carga manual",
     metrics: [
-      { label: "Tiempo anotando a mano", value: "0 Minutos" },
-      { label: "Orden de clientes", value: "Por Prioridad e Interés" },
-      { label: "Aviso a tu correo", value: "En 1 Segundo" }
+      { label: "Registro manual", value: "0 Minutos" },
+      { label: "Clasificación", value: "Por Prioridad e Interés" },
+      { label: "Notificación", value: "En 1 Segundo" }
     ],
     includedItems: [
-      "Anota automáticamente los datos de cada nuevo cliente interesado.",
-      "Separa y destaca a los clientes más importantes para que los atiendas primero.",
-      "Te ahorra horas de trabajo repetitivo todas las semanas.",
-      "Tabla de control clara que puedes revisar desde tu teléfono o computadora.",
-      "Envía automáticamente un correo de confirmación con el link de videollamada al cliente.",
-      "Te muestra exactamente qué servicio eligió la persona antes de hablar con ella."
+      "Captura y registro automático de los datos de cada nuevo cliente potencial.",
+      "Clasificación inteligente de prospectos según su volumen comercial y prioridad.",
+      "Ahorro de horas semanales al eliminar tareas administrativas repetitivas.",
+      "Panel de control claro y accesible desde cualquier teléfono o computadora.",
+      "Envío automático de confirmación de cita con enlace de videollamada al cliente.",
+      "Historial exacto de la solución que cada cliente seleccionó antes de la reunión."
     ],
     executionGuarantee:
-      "Todo conectado por nosotros: Enlazamos tu página, tu calendario y tu lista de clientes para que todo se guarde solo en tiempo real.",
+      "Enlazamos su plataforma, su calendario y su base de datos comercial para que cada oportunidad quede registrada y clasificada en tiempo real.",
     customOptions: [
-      "Guardar todos mis clientes en una lista automática",
-      "Destacar automáticamente a los clientes más importantes",
-      "Enviar correos automáticos de confirmación de cita",
-      "Recibir una alerta inmediata en mi celular/correo"
+      "Registrar todos mis clientes en una base automática",
+      "Clasificar automáticamente a los clientes prioritarios",
+      "Enviar confirmaciones automáticas de reunión por correo",
+      "Recibir alertas instantáneas de nuevos clientes"
     ],
-    crmBaseName: "SOLUCIÓN 03 · Organización Automática de Clientes",
-    buttonText: "QUIERO ORDENAR MIS CLIENTES · AGENDAR"
+    crmBaseName: "SOLUCIÓN 03 · Organización Automática de Clientes (CRM)",
+    buttonText: "SOLICITAR CONTROL AUTOMÁTICO CRM · AGENDAR"
   },
   {
     id: "SOL-4",
     group: "propios",
     num: "04",
-    shortTabTitle: "04 · Motor Propio Sin Mensualidades",
-    badge: "SOLUCIÓN 04 · DUEÑO TOTAL DE TU AUTOMATIZACIÓN",
-    title: "Motor Automático Propio (Sin Pagar Alquiler Mensual a Terceros)",
-    curiosityHook: "¿Por qué pagar mensualidades toda la vida por cada mensaje enviado cuando puedes ser dueño de tu propio motor ilimitado?",
+    shortTabTitle: "04 · Motor Propio Libre de Costos",
+    badge: "SOLUCIÓN 04 · SOBERANÍA DE AUTOMATIZACIÓN (N8N)",
+    title: "Automatización Libre de Costos (Servidor Privado Propio)",
+    curiosityHook: "¿Por qué pagar tarifas mensuales crecientes por cada tarea cuando su empresa puede ser dueña de su propio motor ilimitado?",
     shortDesc:
-      "Deje de pagar cobros mensuales a otras plataformas cada vez que su negocio atiende clientes. Instalamos un motor automático privado exclusivo para su empresa con capacidad ilimitada.",
+      "Migramos su operación a n8n en servidores privados (Self-hosted). Eliminamos sus costos mensuales de herramientas de terceros y construimos un motor de procesos ilimitado.",
     plainExplanation:
-      "Explicado fácil: Otras plataformas te cobran cada vez más caro cuando tu negocio crece. Nosotros te instalamos tu propio motor privado para que atiendas a miles de clientes sin pagar ni un dólar extra por tarea.",
-    benefitTag: "Cero cobro por tarea · Uso ilimitado",
+      "En resumen ejecutivo: En lugar de pagar costosas suscripciones externas que aumentan con cada mensaje o tarea, instalamos el motor automático privado de su empresa para operar sin límites.",
+    benefitTag: "Cero costo por operación · Ilimitado",
     metrics: [
-      { label: "Tareas y mensajes", value: "Ilimitados (Sin tope)" },
-      { label: "Ahorro en alquileres", value: "Hasta 85% al año" },
-      { label: "Dueño del motor", value: "100% Tu Empresa" }
+      { label: "Operaciones y flujos", value: "Ilimitados (∞)" },
+      { label: "Ahorro en licencias", value: "Hasta 85% Anual" },
+      { label: "Propiedad del motor", value: "100% Su Empresa" }
     ],
     includedItems: [
-      "Instalación de tu propio motor automático en un servidor privado exclusivo para tu empresa.",
-      "Eliminación definitiva de cobros mensuales por cantidad de mensajes, correos o clientes atendidos.",
-      "Pasamos todas tus automatizaciones actuales a tu nuevo motor sin detener tu negocio ni un minuto.",
-      "Capacidad para atender a miles de personas al mismo tiempo sin que se ponga lento.",
-      "Seguridad total: toda la información de tu negocio queda bajo tu propio control.",
-      "Copias de seguridad automáticas todos los días y soporte técnico continuo."
+      "Despliegue de su propio motor de automatización n8n en un servidor privado exclusivo para su empresa.",
+      "Eliminación definitiva de cobros mensuales por volumen de mensajes, tareas o ejecuciones.",
+      "Migración íntegra de sus flujos actuales sin interrumpir ni un minuto su operación.",
+      "Capacidad de alto rendimiento para procesar miles de solicitudes simultáneas sin latencia.",
+      "Soberanía absoluta: todas sus credenciales, contactos y procesos permanecen en su servidor.",
+      "Copias de seguridad automatizadas diariamente y monitoreo técnico continuo 24/7."
     ],
     executionGuarantee:
-      "Instalación llave en mano: Dejamos tu propio servidor funcionando y conectado a todas tus herramientas sin facturas por consumo.",
+      "Entregamos su servidor privado configurado, seguro y conectado a todos sus canales para operar sin límites ni cargos por volumen.",
     customOptions: [
-      "Tener mi propio motor automático exclusivo para mi negocio",
-      "Dejar de pagar mensualidades por cantidad de mensajes",
-      "Conectar mi WhatsApp, Correo y Agenda sin ningún límite",
-      "Respaldo diario automático y cuidado técnico 24/7"
+      "Instalar mi propio servidor privado de automatización (n8n)",
+      "Eliminar cobros mensuales por volumen de operaciones",
+      "Conectar WhatsApp, Correo, Agenda y CRM sin límites",
+      "Respaldo diario cifrado y monitoreo continuo 24/7"
     ],
-    crmBaseName: "SOLUCIÓN 04 · Motor Automático Propio Sin Mensualidades",
-    buttonText: "QUIERO MI PROPIO MOTOR AUTOMÁTICO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 04 · Automatización Libre de Costos (n8n Self-Hosted)",
+    buttonText: "SOLICITAR MOTOR PROPIO N8N · AGENDAR"
   },
   {
     id: "SOL-5",
     group: "propios",
     num: "05",
-    shortTabTitle: "05 · Cerebro Privado de tu Negocio",
-    badge: "SOLUCIÓN 05 · MEMORIA FOTOGRÁFICA DE TODA TU EMPRESA",
-    title: "Cerebro Privado con la Memoria de tu Negocio",
-    curiosityHook: "Imagina preguntarle cualquier precio, contrato o regla de tu empresa a una pantalla y recibir el dato exacto en 1 segundo.",
+    shortTabTitle: "05 · Agentes IA con Memoria Privada",
+    badge: "SOLUCIÓN 05 · INTELIGENCIA DOCUMENTAL PRIVADA (RAG)",
+    title: "Agentes RAG (Memoria Institucional Privada)",
+    curiosityHook: "Imagine consultar cualquier contrato, tarifario o documento interno de su empresa y recibir la respuesta exacta en 1 segundo.",
     shortDesc:
-      "Un asistente privado para usted y su equipo que se sabe de memoria todos los contratos, listas de precios, documentos y reglas de su negocio para responder cualquier duda interna al instante.",
+      "Cerebros de IA locales conectados a sus bases de datos, contratos y documentos internos. Privacidad absoluta para que su equipo consulte información corporativa en segundos.",
     plainExplanation:
-      "Explicado fácil: En vez de perder horas buscando un dato entre cientos de carpetas o archivos PDF, le preguntas en privado al Cerebro de tu empresa y en 1 segundo te dice la respuesta exacta y en qué página está.",
-    benefitTag: "Secreto total · Respuesta en 1 segundo",
+      "En resumen ejecutivo: En lugar de perder horas buscando datos entre cientos de carpetas o archivos PDF, su equipo consulta en privado al Cerebro de su empresa y obtiene el dato exacto con página y cláusula al instante.",
+    benefitTag: "Privacidad absoluta · Consulta en 1s",
     metrics: [
-      { label: "Exactitud al responder", value: "99.4% Verificada" },
-      { label: "Privacidad de archivos", value: "100% Secreto" },
-      { label: "Tiempo de respuesta", value: "Menos de 1 segundo" }
+      { label: "Precisión documental", value: "99.4% Verificable" },
+      { label: "Privacidad de datos", value: "100% Aislada" },
+      { label: "Velocidad de consulta", value: "Menos de 1 segundo" }
     ],
     includedItems: [
-      "Lee y memoriza todos tus contratos, listas de precios, manuales, archivos PDF y tablas de Excel.",
-      "Responde en 1 segundo diciéndote exactamente de qué documento y de qué página sacó el dato.",
-      "100% privado y secreto: la información de tu negocio jamás sale a internet público.",
-      "Disponible las 24 horas para ayudarte a ti, a tus vendedores o a tu equipo de trabajo.",
-      "Cada vez que agregas un documento o precio nuevo, lo aprende automáticamente en el acto.",
-      "Tú decides qué información puede consultar cada empleado y cuál es solo para ti."
+      "Conexión segura con sus contratos legales, tarifarios, manuales operativos, PDFs y hojas de cálculo.",
+      "Respuestas inmediatas citando el documento exacto y la página de origen.",
+      "Confidencialidad corporativa total: su información jamás se comparte ni sale a internet público.",
+      "Disponible 24/7 para agilizar el trabajo de directivos, gerentes, ventas y atención al cliente.",
+      "Sincronización instantánea cada vez que su empresa añade o actualiza un documento.",
+      "Control de acceso por niveles según el cargo de cada integrante de su organización."
     ],
     executionGuarantee:
-      "Configuración blindada: Conectamos tus documentos en privado y verificamos que responda siempre con datos reales y exactos de tu negocio.",
+      "Conectamos sus repositorios internos bajo estricto blindaje de seguridad y validamos respuestas 100% fieles a la documentación de su empresa.",
     customOptions: [
-      "Conectar mis contratos, listas de precios y documentos",
-      "Chat privado de consulta rápida para mí y mi equipo",
-      "Privacidad máxima (mis documentos nunca salen a internet)",
-      "Aprendizaje automático cuando agrego archivos nuevos"
+      "Conectar contratos, listas de precios, PDFs y manuales internos",
+      "Asistente privado de consulta rápida para directivos y equipo",
+      "Aislamiento de seguridad (cero salida de datos a internet público)",
+      "Actualización automática al incorporar nuevos documentos"
     ],
-    crmBaseName: "SOLUCIÓN 05 · Cerebro Privado con Memoria de Negocio",
-    buttonText: "QUIERO EL CEREBRO PRIVADO DE MI NEGOCIO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 05 · Agentes RAG (Memoria Institucional Privada)",
+    buttonText: "SOLICITAR AGENTE IA PRIVADO · AGENDAR"
   },
   {
     id: "SOL-6",
     group: "propios",
     num: "06",
-    shortTabTitle: "06 · Tu Programa Todo-en-Uno",
-    badge: "SOLUCIÓN 06 · TODA TU EMPRESA EN UNA SOLA PANTALLA",
-    title: "Tu Propio Programa y Panel Todo-en-Uno con tu Marca",
-    curiosityHook: "¿Cansado de abrir 6 programas distintos todos los días? Mira cómo se ve todo tu negocio unido en una sola pantalla con tu logo.",
+    shortTabTitle: "06 · SaaS Corporativo Todo-en-Uno",
+    badge: "SOLUCIÓN 06 · ECOSISTEMA DE SOFTWARE PROPIO",
+    title: "SaaS Corporativo Interno (Panel Centralizado a Medida)",
+    curiosityHook: "¿Su operación depende de múltiples programas desconectados? Vea cómo unificamos toda su empresa en un solo panel con su propia marca.",
     shortDesc:
-      "Deje de pagar y abrir múltiples programas separados. Creamos el sistema privado de su empresa con su propio logo para controlar ventas, clientes, agenda, equipo y finanzas desde un solo lugar.",
+      "Desarrollo de ecosistemas a medida. Unificamos sus operaciones en un panel de control centralizado, eliminando la dependencia de múltiples suscripciones ineficientes.",
     plainExplanation:
-      "Explicado fácil: En lugar de tener tus cosas regadas en varios programas alquilados, te creamos el programa oficial de tu empresa para que manejes todo tu negocio desde una sola pantalla en tu celular o computadora.",
-    benefitTag: "Tu propio programa · Todo en 1 pantalla",
+      "En resumen ejecutivo: En lugar de pagar múltiples licencias mensuales en plataformas separadas, desarrollamos el software oficial de su empresa con su logo para dirigir ventas, clientes, agenda y finanzas desde una sola pantalla.",
+    benefitTag: "Su propio software · Panel único",
     metrics: [
-      { label: "Dueño del programa", value: "100% Tu Marca" },
-      { label: "Todo tu negocio en", value: "1 Sola Pantalla" },
-      { label: "Usuarios de tu equipo", value: "Ilimitados sin cobro" }
+      { label: "Propiedad del sistema", value: "100% Su Marca" },
+      { label: "Control operativo", value: "1 Sola Pantalla" },
+      { label: "Usuarios de su equipo", value: "Ilimitados sin cargos" }
     ],
     includedItems: [
-      "Creación de tu propio programa privado en internet con el nombre, colores y logo de tu empresa.",
-      "Une todo en una sola pantalla: ventas, lista de clientes, agenda de citas, pagos y resultados del mes.",
-      "Te permite cancelar múltiples suscripciones mensuales de programas sueltos.",
-      "Accesos individuales para tu equipo de trabajo y un área elegante para tus clientes.",
-      "Conectado en tiempo real con tu WhatsApp inteligente y tu calendario de citas.",
-      "Súper rápido y cómodo de usar desde cualquier iPhone, Android, tablet o computadora."
+      "Desarrollo de su propia plataforma privada en la nube con el nombre, colores y logo de su empresa.",
+      "Centralización total: ventas, cartera de clientes (CRM), agenda, pagos y métricas en una sola interfaz.",
+      "Ahorro directo al eliminar múltiples suscripciones mensuales de herramientas externas.",
+      "Perfiles personalizados para su equipo de trabajo y portal exclusivo para sus clientes.",
+      "Sincronización en vivo con sus asistentes inteligentes 24/7 y su calendario corporativo.",
+      "Acceso rápido y seguro desde cualquier iPhone, Android, tablet o computadora."
     ],
     executionGuarantee:
-      "Hecho 100% a tu medida: Construimos el panel exacto que necesita tu empresa para que seas dueño de tu propio sistema para siempre.",
+      "Construimos la plataforma exacta que requiere su operación para que su empresa sea dueña de su propia tecnología sin pagar licencias por usuario.",
     customOptions: [
-      "Un solo panel para ver mis ventas, clientes, agenda y pagos",
-      "Accesos para mi equipo sin pagar extra por cada usuario",
-      "Dejar de pagar varios programas sueltos todos los meses",
-      "Personalizado con el logo y los colores de mi empresa"
+      "Panel centralizado para dirigir ventas, clientes, agenda y finanzas",
+      "Accesos ilimitados para mi equipo sin pagos extras por usuario",
+      "Reemplazar múltiples suscripciones mensuales por un sistema propio",
+      "Plataforma personalizada con el logo e identidad de mi empresa"
     ],
-    crmBaseName: "SOLUCIÓN 06 · Programa Propio Todo-en-Uno",
-    buttonText: "QUIERO MI PROGRAMA TODO-EN-UNO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 06 · SaaS Corporativo Interno (Panel Propio)",
+    buttonText: "SOLICITAR MI SAAS CORPORATIVO · AGENDAR"
   }
 ];
 
@@ -320,7 +320,7 @@ export default function CompactSolutionStage({
                     isSelected ? "text-[#050507]/80" : "text-[#C5A059]"
                   }`}
                 >
-                  OPCIÓN {sol.num}
+                  SOLUCIÓN {sol.num}
                 </span>
                 <span
                   className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
@@ -329,7 +329,7 @@ export default function CompactSolutionStage({
                       : "bg-[#C5A059]/15 text-[#FCF6BA]"
                   }`}
                 >
-                  {isSelected ? "✓ Viendo ahora" : "Tocar para abrir →"}
+                  {isSelected ? "✓ Activa" : "Explorar →"}
                 </span>
               </div>
               <div className="text-base font-bold leading-snug">{sol.shortTabTitle}</div>
@@ -394,7 +394,7 @@ export default function CompactSolutionStage({
             >
               {openDrawer === "incluye"
                 ? "▲ Ocultar detalles"
-                : `✦ Abrir todo lo que ofrece (${activeSolution.includedItems.length} puntos)`}
+                : `✦ Alcance Incluido (${activeSolution.includedItems.length} puntos)`}
             </button>
 
             <button
@@ -410,7 +410,7 @@ export default function CompactSolutionStage({
             >
               {openDrawer === "personalizar"
                 ? "▲ Ocultar opciones"
-                : `⚙ Personalizar a mi gusto (${currentPicks.length} elegidas)`}
+                : `⚙ Configurar a Medida (${currentPicks.length} activos)`}
             </button>
           </div>
 
@@ -434,7 +434,7 @@ export default function CompactSolutionStage({
               ))}
             </div>
             <div className="p-3.5 rounded-xl bg-[#0A1128] border border-[#C5A059]/40 text-xs text-gray-200">
-              <strong className="text-[#FCF6BA]">Garantía Llave en Mano:</strong>{" "}
+              <strong className="text-[#FCF6BA]">✦ El resultado en su empresa:</strong>{" "}
               {activeSolution.executionGuarantee}
             </div>
           </div>
@@ -470,5 +470,3 @@ export default function CompactSolutionStage({
     </div>
   );
 }
-
-
