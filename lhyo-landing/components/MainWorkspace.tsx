@@ -27,11 +27,11 @@ const INTRIGUE_PILLS = [
     proofStat: "Imagen de Prestigio Internacional desde el Día 1"
   },
   {
-    tag: "INTRIGA 03 · LIBERTAD Y PROPIEDAD",
-    question: "¿Cómo se siente ser dueño de un negocio que se ordena solo sin pagar alquileres eternos?",
-    revealTitle: "Todo tu negocio unido en una sola pantalla y con tu propio motor automático",
+    tag: "PILAR 03 · CONTROL Y TECNOLOGÍA PROPIA",
+    question: "¿Cuánto tiempo y dinero pierde una empresa cuando sus áreas trabajan por separado?",
+    revealTitle: "Todo su negocio unido en una sola pantalla y operando bajo su control absoluto",
     revealDesc:
-      "Olvídate de anotar clientes a mano o pagar 6 programas distintos todos los meses. Cada prospecto se clasifica solo por prioridad y creamos tu propio sistema Todo-en-Uno con tu marca para siempre.",
+      "Deje atrás el desgaste de revisar procesos manuales o depender de múltiples herramientas sueltas cada mes. Cada cliente se clasifica automáticamente por prioridad mientras usted dirige ventas, agenda y resultados desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
     proofStat: "Hasta 85% de Ahorro Anual + Control Absoluto"
   }
 ];
@@ -453,5 +453,6 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
 
 

@@ -138,112 +138,112 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     id: "SOL-4",
     group: "propios",
     num: "04",
-    shortTabTitle: "04 · Motor Propio Libre de Costos",
-    badge: "SOLUCIÓN 04 · SOBERANÍA DE AUTOMATIZACIÓN (N8N)",
-    title: "Automatización Libre de Costos (Servidor Privado Propio)",
-    curiosityHook: "¿Por qué pagar tarifas mensuales crecientes por cada tarea cuando su empresa puede ser dueña de su propio motor ilimitado?",
+    shortTabTitle: "04 · Automatización Total Sin Mensualidades",
+    badge: "SOLUCIÓN 04 · INDEPENDENCIA Y AUTOMATIZACIÓN SIN LÍMITES",
+    title: "Automatización Total de su Operación (Sin Pagos Mensuales Externos)",
+    curiosityHook: "¿Por qué pagar tarifas mensuales que suben cada vez que su negocio crece, cuando puede ser dueño de su propio sistema automático ilimitado?",
     shortDesc:
-      "Migramos su operación a n8n en servidores privados (Self-hosted). Eliminamos sus costos mensuales de herramientas de terceros y construimos un motor de procesos ilimitado.",
+      "Libere a su empresa de pagar suscripciones mensuales por cada mensaje o tarea realizada. Instalamos una central de automatización privada y exclusiva para su negocio que ejecuta todos sus procesos sin límites de uso.",
     plainExplanation:
-      "En resumen ejecutivo: En lugar de pagar costosas suscripciones externas que aumentan con cada mensaje o tarea, instalamos el motor automático privado de su empresa para operar sin límites.",
-    benefitTag: "Cero costo por operación · Ilimitado",
+      "En resumen ejecutivo: En lugar de alquilar plataformas externas que le cobran más caro a medida que usted atiende más clientes, instalamos el sistema automático propio de su empresa para que opere sin límites ni cobros extra.",
+    benefitTag: "Cero cobro por uso · Capacidad ilimitada",
     metrics: [
-      { label: "Operaciones y flujos", value: "Ilimitados (∞)" },
-      { label: "Ahorro en licencias", value: "Hasta 85% Anual" },
-      { label: "Propiedad del motor", value: "100% Su Empresa" }
+      { label: "Operaciones y envíos", value: "Ilimitados (∞)" },
+      { label: "Ahorro en suscripciones", value: "Hasta 85% Anual" },
+      { label: "Dueño del sistema", value: "100% Su Empresa" }
     ],
     includedItems: [
-      "Despliegue de su propio motor de automatización n8n en un servidor privado exclusivo para su empresa.",
-      "Eliminación definitiva de cobros mensuales por volumen de mensajes, tareas o ejecuciones.",
-      "Migración íntegra de sus flujos actuales sin interrumpir ni un minuto su operación.",
-      "Capacidad de alto rendimiento para procesar miles de solicitudes simultáneas sin latencia.",
-      "Soberanía absoluta: todas sus credenciales, contactos y procesos permanecen en su servidor.",
-      "Copias de seguridad automatizadas diariamente y monitoreo técnico continuo 24/7."
+      "Instalación de una central automática privada y exclusiva para su empresa, sin depender de terceros.",
+      "Eliminación definitiva de cobros mensuales por cantidad de mensajes, correos o clientes atendidos.",
+      "Conexión total entre sus canales de atención, su agenda y su base de clientes trabajando en piloto automático.",
+      "Capacidad industrial para atender a miles de clientes al mismo tiempo con respuesta instantánea.",
+      "Privacidad absoluta: toda la información y los contactos de su negocio permanecen bajo su control exclusivo.",
+      "Respaldo diario automático y supervisión técnica continua para garantizar cero interrupciones."
     ],
     executionGuarantee:
-      "Entregamos su servidor privado configurado, seguro y conectado a todos sus canales para operar sin límites ni cargos por volumen.",
+      "Entregamos su central automática privada funcionando al 100% y conectada a todo su negocio para que escale sus ventas sin facturas mensuales por volumen.",
     customOptions: [
-      "Instalar mi propio servidor privado de automatización (n8n)",
-      "Eliminar cobros mensuales por volumen de operaciones",
-      "Conectar WhatsApp, Correo, Agenda y CRM sin límites",
-      "Respaldo diario cifrado y monitoreo continuo 24/7"
+      "Tener el sistema automático propio y exclusivo de mi empresa",
+      "Eliminar cobros mensuales por cantidad de clientes o mensajes",
+      "Conectar mi WhatsApp, Correo, Agenda y Clientes sin límites",
+      "Respaldo diario automático y soporte técnico continuo"
     ],
-    crmBaseName: "SOLUCIÓN 04 · Automatización Libre de Costos (n8n Self-Hosted)",
-    buttonText: "SOLICITAR MOTOR PROPIO N8N · AGENDAR"
+    crmBaseName: "SOLUCIÓN 04 · Automatización Total Propia (Sin Mensualidades)",
+    buttonText: "SOLICITAR AUTOMATIZACIÓN PROPIA · AGENDAR"
   },
   {
     id: "SOL-5",
     group: "propios",
     num: "05",
-    shortTabTitle: "05 · Agentes IA con Memoria Privada",
-    badge: "SOLUCIÓN 05 · INTELIGENCIA DOCUMENTAL PRIVADA (RAG)",
-    title: "Agentes RAG (Memoria Institucional Privada)",
-    curiosityHook: "Imagine consultar cualquier contrato, tarifario o documento interno de su empresa y recibir la respuesta exacta en 1 segundo.",
+    shortTabTitle: "05 · Inteligencia Artificial Personalizada",
+    badge: "SOLUCIÓN 05 · EL CEREBRO INTELIGENTE DE SU NEGOCIO",
+    title: "Inteligencia Artificial Personalizada con la Memoria de su Empresa",
+    curiosityHook: "Imagine preguntarle cualquier precio, contrato o dato interno de su negocio a su propio sistema y recibir la respuesta exacta en 1 segundo.",
     shortDesc:
-      "Cerebros de IA locales conectados a sus bases de datos, contratos y documentos internos. Privacidad absoluta para que su equipo consulte información corporativa en segundos.",
+      "Creamos una Inteligencia Artificial privada entrenada exclusivamente con los documentos, precios, contratos y reglas de su negocio, lista para resolver cualquier consulta de usted o de su equipo al instante.",
     plainExplanation:
-      "En resumen ejecutivo: En lugar de perder horas buscando datos entre cientos de carpetas o archivos PDF, su equipo consulta en privado al Cerebro de su empresa y obtiene el dato exacto con página y cláusula al instante.",
-    benefitTag: "Privacidad absoluta · Consulta en 1s",
+      "En resumen ejecutivo: Es como tener a un director experto con memoria fotográfica que conoce cada archivo, precio y documento de su empresa, disponible las 24 horas en privado para responder cualquier duda en 1 segundo.",
+    benefitTag: "100% Privada · Respuesta en 1 segundo",
     metrics: [
-      { label: "Precisión documental", value: "99.4% Verificable" },
-      { label: "Privacidad de datos", value: "100% Aislada" },
+      { label: "Exactitud al responder", value: "99.4% Verificada" },
+      { label: "Seguridad de sus datos", value: "100% Confidencial" },
       { label: "Velocidad de consulta", value: "Menos de 1 segundo" }
     ],
     includedItems: [
-      "Conexión segura con sus contratos legales, tarifarios, manuales operativos, PDFs y hojas de cálculo.",
-      "Respuestas inmediatas citando el documento exacto y la página de origen.",
-      "Confidencialidad corporativa total: su información jamás se comparte ni sale a internet público.",
-      "Disponible 24/7 para agilizar el trabajo de directivos, gerentes, ventas y atención al cliente.",
-      "Sincronización instantánea cada vez que su empresa añade o actualiza un documento.",
-      "Control de acceso por niveles según el cargo de cada integrante de su organización."
+      "Entrenamiento de su propia Inteligencia Artificial con sus contratos, listas de precios, manuales y archivos de Excel o PDF.",
+      "Respuestas inmediatas en 1 segundo indicando exactamente en qué documento y página se encuentra el dato.",
+      "Secreto empresarial blindado: la información de su negocio es 100% privada y nadie externo tiene acceso a ella.",
+      "Asistencia continua 24/7 para ahorrar horas de búsqueda a usted, a sus vendedores y a su equipo de trabajo.",
+      "Aprendizaje inmediato: cada vez que usted actualiza un precio o sube un documento nuevo, el sistema lo aprende al instante.",
+      "Permisos personalizados para que usted decida qué información puede consultar cada empleado."
     ],
     executionGuarantee:
-      "Conectamos sus repositorios internos bajo estricto blindaje de seguridad y validamos respuestas 100% fieles a la documentación de su empresa.",
+      "Dejamos su Inteligencia Artificial privada entrenada con la información real de su negocio, garantizando respuestas exactas y confidencialidad absoluta.",
     customOptions: [
-      "Conectar contratos, listas de precios, PDFs y manuales internos",
-      "Asistente privado de consulta rápida para directivos y equipo",
-      "Aislamiento de seguridad (cero salida de datos a internet público)",
-      "Actualización automática al incorporar nuevos documentos"
+      "Entrenar mi propia IA con los documentos y precios de mi empresa",
+      "Buscador inteligente privado para mí y mi equipo de trabajo",
+      "Blindaje de confidencialidad (mis archivos nunca salen a internet)",
+      "Actualización instantánea al agregar nuevos documentos o precios"
     ],
-    crmBaseName: "SOLUCIÓN 05 · Agentes RAG (Memoria Institucional Privada)",
-    buttonText: "SOLICITAR AGENTE IA PRIVADO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 05 · Inteligencia Artificial Personalizada de Empresa",
+    buttonText: "SOLICITAR MI IA PERSONALIZADA · AGENDAR"
   },
   {
     id: "SOL-6",
     group: "propios",
     num: "06",
-    shortTabTitle: "06 · SaaS Corporativo Todo-en-Uno",
-    badge: "SOLUCIÓN 06 · ECOSISTEMA DE SOFTWARE PROPIO",
-    title: "SaaS Corporativo Interno (Panel Centralizado a Medida)",
-    curiosityHook: "¿Su operación depende de múltiples programas desconectados? Vea cómo unificamos toda su empresa en un solo panel con su propia marca.",
+    shortTabTitle: "06 · Su Plataforma Todo-en-Uno a Medida",
+    badge: "SOLUCIÓN 06 · TODA SU EMPRESA EN UNA SOLA PANTALLA",
+    title: "Su Propia Plataforma Empresarial Todo-en-Uno (Hecha a Medida)",
+    curiosityHook: "¿Su equipo pierde tiempo abriendo múltiples programas desconectados? Vea cómo unificamos ventas, clientes, agenda y finanzas en una sola pantalla con su marca.",
     shortDesc:
-      "Desarrollo de ecosistemas a medida. Unificamos sus operaciones en un panel de control centralizado, eliminando la dependencia de múltiples suscripciones ineficientes.",
+      "Deje de depender de múltiples programas sueltos y costosos. Construimos la plataforma privada oficial de su empresa con su propio logo para que controle ventas, clientes, agenda y resultados desde un solo lugar.",
     plainExplanation:
-      "En resumen ejecutivo: En lugar de pagar múltiples licencias mensuales en plataformas separadas, desarrollamos el software oficial de su empresa con su logo para dirigir ventas, clientes, agenda y finanzas desde una sola pantalla.",
-    benefitTag: "Su propio software · Panel único",
+      "En resumen ejecutivo: En lugar de tener su negocio dividido en varias herramientas alquiladas que no se conectan entre sí, creamos el programa propio de su empresa a la medida para que maneje toda su operación desde una sola pantalla en su celular o computadora.",
+    benefitTag: "Su propio sistema · Todo en 1 pantalla",
     metrics: [
       { label: "Propiedad del sistema", value: "100% Su Marca" },
-      { label: "Control operativo", value: "1 Sola Pantalla" },
-      { label: "Usuarios de su equipo", value: "Ilimitados sin cargos" }
+      { label: "Control del negocio", value: "1 Sola Pantalla" },
+      { label: "Accesos para su equipo", value: "Ilimitados sin cobro" }
     ],
     includedItems: [
-      "Desarrollo de su propia plataforma privada en la nube con el nombre, colores y logo de su empresa.",
-      "Centralización total: ventas, cartera de clientes (CRM), agenda, pagos y métricas en una sola interfaz.",
-      "Ahorro directo al eliminar múltiples suscripciones mensuales de herramientas externas.",
-      "Perfiles personalizados para su equipo de trabajo y portal exclusivo para sus clientes.",
-      "Sincronización en vivo con sus asistentes inteligentes 24/7 y su calendario corporativo.",
-      "Acceso rápido y seguro desde cualquier iPhone, Android, tablet o computadora."
+      "Creación de la plataforma privada oficial de su empresa en internet con su nombre, sus colores y su logo.",
+      "Todo su negocio unido en una sola pantalla: control de ventas, lista de clientes, agenda de citas, pagos y métricas.",
+      "Ahorro inmediato al cancelar múltiples mensualidades de programas externos que ya no necesitará.",
+      "Accesos ilimitados para los miembros de su equipo y un área exclusiva de alto prestigio para sus clientes.",
+      "Sincronización en vivo con sus asistentes inteligentes 24/7 y su calendario comercial.",
+      "Navegación rápida, intuitiva y cómoda desde cualquier teléfono (iPhone o Android), tablet o computadora."
     ],
     executionGuarantee:
-      "Construimos la plataforma exacta que requiere su operación para que su empresa sea dueña de su propia tecnología sin pagar licencias por usuario.",
+      "Construimos la plataforma exacta que necesita su operación para que su empresa sea dueña de su propia tecnología para siempre, sin pagar alquileres por usuario.",
     customOptions: [
-      "Panel centralizado para dirigir ventas, clientes, agenda y finanzas",
+      "Unificar mis ventas, clientes, agenda y pagos en una sola pantalla",
       "Accesos ilimitados para mi equipo sin pagos extras por usuario",
-      "Reemplazar múltiples suscripciones mensuales por un sistema propio",
-      "Plataforma personalizada con el logo e identidad de mi empresa"
+      "Dejar de pagar múltiples programas sueltos todos los meses",
+      "Diseño exclusivo con el logo y los colores de mi empresa"
     ],
-    crmBaseName: "SOLUCIÓN 06 · SaaS Corporativo Interno (Panel Propio)",
-    buttonText: "SOLICITAR MI SAAS CORPORATIVO · AGENDAR"
+    crmBaseName: "SOLUCIÓN 06 · Plataforma Empresarial Todo-en-Uno a Medida",
+    buttonText: "SOLICITAR MI PLATAFORMA TODO-EN-UNO · AGENDAR"
   }
 ];
 
