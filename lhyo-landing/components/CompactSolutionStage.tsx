@@ -138,9 +138,9 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     id: "SOL-4",
     group: "propios",
     num: "04",
-    shortTabTitle: "04 · Automatización Total Sin Mensualidades",
+    shortTabTitle: "04 · Automatización con Tecnología Propia",
     badge: "SOLUCIÓN 04 · INDEPENDENCIA Y AUTOMATIZACIÓN SIN LÍMITES",
-    title: "Automatización Total de su Operación (Sin Pagos Mensuales Externos)",
+    title: "Automatización Total de Procesos con Tecnología Propia",
     curiosityHook: "¿Por qué pagar tarifas mensuales que suben cada vez que su negocio crece, cuando puede ser dueño de su propio sistema automático ilimitado?",
     shortDesc:
       "Libere a su empresa de pagar suscripciones mensuales por cada mensaje o tarea realizada. Instalamos una central de automatización privada y exclusiva para su negocio que ejecuta todos sus procesos sin límites de uso.",
@@ -212,9 +212,9 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     id: "SOL-6",
     group: "propios",
     num: "06",
-    shortTabTitle: "06 · Su Plataforma Todo-en-Uno a Medida",
+    shortTabTitle: "06 · Su Plataforma Empresarial Todo-en-Uno",
     badge: "SOLUCIÓN 06 · TODA SU EMPRESA EN UNA SOLA PANTALLA",
-    title: "Su Propia Plataforma Empresarial Todo-en-Uno (Hecha a Medida)",
+    title: "Su Propia Plataforma Empresarial Todo-en-Uno",
     curiosityHook: "¿Su equipo pierde tiempo abriendo múltiples programas desconectados? Vea cómo unificamos ventas, clientes, agenda y finanzas en una sola pantalla con su marca.",
     shortDesc:
       "Deje de depender de múltiples programas sueltos y costosos. Construimos la plataforma privada oficial de su empresa con su propio logo para que controle ventas, clientes, agenda y resultados desde un solo lugar.",
@@ -470,3 +470,4 @@ export default function CompactSolutionStage({
     </div>
   );
 }
+

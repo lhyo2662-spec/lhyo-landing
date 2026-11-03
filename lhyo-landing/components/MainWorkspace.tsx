@@ -28,10 +28,10 @@ const INTRIGUE_PILLS = [
   },
   {
     tag: "PILAR 03 · CONTROL Y TECNOLOGÍA PROPIA",
-    question: "¿Cuánto tiempo y dinero pierde una empresa cuando sus áreas trabajan por separado?",
+    question: "¿Qué logra su empresa cuando une todas sus áreas y ventas en una sola pantalla?",
     revealTitle: "Todo su negocio unido en una sola pantalla y operando bajo su control absoluto",
     revealDesc:
-      "Deje atrás el desgaste de revisar procesos manuales o depender de múltiples herramientas sueltas cada mes. Cada cliente se clasifica automáticamente por prioridad mientras usted dirige ventas, agenda y resultados desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
+      "Multiplica su velocidad operativa y elimina gastos en herramientas desconectadas. Cada cliente se clasifica automáticamente por prioridad mientras usted dirige sus ventas, agenda y resultados desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
     proofStat: "Hasta 85% de Ahorro Anual + Control Absoluto"
   }
 ];
@@ -453,6 +453,7 @@ export default function MainWorkspace() {
     </div>
   );
 }
+
 
 
 
