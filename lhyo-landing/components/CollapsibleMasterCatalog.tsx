@@ -148,7 +148,7 @@ export default function CollapsibleMasterCatalog() {
                       {sol.title}
                     </h3>
                     {!isExpanded && (
-                      <p className="text-xs text-gray-300/85 mt-1 line-clamp-1">
+                      <p className="text-xs text-gray-300/85 mt-1 ">
                         {sol.curiosityHook}
                       </p>
                     )}
@@ -406,3 +406,4 @@ export default function CollapsibleMasterCatalog() {
     </div>
   );
 }
+

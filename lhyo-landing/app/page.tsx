@@ -2,59 +2,50 @@
 import MainWorkspace from "@/components/MainWorkspace";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://lhyogroup.com"),
-  applicationName: "Lhyo Group",
-  title: {
-    default: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
-    template: "%s | Lhyo Group",
-  },
+  metadataBase: new URL("https://www.lhyogroup.com"),
+  applicationName: "LHYO GROUP",
+  title: "LHYO GROUP",
   description:
-    "Firma de ingeniería e infraestructura Enterprise B2B. Migramos operaciones corporativas a servidores privados n8n (Self-hosted), construimos Agentes RAG con memoria institucional privada y desarrollamos ecosistemas SaaS internos a medida para mitigar la fuga de capital y escalar con soberanía tecnológica.",
+    "Construimos la presencia digital, los sistemas inteligentes 24/7 y las plataformas Todo-en-Uno que llevan su empresa al siguiente nivel.",
   keywords: [
-    "Lhyo Group",
     "LHYO GROUP",
-    "infraestructura enterprise",
-    "automatización B2B",
-    "n8n self-hosted",
-    "servidores privados n8n",
-    "Agentes RAG",
-    "memoria institucional privada",
-    "inteligencia artificial corporativa privada",
-    "SaaS corporativo interno",
-    "desarrollo de ecosistemas SaaS B2B",
-    "mitigación de fuga de capital",
-    "arquitectura de sistemas empresariales",
-    "soberanía tecnológica",
+    "Lhyo Group",
+    "sistemas inteligentes 24/7",
+    "plataformas web de alta gama",
+    "automatización empresarial",
+    "inteligencia artificial personalizada para empresas",
     "Lhyonneth Araque"
   ],
-  authors: [{ name: "Lhyo Group", url: "https://lhyogroup.com" }],
-  creator: "Lhyo Group",
-  publisher: "Lhyo Group",
+  authors: [{ name: "LHYO GROUP", url: "https://www.lhyogroup.com" }],
+  creator: "LHYO GROUP",
+  publisher: "LHYO GROUP",
   verification: {
     google: "yFCVXdhuZSVXSoIv7r9xV69G6QO2B028ZX9ZWGZIG8o",
   },
   alternates: {
-    canonical: "https://lhyogroup.com",
+    canonical: "https://www.lhyogroup.com",
   },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml", sizes: "any" }
+    ],
     shortcut: ["/icon.svg"],
-    apple: ["/icon.svg"],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
   },
   openGraph: {
-    title: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
+    title: "LHYO GROUP",
     description:
-      "Migramos su operación a n8n en servidores privados, desplegamos Agentes RAG de memoria institucional privada y desarrollamos SaaS corporativo interno para eliminar la fuga de capital en suscripciones ineficientes.",
-    url: "https://lhyogroup.com",
-    siteName: "Lhyo Group",
+      "Construimos la presencia digital, los sistemas inteligentes 24/7 y las plataformas Todo-en-Uno que llevan su empresa al siguiente nivel.",
+    url: "https://www.lhyogroup.com",
+    siteName: "LHYO GROUP",
     locale: "es_UY",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
+    title: "LHYO GROUP",
     description:
-      "Infraestructura n8n Self-hosted, Agentes RAG privados y ecosistemas SaaS corporativos internos para mitigar la fuga de capital operativo.",
+      "Construimos la presencia digital, los sistemas inteligentes 24/7 y las plataformas Todo-en-Uno que llevan su empresa al siguiente nivel.",
   },
   robots: {
     index: true,
@@ -75,54 +66,28 @@ export default function LandingPage() {
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://lhyogroup.com/#website",
-        url: "https://lhyogroup.com",
-        name: "Lhyo Group | Infraestructura Enterprise y Automatización B2B",
-        publisher: { "@id": "https://lhyogroup.com/#organization" },
+        "@id": "https://www.lhyogroup.com/#website",
+        url: "https://www.lhyogroup.com",
+        name: "LHYO GROUP",
+        alternateName: "Lhyo Group",
+        publisher: { "@id": "https://www.lhyogroup.com/#organization" },
         inLanguage: "es"
       },
       {
-        "@type": "Corporation",
-        "@id": "https://lhyogroup.com/#organization",
-        name: "Lhyo Group",
-        url: "https://lhyogroup.com",
-        logo: "https://lhyogroup.com/icon.svg",
+        "@type": "Organization",
+        "@id": "https://www.lhyogroup.com/#organization",
+        name: "LHYO GROUP",
+        url: "https://www.lhyogroup.com",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.lhyogroup.com/icon.svg",
+          width: 512,
+          height: 512
+        },
         founder: {
           "@type": "Person",
           name: "Lhyonneth Araque",
           jobTitle: "CEO & Founder"
-        },
-        description:
-          "Firma de ingeniería e infraestructura Enterprise B2B especializada en migración a servidores privados n8n (Self-hosted), Agentes RAG de memoria institucional privada y desarrollo de ecosistemas SaaS corporativos internos.",
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "Infraestructura Enterprise Lhyo Group",
-          itemListElement: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Automatización Libre de Costos (Infraestructura n8n Self-Hosted)",
-                description: "Migración de operaciones a n8n en servidores privados eliminando costos mensuales de terceros."
-              }
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Agentes RAG (Memoria Institucional Privada)",
-                description: "Cerebros de IA locales conectados a bases de datos, contratos y documentos internos con privacidad absoluta."
-              }
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "SaaS Corporativo Interno",
-                description: "Desarrollo de ecosistemas a medida unificando operaciones en un panel de control centralizado."
-              }
-            }
-          ]
         }
       }
     ]

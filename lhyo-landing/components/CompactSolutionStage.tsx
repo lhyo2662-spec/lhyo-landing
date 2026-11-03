@@ -215,7 +215,7 @@ export const ALL_SOLUTIONS_DATA: SimpleSolutionItem[] = [
     shortTabTitle: "06 · Su Plataforma Empresarial Todo-en-Uno",
     badge: "SOLUCIÓN 06 · TODA SU EMPRESA EN UNA SOLA PANTALLA",
     title: "Su Propia Plataforma Empresarial Todo-en-Uno",
-    curiosityHook: "¿Su equipo pierde tiempo abriendo múltiples programas desconectados? Vea cómo unificamos ventas, clientes, agenda y finanzas en una sola pantalla con su marca.",
+    curiosityHook: "¿Su equipo abre varios programas desconectados? Vea cómo unificamos toda su empresa en una sola pantalla.",
     shortDesc:
       "Deje de depender de múltiples programas sueltos y costosos. Construimos la plataforma privada oficial de su empresa con su propio logo para que controle ventas, clientes, agenda y resultados desde un solo lugar.",
     plainExplanation:
@@ -470,4 +470,5 @@ export default function CompactSolutionStage({
     </div>
   );
 }
+
 

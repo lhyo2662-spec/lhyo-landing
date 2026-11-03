@@ -11,28 +11,28 @@ type ActiveView = "inicio" | "catalogo" | "garantia" | "contacto";
 
 const INTRIGUE_PILLS = [
   {
-    tag: "INTRIGA 01 · ATENCIÓN INMEDIATA",
-    question: "¿Qué ocurre cuando tu mejor cliente escribe un domingo a las 2:30 AM?",
-    revealTitle: "Mientras tu competencia duerme, tu negocio responde y agenda en 0.4 segundos",
+    tag: "CLAVE 01 · ATENCIÓN INMEDIATA 24/7",
+    question: "¿Qué ocurre cuando su mejor cliente escribe un domingo a las 2:30 AM?",
+    revealTitle: "Mientras su competencia descansa, su empresa responde y agenda en 0.4 segundos",
     revealDesc:
-      "El 78% de los clientes le compra a la primera empresa que le contesta con claridad. Instalamos una mente entrenada con todo tu negocio que atiende en WhatsApp e Instagram día y noche, resuelve dudas y deja la reunión lista en tu calendario.",
-    proofStat: "0.4s Velocidad de Respuesta · 0 Clientes Perdidos"
+      "El 78% de los clientes contrata a la primera empresa que le responde con claridad y rapidez. Instalamos asistentes inteligentes entrenados con toda la información de su negocio que atienden en WhatsApp e Instagram día y noche, califican al prospecto y agendan la reunión en su calendario.",
+    proofStat: "0.4s Velocidad de Respuesta · 0 Oportunidades Perdidas"
   },
   {
-    tag: "INTRIGA 02 · PRESENCIA Y PRESTIGIO",
+    tag: "CLAVE 02 · PRESENCIA Y PRESTIGIO",
     question: "¿Por qué 8 de cada 10 personas cierran una página web en menos de 4 segundos?",
-    revealTitle: "Porque las páginas comunes aburren; las experiencias interactivas enamoran",
+    revealTitle: "Porque las páginas tradicionales saturan; las plataformas interactivas cautivan",
     revealDesc:
-      "Cuando alguien entra a tu negocio en internet, decide en 3 segundos si eres una empresa líder o una más del montón. Construimos plataformas con estética de lujo y velocidad instantánea que convierten la curiosidad del visitante en ventas reales.",
-    proofStat: "Imagen de Prestigio Internacional desde el Día 1"
+      "Cuando un cliente visita su empresa en internet, evalúa en 3 segundos el prestigio y la solidez de su marca. Construimos plataformas de alta gama con velocidad instantánea y arquitectura interactiva que transforman el interés del visitante en reuniones comerciales.",
+    proofStat: "Presencia de Máximo Prestigio desde el Primer Segundo"
   },
   {
-    tag: "PILAR 03 · CONTROL Y TECNOLOGÍA PROPIA",
+    tag: "CLAVE 03 · CONTROL Y TECNOLOGÍA PROPIA",
     question: "¿Qué logra su empresa cuando une todas sus áreas y ventas en una sola pantalla?",
     revealTitle: "Todo su negocio unido en una sola pantalla y operando bajo su control absoluto",
     revealDesc:
-      "Multiplica su velocidad operativa y elimina gastos en herramientas desconectadas. Cada cliente se clasifica automáticamente por prioridad mientras usted dirige sus ventas, agenda y resultados desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
-    proofStat: "Hasta 85% de Ahorro Anual + Control Absoluto"
+      "Multiplica la velocidad de su negocio y elimina gastos en programas separados. Cada cliente se registra y clasifica automáticamente por prioridad mientras toda su operación funciona conectada desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
+    proofStat: "Hasta 85% de Ahorro Anual + Control Ejecutivo Total"
   }
 ];
 
@@ -40,34 +40,34 @@ const GUARANTEE_TIMELINE_STEPS = [
   {
     step: "PASO 01",
     days: "Día 1 al 2",
-    title: "Nos reunimos y diseñamos tu plan",
+    title: "Diagnóstico Ejecutivo y Diseño de Arquitectura",
     simpleDesc:
-      "Conversamos contigo en una videollamada corta, vemos qué necesita tu negocio y armamos el plan exacto sin complicarte con nada técnico.",
-    deliverable: "Plan claro aprobado por ti."
+      "Nos reunimos con usted en una sesión ejecutiva, analizamos los objetivos de su empresa y definimos el plan exacto de implementación sin quitarle tiempo operativo.",
+    deliverable: "Mapa de arquitectura aprobado a la medida de su negocio."
   },
   {
     step: "PASO 02",
     days: "Día 3 al 7",
-    title: "Construimos e instalamos tu ecosistema",
+    title: "Construcción, Entrenamiento IA e Integración",
     simpleDesc:
-      "Nuestro equipo crea tu plataforma, entrena a tu asistente inteligente con tus datos y deja conectada tu lista de clientes y tu agenda.",
-    deliverable: "Todo tu sistema armado al 100% por nuestro equipo."
+      "Nuestro equipo de ingeniería desarrolla su plataforma, entrena sus asistentes inteligentes con la información de su empresa y enlaza su CRM y calendario.",
+    deliverable: "Ecosistema construido al 100% por nuestro equipo técnico."
   },
   {
     step: "PASO 03",
     days: "Día 8 al 9",
-    title: "Probamos que todo funcione perfecto",
+    title: "Auditoría de Calidad y Pruebas de Velocidad",
     simpleDesc:
-      "Verificamos cada botón, cada mensaje automático y cada correo tanto en teléfonos celulares como en computadoras.",
-    deliverable: "Funcionamiento rápido y sin errores garantizado."
+      "Verificamos cada flujo, cada respuesta automática y cada sincronización en teléfonos móviles y computadoras bajo estándar de cero errores.",
+    deliverable: "Certificación de velocidad, seguridad y precisión."
   },
   {
     step: "PASO 04",
     days: "Día 10 en adelante",
-    title: "Tu empresa proyecta su nueva dimensión",
+    title: "Puesta en Marcha y Respaldo Continuo",
     simpleDesc:
-      "Encendemos todo para que recibas y atiendas clientes las 24 horas con una presencia imponente y nuestro respaldo continuo.",
-    deliverable: "Tu negocio operando al máximo nivel."
+      "Activamos su ecosistema en producción para atender y escalar sus ventas las 24 horas, acompañándolo con soporte ejecutivo directo.",
+    deliverable: "Su empresa operando al máximo nivel con respaldo continuo."
   }
 ];
 
@@ -184,7 +184,6 @@ export default function MainWorkspace() {
       <div className="flex-1">
         {activeView === "inicio" && (
           <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            {/* PRIMERA PANTALLA COMPLETA CON DETALLE ARQUITECTÓNICO INFERIOR IZQUIERDO */}
             <div className="min-h-[calc(100vh-5rem)] pt-8 pb-7 flex flex-col justify-between">
               <div>
                 <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.2em] block mb-3">
@@ -249,8 +248,7 @@ export default function MainWorkspace() {
                 </div>
               </div>
 
-              {/* DETALLE ARQUITECTÓNICO INFERIOR: Línea de horizonte dorada + 3 sellos de futuro y prestigio */}
-              <div className="max-w-[700px] pt-6 select-none">
+              <div className="max-w-[740px] pt-6 select-none">
                 <div className="flex items-center gap-3 mb-3.5">
                   <span className="w-1.5 h-1.5 rotate-45 bg-[#C5A059] shadow-[0_0_10px_#C5A059]" />
                   <div className="h-[1px] flex-1 bg-gradient-to-r from-[#C5A059]/60 via-[#FCF6BA]/25 to-transparent" />
@@ -274,15 +272,15 @@ export default function MainWorkspace() {
               </div>
             </div>
 
-            {/* PORTAL INTERACTIVO DE INTRIGA (VISIBLE AL BAJAR CON EL RATÓN) */}
+            {/* BLOQUE DE LAS 3 CLAVES EJECUTIVAS (SIN "INTRIGA" NI "PILAR") */}
             <div id="portal-intriga-lhyo" className="pt-14 scroll-mt-20">
               <div className="rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45 p-6 sm:p-8 shadow-2xl">
                 <div className="pb-5 mb-6 border-b border-white/10">
                   <span className="text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.18em] block mb-1">
-                    ✦ DESCUBRA EL SECRETO EN 10 SEGUNDOS
+                    ✦ DIAGNÓSTICO EJECUTIVO EN 10 SEGUNDOS
                   </span>
                   <h2 className="text-lg sm:text-xl font-semibold text-white">
-                    Toque cualquiera de estas 3 preguntas para revelar lo que ocurre dentro de un negocio automatizado:
+                    Toque cualquiera de estas 3 claves para descubrir cómo transformamos la operación de su empresa:
                   </h2>
                 </div>
 
@@ -377,10 +375,10 @@ export default function MainWorkspace() {
 
             <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-[#0A1128]/90 via-[#070A14] to-[#050507] border border-[#C5A059]/45">
               <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-1.5">
-                EVOLUCIÓN PASO A PASO · DE LA IDEA A LA REALIDAD EN 10 DÍAS
+                IMPLEMENTACIÓN EJECUTIVA · DE LA ESTRATEGIA A LA PRODUCCIÓN EN 10 DÍAS
               </span>
               <h3 className="text-xl sm:text-2xl font-semibold text-white mb-5">
-                Toca cada etapa para ver cómo transformamos tu negocio:
+                Toque cada etapa para conocer nuestro protocolo de ejecución:
               </h3>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
@@ -418,12 +416,12 @@ export default function MainWorkspace() {
                     {GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].simpleDesc}
                   </p>
                   <div className="text-xs text-emerald-400 font-semibold">
-                    ✓ Resultado: {GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].deliverable}
+                    ✓ Entregable: {GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].deliverable}
                   </div>
                 </div>
                 <div className="shrink-0">
                   <AuditTriggerButton
-                    label="EMPEZAR CON EL PASO 01 →"
+                    label="INICIAR CON EL PASO 01 →"
                     selectedPlan="AUDITORÍA DESDE NUESTRA GARANTÍA"
                   />
                 </div>
@@ -444,7 +442,7 @@ export default function MainWorkspace() {
             © 2026 LHYO GROUP · TODOS LOS DERECHOS RESERVADOS
           </span>
           <span className="text-[11px] tracking-[0.12em] text-gray-500">
-            SOLUCIONES DIGITALES, PÁGINAS WEB Y SISTEMAS AUTOMÁTICOS INTELIGENTES · CEO@LHYOGROUP.COM
+            ARQUITECTURA DIGITAL, SISTEMAS INTELIGENTES Y AUTOMATIZACIÓN 24/7 · CEO@LHYOGROUP.COM
           </span>
         </div>
       </footer>
@@ -453,7 +451,3 @@ export default function MainWorkspace() {
     </div>
   );
 }
-
-
-
-
