@@ -71,12 +71,19 @@ export default function CollapsibleMasterCatalog() {
   };
 
   const handlePrivInterestToggle = (option: string) => {
-    setPrivInterests((prev) => {
-      if (prev.includes(option)) {
-        return prev.length > 1 ? prev.filter((item) => item !== option) : prev;
-      }
-      return [...prev, option];
-    });
+    const fullLabel = "Paquete Completo (Todo Incluido)";
+    if (option === fullLabel) {
+      setPrivInterests([fullLabel]);
+    } else {
+      setPrivInterests((prev) => {
+        const withoutFull = prev.filter((item) => item !== fullLabel);
+        if (withoutFull.includes(option)) {
+          const updated = withoutFull.filter((item) => item !== option);
+          return updated.length === 0 ? [fullLabel] : updated;
+        }
+        return [...withoutFull, option];
+      });
+    }
   };
 
   const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Soluciones: ${privInterests.join(" + ")} · Etapa: ${privStage}`;

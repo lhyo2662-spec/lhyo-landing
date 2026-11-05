@@ -175,12 +175,19 @@ export default function InteractiveCatalog() {
   };
 
   const handlePrivInterestToggle = (option: string) => {
-    setPrivInterests((prev) => {
-      if (prev.includes(option)) {
-        return prev.length > 1 ? prev.filter((item) => item !== option) : prev;
-      }
-      return [...prev, option];
-    });
+    if (option === FULL_PACKAGE_LABEL) {
+      setPrivInterests([FULL_PACKAGE_LABEL]);
+    } else {
+      setPrivInterests((prev) => {
+        const withoutFull = prev.filter((item) => item !== FULL_PACKAGE_LABEL);
+        if (withoutFull.includes(option)) {
+          const updated = withoutFull.filter((item) => item !== option);
+          return updated.length === 0 ? [FULL_PACKAGE_LABEL] : updated;
+        } else {
+          return [...withoutFull, option];
+        }
+      });
+    }
   };
 
   const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Soluciones: ${privInterests.join(" + ")} · Etapa: ${privStage}`;

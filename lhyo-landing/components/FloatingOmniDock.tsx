@@ -102,7 +102,7 @@ export default function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (p
                 )}
               </div>
             ))}
-            {loading && <div className="text-[11px] text-[#FCF6BA] italic animate-pulse">Analizando y redactando respuesta...</div>}
+            {loading && <div className="text-[11px] text-[#FCF6BA] italic animate-pulse">Analizando...</div>}
           </div>
           {micNote && <div className="px-4 py-1.5 bg-[#12100B] border-t border-[#C5A059]/30 text-[10px] text-[#FCF6BA]">🎙️ {micNote}</div>}
           {sessionBlocked ? (
