@@ -29,7 +29,8 @@ const INTRIGUE_PILLS = [
   {
     tag: "CLAVE 03 · CONTROL Y TECNOLOGÍA PROPIA",
     question: "¿Qué logra su empresa cuando une todas sus áreas y ventas en una sola pantalla?",
-    revealTitle: "Todo su negocio unido en una sola pantalla y operando bajo su control absoluto",
+    revealTitle: "Todo su negocio unido en una pantalla
+bajo su control total",
     revealDesc:
       "Multiplica la velocidad de su negocio y elimina gastos en programas separados. Cada cliente se registra y clasifica automáticamente por prioridad mientras toda su operación funciona conectada desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
     proofStat: "Hasta 85% de Ahorro Anual + Control Ejecutivo Total"

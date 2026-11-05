@@ -198,7 +198,7 @@ export default function CollapsibleMasterSections() {
                 <span className="inline-block px-3.5 py-1 rounded-full bg-[#0A1128] border border-[#C5A059]/40 text-[11px] font-semibold text-[#FCF6BA]">
                   {currentClave.badge}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight whitespace-pre-line">
                   <span className="block">{currentClave.hLine1}</span>
                   <span className="block">{currentClave.hLine2}</span>
                 </h3>
