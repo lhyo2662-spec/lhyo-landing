@@ -90,8 +90,7 @@ export default function DirectContactSection() {
             </p>
           </a>
 
-          <a
-            href="mailto:ceo@lhyogroup.com?subject=Consulta%20Corporativa%20-%20Lhyo%20Group"
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ceo@lhyogroup.com" target="_blank" rel="noopener noreferrer"
             className="seal-card-lhyo p-6 block cursor-pointer"
           >
             <span className="text-[10px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-1.5">

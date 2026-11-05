@@ -137,3 +137,6 @@ body {
   border-radius: 8px;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* LHYO_PRE_LINE */
+h3 { white-space: pre-line; }
