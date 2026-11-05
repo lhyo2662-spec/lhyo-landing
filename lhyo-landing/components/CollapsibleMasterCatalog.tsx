@@ -81,12 +81,12 @@ export default function CollapsibleMasterCatalog() {
           const updated = withoutFull.filter((item) => item !== option);
           return updated.length === 0 ? [fullLabel] : updated;
         }
-        return [...withoutFull, option];
+        const nextSelected = [...withoutFull, option]; return nextSelected.length >= 6 ? [fullLabel] : nextSelected;
       });
     }
   };
 
-  const privateCatalogSummary = `SOLICITUD CATÁLOGO PRIVADO | País: ${privCountry} | Interés: ${privInterests.join(" + ")} | Etapa: ${privStage}`;
+  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Solución: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
 
   return (
     <div className="space-y-4">
@@ -338,9 +338,7 @@ export default function CollapsibleMasterCatalog() {
                 <div className="space-y-2">
                   {[
                     "Paquete Completo (Todo Incluido)",
-                    "Asistente WhatsApp / IG 24/7",
-                    "Plataforma Web Moderna",
-                    "Sistemas Propios (Motor / Cerebro / Panel)"
+                    "01 · Asistentes Inteligentes WhatsApp / IG (24/7)", "02 · Plataformas Web y Catálogos Interactivos", "03 · Organización Automática de Clientes (CRM)", "04 · Automatización Total con Tecnología Propia", "05 · IA Personalizada con la Memoria de su Empresa", "06 · Plataforma Empresarial Todo-en-Uno"
                   ].map((interes) => {
                     const sel = privInterests.includes(interes);
                     return (
