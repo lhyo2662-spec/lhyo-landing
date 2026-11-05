@@ -1,108 +1,127 @@
 import { NextResponse } from "next/server";
 export const runtime = "edge";
 
-const SEVERE_BLOCK_REGEX = /(matar|asesinar|suicid|bomba|terroris|sicario|violacion|pedofil|hackear\s+banco|clonar\s+tarjeta|mierda|malparid|hijueputa)/i;
+const SEVERE_BLOCK_REGEX = /(porno|porn|xxx|sexo|sexual|desnud|prostit|onlyfans|erotic|webcam|matar|asesinar|suicid|bomba|terroris|sicario|violacion|pedofil|hackear\s+banco|clonar\s+tarjeta|cocaina|marihuana|droga|narco|mierda|malparid|hijueputa|puta|puto|verga|coño|marico|pendejo|imbecil|pene|vagina|tetas|culo)/i;
 
-function extractTopicKeyword(rawText: string) {
-  const stopWords = new Set(["que","qué","como","cómo","donde","dónde","cuando","cuándo","por","para","con","sin","los","las","una","uno","del","al","hoy","ayer","mañana","puedo","puede","quiero","quiere","hacer","hago","tiene","tengo","esta","está","este","eso","esa","algo","sobre","dime","decir","sabes","hola","buenas","buenos"]);
-  const words = String(rawText || "")
-    .replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s]/g, " ")
-    .split(/\s+/)
-    .map((w) => w.trim())
-    .filter((w) => w.length >= 4 && !stopWords.has(w.toLowerCase()));
-  return words.length > 0 ? words.slice(0, 3).join(" ") : "ese tema";
-}
-
-function pickNonRepeating(candidates: string[], history: any[]) {
-  const previousBotTexts = new Set(
-    (history || []).filter((m) => m.sender === "bot").map((m) => String(m.text || "").trim())
-  );
-  for (const item of candidates) {
-    const clean = item.replace(/\[MOSTRAR_BOTON_AGENDA\]/g, "").trim();
-    if (!previousBotTexts.has(clean)) return item;
+function pickStrictlyUnique(candidates: string[], history: any[]) {
+  const previousBotMessages = (history || [])
+    .filter((m) => m.sender === "bot")
+    .map((m) => String(m.text || "").toLowerCase().trim());
+  for (const candidate of candidates) {
+    const clean = candidate.replace(/\[MOSTRAR_BOTON_AGENDA\]/g, "").trim();
+    const signature = clean.toLowerCase().slice(0, 42);
+    const alreadyUsed = previousBotMessages.some(
+      (prev) => prev.includes(signature) || prev === clean.toLowerCase()
+    );
+    if (!alreadyUsed) return candidate;
   }
-  const idx = (history || []).filter((m) => m.sender === "user").length % candidates.length;
-  return candidates[idx];
+  return null;
 }
+
+const UNIVERSAL_EXECUTIVE_BRIDGES = ["En el mundo actual cada segundo cuenta: mientras otros se distraen, las empresas líderes tienen sistemas trabajando por ellas día y noche. En Lhyo Group instalamos Plataformas Web de alto prestigio y Asistentes IA 24/7 que atienden clientes y agendan citas en automático. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]","Conectando lo que me comenta con el crecimiento empresarial: el 78% de las ventas se las lleva la primera empresa que responde con claridad y rapidez. En Lhyo Group automatizamos su WhatsApp, su Instagram y su página web para que su negocio atienda en menos de 1 segundo las 24 horas. ¿En qué sector opera su empresa? [MOSTRAR_BOTON_AGENDA]","Hoy la verdadera libertad para un dueño de negocio es contar con tecnología propia que funcione sin depender de su presencia manual. En Lhyo Group unificamos su presencia web, su atención al cliente 24/7 y su registro de ventas (CRM) en un solo ecosistema. ¿Qué área de su empresa desea impulsar primero? [MOSTRAR_BOTON_AGENDA]","Toda gran idea necesita una estructura sólida para transformarse en resultados: en Lhyo Group construimos desde Catálogos Web Interactivos (Solución 02) hasta Inteligencia Artificial entrenada con la memoria de su empresa (Solución 05). ¿Cuál de nuestras 06 Soluciones se adapta mejor a su proyecto actual? [MOSTRAR_BOTON_AGENDA]","Cuando una empresa automatiza sus procesos repetitivos, multiplica su rentabilidad y recupera horas valiosas cada semana. En Lhyo Group diseñamos su propia Plataforma Empresarial Todo-en-Uno (Solución 06) con su marca y su logo. ¿Le gustaría recibir nuestro Catálogo Privado PDF? [MOSTRAR_BOTON_AGENDA]","La diferencia entre un negocio estancado y uno en expansión está en cómo recibe y organiza a sus clientes: con nuestro CRM Automático (Solución 03) y nuestros Asistentes 24/7 (Solución 01), cada prospecto queda clasificado al instante sin anotar nada a mano. ¿Cómo manejan hoy la atención al cliente en su negocio? [MOSTRAR_BOTON_AGENDA]","Más allá de cualquier conversación cotidiana, mi función ejecutiva en Lhyo Group es mostrarle cómo llevar su empresa al siguiente nivel tecnológico en solo 10 días de implementación llave en mano. ¿Desea agendar una breve videollamada de 15 minutos con nuestro CEO? [MOSTRAR_BOTON_AGENDA]","Piense en esto: mientras usted conversa conmigo en este chat, un sistema idéntico a este podría estar instalado en el WhatsApp, Instagram y Sitio Web de su empresa cerrando citas y atendiendo clientes en automático. ¿Para qué tipo de negocio le gustaría implementarlo? [MOSTRAR_BOTON_AGENDA]","Las empresas más admiradas proyectan autoridad desde el primer clic: en Lhyo Group combinamos ingeniería de lujo y automatización 24/7 para que su marca destaque por encima de toda su competencia. ¿Tiene actualmente página web o busca crear una desde cero? [MOSTRAR_BOTON_AGENDA]","En Lhyo Group eliminamos los pagos mensuales excesivos instalando tecnología propia (Solución 04): su empresa se vuelve dueña absoluta de su motor de automatización sin límites de mensajes ni recargos por volumen. ¿En qué región opera actualmente su negocio? [MOSTRAR_BOTON_AGENDA]"];
 
 function contextualBrain(message: string, history: any[]) {
   const clean = String(message || "").trim();
   const lower = clean.toLowerCase();
-  const topic = extractTopicKeyword(clean);
 
-  if (/(odontol|dental|dentista|clinica|clínica|medic|médic|doctor|salud|paciente|consultorio|hospital|estetic|estétic)/i.test(lower)) {
-    return pickNonRepeating([
-      "Para su clínica o consultorio, en Lhyo Group instalamos un Asistente Inteligente 24/7 en WhatsApp e Instagram (Solución 01) que responde dudas de tratamientos, filtra pacientes reales y agenda sus citas automáticamente en su calendario, unido a una Plataforma Web de prestigio (Solución 02) y un CRM Clínico (Solución 03). ¿Cuál de estas áreas desea implementar primero? [MOSTRAR_BOTON_AGENDA]",
-      "En el sector clínico y odontológico, nuestra tecnología elimina las inasistencias y la pérdida de pacientes fuera de horario: su Asistente IA 24/7 atiende consultas al instante, registra al paciente en su CRM (Solución 03) y confirma el turno sin intervención manual. ¿Le gustaría agendar una sesión de 15 minutos para ver cómo operaría en su clínica? [MOSTRAR_BOTON_AGENDA]",
-      "Además de automatizar la agenda de pacientes 24/7 en WhatsApp e Instagram, podemos entrenar una Inteligencia Artificial Privada con la memoria de su clínica (Solución 05) con todos sus aranceles, presupuestos y protocolos para dar respuestas exactas en 1 segundo. ¿Desea cotizarlo para su clínica? [MOSTRAR_BOTON_AGENDA]"
+  if (/(repetir|repites|repitiendo|misma respuesta|automatico|automático|eres un bot|eres ia|quien eres|cómo funcionas|como funcionas|prueba|test)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Bien observado: mi memoria conversacional registra cada mensaje de esta sesión para ofrecerle siempre un análisis nuevo y demostrarle en vivo la tecnología que instalamos en Lhyo Group. Así mismo atenderá a los clientes de su empresa las 24 horas. ¿A qué se dedica su negocio y qué proceso desea automatizar primero? [MOSTRAR_BOTON_AGENDA]",
+      "Exactamente así debe comportarse un asistente ejecutivo de alto nivel: adaptándose en tiempo real a cada intervención sin repetir guiones rígidos. Esta misma inteligencia es la que entrenamos con los precios, servicios y documentos de su empresa (Soluciones 01 y 05). ¿En qué sector opera su organización? [MOSTRAR_BOTON_AGENDA]",
+      "Está poniendo a prueba nuestro motor cognitivo en vivo, y esa es la mejor demostración de lo que hacemos en Lhyo Group: construimos asistentes 24/7, plataformas web interactivas y sistemas Todo-en-Uno que responden al instante con precisión ejecutiva. ¿Le gustaría implementarlo en su empresa? [MOSTRAR_BOTON_AGENDA]"
     ], history);
+    if (p) return p;
   }
 
-  if (/(restaurante|gastronom|hotel|cafeteria|cafetería|bar|delivery|pedidos de comida|vendo comida)/i.test(lower)) {
-    return pickNonRepeating([
-      "Para el sector gastronómico y hotelero, en Lhyo Group desarrollamos Plataformas Web con Catálogos Interactivos (Solución 02) y Asistentes Inteligentes 24/7 en WhatsApp e Instagram (Solución 01) que muestran su propuesta, atienden reservas o pedidos al instante y registran cada cliente en su CRM. ¿Desea implementarlo en su negocio? [MOSTRAR_BOTON_AGENDA]",
-      "En negocios gastronómicos, la velocidad de atención define la venta: con nuestro sistema propio (Soluciones 01 y 03), cada cliente que escribe por WhatsApp o Instagram recibe atención en menos de 1 segundo las 24 horas y queda registrado en su base de datos. ¿Le gustaría ver una demostración aplicada a su local? [MOSTRAR_BOTON_AGENDA]"
+  if (/(cumpleaños|cumpleanos|cumple|papa|papá|mama|mamá|hermano|hijo|hija|familia|regalo|regalar|fiesta|celebrar|aniversario|boda|esposa|novia)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "El mejor regalo en un cumpleaños o celebración familiar es poder disfrutar con los suyos sin estar pegado al teléfono respondiendo clientes. En Lhyo Group no vendemos regalos físicos, pero instalamos Asistentes IA 24/7 y Plataformas Web que siguen atendiendo y agendando ventas por usted mientras celebra en familia. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]",
+      "Las fechas especiales con la familia nos recuerdan por qué emprendemos: para tener libertad de tiempo y tranquilidad financiera. En Lhyo Group construimos el sistema automático de su empresa (WhatsApp 24/7, Web de prestigio y CRM) para que su negocio funcione solo en sus días libres. ¿Qué tipo de empresa dirige usted? [MOSTRAR_BOTON_AGENDA]",
+      "Si busca dar un gran obsequio, nada supera regalar o construir un negocio propio que genere ingresos las 24 horas: en Lhyo Group diseñamos Plataformas Web Modernas, Catálogos Interactivos y Sistemas Todo-en-Uno listos en 10 días. ¿Tienen algún negocio familiar o proyecto que deseen llevar al siguiente nivel? [MOSTRAR_BOTON_AGENDA]"
     ], history);
+    if (p) return p;
   }
 
-  if (/(inmobiliaria|bienes raices|bienes raíces|propiedades|constructora|arquitect|abogad|legal|contable|agencia|tienda|ecommerce|gimnasio|spa|educacion|academia|empresa|negocio)/i.test(lower) && !/(que es lhyo|qué hacen|que ofrecen)/i.test(lower)) {
-    return pickNonRepeating([
-      "Para potenciar su operación en ese sector, en Lhyo Group unimos 3 piezas clave: una Plataforma Web de máximo prestigio (Solución 02), un Asistente Inteligente 24/7 en WhatsApp e Instagram que califica y agenda clientes solos (Solución 01), y un CRM Automático (Solución 03). ¿Qué área de su negocio busca escalar primero? [MOSTRAR_BOTON_AGENDA]",
-      "Su negocio puede operar en piloto automático con nuestra tecnología propia: desde atención inmediata 24/7 en WhatsApp e Instagram hasta una Plataforma Empresarial Todo-en-Uno (Solución 06) con su propia marca. ¿Desea recibir nuestro Catálogo Privado PDF con las opciones para su empresa? [MOSTRAR_BOTON_AGENDA]"
-    ], history);
-  }
-
-  if (/(precio|costo|cuanto|cuánto|valor|tarifa|presupuesto|cotiza|planes|paquete|inversion|inversión)/i.test(lower)) {
-    return pickNonRepeating([
-      "Cada solución en Lhyo Group se cotiza a la medida de su región (Latinoamérica, Europa o Norteamérica) y de los módulos que elija entre nuestras 06 Soluciones Oficiales. En una breve sesión ejecutiva de 15 minutos por videollamada le entregamos su presupuesto exacto y nuestro Catálogo Privado PDF. Toque el botón dorado inferior para elegir su horario. [MOSTRAR_BOTON_AGENDA]",
-      "Para garantizarle un presupuesto exacto sin costos innecesarios, evaluamos en 15 minutos qué soluciones necesita su empresa (Asistente IA 24/7, Plataforma Web, CRM, Automatización Propia o Sistema Todo-en-Uno) y le enviamos el Dossier Corporativo PDF con las tarifas de su región. Puede reservar su espacio en el botón aquí abajo. [MOSTRAR_BOTON_AGENDA]"
-    ], history);
-  }
-
-  if (/(que ofrecen|qué ofrecen|servicios|soluciones|que hacen|qué hacen|catalogo|catálogo|informacion|información|como funciona|cómo funciona)/i.test(lower)) {
-    return pickNonRepeating([
-      "En Lhyo Group diseñamos e instalamos 06 Soluciones Tecnológicas de alta gama para su empresa:\n01 · Asistentes Inteligentes 24/7 para WhatsApp e Instagram.\n02 · Plataformas Web Modernas y Catálogos Interactivos.\n03 · Organización Automática de Clientes y Ventas (CRM).\n04 · Automatización Total con Tecnología Propia.\n05 · IA Personalizada con la Memoria de su Empresa.\n06 · Su Propia Plataforma Empresarial Todo-en-Uno.\n\n¿Cuál de estas 6 soluciones le interesa implementar primero? [MOSTRAR_BOTON_AGENDA]",
-      "Construimos toda la infraestructura digital y de automatización para que su empresa venda y atienda las 24 horas sin trabajo manual: desde su sitio web de lujo y asistentes IA en WhatsApp/Instagram hasta su propio sistema CRM y plataforma Todo-en-Uno. ¿Sobre cuál de nuestras soluciones desea profundizar? [MOSTRAR_BOTON_AGENDA]"
-    ], history);
-  }
-
-  if (/(garantia|garantía|tiempo|demora|cuanto tardan|cuánto tardan|dias|días|entrega|seguridad|contrato)/i.test(lower)) {
-    return pickNonRepeating([
-      "Trabajamos bajo un protocolo ejecutivo llave en mano de 10 días: Días 1-2 Diagnóstico y Diseño; Días 3-7 Construcción y Entrenamiento IA; Días 8-9 Auditoría de Calidad; y Día 10 Puesta en Marcha con respaldo continuo y propiedad 100% de su empresa. ¿Desea iniciar con el Paso 01 agendando su sesión? [MOSTRAR_BOTON_AGENDA]",
-      "Todas nuestras arquitecturas cuentan con garantía corporativa de funcionamiento, velocidad inferior a 1 segundo, confidencialidad absoluta de sus datos y entrega completa en 10 días sin quitarle tiempo operativo a su equipo. [MOSTRAR_BOTON_AGENDA]"
-    ], history);
-  }
-
-  if (/(hola|buenos|buenas|saludos|hey|que tal|qué tal|como estas|cómo estás)/i.test(lower)) {
-    return pickNonRepeating([
-      "Es un verdadero gusto saludarle. Estoy en línea para asesorarle sobre cómo escalar y automatizar su empresa con nuestras 06 Soluciones Tecnológicas. ¿A qué se dedica su negocio y qué área le gustaría impulsar hoy?",
-      "¡Bienvenido a Lhyo Group! Estoy listo para resolver cualquier consulta sobre nuestras Plataformas Web de alto prestigio, Asistentes IA 24/7 para WhatsApp e Instagram y Sistemas Todo-en-Uno. ¿Cómo puedo ayudar a su empresa hoy?"
-    ], history);
-  }
-
-  if (/(almorzar|comer|comida|hambre|desayun|cenar|receta|cocina|plato|pizza|hamburguesa|pasta)/i.test(lower)) {
-    return pickNonRepeating([
+  if (/(almorzar|comer|comida|hambre|desayun|cenar|receta|cocina|plato|pizza|hamburguesa|pasta|cafe|café)/i.test(lower)) {
+    const p = pickStrictlyUnique([
       "Un buen almuerzo le da energía por unas horas, pero un sistema automático alimenta de clientes a su empresa todos los días. En Lhyo Group no damos recetas de cocina, pero instalamos Asistentes IA 24/7 y Plataformas Web que siguen vendiendo y agendando citas incluso mientras usted almuerza. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]",
-      "Hablando de elegir qué comer hoy: las empresas más rentables son las que no dejan enfriar a ningún cliente cuando escribe pidiendo información. En Lhyo Group creamos sistemas que responden en menos de 1 segundo en WhatsApp e Instagram y organizan sus ventas en automático. ¿Qué tipo de empresa dirige usted? [MOSTRAR_BOTON_AGENDA]",
-      "Así como un gran plato requiere los ingredientes exactos, su empresa necesita la tecnología correcta para crecer: Plataforma Web de prestigio, Asistente IA 24/7 y CRM automático. Eso es exactamente lo que construimos en Lhyo Group. ¿Le gustaría ver cómo aplicarlo en su negocio? [MOSTRAR_BOTON_AGENDA]"
+      "Hablando de elegir qué comer hoy: las empresas más rentables son las que nunca dejan enfriar a un cliente cuando escribe pidiendo información. En Lhyo Group creamos sistemas que responden en menos de 1 segundo en WhatsApp e Instagram y organizan sus ventas en automático. ¿Qué tipo de empresa dirige usted? [MOSTRAR_BOTON_AGENDA]",
+      "Así como un plato de alta cocina requiere los ingredientes exactos, su empresa necesita la tecnología correcta para liderar su mercado: Plataforma Web de lujo (Solución 02), Asistente IA 24/7 (Solución 01) y CRM automático (Solución 03). ¿Le gustaría ver cómo aplicarlo en su negocio? [MOSTRAR_BOTON_AGENDA]"
     ], history);
+    if (p) return p;
   }
 
-  if (/(futbol|fútbol|manchester|madrid|barcelona|partido|gol|deporte|champions|messi|cristiano|tenis|basket)/i.test(lower)) {
-    return pickNonRepeating([
+  if (/(futbol|fútbol|manchester|madrid|barcelona|partido|gol|deporte|champions|messi|cristiano|tenis|basket|mundial)/i.test(lower)) {
+    const p = pickStrictlyUnique([
       "En el deporte un partido se gana por velocidad y precisión; en los negocios ocurre exactamente igual: el 78% de los clientes contrata a la primera empresa que le responde. En Lhyo Group instalamos Asistentes IA 24/7 y Plataformas Web de élite para que su negocio gane todas las ventas en menos de 1 segundo. ¿En qué sector compite su empresa? [MOSTRAR_BOTON_AGENDA]",
       "Los equipos campeones triunfan porque todas sus líneas juegan conectadas. En Lhyo Group llevamos esa misma sincronización a su empresa uniendo su WhatsApp 24/7, su sitio web, su CRM y sus ventas en una sola pantalla Todo-en-Uno. ¿Qué área de su negocio desea llevar a primera división hoy? [MOSTRAR_BOTON_AGENDA]",
       "Más allá de los marcadores deportivos, el único marcador que nosotros multiplicamos las 24 horas es el de las ventas y citas agendadas de su empresa mediante Inteligencia Artificial y automatización propia. ¿Me comenta a qué se dedica su negocio para mostrarle cómo funciona? [MOSTRAR_BOTON_AGENDA]"
     ], history);
+    if (p) return p;
   }
 
-  return pickNonRepeating([
-    `Lo que menciona sobre "${topic}" me recuerda una regla clave en los negocios actuales: la rapidez y el orden lo definen todo. En Lhyo Group nos dedicamos exclusivamente a construir Plataformas Web de alto prestigio, Asistentes IA 24/7 y sistemas propios para que su empresa opere y venda en automático. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]`,
-    `Conectando su comentario sobre "${topic}" con el mundo empresarial: mientras la mayoría pierde tiempo en procesos manuales, en Lhyo Group instalamos Inteligencia Artificial 24/7 en su WhatsApp, Instagram y Sitio Web para transformar cada visita en clientes reales sin esfuerzo humano. ¿Qué área de su empresa le gustaría automatizar primero? [MOSTRAR_BOTON_AGENDA]`,
-    `Más allá de "${topic}", mi especialidad exclusiva es hacer que su empresa lidere su mercado con tecnología propia: desde catálogos web interactivos hasta un cerebro de IA con toda la memoria de su negocio. ¿Cuál de nuestras 06 Soluciones le gustaría conocer para su empresa? [MOSTRAR_BOTON_AGENDA]`,
-    `Interesante punto sobre "${topic}"; llevándolo a lo que genera rentabilidad real: en Lhyo Group unificamos la presencia digital, la atención al cliente 24/7 y el control automático de ventas (CRM) en una sola pantalla para su empresa. ¿Desea agendar una sesión de 15 minutos y recibir nuestro Catálogo Privado PDF? [MOSTRAR_BOTON_AGENDA]`,
-    "En Lhyo Group enfocamos el 100% de nuestra inteligencia en escalar empresas: transformamos cualquier operación manual en un ecosistema automático con Asistentes 24/7 y Plataformas Todo-en-Uno. Cuénteme sobre su negocio: ¿qué proceso le gustaría automatizar hoy? [MOSTRAR_BOTON_AGENDA]"
-  ], history);
+  if (/(viaje|viajar|vacaciones|playa|avion|hotel|clima|lluvia|calor|frio|dormir|sueño|cansad|musica|pelicula|netflix|serie|juego|cine)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "El descanso, los viajes y el tiempo libre se disfrutan de verdad cuando su empresa no se detiene porque usted no esté presente. En Lhyo Group instalamos Asistentes Inteligentes 24/7 y sistemas propios que atienden prospectos y agendan reuniones día y noche en piloto automático. ¿Qué área de su negocio le gustaría automatizar? [MOSTRAR_BOTON_AGENDA]",
+      "Mientras el mundo descansa o se entretiene, las empresas digitalizadas con Lhyo Group siguen captando clientes a las 2:00 AM en WhatsApp, Instagram y su Sitio Web sin intervención humana. ¿A qué se dedica actualmente su empresa o proyecto? [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(odontol|dental|dentista|clinica|clínica|medic|médic|doctor|salud|paciente|consultorio|hospital|estetic|estétic)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Para su clínica o consultorio, en Lhyo Group instalamos un Asistente Inteligente 24/7 en WhatsApp e Instagram (Solución 01) que responde dudas de tratamientos, filtra pacientes reales y agenda sus citas automáticamente en su calendario, unido a una Plataforma Web de prestigio (Solución 02) y un CRM Clínico (Solución 03). ¿Cuál de estas áreas desea implementar primero? [MOSTRAR_BOTON_AGENDA]",
+      "En el sector clínico y odontológico, nuestra tecnología elimina las inasistencias y la pérdida de pacientes fuera de horario: su Asistente IA 24/7 atiende consultas al instante, registra al paciente en su CRM (Solución 03) y confirma el turno sin intervención manual. ¿Le gustaría agendar una sesión de 15 minutos para ver cómo operaría en su clínica? [MOSTRAR_BOTON_AGENDA]",
+      "Además de automatizar la agenda de pacientes 24/7 en WhatsApp e Instagram, podemos entrenar una Inteligencia Artificial Privada con la memoria de su clínica (Solución 05) con todos sus aranceles, presupuestos y protocolos para dar respuestas exactas en 1 segundo. ¿Desea cotizarlo para su clínica? [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(restaurante|gastronom|cafeteria|cafetería|bar|delivery|pedidos de comida|vendo comida)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Para el sector gastronómico, en Lhyo Group desarrollamos Plataformas Web con Catálogos Interactivos (Solución 02) y Asistentes Inteligentes 24/7 en WhatsApp e Instagram (Solución 01) que muestran su menú, atienden reservas o pedidos al instante y registran cada cliente en su CRM. ¿Desea implementarlo en su negocio? [MOSTRAR_BOTON_AGENDA]",
+      "En negocios gastronómicos, la velocidad de atención define la venta: con nuestro sistema propio (Soluciones 01 y 03), cada cliente que escribe por WhatsApp o Instagram recibe atención en menos de 1 segundo las 24 horas y queda registrado en su base de datos. ¿Le gustaría ver una demostración aplicada a su local? [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(inmobiliaria|bienes raices|bienes raíces|propiedades|constructora|arquitect|abogad|legal|contable|agencia|tienda|ecommerce|gimnasio|spa|educacion|academia|empresa|negocio)/i.test(lower) && !/(que es lhyo|qué hacen|que ofrecen)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Para potenciar su operación en ese sector, en Lhyo Group unimos 3 piezas clave: una Plataforma Web de máximo prestigio (Solución 02), un Asistente Inteligente 24/7 en WhatsApp e Instagram que califica y agenda clientes solos (Solución 01), y un CRM Automático (Solución 03). ¿Qué área de su negocio busca escalar primero? [MOSTRAR_BOTON_AGENDA]",
+      "Su negocio puede operar en piloto automático con nuestra tecnología propia: desde atención inmediata 24/7 en WhatsApp e Instagram hasta una Plataforma Empresarial Todo-en-Uno (Solución 06) con su propia marca. ¿Desea recibir nuestro Catálogo Privado PDF con las opciones para su empresa? [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(precio|costo|cuanto|cuánto|valor|tarifa|presupuesto|cotiza|planes|paquete|inversion|inversión)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Cada solución en Lhyo Group se cotiza a la medida de su región (Latinoamérica, Europa o Norteamérica) y de los módulos que elija entre nuestras 06 Soluciones Oficiales. En una breve sesión ejecutiva de 15 minutos por videollamada le entregamos su presupuesto exacto y nuestro Catálogo Privado PDF. Toque el botón dorado inferior para elegir su horario. [MOSTRAR_BOTON_AGENDA]",
+      "Para garantizarle un presupuesto exacto sin costos innecesarios, evaluamos en 15 minutos qué soluciones necesita su empresa (Asistente IA 24/7, Plataforma Web, CRM, Automatización Propia o Sistema Todo-en-Uno) y le enviamos el Dossier Corporativo PDF con las tarifas de su región. Puede reservar su espacio en el botón aquí abajo. [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(que ofrecen|qué ofrecen|servicios|soluciones|que hacen|qué hacen|catalogo|catálogo|informacion|información)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "En Lhyo Group diseñamos e instalamos 06 Soluciones Tecnológicas de alta gama para su empresa:\n01 · Asistentes Inteligentes 24/7 para WhatsApp e Instagram.\n02 · Plataformas Web Modernas y Catálogos Interactivos.\n03 · Organización Automática de Clientes y Ventas (CRM).\n04 · Automatización Total con Tecnología Propia.\n05 · IA Personalizada con la Memoria de su Empresa.\n06 · Su Propia Plataforma Empresarial Todo-en-Uno.\n\n¿Cuál de estas 6 soluciones le interesa implementar primero? [MOSTRAR_BOTON_AGENDA]",
+      "Construimos toda la infraestructura digital y de automatización para que su empresa venda y atienda las 24 horas sin trabajo manual: desde su sitio web de lujo y asistentes IA en WhatsApp/Instagram hasta su propio sistema CRM y plataforma Todo-en-Uno. ¿Sobre cuál de nuestras soluciones desea profundizar? [MOSTRAR_BOTON_AGENDA]"
+    ], history);
+    if (p) return p;
+  }
+
+  if (/(hola|buenos|buenas|saludos|hey|que tal|qué tal|como estas|cómo estás)/i.test(lower)) {
+    const p = pickStrictlyUnique([
+      "Es un verdadero gusto saludarle. Estoy en línea para asesorarle sobre cómo escalar y automatizar su empresa con nuestras 06 Soluciones Tecnológicas. ¿A qué se dedica su negocio y qué área le gustaría impulsar hoy?",
+      "¡Bienvenido a Lhyo Group! Estoy listo para resolver cualquier consulta sobre nuestras Plataformas Web de alto prestigio, Asistentes IA 24/7 para WhatsApp e Instagram y Sistemas Todo-en-Uno. ¿Cómo puedo ayudar a su empresa hoy?"
+    ], history);
+    if (p) return p;
+  }
+
+  const uniqueBridge = pickStrictlyUnique(UNIVERSAL_EXECUTIVE_BRIDGES, history);
+  if (uniqueBridge) return uniqueBridge;
+
+  const turnNum = (history || []).filter((m) => m.sender === "user").length + 1;
+  return `En este punto de nuestra conversación (mensaje #${turnNum}), la mejor forma de mostrarle el poder real de Lhyo Group es aplicarlo directamente a su negocio con una demostración personalizada de nuestras 06 Soluciones. Toque el botón dorado inferior para agendar su sesión de 15 minutos y recibir nuestro Catálogo Privado PDF. [MOSTRAR_BOTON_AGENDA]`;
 }
 
 export async function POST(req: Request) {
@@ -112,7 +131,7 @@ export async function POST(req: Request) {
     const history = Array.isArray(body.history) ? body.history : [];
     if (SEVERE_BLOCK_REGEX.test(message)) {
       return NextResponse.json({
-        reply: "Protocolo de Seguridad Lhyo Group: No procesamos solicitudes ilegales, violentas ni lenguaje inapropiado. Esta sesión ha sido bloqueada permanentemente.",
+        reply: "Protocolo de Seguridad Lhyo Group: Esta infraestructura cognitiva está destinada exclusivamente a consultoría tecnológica y sistemas empresariales. No procesamos contenido adulto, ilegal, violento ni lenguaje inapropiado. Esta sesión ha sido bloqueada permanentemente.",
         blocked: true,
         showBooking: false
       });

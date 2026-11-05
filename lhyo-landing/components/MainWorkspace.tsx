@@ -13,7 +13,8 @@ const INTRIGUE_PILLS = [
   {
     tag: "CLAVE 01 · ATENCIÓN INMEDIATA 24/7",
     question: "¿Qué ocurre cuando su mejor cliente escribe un domingo a las 2:30 AM?",
-    revealTitle: "Mientras su competencia descansa, su empresa atiende\ny agenda citas hoy al instante.",
+    revealTitle: "Mientras su competencia descansa, su empresa atiende
+y agenda citas hoy al instante.",
     revealDesc:
       "El 78% de los clientes contrata a la primera empresa que le responde con claridad y rapidez. Instalamos asistentes inteligentes entrenados con toda la información de su negocio que atienden en WhatsApp e Instagram día y noche, califican al prospecto y agendan la reunión en su calendario.",
     proofStat: "0.4s Velocidad de Respuesta · 0 Oportunidades Perdidas"
@@ -21,7 +22,8 @@ const INTRIGUE_PILLS = [
   {
     tag: "CLAVE 02 · PRESENCIA Y PRESTIGIO",
     question: "¿Por qué 8 de cada 10 personas cierran una página web en menos de 4 segundos?",
-    revealTitle: "Una plataforma moderna de máximo prestigio que\nproyecta autoridad y multiplica sus ventas.",
+    revealTitle: "Una plataforma moderna de máximo prestigio que
+proyecta autoridad y multiplica sus ventas.",
     revealDesc:
       "Cuando un cliente visita su empresa en internet, evalúa en 3 segundos el prestigio y la solidez de su marca. Construimos plataformas de alta gama con velocidad instantánea y arquitectura interactiva que transforman el interés del visitante en reuniones comerciales.",
     proofStat: "Presencia de Máximo Prestigio desde el Primer Segundo"
@@ -29,7 +31,8 @@ const INTRIGUE_PILLS = [
   {
     tag: "CLAVE 03 · CONTROL Y TECNOLOGÍA PROPIA",
     question: "¿Qué logra su empresa cuando une todas sus áreas y ventas en una sola pantalla?",
-    revealTitle: "Todo su negocio unido en una pantalla\noperando siempre bajo su control total.",
+    revealTitle: "Todo su negocio unido en una pantalla
+operando siempre bajo su control total.",
     revealDesc:
       "Multiplica la velocidad de su negocio y elimina gastos en programas separados. Cada cliente se registra y clasifica automáticamente por prioridad mientras toda su operación funciona conectada desde una plataforma Todo-en-Uno creada en exclusiva con la identidad de su empresa.",
     proofStat: "Hasta 85% de Ahorro Anual + Control Ejecutivo Total"
@@ -430,9 +433,7 @@ export default function MainWorkspace() {
           </section>
         )}
 
-        {activeView === "contacto" && (
-          <DirectContactSection />
-        )}
+        {activeView === "contacto" && <DirectContactSection />}
       </div>
 
       <footer className="w-full max-w-7xl mx-auto px-6 md:px-16 lg:px-24 pt-8 pb-28">
