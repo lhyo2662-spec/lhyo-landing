@@ -175,22 +175,15 @@ export default function InteractiveCatalog() {
   };
 
   const handlePrivInterestToggle = (option: string) => {
-    if (option === FULL_PACKAGE_LABEL) {
-      setPrivInterests([FULL_PACKAGE_LABEL]);
-    } else {
-      setPrivInterests((prev) => {
-        const withoutFull = prev.filter((item) => item !== FULL_PACKAGE_LABEL);
-        if (withoutFull.includes(option)) {
-          const updated = withoutFull.filter((item) => item !== option);
-          return updated.length === 0 ? [FULL_PACKAGE_LABEL] : updated;
-        } else {
-          const nextSelected = [...withoutFull, option]; return nextSelected.length >= 6 ? [fullLabel] : nextSelected;
-        }
-      });
-    }
+    setPrivInterests((prev) => {
+      if (prev.includes(option)) {
+        return prev.length > 1 ? prev.filter((item) => item !== option) : prev;
+      }
+      return [...prev, option];
+    });
   };
 
-  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Solución: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
+  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Soluciones: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
 
   return (
     <div>
@@ -499,7 +492,7 @@ export default function InteractiveCatalog() {
                 <span className="text-[10px] font-medium text-[#C5A059]">Paso 01</span>
               </div>
               <div className="space-y-2.5">
-                {["Uruguay", "Venezuela", "Otro País / Internacional"].map((pais) => {
+                {["Latinoamérica", "Europa", "Estados Unidos / Norteamérica", "Otra Región / Global"].map((pais) => {
                   const active = privCountry === pais;
                   return (
                     <button

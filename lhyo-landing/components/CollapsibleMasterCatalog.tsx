@@ -19,8 +19,8 @@ export default function CollapsibleMasterCatalog() {
     return init;
   });
 
-  const [privCountry, setPrivCountry] = useState("Uruguay");
-  const [privInterests, setPrivInterests] = useState(["Paquete Completo (Todo Incluido)"]);
+  const [privCountry, setPrivCountry] = useState("Latinoamérica");
+  const [privInterests, setPrivInterests] = useState(["01 · Asistentes Inteligentes WhatsApp / IG (24/7)"]);
   const [privStage, setPrivStage] = useState("Negocio en marcha buscando crecer");
 
   const toggleAccordion = (id: string) => {
@@ -71,22 +71,15 @@ export default function CollapsibleMasterCatalog() {
   };
 
   const handlePrivInterestToggle = (option: string) => {
-    const fullLabel = "Paquete Completo (Todo Incluido)";
-    if (option === fullLabel) {
-      setPrivInterests([fullLabel]);
-    } else {
-      setPrivInterests((prev) => {
-        const withoutFull = prev.filter((item) => item !== fullLabel);
-        if (withoutFull.includes(option)) {
-          const updated = withoutFull.filter((item) => item !== option);
-          return updated.length === 0 ? [fullLabel] : updated;
-        }
-        const nextSelected = [...withoutFull, option]; return nextSelected.length >= 6 ? [fullLabel] : nextSelected;
-      });
-    }
+    setPrivInterests((prev) => {
+      if (prev.includes(option)) {
+        return prev.length > 1 ? prev.filter((item) => item !== option) : prev;
+      }
+      return [...prev, option];
+    });
   };
 
-  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Solución: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
+  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Soluciones: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
 
   return (
     <div className="space-y-4">
@@ -313,7 +306,7 @@ export default function CollapsibleMasterCatalog() {
                   1. País de Operación
                 </label>
                 <div className="space-y-2">
-                  {["Uruguay", "Venezuela", "Otro País / Internacional"].map((pais) => (
+                  {["Latinoamérica", "Europa", "Estados Unidos / Norteamérica", "Otra Región / Global"].map((pais) => (
                     <button
                       key={pais}
                       type="button"
@@ -337,7 +330,6 @@ export default function CollapsibleMasterCatalog() {
                 </label>
                 <div className="space-y-2">
                   {[
-                    "Paquete Completo (Todo Incluido)",
                     "01 · Asistentes Inteligentes WhatsApp / IG (24/7)", "02 · Plataformas Web y Catálogos Interactivos", "03 · Organización Automática de Clientes (CRM)", "04 · Automatización Total con Tecnología Propia", "05 · IA Personalizada con la Memoria de su Empresa", "06 · Plataforma Empresarial Todo-en-Uno"
                   ].map((interes) => {
                     const sel = privInterests.includes(interes);

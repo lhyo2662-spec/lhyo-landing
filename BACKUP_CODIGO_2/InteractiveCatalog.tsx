@@ -184,13 +184,13 @@ export default function InteractiveCatalog() {
           const updated = withoutFull.filter((item) => item !== option);
           return updated.length === 0 ? [FULL_PACKAGE_LABEL] : updated;
         } else {
-          const nextSelected = [...withoutFull, option]; return nextSelected.length >= 6 ? [fullLabel] : nextSelected;
+          return [...withoutFull, option];
         }
       });
     }
   };
 
-  const privateCatalogSummary = `Propuesta personalizada para ${privCountry} · Solución: ${privInterests.join(" + ")} · Etapa: ${privStage}`;
+  const privateCatalogSummary = `SOLICITUD CATÁLOGO PRIVADO | País: ${privCountry} | Interés: ${privInterests.join(" + ")} | Etapa: ${privStage}`;
 
   return (
     <div>

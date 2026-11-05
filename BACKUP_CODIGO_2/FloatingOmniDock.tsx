@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export const SOCIAL_LINKS = {
-  whatsappPhone: "584247383164",
+  whatsappPhone: "59800000000",
   instagramUrl: "https://www.instagram.com/lhyogroup",
   linkedinUrl: "https://www.linkedin.com/company/lhyogroup",
   emailAddress: "lhyoaraque2662@gmail.com"

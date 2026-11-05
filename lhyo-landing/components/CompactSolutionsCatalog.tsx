@@ -72,7 +72,7 @@ interface Props {
 export default function CompactSolutionsCatalog({ onSelectSolution }: Props) {
   const [openId, setOpenId] = useState<string | null>(null);
   const [customizerOpen, setCustomizerOpen] = useState(true);
-  const [selectedCountry, setSelectedCountry] = useState("Uruguay");
+  const [selectedCountry, setSelectedCountry] = useState("Latinoamérica");
   const [selectedStage, setSelectedStage] = useState("Negocio en marcha buscando crecer");
   const [allIncluded, setAllIncluded] = useState<boolean>(true);
   const [selectedSixIds, setSelectedSixIds] = useState<string[]>([]);
@@ -177,8 +177,8 @@ export default function CompactSolutionsCatalog({ onSelectSolution }: Props) {
           <>
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
               <div className="rounded-2xl border border-white/10 bg-[#050507] p-4 space-y-2.5">
-                <span className="text-[11px] font-bold text-[#FCF6BA] uppercase tracking-wider block mb-2">1. PAÍS DE OPERACIÓN</span>
-                {["Uruguay", "Venezuela", "Otro País / Internacional"].map((c) => (
+                <span className="text-[11px] font-bold text-[#FCF6BA] uppercase tracking-wider block mb-2">1. REGIÓN DE OPERACIÓN</span>
+                {["Latinoamérica", "Europa", "Estados Unidos / Norteamérica", "Otra Región / Global"].map((c) => (
                   <button
                     key={c}
                     type="button"
