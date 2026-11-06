@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { generateDynamicDossierPdf } from "../lib/generateDynamicDossierPdf";
 
 export function DirectContactSection() {
   const [contactName, setContactName] = useState("");
@@ -10,16 +11,25 @@ export function DirectContactSection() {
 
   return (
     <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-      <div className="mb-10 border-b border-white/10 pb-5">
-        <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-1.5">
-          CANALES OFICIALES DE COMUNICACIÓN
-        </span>
-        <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
-          Contacto Directo y Atención Ejecutiva
-        </h2>
-        <p className="text-sm text-gray-300 mt-2 max-w-2xl">
-          Comuníquese directamente con nuestra dirección general o envíenos su consulta para recibir atención inmediata:
-        </p>
+      <div className="mb-10 border-b border-white/10 pb-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.16em] block mb-1.5">
+            CANALES OFICIALES DE COMUNICACIÓN
+          </span>
+          <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+            Contacto Directo y Atención Ejecutiva
+          </h2>
+          <p className="text-sm text-gray-300 mt-2 max-w-2xl">
+            Comuníquese directamente con nuestra dirección general o envíenos su consulta para recibir atención inmediata:
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => generateDynamicDossierPdf({ companyName: contactName || "Su Empresa", prospectName: contactName || "Dirección Ejecutiva", selectedPlanText: contactMsg })}
+          className="px-5 py-3 rounded-xl border border-[#C5A059] bg-[#0A1128]/90 text-[#FCF6BA] text-xs font-extrabold uppercase tracking-wider hover:bg-[#C5A059] hover:text-[#050507] transition cursor-pointer"
+        >
+          📄 DESCARGAR DOSSIER CORPORATIVO PDF →
+        </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -93,6 +103,11 @@ export function DirectContactSection() {
                 e.preventDefault();
                 if (!contactName.trim() || !contactEmail.trim() || !contactMsg.trim()) return;
                 setContactSent(true);
+                generateDynamicDossierPdf({
+                  companyName: contactName,
+                  prospectName: contactName,
+                  selectedPlanText: contactMsg
+                });
               }}
               className="space-y-4"
             >
@@ -101,18 +116,18 @@ export function DirectContactSection() {
                   MENSAJE DIRECTO A DIRECCIÓN GENERAL (ceo@lhyogroup.com)
                 </span>
                 <h3 className="text-xl sm:text-2xl font-semibold text-white">
-                  Envíenos su consulta directa
+                  Envíenos su consulta directa y descargue su Dossier PDF
                 </h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-[#FCF6BA] uppercase block mb-1">
-                    Su Nombre *
+                    Su Nombre o Empresa *
                   </label>
                   <input
                     type="text"
-                    placeholder="Ej: Carlos Mendoza"
+                    placeholder="Ej: Corporación Andina"
                     value={contactName}
                     onChange={(e) => setContactName(e.target.value)}
                     className="w-full rounded-xl bg-[#050507] border border-white/15 focus:border-[#C5A059] text-white text-sm px-3.5 py-2.5 outline-none"
@@ -151,7 +166,7 @@ export function DirectContactSection() {
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Escriba aquí su consulta o requerimiento..."
+                  placeholder="Escriba aquí su consulta o las soluciones de su interés (01 a 06)..."
                   value={contactMsg}
                   onChange={(e) => setContactMsg(e.target.value)}
                   className="w-full rounded-xl bg-[#050507] border border-white/15 focus:border-[#C5A059] text-white text-sm px-3.5 py-2.5 outline-none resize-none"
@@ -162,7 +177,7 @@ export function DirectContactSection() {
                 type="submit"
                 className="w-full h-[50px] rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs uppercase tracking-wider cursor-pointer"
               >
-                ENVIAR MENSAJE DIRECTO A LHYO GROUP →
+                ENVIAR MENSAJE Y DESCARGAR DOSSIER CORPORATIVO PDF →
               </button>
             </form>
           ) : (
@@ -171,10 +186,10 @@ export function DirectContactSection() {
                 ✓
               </div>
               <h4 className="text-xl font-semibold text-white mb-2">
-                ¡Mensaje recibido en ceo@lhyogroup.com!
+                ¡Mensaje recibido y Dossier PDF generado!
               </h4>
               <p className="text-xs sm:text-sm text-gray-300 mb-5">
-                Le responderemos a la brevedad.
+                Su Dossier Corporativo personalizado se ha descargado en su dispositivo.
               </p>
               <button
                 type="button"

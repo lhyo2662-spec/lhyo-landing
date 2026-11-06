@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 interface ChatMsg { sender: "bot" | "user"; text: string; showBooking?: boolean; }
 const INITIAL_GREETING: ChatMsg = {
   sender: "bot",
-  text: "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPuede escribirme o tocar el micrófono para hablarme con total libertad: ¿con quién tengo el gusto y qué le gustaría consultar, crear o automatizar hoy?"
+  text: "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Director de Admisiones de Inteligencia Artificial.\n\nPuede escribirme o tocar el micrófono para hablarme con total libertad: ¿con quién tengo el gusto y qué proceso de su empresa le gustaría optimizar o automatizar hoy?"
 };
 export function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: string) => void }) {
   const [chatOpen, setChatOpen] = useState(false);
@@ -71,7 +71,7 @@ export function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: str
     } finally { setLoading(false); }
   };
   const triggerBookingModal = () => {
-    if (onOpenBooking) { onOpenBooking("CONSULTA DESDE ASISTENTE IA"); return; }
+    if (onOpenBooking) { onOpenBooking("AUDITORÍA EJECUTIVA DESDE DIRECTOR DE ADMISIONES IA"); return; }
     const buttons = Array.from(document.querySelectorAll("button"));
     const mainBtn = buttons.find((b) => (b.textContent || "").toUpperCase().includes("AGENDAR REUNIÓN"));
     if (mainBtn) { mainBtn.click(); return; }
@@ -87,8 +87,8 @@ export function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: str
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#6EE7B7]" />
               </span>
               <div>
-                <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-wider block">Asistente Ejecutivo IA · Lhyo Group</span>
-                <span className="text-[10px] text-[#6EE7B7] font-medium">En Línea 24/7 · Inteligencia Artificial en Vivo</span>
+                <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-wider block">Director de Admisiones IA · Lhyo Group</span>
+                <span className="text-[10px] text-[#6EE7B7] font-medium">En Línea 24/7 · Dual-Engine en Vivo</span>
               </div>
             </div>
             <button type="button" onClick={handleCloseChat} className="w-7 h-7 rounded-full bg-white/5 text-gray-300 text-xs flex items-center justify-center hover:text-white cursor-pointer">✕</button>
@@ -98,7 +98,7 @@ export function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: str
               <div key={i} className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}>
                 <div className={`max-w-[87%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed whitespace-pre-line ${m.sender === "user" ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-semibold" : "bg-[#0A1128]/90 border border-[#C5A059]/40 text-gray-100"}`}>{m.text}</div>
                 {m.showBooking && m.sender === "bot" && !sessionBlocked && (
-                  <button type="button" onClick={triggerBookingModal} className="mt-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-[11px] uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer">📅 Agendar Reunión y Recibir Catálogo PDF →</button>
+                  <button type="button" onClick={triggerBookingModal} className="mt-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-[11px] uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer">📅 Agendar Reunión y Descargar Dossier PDF →</button>
                 )}
               </div>
             ))}
