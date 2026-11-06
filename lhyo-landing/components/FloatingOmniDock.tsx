@@ -2,8 +2,11 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
-const INITIAL_MESSAGE =
-  "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPara brindarle una asesoría a la medida de su negocio, cuénteme: ¿con quién tengo el gusto, a qué se dedica su empresa y qué le gustaría mejorar o automatizar hoy?";
+const SOCIAL_LINKS = {
+  whatsappPhone: "584247383164",
+  instagramUrl: "https://www.instagram.com/lhyogroup",
+  linkedinUrl: "https://www.linkedin.com/company/lhyogroup"
+};
 
 interface ChatMsg {
   sender: "bot" | "user";
@@ -12,15 +15,16 @@ interface ChatMsg {
   showAgendaBtn?: boolean;
 }
 
+const INITIAL_GREETING =
+  "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPara brindarle una asesoría a la medida de su negocio, cuénteme: ¿con quién tengo el gusto, a qué se dedica su empresa y qué le gustaría mejorar o automatizar hoy?";
+
 export default function FloatingOmniDock() {
   const [chatOpen, setChatOpen] = useState(false);
   const [inputMsg, setInputMsg] = useState("");
   const [loading, setLoading] = useState(false);
   const [isBlocked, setIsBlocked] = useState(false);
   const [isListening, setIsListening] = useState(false);
-  const [messages, setMessages] = useState<ChatMsg[]>([
-    { sender: "bot", text: INITIAL_MESSAGE }
-  ]);
+  const [messages, setMessages] = useState<ChatMsg[]>([{ sender: "bot", text: INITIAL_GREETING }]);
   const [leadState, setLeadState] = useState({
     lead_name: "PENDIENTE",
     company_name: "PENDIENTE",
@@ -36,12 +40,13 @@ export default function FloatingOmniDock() {
     }
   }, [messages, loading]);
 
-  const handleCloseAndResetMemory = () => {
+  const handleCloseAndResetSession = () => {
     setChatOpen(false);
+    setInputMsg("");
+    setLoading(false);
     setIsBlocked(false);
     setIsListening(false);
-    setInputMsg("");
-    setMessages([{ sender: "bot", text: INITIAL_MESSAGE }]);
+    setMessages([{ sender: "bot", text: INITIAL_GREETING }]);
     setLeadState({
       lead_name: "PENDIENTE",
       company_name: "PENDIENTE",
@@ -52,36 +57,16 @@ export default function FloatingOmniDock() {
   };
 
   const handleVoiceMic = () => {
-    if (isBlocked || loading) return;
-    const w = window as unknown as {
-      SpeechRecognition?: new () => {
-        lang: string;
-        interimResults: boolean;
-        onresult: (e: { results: { transcript: string }[][] }) => void;
-        onerror: () => void;
-        onend: () => void;
-        start: () => void;
-      };
-      webkitSpeechRecognition?: new () => {
-        lang: string;
-        interimResults: boolean;
-        onresult: (e: { results: { transcript: string }[][] }) => void;
-        onerror: () => void;
-        onend: () => void;
-        start: () => void;
-      };
-    };
-    const SpeechRec = w.SpeechRecognition || w.webkitSpeechRecognition;
+    if (isBlocked || loading || typeof window === "undefined") return;
+    const SpeechRec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRec) return;
     const recognition = new SpeechRec();
     recognition.lang = "es-ES";
     recognition.interimResults = false;
     setIsListening(true);
-    recognition.onresult = (event) => {
-      const transcript = event.results?.[0]?.[0]?.transcript || "";
-      if (transcript) {
-        setInputMsg((prev) => (prev ? `${prev} ${transcript}` : transcript));
-      }
+    recognition.onresult = (event: any) => {
+      const transcript = event?.results?.[0]?.[0]?.transcript || "";
+      if (transcript) setInputMsg((prev) => (prev ? `${prev} ${transcript}` : transcript));
       setIsListening(false);
     };
     recognition.onerror = () => setIsListening(false);
@@ -95,8 +80,8 @@ export default function FloatingOmniDock() {
     if (!userText || loading || isBlocked) return;
     setInputMsg("");
 
-    const nextMessages: ChatMsg[] = [...messages, { sender: "user", text: userText }];
-    setMessages(nextMessages);
+    const nextHistory: ChatMsg[] = [...messages, { sender: "user", text: userText }];
+    setMessages(nextHistory);
     setLoading(true);
 
     try {
@@ -105,11 +90,10 @@ export default function FloatingOmniDock() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userText,
-          history: nextMessages,
+          history: nextHistory,
           currentLead: leadState
         })
       });
-
       const data = await res.json();
       setLeadState({
         lead_name: data.lead_name || leadState.lead_name,
@@ -118,18 +102,12 @@ export default function FloatingOmniDock() {
         revenue_tier: data.revenue_tier || leadState.revenue_tier,
         turn_count: data.turn_count || leadState.turn_count + 1
       });
-
-      if (data.blocked) {
-        setIsBlocked(true);
-      }
-
+      if (data.blocked) setIsBlocked(true);
       setMessages((prev) => [
         ...prev,
         {
           sender: "bot",
-          text:
-            data.reply ||
-            "Con todo gusto le orientamos. ¿Con quién tengo el gusto y qué área de su negocio desea impulsar?",
+          text: data.reply || "Con gusto le asistimos. ¿Con quién tengo el gusto y a qué se dedica su empresa?",
           blocked: Boolean(data.blocked),
           showAgendaBtn: Boolean(data.ready_for_crm)
         }
@@ -139,7 +117,7 @@ export default function FloatingOmniDock() {
         ...prev,
         {
           sender: "bot",
-          text: "Estoy en línea para asistirle. Cuénteme: ¿cuál es su nombre y qué área de su negocio le gustaría automatizar o mejorar hoy?"
+          text: "Con total gusto le asistimos. ¿Me podría indicar su nombre y qué área de su negocio desea automatizar?"
         }
       ]);
     } finally {
@@ -147,8 +125,10 @@ export default function FloatingOmniDock() {
     }
   };
 
-  const openExecutiveAgendaModal = () => {
-    window.dispatchEvent(new CustomEvent("lhyo-open-audit-modal"));
+  const triggerExecutiveAgendaModal = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("lhyo-open-audit-modal"));
+    }
   };
 
   return (
@@ -173,21 +153,14 @@ export default function FloatingOmniDock() {
                 <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-wider block">
                   ASISTENTE EJECUTIVO IA · LHYO GROUP
                 </span>
-                <span
-                  className={`text-[10px] font-semibold ${
-                    isBlocked ? "text-red-400" : "text-[#00FF66]"
-                  }`}
-                >
-                  {isBlocked
-                    ? "Sesión Bloqueada por Seguridad"
-                    : "En Línea 24/7 · Inteligencia Artificial en Vivo"}
+                <span className={`text-[10px] font-semibold ${isBlocked ? "text-red-400" : "text-[#00FF66]"}`}>
+                  {isBlocked ? "Sesión Bloqueada por Seguridad" : "En Línea 24/7 · Inteligencia Artificial en Vivo"}
                 </span>
               </div>
             </div>
             <button
               type="button"
-              onClick={handleCloseAndResetMemory}
-              title="Cerrar y limpiar memoria de sesión"
+              onClick={handleCloseAndResetSession}
               className="w-7 h-7 rounded-full bg-white/5 text-gray-300 text-xs flex items-center justify-center cursor-pointer hover:text-white"
             >
               ✕
@@ -197,13 +170,10 @@ export default function FloatingOmniDock() {
           <div
             ref={scrollRef}
             style={{ scrollbarWidth: "thin", scrollbarColor: "#C5A059 #050507" }}
-            className="p-4 space-y-3 max-h-[320px] overflow-y-auto bg-[#050507] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#050507] [&::-webkit-scrollbar-thumb]:bg-[#C5A059]/60 [&::-webkit-scrollbar-thumb]:rounded-full"
+            className="p-4 space-y-3 max-h-[325px] overflow-y-auto bg-[#050507] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#050507] [&::-webkit-scrollbar-thumb]:bg-[#C5A059]/60 [&::-webkit-scrollbar-thumb]:rounded-full"
           >
             {messages.map((m, i) => (
-              <div
-                key={i}
-                className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}
-              >
+              <div key={i} className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}>
                 <div
                   className={`max-w-[87%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed whitespace-pre-line ${
                     m.sender === "user"
@@ -217,7 +187,7 @@ export default function FloatingOmniDock() {
                   {m.showAgendaBtn && (
                     <button
                       type="button"
-                      onClick={openExecutiveAgendaModal}
+                      onClick={triggerExecutiveAgendaModal}
                       className="mt-3 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-[11px] uppercase tracking-wider shadow-lg cursor-pointer block text-center"
                     >
                       📅 Agendar Reunión y Recibir Catálogo PDF →
@@ -226,24 +196,17 @@ export default function FloatingOmniDock() {
                 </div>
               </div>
             ))}
-            {loading && (
-              <div className="text-[11px] text-[#FCF6BA] italic">Analizando y redactando...</div>
-            )}
+            {loading && <div className="text-[11px] text-[#FCF6BA] italic">Analizando consulta...</div>}
           </div>
 
-          <form
-            onSubmit={handleSend}
-            className="p-3 bg-[#0A1128]/60 border-t border-white/10 flex items-center gap-2"
-          >
+          <form onSubmit={handleSend} className="p-3 bg-[#0A1128]/60 border-t border-white/10 flex items-center gap-2">
             <input
               type="text"
               disabled={isBlocked}
               value={inputMsg}
               onChange={(e) => setInputMsg(e.target.value)}
               placeholder={
-                isBlocked
-                  ? "Sesión bloqueada permanentemente."
-                  : "Haga cualquier consulta sobre su negocio..."
+                isBlocked ? "Sesión bloqueada permanentemente." : "Haga cualquier consulta sobre su negocio..."
               }
               className="flex-1 bg-[#050507] border border-white/15 focus:border-[#C5A059] rounded-xl px-3 py-2 text-xs text-white outline-none disabled:opacity-40"
             />
@@ -252,10 +215,8 @@ export default function FloatingOmniDock() {
               disabled={isBlocked}
               onClick={handleVoiceMic}
               title="Hablar por micrófono"
-              className={`w-9 h-9 rounded-xl border flex items-center justify-center transition cursor-pointer disabled:opacity-40 ${
-                isListening
-                  ? "bg-red-500/20 border-red-400 text-red-400 animate-pulse"
-                  : "bg-[#050507] border-[#C5A059]/50 text-[#FCF6BA] hover:border-[#C5A059]"
+              className={`w-9 h-9 rounded-xl border border-[#C5A059]/50 bg-[#050507] text-[#FCF6BA] flex items-center justify-center cursor-pointer ${
+                isListening ? "animate-pulse border-[#00FF66] text-[#00FF66]" : ""
               }`}
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -277,10 +238,12 @@ export default function FloatingOmniDock() {
           <div className="px-4 py-2.5 bg-[#050507] border-t border-white/10 flex items-center justify-between text-[11px]">
             <span className="text-gray-400">¿Prefiere atención en WhatsApp?</span>
             <a
-              href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20les%20escribo%20desde%20su%20sitio%20web%20oficial."
+              href={`https://wa.me/${SOCIAL_LINKS.whatsappPhone}?text=${encodeURIComponent(
+                "Hola Lhyo Group, les escribo desde su sitio web oficial."
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#FCF6BA] font-bold hover:underline"
+              className="text-[#FCF6BA] font-semibold hover:underline"
             >
               Abrir WhatsApp →
             </a>
@@ -290,7 +253,7 @@ export default function FloatingOmniDock() {
 
       <div className="flex items-center gap-2 rounded-full bg-[#080A10]/95 backdrop-blur-xl border border-[#C5A059]/60 p-1.5 pl-2.5 shadow-2xl">
         <a
-          href="https://www.instagram.com/lhyogroup"
+          href={SOCIAL_LINKS.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
           title="Instagram Oficial Lhyo Group"
@@ -301,7 +264,7 @@ export default function FloatingOmniDock() {
           </svg>
         </a>
         <a
-          href="https://www.linkedin.com/company/lhyogroup"
+          href={SOCIAL_LINKS.linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
           title="LinkedIn Corporativo Lhyo Group"
@@ -313,14 +276,14 @@ export default function FloatingOmniDock() {
         </a>
         <button
           type="button"
-          onClick={() => (chatOpen ? handleCloseAndResetMemory() : setChatOpen(true))}
-          className="px-5 h-9 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs tracking-wider uppercase flex items-center gap-2.5 hover:brightness-105 transition cursor-pointer"
+          onClick={() => (chatOpen ? handleCloseAndResetSession() : setChatOpen(true))}
+          className="px-5 h-9 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2.5 hover:brightness-105 transition cursor-pointer"
         >
-          <span className="relative flex h-3 w-3">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF66] opacity-90" />
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00FF66] border border-black/30 shadow-[0_0_10px_#00FF66]" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00FF66] shadow-[0_0_8px_#00FF66]" />
           </span>
-          <span>{chatOpen ? "Cerrar Asistente IA" : "✦ Asistente IA 24/7 / WhatsApp"}</span>
+          <span>{chatOpen ? "CERRAR ASISTENTE IA" : "✦ ASISTENTE IA 24/7 / WHATSAPP"}</span>
         </button>
       </div>
     </div>

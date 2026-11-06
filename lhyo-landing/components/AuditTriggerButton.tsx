@@ -13,46 +13,78 @@ const OFFICIAL_06_SOLUTIONS = [
   {
     id: "01",
     code: "SOLUCIÓN 01 · ATENCIÓN INMEDIATA 24/7",
-    title: "Asistentes IA 24/7 para WhatsApp e Instagram",
+    title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
     summary:
-      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático."
+      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 01 — CERO CLIENTES PERDIDOS POR DEMORA",
+    impactDetail:
+      "Entrenamos e instalamos su Asistente IA 24/7 en WhatsApp e Instagram para calificar prospectos en tiempo real, responder objeciones como un consultor experto y agendar citas directamente en su calendario sin intervención humana.",
+    metricBadge: "⚡ Respuesta < 0.8s · Atención 24/7"
   },
   {
     id: "02",
     code: "SOLUCIÓN 02 · PRESENCIA DE ALTO PRESTIGIO",
-    title: "Plataformas Web y Catálogos Interactivos",
+    title: "Plataformas Web Modernas y Catálogos Interactivos",
     summary:
-      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente."
+      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 02 — AUTORIDAD DIGITAL Y CONVERSIÓN INMEDIATA",
+    impactDetail:
+      "Sustituimos páginas lentas o genéricas por una plataforma de ingeniería de lujo con catálogos interactivos, cotizadores dinámicos y carga instantánea que multiplica la confianza de sus compradores B2B y B2C.",
+    metricBadge: "✦ Carga < 0.8s · Diseño de Élite"
   },
   {
     id: "03",
     code: "SOLUCIÓN 03 · CONTROL COMERCIAL TOTAL",
-    title: "Organización Automática de Clientes (CRM)",
+    title: "Organización Automática de Clientes y Ventas (CRM)",
     summary:
-      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano."
+      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 03 — TRAZABILIDAD COMERCIAL AUTOMATIZADA",
+    impactDetail:
+      "Cada cliente que interactúa con su empresa queda registrado automáticamente con su nombre, empresa, necesidad y nivel de presupuesto, eliminando el desorden de chats sueltos y las ventas olvidadas.",
+    metricBadge: "📊 100% Trazabilidad · 0 Carga Manual"
   },
   {
     id: "04",
     code: "SOLUCIÓN 04 · INDEPENDENCIA SIN LÍMITES",
-    title: "Automatización Total con Tecnología Propia",
+    title: "Automatización Total de Procesos con Tecnología Propia",
     summary:
-      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen."
+      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 04 — SOBERANÍA TECNOLÓGICA SIN COBROS POR USO",
+    impactDetail:
+      "Construimos la tubería invisible propia de su negocio para que sus cotizaciones, correos de confirmación, recordatorios y bases de datos trabajen solos las 24 horas sin depender de licencias caras que suben por volumen.",
+    metricBadge: "♾️ Capacidad Ilimitada · Propiedad 100%"
   },
   {
     id: "05",
     code: "SOLUCIÓN 05 · CEREBRO PRIVADO EMPRESARIAL",
-    title: "IA Personalizada con Memoria de su Empresa",
+    title: "IA Personalizada con la Memoria de su Empresa",
     summary:
-      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo."
+      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 05 — INTELIGENCIA ENTRENADA CON SUS DOCUMENTOS",
+    impactDetail:
+      "Su propio núcleo de Inteligencia Artificial privado que conoce al milímetro sus manuales, tarifas, catálogo e historial operativo para asistir tanto a sus clientes como a su equipo directivo al instante.",
+    metricBadge: "🧠 100% Privado · Precisión Quirúrgica"
   },
   {
     id: "06",
     code: "SOLUCIÓN 06 · TODA SU EMPRESA EN 1 PANTALLA",
     title: "Su Propia Plataforma Empresarial Todo-en-Uno",
     summary:
-      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa."
+      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa.",
+    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 06 — ECOSISTEMA EJECUTIVO CENTRALIZADO",
+    impactDetail:
+      "Deje de abrir múltiples programas desconectados. Diseñamos su centro de mando privado con la identidad visual de su marca donde usted supervisa ventas, citas, clientes e ingresos desde cualquier dispositivo.",
+    metricBadge: "🏛️ Todo en 1 Pantalla · Marca Propia"
   }
 ];
+
+const PAQUETE_COMPLETO_INFO = {
+  id: "ALL",
+  impactTitle: "★ PAQUETE COMPLETO TODO INCLUIDO — LAS 06 SOLUCIONES UNIFICADAS LLAVE EN MANO",
+  impactDetail:
+    "Desplegamos en 10 días su ecosistema completo: Plataforma Web de alto prestigio + Asistentes IA 24/7 en WhatsApp e Instagram + CRM Automático + Motor de Automatización Propia + Cerebro IA con la memoria de su empresa + Panel Todo-en-Uno.",
+  metricBadge: "👑 PRIORIDAD EJECUTIVA · 06 SOLUCIONES"
+};
 
 const ALL_TIME_SLOTS = ["09:30 AM", "11:00 AM", "01:00 PM", "03:00 PM", "04:30 PM", "06:00 PM"];
 
@@ -74,8 +106,9 @@ export default function AuditTriggerButton({
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<"form" | "confirmed" | "dossier">("form");
   const [submitting, setSubmitting] = useState(false);
+  const [activeDossierCard, setActiveDossierCard] = useState<string>("ALL");
 
-  const [selectedDate, setSelectedDate] = useState("06 de Noviembre, 2026");
+  const [selectedDate, setSelectedDate] = useState("09 de Noviembre, 2026");
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
   const [userBookedByDate, setUserBookedByDate] = useState<Record<string, string[]>>({});
   const [fullName, setFullName] = useState("");
@@ -87,7 +120,7 @@ export default function AuditTriggerButton({
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = localStorage.getItem("lhyo_booked_slots_v41");
+      const saved = localStorage.getItem("lhyo_booked_slots_v40");
       if (saved) setUserBookedByDate(JSON.parse(saved));
     } catch {}
     const handleCustomOpen = () => {
@@ -124,7 +157,7 @@ export default function AuditTriggerButton({
     };
     setUserBookedByDate(updatedBookings);
     try {
-      localStorage.setItem("lhyo_booked_slots_v41", JSON.stringify(updatedBookings));
+      localStorage.setItem("lhyo_booked_slots_v40", JSON.stringify(updatedBookings));
     } catch {}
 
     const revNumber = parseFloat(monthlyRev.replace(/[^0-9.]/g, "")) || 0;
@@ -156,6 +189,10 @@ export default function AuditTriggerButton({
   };
 
   const occupiedNow = getOccupiedForDate(selectedDate);
+  const selectedImpactObj =
+    activeDossierCard === "ALL"
+      ? PAQUETE_COMPLETO_INFO
+      : OFFICIAL_06_SOLUTIONS.find((s) => s.id === activeDossierCard) || PAQUETE_COMPLETO_INFO;
 
   const modalContent = open ? (
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4 overflow-y-auto">
@@ -395,10 +432,14 @@ export default function AuditTriggerButton({
                 Cerrar y volver a la página
               </button>
             </div>
-      {/* PASO 3: DOSSIER CORPORATIVO ESTILIZADO CON EL REFLEJO HOVER-GLOW DE LAS 4 VENTANAS DE GARANTÍA (SIN CLICS RECARGADOS) */}
+          </div>
+        </div>
+      )}
+
+      {/* PASO 3: DOSSIER CORPORATIVO INTERACTIVO CON LOS EFECTOS DE LAS PESTAÑAS DE GARANTÍA */}
       {step === "dossier" && (
-        <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/70 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
-          <div className="px-5 py-3 bg-[#080B14] border-b border-[#C5A059]/30 flex flex-wrap items-center justify-between gap-2">
+        <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/75 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
+          <div className="px-5 py-2.5 bg-[#080B14] border-b border-[#C5A059]/30 flex flex-wrap items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => setStep("confirmed")}
@@ -415,7 +456,7 @@ export default function AuditTriggerButton({
                 onClick={() => window.print()}
                 className="px-3.5 py-1 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-black font-extrabold text-[11px] uppercase cursor-pointer hover:brightness-105 transition"
               >
-                Descargar / Imprimir PDF ↓
+                DESCARGAR / IMPRIMIR PDF ↓
               </button>
               <button
                 type="button"
@@ -427,8 +468,8 @@ export default function AuditTriggerButton({
             </div>
           </div>
 
-          <div className="relative p-5 sm:p-6">
-            {/* Marca de agua gigante del monograma L centrada al fondo */}
+          <div className="relative p-4 sm:p-5">
+            {/* Marca de agua gigante del monograma L */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.045]">
               <svg className="w-[340px] h-[340px]" viewBox="0 0 120 110" fill="none">
                 <path
@@ -441,10 +482,9 @@ export default function AuditTriggerButton({
               </svg>
             </div>
 
-            <div className="relative z-10 space-y-3.5">
-              {/* Fila Superior: Ficha del Cliente + Tarjeta Paquete Completo con Hover-Glow de Garantía */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
-                <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/90 px-4 py-3 flex flex-col justify-center text-xs space-y-1">
+            <div className="relative z-10 space-y-3">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
+                <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/90 px-4 py-2.5 flex flex-col justify-center text-xs space-y-1">
                   <div>
                     <span className="text-[#FCF6BA] font-bold">Preparado para:</span>{" "}
                     {fullName || "Dirección Ejecutiva"} ({companyWeb || "Su Empresa"})
@@ -458,53 +498,103 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                <div className="group relative overflow-hidden lg:col-span-7 rounded-xl border border-[#C5A059]/45 bg-[#080B14]/90 px-5 py-3 flex items-center justify-between gap-3 hover:border-[#C5A059]/60 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5 transition-all duration-300">
-                  <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#FCF6BA]/10 to-transparent" />
-                  <div className="relative z-10">
-                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#FCF6BA] block mb-0.5">
+                <div
+                  onClick={() => setActiveDossierCard("ALL")}
+                  className={`lg:col-span-7 rounded-xl px-5 py-2.5 flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 ${
+                    activeDossierCard === "ALL"
+                      ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] shadow-[0_12px_35px_rgba(197,160,89,0.3)] -translate-y-0.5"
+                      : "border border-[#C5A059]/50 bg-[#080B14]/90 text-white hover:border-[#C5A059] hover:-translate-y-0.5"
+                  }`}
+                >
+                  <div>
+                    <span
+                      className={`text-[9px] font-bold uppercase tracking-[0.2em] block mb-0.5 ${
+                        activeDossierCard === "ALL" ? "text-[#050507]/80" : "text-[#FCF6BA]"
+                      }`}
+                    >
                       ★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO
                     </span>
-                    <h5 className="text-xs sm:text-sm font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors">
+                    <h5 className="text-xs sm:text-sm font-extrabold">
                       Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)
                     </h5>
-                    <p className="text-[11px] text-gray-300 mt-0.5">
+                    <p
+                      className={`text-[11px] mt-0.5 ${
+                        activeDossierCard === "ALL" ? "text-[#050507]/90 font-medium" : "text-gray-300"
+                      }`}
+                    >
                       Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.
                     </p>
                   </div>
-                  <span className="relative z-10 px-3 py-1 rounded-full text-[9px] font-bold uppercase border border-[#C5A059]/70 text-[#FCF6BA] shrink-0 group-hover:bg-[#C5A059]/15 transition">
+                  <span
+                    className={`px-3 py-1 rounded-full text-[9px] font-extrabold uppercase shrink-0 ${
+                      activeDossierCard === "ALL"
+                        ? "bg-[#050507] text-[#FCF6BA]"
+                        : "border border-[#C5A059]/70 text-[#FCF6BA]"
+                    }`}
+                  >
                     PRIORIDAD EJECUTIVA
                   </span>
                 </div>
               </div>
 
-              {/* Cuadrícula 3x2 Simétrica (Títulos de 1 línea y Descripciones de 3 líneas) con el Hover-Glow de Garantía */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 items-stretch">
-                {OFFICIAL_06_SOLUTIONS.map((sol) => (
-                  <div
-                    key={sol.id}
-                    className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#080B14]/90 p-4 flex flex-col justify-between hover:border-[#C5A059]/60 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5 transition-all duration-300"
-                  >
-                    <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#FCF6BA]/10 to-transparent" />
-                    <div className="relative z-10">
-                      <div className="w-6 h-[2px] bg-[#C5A059] mb-2.5 group-hover:w-12 group-hover:bg-[#FCF6BA] transition-all duration-300" />
-                      <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[#C5A059] mb-1">
-                        <span>{sol.code}</span>
-                        <span className="text-xs font-black text-white/90 group-hover:text-[#FCF6BA] transition-colors">
-                          {sol.id}
-                        </span>
+              {/* Cuadrícula 3x2 Interactiva con los efectos de las pestañas de Garantía */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
+                {OFFICIAL_06_SOLUTIONS.map((sol) => {
+                  const isActive = activeDossierCard === sol.id;
+                  return (
+                    <div
+                      key={sol.id}
+                      onClick={() => setActiveDossierCard(sol.id)}
+                      className={`group relative overflow-hidden rounded-xl p-3.5 flex flex-col justify-between cursor-pointer transition-all duration-300 ${
+                        isActive
+                          ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] shadow-[0_14px_38px_rgba(197,160,89,0.32)] -translate-y-0.5"
+                          : "border border-white/10 bg-[#080B14]/90 text-white hover:border-[#C5A059]/65 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5"
+                      }`}
+                    >
+                      <div>
+                        <div
+                          className={`w-7 h-[2px] mb-2 transition-all duration-300 ${
+                            isActive
+                              ? "w-12 bg-[#050507]"
+                              : "bg-[#C5A059] group-hover:w-12 group-hover:bg-[#FCF6BA]"
+                          }`}
+                        />
+                        <div
+                          className={`flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mb-1 ${
+                            isActive ? "text-[#050507]/80" : "text-[#C5A059]"
+                          }`}
+                        >
+                          <span>{sol.code}</span>
+                          <span className="text-xs font-black">{sol.id}</span>
+                        </div>
+                        <h6 className="text-xs font-extrabold leading-snug mb-1">{sol.title}</h6>
+                        <p
+                          className={`text-[11px] leading-relaxed ${
+                            isActive ? "text-[#050507]/90 font-medium" : "text-gray-300"
+                          }`}
+                        >
+                          {sol.summary}
+                        </p>
                       </div>
-                      <h6 className="text-xs font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors truncate mb-1.5">
-                        {sol.title}
-                      </h6>
-                      <p className="text-[11px] text-gray-300 leading-relaxed line-clamp-3">
-                        {sol.summary}
-                      </p>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
-              <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
+              {/* Barra Interactiva de Entregable (Exactamente como el panel inferior de Garantía) */}
+              <div className="rounded-xl border border-[#C5A059]/45 bg-[#080B14]/95 px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FCF6BA] block">
+                    {selectedImpactObj.impactTitle}
+                  </span>
+                  <p className="text-[11px] text-gray-300 mt-0.5">{selectedImpactObj.impactDetail}</p>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/50 text-[#FCF6BA] text-[10px] font-bold shrink-0">
+                  {selectedImpactObj.metricBadge}
+                </span>
+              </div>
+
+              <div className="pt-1.5 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
                 <span>LHYO GROUP · www.lhyogroup.com · ceo@lhyogroup.com</span>
                 <span className="text-[#FCF6BA] font-semibold">
                   Sala Ejecutiva Google Meet: https://meet.google.com/krc-vdii-zzh
