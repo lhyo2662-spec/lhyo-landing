@@ -13,75 +13,46 @@ const OFFICIAL_06_SOLUTIONS = [
   {
     id: "01",
     code: "SOLUCIÓN 01 · ATENCIÓN INMEDIATA 24/7",
-    title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
+    title: "Asistentes IA 24/7 para WhatsApp e Instagram",
     summary:
-      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático.",
-    deliverable:
-      "Entregable Ejecutivo: Agente IA entrenado con las reglas de su negocio conectado a su WhatsApp Business e Instagram con agendamiento directo.",
-    impact: "✦ Respuesta en < 1s las 24 horas · 0 clientes perdidos por demora"
+      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático."
   },
   {
     id: "02",
     code: "SOLUCIÓN 02 · PRESENCIA DE ALTO PRESTIGIO",
-    title: "Plataformas Web Modernas y Catálogos Interactivos",
+    title: "Plataformas Web y Catálogos Interactivos",
     summary:
-      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente.",
-    deliverable:
-      "Entregable Ejecutivo: Sitio web de lujo a medida con catálogo interactivo, optimización en Google (SEO) y embudo de conversión directo.",
-    impact: "✦ Carga en < 0.8 segundos · Imagen de liderazgo inmediato"
+      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente."
   },
   {
     id: "03",
     code: "SOLUCIÓN 03 · CONTROL COMERCIAL TOTAL",
-    title: "Organización Automática de Clientes y Ventas (CRM)",
+    title: "Organización Automática de Clientes (CRM)",
     summary:
-      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano.",
-    deliverable:
-      "Entregable Ejecutivo: Base de datos ejecutiva automatizada con clasificación inteligente de prospectos y alertas en tiempo real.",
-    impact: "✦ 100% de trazabilidad comercial · Cero carga manual"
+      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano."
   },
   {
     id: "04",
     code: "SOLUCIÓN 04 · INDEPENDENCIA SIN LÍMITES",
-    title: "Automatización Total de Procesos con Tecnología Propia",
+    title: "Automatización Total con Tecnología Propia",
     summary:
-      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen.",
-    deliverable:
-      "Entregable Ejecutivo: Motor central de automatización soberana que enlaza facturación, correos, calendario y atención al cliente.",
-    impact: "✦ $0 en cobros externos por uso · Capacidad ilimitada"
+      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen."
   },
   {
     id: "05",
     code: "SOLUCIÓN 05 · CEREBRO PRIVADO EMPRESARIAL",
-    title: "IA Personalizada con la Memoria de su Empresa",
+    title: "IA Personalizada con Memoria de su Empresa",
     summary:
-      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo.",
-    deliverable:
-      "Entregable Ejecutivo: Núcleo cognitivo privado alimentado con sus PDFs, tarifarios, inventario y manuales operativos.",
-    impact: "✦ Precisión absoluta · Privacidad corporativa garantizada"
+      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo."
   },
   {
     id: "06",
     code: "SOLUCIÓN 06 · TODA SU EMPRESA EN 1 PANTALLA",
     title: "Su Propia Plataforma Empresarial Todo-en-Uno",
     summary:
-      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa.",
-    deliverable:
-      "Entregable Ejecutivo: Ecosistema centralizado con el nombre y logo de su empresa para dirigir toda su operación desde un solo lugar.",
-    impact: "✦ Control ejecutivo 360° · Su propio software corporativo"
+      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa."
   }
 ];
-
-const PACKAGE_ALL_IN_ONE_META = {
-  id: "ALL",
-  code: "★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO",
-  title: "Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)",
-  summary:
-    "Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.",
-  deliverable:
-    "Entregable Ejecutivo Completo: Despliegue llave en mano de las 06 Soluciones Oficiales (Web de Lujo + Asistentes 24/7 WA/IG + CRM + Automatización Propia + Cerebro IA + Panel Todo-en-Uno).",
-  impact: "✦ Prioridad Ejecutiva · Transformación digital completa en 10 días"
-};
 
 const ALL_TIME_SLOTS = ["09:30 AM", "11:00 AM", "01:00 PM", "03:00 PM", "04:30 PM", "06:00 PM"];
 
@@ -89,12 +60,10 @@ const BASE_OCCUPIED_BY_DATE: Record<string, string[]> = {
   "06 de Noviembre, 2026": ["09:30 AM", "01:00 PM"],
   "07 de Noviembre, 2026": ["11:00 AM", "04:30 PM"],
   "09 de Noviembre, 2026": ["09:30 AM", "03:00 PM"],
-  "10 de Noviembre, 2026": ["01:00 PM", "04:30 PM"],
-  "11 de Noviembre, 2026": ["09:30 AM", "06:00 PM"],
+  "10 de Noviembre, 2026": ["01:00 PM", "06:00 PM"],
+  "11 de Noviembre, 2026": ["11:00 AM", "03:00 PM"],
   "12 de Noviembre, 2026": ["11:00 AM"]
 };
-
-const AVAILABLE_DATES = Object.keys(BASE_OCCUPIED_BY_DATE);
 
 export default function AuditTriggerButton({
   label = "AGENDAR REUNIÓN Y RECIBIR CATÁLOGO",
@@ -105,12 +74,10 @@ export default function AuditTriggerButton({
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<"form" | "confirmed" | "dossier">("form");
   const [submitting, setSubmitting] = useState(false);
-  const [activeDossierCard, setActiveDossierCard] = useState<string>("01");
 
-  const [selectedDate, setSelectedDate] = useState(AVAILABLE_DATES[0]);
+  const [selectedDate, setSelectedDate] = useState("06 de Noviembre, 2026");
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
-  const [customBooked, setCustomBooked] = useState<Record<string, string[]>>({});
-
+  const [userBookedByDate, setUserBookedByDate] = useState<Record<string, string[]>>({});
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [companyWeb, setCompanyWeb] = useState("");
@@ -120,11 +87,9 @@ export default function AuditTriggerButton({
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = localStorage.getItem("lhyo_booked_slots_v40");
-      if (saved) setCustomBooked(JSON.parse(saved));
-    } catch {
-      // Ignorar errores de storage
-    }
+      const saved = localStorage.getItem("lhyo_booked_slots_v41");
+      if (saved) setUserBookedByDate(JSON.parse(saved));
+    } catch {}
     const handleCustomOpen = () => {
       setStep("form");
       setOpen(true);
@@ -134,17 +99,17 @@ export default function AuditTriggerButton({
   }, []);
 
   const getOccupiedForDate = (dateStr: string) => {
-    const base = BASE_OCCUPIED_BY_DATE[dateStr] || [];
-    const userBooked = customBooked[dateStr] || [];
-    return Array.from(new Set([...base, ...userBooked]));
+    const base = BASE_OCCUPIED_BY_DATE[dateStr] || ["09:30 AM"];
+    const extra = userBookedByDate[dateStr] || [];
+    return Array.from(new Set([...base, ...extra]));
   };
 
   const handleDateChange = (newDate: string) => {
     setSelectedDate(newDate);
     const occupied = getOccupiedForDate(newDate);
     if (occupied.includes(selectedTime)) {
-      const firstFree = ALL_TIME_SLOTS.find((t) => !occupied.includes(t)) || "09:30 AM";
-      setSelectedTime(firstFree);
+      const firstAvailable = ALL_TIME_SLOTS.find((s) => !occupied.includes(s)) || "03:00 PM";
+      setSelectedTime(firstAvailable);
     }
   };
 
@@ -153,16 +118,14 @@ export default function AuditTriggerButton({
     if (!fullName.trim() || !email.trim()) return;
     setSubmitting(true);
 
-    const updatedBooked = {
-      ...customBooked,
-      [selectedDate]: Array.from(new Set([...(customBooked[selectedDate] || []), selectedTime]))
+    const updatedBookings = {
+      ...userBookedByDate,
+      [selectedDate]: Array.from(new Set([...(userBookedByDate[selectedDate] || []), selectedTime]))
     };
-    setCustomBooked(updatedBooked);
+    setUserBookedByDate(updatedBookings);
     try {
-      localStorage.setItem("lhyo_booked_slots_v40", JSON.stringify(updatedBooked));
-    } catch {
-      // Ignorar
-    }
+      localStorage.setItem("lhyo_booked_slots_v41", JSON.stringify(updatedBookings));
+    } catch {}
 
     const revNumber = parseFloat(monthlyRev.replace(/[^0-9.]/g, "")) || 0;
     const tier = revNumber >= 5000 ? "HIGH_TICKET" : "LOW_TICKET";
@@ -186,25 +149,19 @@ export default function AuditTriggerButton({
           link_videollamada_meet: "https://meet.google.com/krc-vdii-zzh"
         })
       });
-    } catch {
-      // Continuar a confirmación
-    } finally {
+    } catch {} finally {
       setSubmitting(false);
       setStep("confirmed");
     }
   };
 
   const occupiedNow = getOccupiedForDate(selectedDate);
-  const selectedSolutionObj =
-    activeDossierCard === "ALL"
-      ? PACKAGE_ALL_IN_ONE_META
-      : OFFICIAL_06_SOLUTIONS.find((s) => s.id === activeDossierCard) || OFFICIAL_06_SOLUTIONS[0];
 
   const modalContent = open ? (
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4 overflow-y-auto">
       {step === "form" && (
-        <div className="w-full max-w-[760px] rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-[0_25px_90px_rgba(0,0,0,0.98)] overflow-hidden my-auto">
-          <div className="px-5 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
+        <div className="w-full max-w-3xl rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-[0_25px_90px_rgba(0,0,0,0.98)] overflow-hidden my-auto">
+          <div className="px-6 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
             <button
               type="button"
               onClick={() => setOpen(false)}
@@ -218,15 +175,15 @@ export default function AuditTriggerButton({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-3 py-1 rounded-full border border-[#C5A059]/40 text-[11px] text-gray-200 hover:text-white cursor-pointer"
+              className="px-3.5 py-1 rounded-full border border-[#C5A059]/50 text-xs text-gray-200 hover:text-white cursor-pointer"
             >
               Cerrar ✕
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="px-6 py-3.5 space-y-2.5 text-left">
+          <form onSubmit={handleSubmit} className="px-6 py-4 space-y-2.5 text-left">
             <div>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+              <h3 className="text-lg sm:text-xl font-extrabold text-white leading-tight">
                 Reserva tu Sesión y Recibe nuestro Catálogo Privado
               </h3>
               <p className="text-xs text-gray-300 mt-0.5">
@@ -234,15 +191,15 @@ export default function AuditTriggerButton({
               </p>
             </div>
 
-            <div className="px-3.5 py-2 rounded-xl bg-white/[0.03] border-l-2 border-[#C5A059]">
-              <span className="text-[9px] font-bold uppercase tracking-wider text-[#C5A059] block">
+            <div className="rounded-xl bg-[#0B0F1A] border border-white/10 border-l-2 border-l-[#C5A059] px-4 py-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#C5A059] block">
                 SOLICITUD SELECCIONADA:
               </span>
-              <span className="text-xs text-white font-semibold">{preselectedService}</span>
+              <span className="text-xs font-semibold text-white">{preselectedService}</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-start">
-              <div className="sm:col-span-6">
+              <div className="sm:col-span-5">
                 <label className="text-[10px] font-bold uppercase tracking-wider text-[#FCF6BA] block mb-1">
                   FECHA DISPONIBLE *
                 </label>
@@ -250,9 +207,9 @@ export default function AuditTriggerButton({
                   <select
                     value={selectedDate}
                     onChange={(e) => handleDateChange(e.target.value)}
-                    className="w-full rounded-xl bg-[#0A0E17] border border-[#C5A059]/60 px-3.5 py-2 text-xs text-white font-semibold outline-none appearance-none cursor-pointer"
+                    className="w-full appearance-none rounded-xl bg-[#0B0F1A] border border-[#C5A059]/60 px-3.5 py-2 text-xs text-white font-semibold outline-none cursor-pointer"
                   >
-                    {AVAILABLE_DATES.map((d) => (
+                    {Object.keys(BASE_OCCUPIED_BY_DATE).map((d) => (
                       <option key={d} value={d}>
                         {d}
                       </option>
@@ -264,32 +221,29 @@ export default function AuditTriggerButton({
                 </div>
               </div>
 
-              <div className="sm:col-span-6">
+              <div className="sm:col-span-7">
                 <label className="text-[10px] font-bold uppercase tracking-wider text-[#FCF6BA] block mb-1">
                   HORARIO DISPONIBLE *
                 </label>
                 <div className="grid grid-cols-3 gap-1.5">
                   {ALL_TIME_SLOTS.map((slot) => {
                     const isOccupied = occupiedNow.includes(slot);
-                    return isOccupied ? (
-                      <div
-                        key={slot}
-                        className="py-1.5 rounded-lg bg-[#080B12] border border-white/5 text-[11px] text-gray-600 line-through text-center select-none"
-                      >
-                        Ocupado
-                      </div>
-                    ) : (
+                    const isSelected = selectedTime === slot && !isOccupied;
+                    return (
                       <button
                         key={slot}
                         type="button"
+                        disabled={isOccupied}
                         onClick={() => setSelectedTime(slot)}
-                        className={`py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                          selectedTime === slot
-                            ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-black shadow"
-                            : "bg-[#0A0E17] border border-white/10 text-gray-200 hover:border-[#C5A059]"
+                        className={`py-1.5 rounded-lg text-xs font-bold transition ${
+                          isOccupied
+                            ? "bg-[#080B12] border border-white/5 text-gray-600 line-through cursor-not-allowed"
+                            : isSelected
+                            ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] shadow cursor-pointer"
+                            : "bg-[#0B0F1A] border border-white/10 text-white hover:border-[#C5A059] cursor-pointer"
                         }`}
                       >
-                        {slot}
+                        {isOccupied ? "Ocupado" : slot}
                       </button>
                     );
                   })}
@@ -308,7 +262,7 @@ export default function AuditTriggerButton({
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="Ej: Carlos Mendoza"
-                  className="w-full rounded-xl bg-[#0A0E17] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/15 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
                 />
               </div>
               <div>
@@ -321,7 +275,7 @@ export default function AuditTriggerButton({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Donde recibirás el Catálogo Privado"
-                  className="w-full rounded-xl bg-[#0A0E17] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/15 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
                 />
               </div>
               <div>
@@ -334,7 +288,7 @@ export default function AuditTriggerButton({
                   value={companyWeb}
                   onChange={(e) => setCompanyWeb(e.target.value)}
                   placeholder="Ej: @miempresa o www.miempresa.com"
-                  className="w-full rounded-xl bg-[#0A0E17] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/15 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
                 />
               </div>
               <div>
@@ -347,7 +301,7 @@ export default function AuditTriggerButton({
                   value={monthlyRev}
                   onChange={(e) => setMonthlyRev(e.target.value)}
                   placeholder="Solo números, ej: 10000"
-                  className="w-full rounded-xl bg-[#0A0E17] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/15 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white outline-none"
                 />
               </div>
             </div>
@@ -362,7 +316,7 @@ export default function AuditTriggerButton({
                 value={goal}
                 onChange={(e) => setGoal(e.target.value)}
                 placeholder="Cuéntanos brevemente qué te gustaría lograr o mejorar en tu empresa..."
-                className="w-full rounded-xl bg-[#0A0E17] border border-[#C5A059]/50 px-3.5 py-1.5 text-xs text-white outline-none resize-none"
+                className="w-full rounded-xl bg-[#0B0F1A] border border-[#C5A059]/60 px-3.5 py-2 text-xs text-white outline-none resize-none"
               />
             </div>
 
@@ -370,11 +324,9 @@ export default function AuditTriggerButton({
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full sm:w-auto min-w-[380px] py-3 px-6 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
               >
-                {submitting
-                  ? "REGISTRANDO REUNIÓN..."
-                  : "CONFIRMAR MI REUNIÓN Y RECIBIR CATÁLOGO PRIVADO →"}
+                {submitting ? "REGISTRANDO REUNIÓN..." : "CONFIRMAR MI REUNIÓN Y RECIBIR CATÁLOGO PRIVADO →"}
               </button>
             </div>
           </form>
@@ -382,12 +334,12 @@ export default function AuditTriggerButton({
       )}
 
       {step === "confirmed" && (
-        <div className="w-full max-w-[680px] rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-2xl overflow-hidden text-center my-auto">
-          <div className="px-5 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
+        <div className="w-full max-w-2xl rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-2xl overflow-hidden text-center my-auto">
+          <div className="px-6 py-3 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
             <button
               type="button"
               onClick={() => setStep("form")}
-              className="text-xs text-[#C5A059] cursor-pointer"
+              className="text-xs text-[#C5A059] hover:underline cursor-pointer"
             >
               ← Volver atrás
             </button>
@@ -397,14 +349,14 @@ export default function AuditTriggerButton({
             <button
               type="button"
               onClick={() => setOpen(false)}
-              className="px-3 py-1 rounded-full border border-[#C5A059]/40 text-[11px] text-gray-200 cursor-pointer"
+              className="px-3.5 py-1 rounded-full border border-[#C5A059]/50 text-xs text-gray-200 cursor-pointer"
             >
               Cerrar ✕
             </button>
           </div>
 
-          <div className="p-6 sm:p-7 space-y-4">
-            <div className="w-12 h-12 rounded-full border border-[#C5A059]/60 bg-[#C5A059]/10 text-[#FCF6BA] flex items-center justify-center mx-auto text-lg font-bold">
+          <div className="p-6 sm:p-8 space-y-4">
+            <div className="w-12 h-12 rounded-full border border-[#C5A059] bg-[#C5A059]/10 text-[#FCF6BA] flex items-center justify-center mx-auto text-lg font-bold">
               ✓
             </div>
             <p className="text-[11px] font-bold tracking-[0.22em] text-[#C5A059] uppercase">
@@ -419,48 +371,34 @@ export default function AuditTriggerButton({
               <strong>Google Meet</strong> a <strong>{email}</strong>.
             </p>
 
-            <div className="max-w-lg mx-auto rounded-xl border border-[#C5A059]/35 bg-[#0A0D14] p-4 text-left space-y-1">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-[#FCF6BA]">
-                ✦ NOTA IMPORTANTE SOBRE LA RECEPCIÓN DE TU CORREO:
-              </p>
-              <p className="text-xs text-gray-300 leading-relaxed">
-                Si no visualizas nuestro mensaje en tu bandeja principal en los próximos 2 minutos, por favor revisa tu carpeta de{" "}
-                <strong>Spam (Correo no deseado)</strong> o <strong>Promociones</strong> y márcalo como seguro para acceder a tu Catálogo Privado y a tu enlace de videollamada.
-              </p>
-            </div>
-
             <div className="max-w-md mx-auto space-y-2.5 pt-1">
               <button
                 type="button"
                 onClick={() => setStep("dossier")}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
               >
                 1. ABRIR Y DESCARGAR MI CATÁLOGO PRIVADO (PDF) →
               </button>
               <a
-                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sesi%C3%B3n+Ejecutiva+Lhyo+Group&details=Videollamada+Google+Meet:+https://meet.google.com/krc-vdii-zzh"
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Sesi%C3%B3n+Ejecutiva+Lhyo+Group"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full py-2.5 rounded-xl bg-[#080B14] border border-[#C5A059]/40 text-white font-bold text-xs uppercase tracking-wider hover:border-[#C5A059] transition"
+                className="block w-full py-3 rounded-xl bg-[#080B14] border border-white/15 hover:border-[#C5A059] text-white font-bold text-xs uppercase tracking-wider transition"
               >
                 2. GUARDAR ESTA REUNIÓN EN GOOGLE CALENDAR →
               </a>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="w-full py-1 text-xs text-gray-400 hover:text-white cursor-pointer"
+                className="w-full pt-1 text-xs text-gray-400 hover:text-white cursor-pointer"
               >
                 Cerrar y volver a la página
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* PASO 3: DOSSIER CORPORATIVO INTERACTIVO (CON EL MISMO EFECTO DORADO DE LAS PESTAÑAS DE GARANTÍA) */}
+      {/* PASO 3: DOSSIER CORPORATIVO ESTILIZADO CON EL REFLEJO HOVER-GLOW DE LAS 4 VENTANAS DE GARANTÍA (SIN CLICS RECARGADOS) */}
       {step === "dossier" && (
-        <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/75 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
-          <div className="px-5 py-2.5 bg-[#080B14] border-b border-[#C5A059]/35 flex flex-wrap items-center justify-between gap-2">
+        <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/70 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
+          <div className="px-5 py-3 bg-[#080B14] border-b border-[#C5A059]/30 flex flex-wrap items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => setStep("confirmed")}
@@ -489,7 +427,7 @@ export default function AuditTriggerButton({
             </div>
           </div>
 
-          <div className="relative p-4 sm:p-5">
+          <div className="relative p-5 sm:p-6">
             {/* Marca de agua gigante del monograma L centrada al fondo */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.045]">
               <svg className="w-[340px] h-[340px]" viewBox="0 0 120 110" fill="none">
@@ -503,10 +441,10 @@ export default function AuditTriggerButton({
               </svg>
             </div>
 
-            <div className="relative z-10 space-y-2.5">
-              {/* Fila Superior: Ficha del Cliente + Tarjeta Interactiva Paquete Completo Todo Incluido */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
-                <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/95 px-4 py-2.5 flex flex-col justify-center text-xs space-y-1">
+            <div className="relative z-10 space-y-3.5">
+              {/* Fila Superior: Ficha del Cliente + Tarjeta Paquete Completo con Hover-Glow de Garantía */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
+                <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/90 px-4 py-3 flex flex-col justify-center text-xs space-y-1">
                   <div>
                     <span className="text-[#FCF6BA] font-bold">Preparado para:</span>{" "}
                     {fullName || "Dirección Ejecutiva"} ({companyWeb || "Su Empresa"})
@@ -520,113 +458,53 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                <div
-                  onClick={() => setActiveDossierCard("ALL")}
-                  className={`lg:col-span-7 rounded-xl px-4 py-2.5 flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 ${
-                    activeDossierCard === "ALL"
-                      ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border border-[#FCF6BA] shadow-[0_10px_35px_rgba(197,160,89,0.35)]"
-                      : "border border-[#C5A059]/55 bg-[#090E1C]/95 hover:border-[#C5A059] hover:-translate-y-0.5"
-                  }`}
-                >
-                  <div>
-                    <span
-                      className={`text-[9px] font-bold uppercase tracking-widest block ${
-                        activeDossierCard === "ALL" ? "text-[#050507]/80" : "text-[#FCF6BA]"
-                      }`}
-                    >
-                      ★ ARQUITECTURA INTEGRAL CORPORATIVA · TOQUE PARA INSPECCIONAR
+                <div className="group relative overflow-hidden lg:col-span-7 rounded-xl border border-[#C5A059]/45 bg-[#080B14]/90 px-5 py-3 flex items-center justify-between gap-3 hover:border-[#C5A059]/60 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5 transition-all duration-300">
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#FCF6BA]/10 to-transparent" />
+                  <div className="relative z-10">
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#FCF6BA] block mb-0.5">
+                      ★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO
                     </span>
-                    <h5
-                      className={`text-xs sm:text-sm font-extrabold ${
-                        activeDossierCard === "ALL" ? "text-[#050507]" : "text-white"
-                      }`}
-                    >
+                    <h5 className="text-xs sm:text-sm font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors">
                       Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)
                     </h5>
-                    <p
-                      className={`text-[11px] ${
-                        activeDossierCard === "ALL" ? "text-[#050507]/90 font-medium" : "text-gray-300"
-                      }`}
-                    >
+                    <p className="text-[11px] text-gray-300 mt-0.5">
                       Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.
                     </p>
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase shrink-0 ${
-                      activeDossierCard === "ALL"
-                        ? "bg-[#050507] text-[#FCF6BA]"
-                        : "border border-[#C5A059] text-[#FCF6BA]"
-                    }`}
-                  >
+                  <span className="relative z-10 px-3 py-1 rounded-full text-[9px] font-bold uppercase border border-[#C5A059]/70 text-[#FCF6BA] shrink-0 group-hover:bg-[#C5A059]/15 transition">
                     PRIORIDAD EJECUTIVA
                   </span>
                 </div>
               </div>
 
-              {/* Cuadrícula Interactiva 3x2 con el Efecto de Pestañas de Garantía */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 items-stretch">
-                {OFFICIAL_06_SOLUTIONS.map((sol) => {
-                  const isActive = activeDossierCard === sol.id;
-                  return (
-                    <div
-                      key={sol.id}
-                      onClick={() => setActiveDossierCard(sol.id)}
-                      className={`rounded-xl p-3 flex flex-col justify-between cursor-pointer transition-all duration-300 ${
-                        isActive
-                          ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border border-[#FCF6BA] shadow-[0_12px_35px_rgba(197,160,89,0.32)] -translate-y-0.5"
-                          : "border border-white/10 bg-[#080B14]/95 hover:border-[#C5A059]/65 hover:-translate-y-0.5"
-                      }`}
-                    >
-                      <div>
-                        <div
-                          className={`w-6 h-[2px] mb-1.5 ${
-                            isActive ? "bg-[#050507]" : "bg-[#C5A059]"
-                          }`}
-                        />
-                        <div
-                          className={`flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mb-1 ${
-                            isActive ? "text-[#050507]/80" : "text-[#C5A059]"
-                          }`}
-                        >
-                          <span>{sol.code}</span>
-                          <span className={`text-xs font-black ${isActive ? "text-[#050507]" : "text-white"}`}>
-                            {sol.id}
-                          </span>
-                        </div>
-                        <h6
-                          className={`text-xs font-extrabold leading-snug mb-1 ${
-                            isActive ? "text-[#050507]" : "text-white"
-                          }`}
-                        >
-                          {sol.title}
-                        </h6>
-                        <p
-                          className={`text-[11px] leading-relaxed ${
-                            isActive ? "text-[#050507]/90 font-medium" : "text-gray-300"
-                          }`}
-                        >
-                          {sol.summary}
-                        </p>
+              {/* Cuadrícula 3x2 Simétrica (Títulos de 1 línea y Descripciones de 3 líneas) con el Hover-Glow de Garantía */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 items-stretch">
+                {OFFICIAL_06_SOLUTIONS.map((sol) => (
+                  <div
+                    key={sol.id}
+                    className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#080B14]/90 p-4 flex flex-col justify-between hover:border-[#C5A059]/60 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#FCF6BA]/10 to-transparent" />
+                    <div className="relative z-10">
+                      <div className="w-6 h-[2px] bg-[#C5A059] mb-2.5 group-hover:w-12 group-hover:bg-[#FCF6BA] transition-all duration-300" />
+                      <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[#C5A059] mb-1">
+                        <span>{sol.code}</span>
+                        <span className="text-xs font-black text-white/90 group-hover:text-[#FCF6BA] transition-colors">
+                          {sol.id}
+                        </span>
                       </div>
+                      <h6 className="text-xs font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors truncate mb-1.5">
+                        {sol.title}
+                      </h6>
+                      <p className="text-[11px] text-gray-300 leading-relaxed line-clamp-3">
+                        {sol.summary}
+                      </p>
                     </div>
-                  );
-                })}
+                  </div>
+                ))}
               </div>
 
-              {/* Barra Dinámica Inferior de Detalle Ejecutivo (Idéntica al bloque desplegable de Garantía) */}
-              <div className="rounded-xl border border-[#C5A059]/45 bg-[#080B14]/95 px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div className="space-y-0.5">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FCF6BA] block">
-                    {selectedSolutionObj.code} — {selectedSolutionObj.title}
-                  </span>
-                  <p className="text-[11px] text-gray-200">{selectedSolutionObj.deliverable}</p>
-                </div>
-                <span className="text-[10px] font-bold text-emerald-400 shrink-0">
-                  {selectedSolutionObj.impact}
-                </span>
-              </div>
-
-              <div className="pt-1 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
+              <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
                 <span>LHYO GROUP · www.lhyogroup.com · ceo@lhyogroup.com</span>
                 <span className="text-[#FCF6BA] font-semibold">
                   Sala Ejecutiva Google Meet: https://meet.google.com/krc-vdii-zzh
