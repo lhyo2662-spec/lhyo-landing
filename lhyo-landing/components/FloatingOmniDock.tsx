@@ -1,114 +1,342 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
-export const SOCIAL_LINKS = {
-  whatsappPhone: "59800000000",
-  instagramUrl: "https://www.instagram.com/lhyogroup",
-  linkedinUrl: "https://www.linkedin.com/company/lhyogroup",
-  emailAddress: "ceo@lhyogroup.com"
-};
+const INITIAL_BOT_MESSAGE =
+  "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPara brindarle una asesoría a la medida de su negocio, cuénteme: ¿con quién tengo el gusto, a qué se dedica su empresa y qué le gustaría mejorar o automatizar hoy?";
 
-const QUICK_BOT_OPTIONS = [
-  {
-    label: "✦ Automatizar mi WhatsApp e Instagram (24/7)",
-    text: "Hola Lhyo Group, estoy en su página web y me gustaría recibir información sobre los Asistentes Inteligentes 24/7 para WhatsApp e Instagram."
-  },
-  {
-    label: "✦ Cotizar una Página Web Moderna",
-    text: "Hola Lhyo Group, visité su web y quiero cotizar el desarrollo de una Página Web Corporativa para mi negocio."
-  },
-  {
-    label: "✦ Organizar mis clientes con un sistema CRM",
-    text: "Hola Lhyo Group, me interesa implementar el sistema de Organización Automática de Clientes (CRM)."
-  },
-  {
-    label: "✦ Hacer una consulta rápida por chat",
-    text: "Hola Lhyo Group, tengo una consulta rápida sobre sus servicios antes de agendar una sesión."
-  }
-];
+interface ChatMsg {
+  sender: "bot" | "user";
+  text: string;
+  showAgendaBtn?: boolean;
+}
 
 export default function FloatingOmniDock() {
   const [chatOpen, setChatOpen] = useState(false);
+  const [inputMsg, setInputMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [messages, setMessages] = useState<ChatMsg[]>([
+    { sender: "bot", text: INITIAL_BOT_MESSAGE }
+  ]);
+  const [leadState, setLeadState] = useState({
+    lead_name: "PENDIENTE",
+    company_name: "PENDIENTE",
+    pain_point: "PENDIENTE",
+    revenue_tier: "PENDIENTE"
+  });
 
-  const buildWaUrl = (msg: string) =>
-    `https://wa.me/${SOCIAL_LINKS.whatsappPhone}?text=${encodeURIComponent(msg)}`;
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, loading]);
+
+  // Al cerrar la ventana del chat (si no está bloqueado), limpia la memoria para no saturar
+  const handleCloseAndPurgeMemory = () => {
+    setChatOpen(false);
+    if (isListening && recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {}
+      setIsListening(false);
+    }
+    if (!isBlocked) {
+      setMessages([{ sender: "bot", text: INITIAL_BOT_MESSAGE }]);
+      setLeadState({
+        lead_name: "PENDIENTE",
+        company_name: "PENDIENTE",
+        pain_point: "PENDIENTE",
+        revenue_tier: "PENDIENTE"
+      });
+    }
+  };
+
+  // Dictado por voz en tiempo real (Web Speech API)
+  const handleToggleVoice = () => {
+    if (isBlocked || loading) return;
+    if (typeof window === "undefined") return;
+
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "Su navegador actual no tiene activado el dictado por voz directo. Puede escribir su consulta aquí abajo con total comodidad."
+        }
+      ]);
+      return;
+    }
+
+    if (isListening && recognitionRef.current) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = "es-ES";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setIsListening(true);
+    recognition.onresult = (event: any) => {
+      const transcript = event?.results?.[0]?.[0]?.transcript || "";
+      if (transcript) {
+        setInputMsg((prev) => (prev ? `${prev} ${transcript}` : transcript));
+      }
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognition.onend = () => setIsListening(false);
+
+    recognitionRef.current = recognition;
+    recognition.start();
+  };
+
+  const handleOpenContactSection = () => {
+    try {
+      const contactEl = document.getElementById("contacto");
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: "smooth" });
+        setChatOpen(false);
+        return;
+      }
+      const navButtons = Array.from(document.querySelectorAll("button"));
+      const contactTabBtn = navButtons.find(
+        (b) => b.textContent && b.textContent.trim().toUpperCase() === "CONTACTO"
+      );
+      if (contactTabBtn) {
+        contactTabBtn.click();
+        setChatOpen(false);
+      }
+    } catch {}
+  };
+
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const userText = inputMsg.trim();
+    if (!userText || loading || isBlocked) return;
+
+    setInputMsg("");
+    const nextList: ChatMsg[] = [...messages, { sender: "user", text: userText }];
+    setMessages(nextList);
+    setLoading(true);
+
+    try {
+      const historyStr = nextList
+        .map((m) => `${m.sender === "user" ? "Cliente" : "Asistente"}: ${m.text}`)
+        .join("\n");
+
+      const res = await fetch("/api/chat-lhyo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: userText,
+          history: historyStr,
+          currentLead: leadState
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.blocked) {
+        setIsBlocked(true);
+        if (isListening && recognitionRef.current) {
+          try {
+            recognitionRef.current.stop();
+          } catch {}
+          setIsListening(false);
+        }
+      }
+
+      setLeadState({
+        lead_name: data.lead_name || leadState.lead_name,
+        company_name: data.company_name || leadState.company_name,
+        pain_point: data.pain_point || leadState.pain_point,
+        revenue_tier: data.revenue_tier || leadState.revenue_tier
+      });
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: data.reply || "Excelente. ¿Me podría indicar el nombre de su empresa y qué área desea impulsar?",
+          showAgendaBtn: Boolean(data.ready_for_crm)
+        }
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "Con total gusto le asistimos. Puede abrir nuestra Agenda Ejecutiva aquí mismo para elegir el día y la hora de su preferencia.",
+          showAgendaBtn: true
+        }
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="fixed bottom-5 right-5 z-[9000] flex flex-col items-end gap-3 select-none">
       {chatOpen && (
-        <div className="w-80 sm:w-96 rounded-2xl border border-[#BF953F]/50 bg-[#070707]/95 backdrop-blur-xl shadow-[0_24px_60px_rgba(0,0,0,0.95)] p-6 mb-1">
-          <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-white/10">
+        <div className="w-[350px] sm:w-[415px] rounded-2xl border border-[#C5A059]/75 bg-[#050507]/95 backdrop-blur-xl shadow-[0_25px_75px_rgba(0,0,0,0.95)] overflow-hidden mb-1">
+          {/* CABECERA EJECUTIVA */}
+          <div className="px-4 py-3.5 bg-gradient-to-r from-[#0A1128] via-[#091024] to-[#050507] border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="relative flex h-3 w-3">
+                <span
+                  className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-90 ${
+                    isBlocked ? "bg-red-500" : "bg-[#00FF66]"
+                  }`}
+                />
+                <span
+                  className={`relative inline-flex rounded-full h-3 w-3 ${
+                    isBlocked
+                      ? "bg-red-600 shadow-[0_0_10px_#ef4444]"
+                      : "bg-[#00FF66] shadow-[0_0_12px_#00FF66]"
+                  }`}
+                />
+              </span>
               <div>
-                <span className="text-xs font-semibold text-[#FCF6BA] block tracking-wider uppercase">
-                  Asistente Directo · Lhyo Group
+                <span className="text-xs font-bold text-[#FCF6BA] uppercase tracking-wider block">
+                  Asistente Ejecutivo IA · Lhyo Group
                 </span>
-                <span className="text-[11px] text-gray-400 block">
-                  Atención ejecutiva inmediata
+                <span className={`text-[10px] font-semibold ${isBlocked ? "text-red-400" : "text-[#00FF66]"}`}>
+                  {isBlocked ? "Sesión Bloqueada por Seguridad" : "En Línea 24/7 · Inteligencia Artificial en Vivo"}
                 </span>
               </div>
             </div>
             <button
               type="button"
-              onClick={() => setChatOpen(false)}
-              className="w-7 h-7 rounded-full border border-white/15 bg-white/5 text-gray-300 hover:text-white text-xs flex items-center justify-center transition"
+              onClick={handleCloseAndPurgeMemory}
+              className="w-7 h-7 rounded-full bg-white/5 text-gray-300 text-xs flex items-center justify-center cursor-pointer hover:text-white"
             >
               ✕
             </button>
           </div>
 
-          <p className="text-xs text-gray-300 mb-3.5 leading-relaxed">
-            Selecciona una opción para iniciar conversación en nuestro WhatsApp o visítanos en nuestras redes oficiales:
-          </p>
+          {/* CUERPO DE MENSAJES */}
+          <div
+            ref={scrollRef}
+            className="p-4 space-y-3 max-h-[325px] overflow-y-auto bg-[#050507]"
+            style={{ scrollbarWidth: "thin", scrollbarColor: "#C5A059 #050507" }}
+          >
+            {messages.map((m, i) => (
+              <div key={i} className={`flex flex-col ${m.sender === "user" ? "items-end" : "items-start"}`}>
+                <div
+                  className={`max-w-[87%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed whitespace-pre-line ${
+                    m.sender === "user"
+                      ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-semibold"
+                      : "bg-[#0A1128]/90 border border-[#C5A059]/45 text-gray-100"
+                  }`}
+                >
+                  {m.text}
+                </div>
 
-          <div className="space-y-2 mb-4">
-            {QUICK_BOT_OPTIONS.map((opt, i) => (
-              <a
-                key={i}
-                href={buildWaUrl(opt.text)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full rounded-xl text-left px-4 py-2.5 text-xs font-medium bg-white/[0.03] border border-white/10 text-gray-200 hover:border-[#BF953F]/60 hover:bg-[#BF953F]/10 hover:text-[#FCF6BA] transition"
-              >
-                {opt.label}
-              </a>
+                {m.showAgendaBtn && !isBlocked && (
+                  <button
+                    type="button"
+                    onClick={handleOpenContactSection}
+                    className="mt-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-[11px] uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
+                  >
+                    📅 Abrir Agenda Ejecutiva y Recibir Dossier PDF →
+                  </button>
+                )}
+              </div>
             ))}
+
+            {loading && (
+              <div className="text-[11px] text-[#FCF6BA] italic animate-pulse">
+                Analizando con Inteligencia Artificial...
+              </div>
+            )}
+
+            {isBlocked && (
+              <div className="rounded-xl border border-red-500/60 bg-red-950/50 p-3 text-[11px] text-red-200 font-semibold">
+                🔒 El acceso a la escritura y al micrófono de voz ha sido bloqueado permanentemente en esta sesión por infringir las normas de seguridad corporativa.
+              </div>
+            )}
           </div>
 
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-gray-400">
-            <span>Canales Oficiales:</span>
-            <div className="flex items-center gap-4">
-              <a
-                href={SOCIAL_LINKS.instagramUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#FCF6BA] hover:text-white font-medium transition"
-              >
-                Instagram
-              </a>
-              <a
-                href={SOCIAL_LINKS.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#FCF6BA] hover:text-white font-medium transition"
-              >
-                LinkedIn
-              </a>
-            </div>
+          {/* BARRA DE ENTRADA CON MICRÓFONO DE VOZ Y BLOQUEO DE SEGURIDAD */}
+          <form
+            onSubmit={handleSend}
+            className="p-3 bg-[#0A1128]/60 border-t border-white/10 flex items-center gap-2"
+          >
+            <input
+              type="text"
+              disabled={isBlocked || loading}
+              value={inputMsg}
+              onChange={(e) => setInputMsg(e.target.value)}
+              placeholder={
+                isBlocked
+                  ? "Chat y audio bloqueados por seguridad."
+                  : isListening
+                  ? "Escuchando su voz... hable ahora"
+                  : "Haga cualquier consulta sobre su negocio..."
+              }
+              className="flex-1 bg-[#050507] border border-white/15 focus:border-[#C5A059] disabled:opacity-40 disabled:cursor-not-allowed rounded-xl px-3 py-2 text-xs text-white outline-none"
+            />
+
+            <button
+              type="button"
+              disabled={isBlocked || loading}
+              onClick={handleToggleVoice}
+              title={isBlocked ? "Micrófono bloqueado" : "Hablar por micrófono"}
+              className={`w-9 h-9 rounded-xl flex items-center justify-center border transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+                isListening
+                  ? "bg-red-600 border-red-400 text-white animate-pulse"
+                  : "bg-[#050507] border-[#C5A059]/50 text-[#FCF6BA] hover:border-[#FCF6BA]"
+              }`}
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                <line x1="12" x2="12" y1="19" y2="22" />
+              </svg>
+            </button>
+
+            <button
+              type="submit"
+              disabled={loading || isBlocked}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Enviar
+            </button>
+          </form>
+
+          {/* PIE DE VENTANA SIN MOSTRAR EL NÚMERO DE TELÉFONO */}
+          <div className="px-4 py-2.5 bg-[#050507] border-t border-white/10 flex items-center justify-between text-[11px]">
+            <span className="text-gray-400">¿Prefiere atención en WhatsApp?</span>
+            <a
+              href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20les%20escribo%20desde%20su%20sitio%20web%20oficial."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#FCF6BA] font-semibold hover:underline"
+            >
+              Abrir WhatsApp →
+            </a>
           </div>
         </div>
       )}
 
-      {/* Cápsula Flotante Curva y Minimalista (Cero bordes cuadrados) */}
-      <div className="flex items-center gap-2 rounded-full bg-[#080A10]/95 backdrop-blur-xl border border-[#BF953F]/45 p-1.5 pl-2.5 shadow-[0_14px_38px_rgba(0,0,0,0.85)]">
+      {/* BARRA FLOTANTE CON LOGOS VECTORIALES OFICIALES DE INSTAGRAM Y LINKEDIN + FOCO VERDE BRILLANTE */}
+      <div className="flex items-center gap-2 rounded-full bg-[#080A10]/95 backdrop-blur-xl border border-[#C5A059]/65 p-1.5 pl-2.5 shadow-2xl">
         <a
-          href={SOCIAL_LINKS.instagramUrl}
+          href="https://www.instagram.com/lhyogroup"
           target="_blank"
           rel="noopener noreferrer"
           title="Instagram Oficial Lhyo Group"
-          className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#BF953F] hover:bg-[#BF953F]/15 flex items-center justify-center text-[#FCF6BA] transition"
+          className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:border-[#C5A059] flex items-center justify-center text-[#FCF6BA] transition"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
             <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
@@ -116,11 +344,11 @@ export default function FloatingOmniDock() {
         </a>
 
         <a
-          href={SOCIAL_LINKS.linkedinUrl}
+          href="https://www.linkedin.com/company/lhyogroup"
           target="_blank"
           rel="noopener noreferrer"
-          title="LinkedIn Oficial Lhyo Group"
-          className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#BF953F] hover:bg-[#BF953F]/15 flex items-center justify-center text-[#FCF6BA] transition"
+          title="LinkedIn Corporativo Lhyo Group"
+          className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:border-[#C5A059] flex items-center justify-center text-[#FCF6BA] transition"
         >
           <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
             <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
@@ -129,16 +357,16 @@ export default function FloatingOmniDock() {
 
         <button
           type="button"
-          onClick={() => setChatOpen((o) => !o)}
-          className="px-5 h-9 rounded-full bg-gradient-to-r from-[#BF953F] via-[#FCF6BA] to-[#B38728] text-[#070707] font-semibold text-xs tracking-wider uppercase flex items-center gap-2 hover:brightness-105 transition shadow-md"
+          onClick={() => (chatOpen ? handleCloseAndPurgeMemory() : setChatOpen(true))}
+          className="px-5 h-9 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs tracking-wider uppercase flex items-center gap-2.5 hover:brightness-105 transition cursor-pointer"
         >
-          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" />
-          </svg>
-          <span>{chatOpen ? "Cerrar Chat" : "Hablar por Chat / WhatsApp"}</span>
+          <span className="relative flex h-3 w-3">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF66] opacity-95" />
+            <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00C853] border border-[#050507]" />
+          </span>
+          <span>{chatOpen ? "Cerrar Asistente IA" : "✦ Asistente IA 24/7 / WhatsApp"}</span>
         </button>
       </div>
     </div>
   );
 }
-
