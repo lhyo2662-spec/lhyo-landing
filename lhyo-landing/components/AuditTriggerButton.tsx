@@ -53,14 +53,19 @@ const OFFICIAL_06_SOLUTIONS = [
   }
 ];
 
-const SCHEDULE_SLOTS = [
-  { label: "Ocupado", disabled: true },
-  { label: "11:00 AM", disabled: false },
-  { label: "Ocupado", disabled: true },
-  { label: "03:00 PM", disabled: false },
-  { label: "04:30 PM", disabled: false },
-  { label: "06:00 PM", disabled: false }
-];
+const ALL_TIME_SLOTS = ["09:30 AM", "11:00 AM", "01:00 PM", "03:00 PM", "04:30 PM", "06:00 PM"];
+
+// Cada fecha tiene su propia matriz de turnos ocupados diferente
+const BASE_OCCUPIED_BY_DATE: Record<string, string[]> = {
+  "06 de Noviembre, 2026": ["09:30 AM", "01:00 PM"],
+  "07 de Noviembre, 2026": ["11:00 AM", "04:30 PM"],
+  "09 de Noviembre, 2026": ["09:30 AM", "03:00 PM", "06:00 PM"],
+  "10 de Noviembre, 2026": ["01:00 PM"],
+  "11 de Noviembre, 2026": ["09:30 AM", "04:30 PM"],
+  "12 de Noviembre, 2026": ["11:00 AM"]
+};
+
+const AVAILABLE_DATES = Object.keys(BASE_OCCUPIED_BY_DATE);
 
 export default function AuditTriggerButton({
   label = "AGENDAR REUNIÓN Y RECIBIR CATÁLOGO",
@@ -71,8 +76,10 @@ export default function AuditTriggerButton({
   const [step, setStep] = useState<"form" | "confirmed" | "dossier">("form");
   const [submitting, setSubmitting] = useState(false);
 
-  const [selectedDate, setSelectedDate] = useState("07 de Noviembre, 2026");
+  const [selectedDate, setSelectedDate] = useState(AVAILABLE_DATES[0]);
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
+  const [customBooked, setCustomBooked] = useState<Record<string, string[]>>({});
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [companyWeb, setCompanyWeb] = useState("");
@@ -80,6 +87,12 @@ export default function AuditTriggerButton({
   const [goal, setGoal] = useState("");
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem("lhyo_booked_slots_v37");
+      if (saved) setCustomBooked(JSON.parse(saved));
+    } catch {
+      // Ignorar errores de storage
+    }
     const handleCustomOpen = () => {
       setStep("form");
       setOpen(true);
@@ -88,10 +101,37 @@ export default function AuditTriggerButton({
     return () => window.removeEventListener("lhyo-open-audit-modal", handleCustomOpen);
   }, []);
 
+  const getOccupiedForDate = (dateStr: string) => {
+    const base = BASE_OCCUPIED_BY_DATE[dateStr] || [];
+    const userBooked = customBooked[dateStr] || [];
+    return Array.from(new Set([...base, ...userBooked]));
+  };
+
+  const handleDateChange = (newDate: string) => {
+    setSelectedDate(newDate);
+    const occupied = getOccupiedForDate(newDate);
+    if (occupied.includes(selectedTime)) {
+      const firstFree = ALL_TIME_SLOTS.find((t) => !occupied.includes(t)) || "11:00 AM";
+      setSelectedTime(firstFree);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !email.trim()) return;
     setSubmitting(true);
+
+    // Guardar como Ocupado ese horario en esa fecha específica
+    const updatedBooked = {
+      ...customBooked,
+      [selectedDate]: Array.from(new Set([...(customBooked[selectedDate] || []), selectedTime]))
+    };
+    setCustomBooked(updatedBooked);
+    try {
+      localStorage.setItem("lhyo_booked_slots_v37", JSON.stringify(updatedBooked));
+    } catch {
+      // Ignorar
+    }
 
     const revNumber = parseFloat(monthlyRev.replace(/[^0-9.]/g, "")) || 0;
     const tier = revNumber >= 5000 ? "HIGH_TICKET" : "LOW_TICKET";
@@ -123,6 +163,8 @@ export default function AuditTriggerButton({
     }
   };
 
+  const occupiedNow = getOccupiedForDate(selectedDate);
+
   return (
     <>
       <button
@@ -141,13 +183,8 @@ export default function AuditTriggerButton({
 
       {open && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/85 backdrop-blur-md p-2 sm:p-3 overflow-y-auto">
-          {/* =================================================================
-              PASO 1: MODAL IDÉNTICO A CAPTURA 062052/062100 CALIBRADO PARA QUE
-              EL BOTÓN DORADO SE VEA DE UNA VEZ SIN BAJAR CON EL MOUSE
-             ================================================================= */}
           {step === "form" && (
             <div className="w-full max-w-[760px] rounded-2xl border border-[#C5A059]/60 bg-[#050507] shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden my-auto">
-              {/* Cabecera superior */}
               <div className="px-5 py-2 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
                 <button
                   type="button"
@@ -168,7 +205,6 @@ export default function AuditTriggerButton({
                 </button>
               </div>
 
-              {/* Contenido compacto: Mismo diseño exacto pero sin desperdiciar altura */}
               <form onSubmit={handleSubmit} className="px-6 py-3.5 space-y-2.5 text-left">
                 <div>
                   <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight">
@@ -179,7 +215,6 @@ export default function AuditTriggerButton({
                   </p>
                 </div>
 
-                {/* Caja Solicitud Seleccionada */}
                 <div className="px-3.5 py-2 rounded-xl bg-white/[0.03] border-l-2 border-[#C5A059]">
                   <span className="text-[9px] font-bold uppercase tracking-wider text-[#C5A059] block">
                     SOLICITUD SELECCIONADA:
@@ -187,7 +222,6 @@ export default function AuditTriggerButton({
                   <span className="text-xs text-white font-semibold">{preselectedService}</span>
                 </div>
 
-                {/* Fecha Disponible + Horario Disponible (3x2 con Ocupado tachado) */}
                 <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-start">
                   <div className="sm:col-span-6">
                     <label className="text-[10px] font-bold uppercase tracking-wider text-[#FCF6BA] block mb-1">
@@ -196,14 +230,14 @@ export default function AuditTriggerButton({
                     <div className="relative">
                       <select
                         value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
+                        onChange={(e) => handleDateChange(e.target.value)}
                         className="w-full rounded-xl bg-[#0A0E17] border border-[#C5A059]/60 px-3.5 py-2 text-xs text-white font-semibold outline-none appearance-none cursor-pointer"
                       >
-                        <option>06 de Noviembre, 2026</option>
-                        <option>07 de Noviembre, 2026</option>
-                        <option>09 de Noviembre, 2026</option>
-                        <option>10 de Noviembre, 2026</option>
-                        <option>11 de Noviembre, 2026</option>
+                        {AVAILABLE_DATES.map((d) => (
+                          <option key={d} value={d}>
+                            {d}
+                          </option>
+                        ))}
                       </select>
                       <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold text-[#C5A059]">
                         ▼ Cambiar
@@ -216,34 +250,34 @@ export default function AuditTriggerButton({
                       HORARIO DISPONIBLE *
                     </label>
                     <div className="grid grid-cols-3 gap-1.5">
-                      {SCHEDULE_SLOTS.map((slot, idx) =>
-                        slot.disabled ? (
+                      {ALL_TIME_SLOTS.map((slot) => {
+                        const isOccupied = occupiedNow.includes(slot);
+                        return isOccupied ? (
                           <div
-                            key={idx}
+                            key={slot}
                             className="py-1.5 rounded-lg bg-[#080B12] border border-white/5 text-[11px] text-gray-600 line-through text-center select-none"
                           >
                             Ocupado
                           </div>
                         ) : (
                           <button
-                            key={idx}
+                            key={slot}
                             type="button"
-                            onClick={() => setSelectedTime(slot.label)}
+                            onClick={() => setSelectedTime(slot)}
                             className={`py-1.5 rounded-lg text-[11px] font-bold transition cursor-pointer ${
-                              selectedTime === slot.label
+                              selectedTime === slot
                                 ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-black shadow"
                                 : "bg-[#0A0E17] border border-white/10 text-gray-200 hover:border-[#C5A059]"
                             }`}
                           >
-                            {slot.label}
+                            {slot}
                           </button>
-                        )
-                      )}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
 
-                {/* Cuadrícula 2x2 de Datos del Cliente */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   <div>
                     <label className="text-[10px] font-bold uppercase tracking-wider text-[#FCF6BA] block mb-1">
@@ -299,7 +333,6 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                {/* Campo de Objetivo Compacto */}
                 <div>
                   <label className="text-[10px] font-bold uppercase tracking-wider text-[#FCF6BA] block mb-1">
                     ¿QUÉ OBJETIVO PRINCIPAL BUSCAS LOGRAR O QUÉ ÁREA DE TU NEGOCIO DESEAS IMPULSAR HOY? *
@@ -314,7 +347,6 @@ export default function AuditTriggerButton({
                   />
                 </div>
 
-                {/* Botón Dorado Visible de una vez sin bajar el ratón */}
                 <div className="pt-0.5">
                   <button
                     type="submit"
@@ -330,9 +362,6 @@ export default function AuditTriggerButton({
             </div>
           )}
 
-          {/* =================================================================
-              PASO 2: CONFIRMACIÓN IDÉNTICA A CAPTURA 230626_2.png
-             ================================================================= */}
           {step === "confirmed" && (
             <div className="w-full max-w-[680px] rounded-2xl border border-[#C5A059]/60 bg-[#050507] shadow-2xl overflow-hidden text-center my-auto">
               <div className="px-5 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
@@ -409,12 +438,8 @@ export default function AuditTriggerButton({
             </div>
           )}
 
-          {/* =================================================================
-              PASO 3: CATÁLOGO PRIVADO PDF ACTUALIZADO CON LAS 06 SOLUCIONES
-             ================================================================= */}
           {step === "dossier" && (
             <div className="relative w-full max-w-4xl rounded-2xl border border-[#C5A059]/70 bg-[#050507] p-5 sm:p-6 shadow-2xl overflow-y-auto max-h-[92vh] text-left">
-              {/* Marca de agua gigante del monograma L intacta en el fondo */}
               <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.045]">
                 <svg className="w-[360px] h-[360px]" viewBox="0 0 120 110" fill="none">
                   <path
@@ -474,7 +499,6 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                {/* Paquete Completo Todo Incluido */}
                 <div className="rounded-xl border border-[#C5A059]/50 bg-[#090E1C]/90 p-4 flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <span className="text-[10px] font-bold uppercase tracking-widest text-[#FCF6BA] block">
@@ -492,7 +516,6 @@ export default function AuditTriggerButton({
                   </span>
                 </div>
 
-                {/* Las 06 Soluciones Oficiales */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {OFFICIAL_06_SOLUTIONS.map((sol) => (
                     <div
