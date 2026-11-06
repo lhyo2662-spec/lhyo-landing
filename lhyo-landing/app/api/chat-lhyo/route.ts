@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 
 export const runtime = "edge";
 
-interface ChatMsg {
-  sender: "user" | "bot";
+interface HistoryItem {
+  role: "user" | "assistant";
   text: string;
 }
 
@@ -12,255 +12,332 @@ interface LeadState {
   company_name?: string;
   pain_point?: string;
   revenue_tier?: string;
+}
+
+interface ChatRequestBody {
+  message?: string;
+  history?: HistoryItem[];
+  currentLead?: LeadState;
   turn_count?: number;
 }
 
-const OFF_TOPIC_POLITE_MESSAGE =
-  "Agradezco su mensaje. Le informo amablemente que este canal ejecutivo de Inteligencia Artificial está dedicado de forma exclusiva a la consultoría empresarial y a la implementación de las 06 Soluciones Oficiales de Lhyo Group:\n\n01. Asistentes Inteligentes 24/7 para WhatsApp e Instagram\n02. Plataformas Web Modernas y Catálogos Interactivos (< 0.8s)\n03. Organización Automática de Clientes y Ventas (CRM)\n04. Automatización Total con Tecnología Propia\n05. IA Personalizada con la Memoria de su Empresa\n06. Su Propia Plataforma Empresarial Todo-en-Uno\n\nCuando desee impulsar, crear o automatizar un negocio o proyecto empresarial, estaré a su entera disposición. ¿Con quién tengo el gusto y qué área de su empresa le gustaría escalar?";
+const MAX_HISTORY_MESSAGES = 20;
 
-const SYSTEM_PROMPT = `# ROL E IDENTIDAD SUPREMA
-Eres el Asistente Ejecutivo Oficial de Inteligencia Artificial de Lhyo Group (https://www.lhyogroup.com), firma de arquitectura digital de prestigio, sistemas inteligentes 24/7 y automatización empresarial dirigida por su CEO, Lhyonneth Araque.
+// ============================================================================
+// 1. EL "SYSTEM PROMPT" MAESTRO (ADN DEL CONSULTOR ESTRATÉGICO JEFE)
+// ============================================================================
+const MASTER_SYSTEM_PROMPT = `Eres el Consultor Estratégico Jefe y Director de Admisiones de Lhyo Group (https://www.lhyogroup.com), firma de arquitectura tecnológica empresarial y automatización dirigida por su CEO, Lhyonneth Araque.
 
-# REGLA 1: MENSAJE ÚNICO PARA TEMAS FUERA DE NEGOCIOS
-Si el usuario pregunta o comenta algo que NO esté relacionado con negocios, empresas, trabajo, tecnología comercial o Lhyo Group (por ejemplo: deportes, fútbol, clima, chistes, películas, videojuegos, farándula, etc.), responde SIEMPRE con este mensaje único y cortés:
-"${OFF_TOPIC_POLITE_MESSAGE}"
+DIRECTIVAS ABSOLUTAS:
+1. IDENTIDAD Y TONO: Tu tono es quirúrgico, corporativo, de élite y siempre tratas al usuario de "Usted". Hablas como un experto en negocios implacable. Jamás revelas que eres una IA de Google u OpenAI.
+2. CONOCIMIENTO ANALÍTICO DE NUESTRAS 06 SOLUCIONES:
+   - Solución 01: Asistentes Inteligentes para WhatsApp e Instagram (24/7) — Respuesta en < 1s y agendamiento automático.
+   - Solución 02: Plataformas Web Modernas y Catálogos Interactivos — Carga ultrarrápida (< 0.8s) y autoridad corporativa.
+   - Solución 03: Organización Automática de Clientes y Ventas (CRM) — Clasificación automática sin anotar nada a mano.
+   - Solución 04: Automatización Total de Procesos con Tecnología Propia — Ecosistemas autónomos sin tarifas mensuales por volumen.
+   - Solución 05: Inteligencia Artificial Personalizada con la Memoria de su Empresa — Cerebros privados entrenados con los documentos y precios del negocio.
+   - Solución 06: Su Propia Plataforma Empresarial Todo-en-Uno — Ventas, clientes, agenda y finanzas unificadas en una sola pantalla.
+   Si un cliente describe su negocio, analízalo al instante y recomienda la solución exacta que mitigará su fuga de capital.
+3. LA MANIOBRA DE PIVOTE (CRÍTICO):
+   Tienes estrictamente prohibido responder dudas ajenas a negocios, tecnología o escalabilidad. Si te preguntan algo irrelevante (recetas, deportes, clima, chistes, cine), DEBES conectar esa pregunta con nuestros servicios de forma natural y elegante en máximo 2 párrafos cortos.
+   Ejemplo: Si preguntan "¿Cuál es el mejor equipo de fútbol?", respondes: "La sincronización de un equipo de élite es exactamente lo que construimos en Lhyo Group. Nosotros no analizamos deportes, pero diseñamos Asistentes Inteligentes 24/7 y Plataformas Empresariales Todo-en-Uno que hacen que su empresa opere con esa misma precisión. ¿Qué proceso está frenando las ventas de su negocio hoy?"
+4. RECOLECCIÓN EJECUTIVA:
+   Durante la charla, identifica de forma natural: Nombre del cliente, Empresa/Giro, Necesidad principal y si sus ingresos mensuales superan o no los $5,000 USD.
+5. FORMATO: Máximo 2 párrafos cortos y contundentes por mensaje. Nunca repitas entre comillas lo que dijo el cliente.`;
 
-# REGLA 2: RAZONAMIENTO EMPRESARIAL ESTELAR MULTI-TURNO
-Para toda consulta de negocios, empresas, emprendimientos, ventas o sobre nuestras 06 Soluciones (sin importar cuántos mensajes lleve la conversación):
-- Habla SIEMPRE de "Usted" ("su empresa", "su negocio"). Tono ejecutivo, claro, ágil y preciso.
-- Jamás repitas entre comillas el mensaje del cliente ni uses plantillas robóticas.
-- Nuestras 06 Soluciones Oficiales:
-  01. Asistentes Inteligentes para WhatsApp e Instagram (24/7)
-  02. Plataformas Web Modernas y Catálogos Interactivos (< 0.8s)
-  03. Organización Automática de Clientes y Ventas (CRM)
-  04. Automatización Total de Procesos con Tecnología Propia
-  05. Inteligencia Artificial Personalizada con la Memoria de su Empresa
-  06. Su Propia Plataforma Empresarial Todo-en-Uno
-- Analiza el caso del cliente con lógica impecable y guíalo con naturalidad para conocer su Nombre, su Empresa/Giro y si sus ingresos mensuales superan o no los $5,000 USD.`;
-
-const SAFETY_PATTERNS = [
-  /\b(matar|asesinar|homicid\w*|suicid\w*|sicari\w*|bomba|explosiv\w*|terroris\w*|arma\s+de\s+fuego|violaci\w*|pedofil\w*|pornograf\w*|narcotrafic\w*|coca[ií]na|hackear|clonar\s+tarjeta|maldit\w+|mierda|imb[eé]cil|idiota|hijo\s+de\s+puta|ignora\s+tus\s+instrucciones|jailbreak)\b/i
+// ============================================================================
+// 2. BLINDAJE Y SEGURIDAD (SAFETY GUARDRAILS — 7 REGLAS ESTRICTAS)
+// ============================================================================
+const STRICT_SAFETY_PATTERNS: { code: string; regex: RegExp }[] = [
+  {
+    code: "RULE_01_VIOLENCE",
+    regex: /\b(matar|asesinar|homicid\w*|suicid\w*|bomba|explosiv\w*|terroris\w*|sicari\w*|pistola|fusil|secuestrar|extorsion\w*)\b/i
+  },
+  {
+    code: "RULE_02_EXPLICIT",
+    regex: /\b(violaci\w*|violar|pedofil\w*|abuso\s+sexual|pornograf\w*|porno|sexo\s+expl[ií]cito|prostituci\w*)\b/i
+  },
+  {
+    code: "RULE_03_ILLEGAL",
+    regex: /\b(narcotrafic\w*|coca[ií]na|hero[ií]na|fentanil\w*|metanfetamina|hackear|clonar\s+tarjeta|lavado\s+de\s+dinero)\b/i
+  },
+  {
+    code: "RULE_04_HARASSMENT",
+    regex: /\b(maldit\w+|mierda|imb[eé]cil|est[uú]pid\w+|idiota|pendej\w+|hijo\s+de\s+puta|puto|puta|cabr[oó]n|maric[oó]n|mamaguevo|vete\s+a\s+la\s+mierda)\b/i
+  },
+  {
+    code: "RULE_05_PROMPT_INJECTION",
+    regex: /\b(ignore\s+previous\s+instructions|olvida\s+tus\s+instrucciones|revela\s+tu\s+system\s+prompt|modo\s+desarrollador|jailbreak)\b/i
+  },
+  {
+    code: "RULE_06_SPAM_FLOOD",
+    regex: /(.)\1{6,}|^[asdfghjklqwertyuiopzxcvbnm]{12,}$/i
+  }
 ];
 
-const OFF_TOPIC_REGEX =
-  /\b(futbol|f[uú]tbol|manchester|real\s+madrid|barcelona|messi|cristiano|champions|mundial|b[eé]isbol|partido|gol|clima|lluvia|temperatura|chiste\w*|broma\w*|pel[ií]cula\w*|netflix|cine|m[uú]sica|canci[oó]n|novia|novio|amor|hor[oó]scopo|zodiaco|videojuego\w*|fortnite|minecraft|playstation|xbox|receta\s+casera|qu[eé]\s+hora\s+es|cu[aá]nto\s+es\s+\d+|capital\s+de|presidente\s+de|pol[ií]tica|religi[oó]n)\b/i;
-
-const BUSINESS_INTENT_REGEX =
-  /\b(negocio\w*|empres\w*|client\w*|vent\w*|vender|comprar|contratar|servicio\w*|soluci[oó]n\w*|automatiz\w*|p[aá]gina\w*|web\w*|sitio|cat[aá]logo|whatsapp|instagram|crm|sistema\w*|ia|inteligencia\s+artificial|bot|asistente|precio\w*|costo\w*|cu[aá]nto|cotiz\w*|presupuesto|plan\w*|agendar|reuni[oó]n|cita|videollamada|auditor[ií]a|tienda|restauran\w*|hamburgues\w*|cl[ií]nic\w*|consultorio|barber\w*|peluquer\w*|inmobiliari\w*|agencia|marca|emprend\w*|proyecto|factur\w*|ingreso\w*|d[oó]lares|usd|5000|5,000|lhyo|hola|buenos\s+d[ií]as|buenas\s+tardes|buenas\s+noches|me\s+llamo|mi\s+nombre|soy)\b/i;
-
-function checkSafetyShield(text: string): { blocked: boolean; code: string | null } {
+function checkSecurityViolation(text: string): string | null {
   const clean = (text || "").trim();
-  if (clean.length > 600) return { blocked: true, code: "RULE_07_MAX_LENGTH" };
-  const compact = clean.replace(/\s+/g, "");
-  if (compact.length >= 5 && /^(.)\1{4,}$/i.test(compact)) return { blocked: true, code: "RULE_06_FLOOD" };
-  if (compact.length >= 6 && !/[aeiouáéíóú0-9]/i.test(compact) && /^[a-z]+$/i.test(compact)) {
-    return { blocked: true, code: "RULE_06_KEYBOARD_SMASH" };
+  if (clean.length > 650) return "RULE_07_MAX_LENGTH";
+  for (const item of STRICT_SAFETY_PATTERNS) {
+    if (item.regex.test(clean)) return item.code;
   }
-  if (SAFETY_PATTERNS.some((rx) => rx.test(clean))) return { blocked: true, code: "RULE_01_05_SAFETY_POLICY" };
-  return { blocked: false, code: null };
+  return null;
 }
 
-function isOffTopic(text: string): boolean {
-  const clean = (text || "").trim();
-  if (OFF_TOPIC_REGEX.test(clean) && !/\b(empresa|negocio|vender|automatizar|web)\b/i.test(clean)) {
-    return true;
-  }
-  if (!BUSINESS_INTENT_REGEX.test(clean) && clean.split(/\s+/).length >= 3) {
-    return true;
-  }
-  return false;
-}
+// ============================================================================
+// 3. MOTOR DUAL PRE-ARMADO (GEMINI FLASH + OPENAI CLOUD ZERO-KEY + PIVOTE LOCAL)
+// ============================================================================
+async function executeDualEngineBrain(
+  userMessage: string,
+  slidingHistory: HistoryItem[],
+  leadState: LeadState
+): Promise<{ reply: string; engine: string }> {
+  const geminiKey = (process.env.GEMINI_API_KEY || "").trim();
+  const openaiKey = (process.env.OPENAI_API_KEY || "").trim();
 
-async function callGeminiOfficial(userMessage: string, history: ChatMsg[], apiKey: string) {
-  if (!apiKey || !apiKey.startsWith("AIza")) throw new Error("NO_GEMINI_KEY");
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3200);
-  const contents = [
-    ...history.slice(-12).map((m) => ({
-      role: m.sender === "user" ? "user" : "model",
-      parts: [{ text: m.text }]
-    })),
-    { role: "user", parts: [{ text: userMessage }] }
-  ];
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-    {
+  const contextSummary = `Estado actual del prospecto: Nombre=${leadState.lead_name}, Empresa=${leadState.company_name}, Necesidad=${leadState.pain_point}, Nivel=${leadState.revenue_tier}.`;
+
+  // CAPA 1: Google Gemini 1.5 Flash Oficial (si existe llave estándar AIzaSy...)
+  if (geminiKey.startsWith("AIza")) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2200);
+
+      const contents = [
+        ...slidingHistory.map((m) => ({
+          role: m.role === "assistant" ? "model" : "user",
+          parts: [{ text: m.text }]
+        })),
+        {
+          role: "user",
+          parts: [{ text: `[Contexto interno: ${contextSummary}]\nMensaje del cliente: ${userMessage}` }]
+        }
+      ];
+
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: MASTER_SYSTEM_PROMPT }] },
+            contents,
+            safetySettings: [
+              { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_LOW_AND_ABOVE" },
+              { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_LOW_AND_ABOVE" },
+              { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_LOW_AND_ABOVE" },
+              { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_LOW_AND_ABOVE" }
+            ],
+            generationConfig: { temperature: 0.35, maxOutputTokens: 320 }
+          })
+        }
+      );
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        if (text) return { reply: text, engine: "GEMINI_1.5_FLASH_OFFICIAL" };
+      }
+    } catch {
+      // Conmutación automática a Capa 2
+    }
+  }
+
+  // CAPA 2: OpenAI Oficial (si existe llave sk-...)
+  if (openaiKey.startsWith("sk-")) {
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 2400);
+      const res = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${openaiKey}`
+        },
+        signal: controller.signal,
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          temperature: 0.35,
+          max_tokens: 320,
+          messages: [
+            { role: "system", content: `${MASTER_SYSTEM_PROMPT}\n${contextSummary}` },
+            ...slidingHistory.map((m) => ({ role: m.role, content: m.text })),
+            { role: "user", content: userMessage }
+          ]
+        })
+      });
+      clearTimeout(timeout);
+
+      if (res.ok) {
+        const data = await res.json();
+        const text = data?.choices?.[0]?.message?.content?.trim();
+        if (text) return { reply: text, engine: "OPENAI_GPT4O_MINI_OFFICIAL" };
+      }
+    } catch {
+      // Conmutación automática a Capa 3
+    }
+  }
+
+  // CAPA 3: Motor Neuronal Cloud Pre-Armado (Zero-Key OpenAI Compatible — Funciona sin llaves a $0.00 USD)
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2600);
+    const cloudRes = await fetch("https://text.pollinations.ai/openai", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       signal: controller.signal,
       body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents,
-        generationConfig: { temperature: 0.3, maxOutputTokens: 260 }
+        model: "openai",
+        temperature: 0.35,
+        messages: [
+          { role: "system", content: `${MASTER_SYSTEM_PROMPT}\n${contextSummary}` },
+          ...slidingHistory.map((m) => ({ role: m.role, content: m.text })),
+          { role: "user", content: userMessage }
+        ]
       })
+    });
+    clearTimeout(timeout);
+
+    if (cloudRes.ok) {
+      const cloudJson = await cloudRes.json();
+      const cloudText = cloudJson?.choices?.[0]?.message?.content?.trim();
+      if (cloudText && cloudText.length > 15) {
+        return { reply: cloudText, engine: "DUAL_CLOUD_NEURAL_ENGINE" };
+      }
     }
-  );
-  clearTimeout(timer);
-  if (!res.ok) throw new Error("GEMINI_HTTP_ERR");
-  const data = await res.json();
-  const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-  if (!reply) throw new Error("GEMINI_EMPTY");
-  return reply;
+  } catch {
+    // Conmutación instantánea al Núcleo Determinista de Admisiones
+  }
+
+  // CAPA 4: Núcleo Determinista de Respuesta Inmediata (< 1ms) con Maniobra de Pivote
+  return {
+    reply: buildDeterministicStrategicReply(userMessage, leadState),
+    engine: "LHYO_STRATEGIC_CORE_0MS"
+  };
 }
 
-async function callCloudOpenAICascade(userMessage: string, history: ChatMsg[]) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3600);
-  const messages = [
-    { role: "system", content: SYSTEM_PROMPT },
-    ...history.slice(-12).map((m) => ({
-      role: m.sender === "user" ? "user" : "assistant",
-      content: m.text
-    })),
-    { role: "user", content: userMessage }
-  ];
-  const res = await fetch("https://text.pollinations.ai/openai", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    signal: controller.signal,
-    body: JSON.stringify({
-      model: "openai",
-      temperature: 0.3,
-      messages
-    })
-  });
-  clearTimeout(timer);
-  if (!res.ok) throw new Error("CLOUD_OPENAI_ERR");
-  const data = await res.json();
-  const reply = data?.choices?.[0]?.message?.content?.trim();
-  if (!reply) throw new Error("CLOUD_EMPTY");
-  return reply;
+function buildDeterministicStrategicReply(userMessage: string, state: LeadState): string {
+  const lower = userMessage.toLowerCase();
+
+  // Maniobra de Pivote para temas irrelevantes (deportes, cocina, clima, chistes, etc.)
+  if (
+    /\b(futbol|fútbol|manchester|real madrid|barcelona|messi|cristiano|deporte|partido|clima|lluvia|receta|cocinar|chiste|pelicula|película|juego|musica|música)\b/i.test(
+      lower
+    )
+  ) {
+    return "La sincronización y precisión de alto rendimiento es exactamente lo que construimos en Lhyo Group. Nosotros no analizamos temas de entretenimiento o deportes, pero implementamos Asistentes Inteligentes 24/7, Plataformas Web de alto prestigio y Sistemas Todo-en-Uno que hacen que su empresa opere con precisión milimétrica día y noche.\n\n¿Qué proceso o área está frenando el crecimiento de las ventas de su negocio hoy?";
+  }
+
+  // Consultas de precios o tarifas
+  if (/\b(precio|precios|costo|cuanto|cuánto|vale|tarifa|presupuesto|planes)\b/i.test(lower)) {
+    return "En Lhyo Group cada arquitectura tecnológica se estructura a la medida de la escala operativa de su empresa, contando con líneas tanto para empresas consolidadas como para negocios en fase de crecimiento.\n\nEn una breve sesión ejecutiva de 15 minutos con nuestro CEO le entregamos el presupuesto exacto para su país y nuestro Catálogo Privado PDF. ¿Con quién tengo el gusto y a qué se dedica su empresa?";
+  }
+
+  // Negocios gastronómicos / restaurantes / comida
+  if (/\b(hamburgues\w*|restauran\w*|comida\w*|pizz\w*|panader\w*|cafeter\w*|delivery)\b/i.test(lower)) {
+    return "En el sector gastronómico la fuga de capital ocurre cuando los clientes escriben en horas pico y tardan en recibir respuesta o el menú. En Lhyo Group lo resolvemos instalando un Catálogo Web Interactivo de carga instantánea conectado a un Asistente Inteligente 24/7 en su WhatsApp e Instagram que toma pedidos y reservas en menos de 1 segundo.\n\n¿Con quién tengo el gusto y en qué ciudad opera su negocio gastronómico?";
+  }
+
+  if (state.lead_name && state.lead_name !== "PENDIENTE" && state.revenue_tier === "PENDIENTE") {
+    return `Excelente, ${state.lead_name}. Para que nuestro sistema de admisiones clasifique su solicitud y prepare la arquitectura exacta según la escala actual de su operación: ¿actualmente los ingresos mensuales de su negocio superan los $5,000 USD o se encuentran en una etapa inicial/menor a ese rango?`;
+  }
+
+  return "En Lhyo Group eliminamos los cuellos de botella de su operación mediante nuestras 06 Soluciones Oficiales: Asistentes Inteligentes 24/7 para WhatsApp e Instagram, Plataformas Web de alto prestigio, CRM Automatizado, Automatización Propia, IA con la Memoria de su Empresa y Plataformas Todo-en-Uno.\n\n¿Con quién tengo el gusto, cuál es el giro de su negocio y qué área desea escalar hoy?";
 }
 
-function buildStellarBusinessFallback(userText: string, state: LeadState): string {
-  const clean = (userText || "").trim();
-  if (/hamburgues\w*|restauran\w*|comid\w*|pizz\w*|men[uú]|delivery|gastronom\w*/i.test(clean)) {
-    return "En un negocio gastronómico, la mayor pérdida de ventas ocurre cuando el cliente espera en horas pico por el menú o la confirmación en WhatsApp.\n\nEn Lhyo Group instalamos su Plataforma Web con Catálogo Interactivo (Solución 02) conectada a su Asistente IA 24/7 en WhatsApp e Instagram (Solución 01) para recibir pedidos en menos de 1 segundo y registrarlos en su CRM (Solución 03). ¿Con quién tengo el gusto y cómo se llama su negocio?";
-  }
-  if (/barber\w*|peluquer\w*|est[eé]tic\w*|cl[ií]nic\w*|m[eé]dic\w*|odont\w*|salud|consultorio|abogad\w*|inmobiliari\w*/i.test(clean)) {
-    return "En clínicas, firmas y negocios de servicios, cada consulta que tarda en responderse por WhatsApp o Instagram es una cita que se pierde frente a la competencia.\n\nCon nuestras Soluciones 01 (Asistentes IA 24/7), 03 (CRM Automático) y 06 (Su Propia Plataforma Todo-en-Uno), sus clientes consultan horarios y agendan en menos de 1 segundo día y noche. ¿Con quién tengo el gusto y supera actualmente su facturación mensual los $5,000 USD?";
-  }
-  if (/precio\w*|costo\w*|cu[aá]nto|tarifa\w*|valor|presupuesto/i.test(clean)) {
-    return "Cada implementación en Lhyo Group se adapta a la etapa y escala de su empresa (atendemos tanto a empresas consolidadas como a proyectos en crecimiento).\n\nEn una breve sesión ejecutiva de 15 minutos por videollamada con nuestro CEO le entregamos el presupuesto exacto para su país y nuestro Catálogo Privado PDF. ¿Cuál es su nombre, a qué se dedica su empresa y qué área desea automatizar primero?";
-  }
-  return "Es un verdadero gusto atenderle en Lhyo Group. Ponemos a disposición de su empresa nuestras 06 Soluciones Oficiales: Asistentes Inteligentes 24/7 para WhatsApp e Instagram, Plataformas Web (<0.8s), CRM Automático, Automatización Propia, IA con la Memoria de su Empresa y su Propia Plataforma Todo-en-Uno.\n\nPara brindarle una asesoría precisa para su negocio: ¿con quién tengo el gusto, a qué se dedica su empresa y qué área le gustaría impulsar hoy?";
-}
-
+// ============================================================================
+// 4. ENDPOINT POST PRINCIPAL DE LA WEB
+// ============================================================================
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = (await req.json()) as ChatRequestBody;
     const userMessage = (body.message || "").trim();
-    const history: ChatMsg[] = Array.isArray(body.history) ? body.history : [];
-    const currentLead: LeadState = body.currentLead || {};
-    const turnCount = (currentLead.turn_count || 0) + 1;
+    const rawHistory = Array.isArray(body.history) ? body.history : [];
+    const slidingHistory = rawHistory.slice(-MAX_HISTORY_MESSAGES);
 
-    const shield = checkSafetyShield(userMessage);
-    if (shield.blocked) {
-      return NextResponse.json({
-        reply:
-          "⛔ PROTOCOLO DE SEGURIDAD ACTIVADO (" +
-          shield.code +
-          "): Su mensaje infringe las normas de integridad de la infraestructura cognitiva de Lhyo Group. Esta sesión ha sido bloqueada permanentemente (escritura y micrófono deshabilitados).",
-        ...currentLead,
-        turn_count: turnCount,
-        ready_for_crm: false,
-        blocked: true
-      });
-    }
-
-    const nextState: LeadState = {
-      lead_name: currentLead.lead_name || "PENDIENTE",
-      company_name: currentLead.company_name || "PENDIENTE",
-      pain_point: currentLead.pain_point || "PENDIENTE",
-      revenue_tier: currentLead.revenue_tier || "PENDIENTE",
-      turn_count: turnCount
+    const state: LeadState = {
+      lead_name: body.currentLead?.lead_name || "PENDIENTE",
+      company_name: body.currentLead?.company_name || "PENDIENTE",
+      pain_point: body.currentLead?.pain_point || "PENDIENTE",
+      revenue_tier: body.currentLead?.revenue_tier || "PENDIENTE"
     };
 
-    if (isOffTopic(userMessage)) {
+    // 1. Verificar Safety Guardrails
+    const violationCode = checkSecurityViolation(userMessage);
+    if (violationCode) {
       return NextResponse.json({
-        ...nextState,
-        reply: OFF_TOPIC_POLITE_MESSAGE,
+        reply: `⛔ PROTOCOLO DE SEGURIDAD ACTIVADO (${violationCode}): Por políticas de integridad corporativa de Lhyo Group, esta sesión ha sido cerrada y bloqueada permanentemente.`,
+        ...state,
         ready_for_crm: false,
-        blocked: false
+        blocked: true,
+        violation_code: violationCode
       });
     }
 
+    // 2. Extracción inteligente de variables en segundo plano
     const nameMatch = userMessage.match(
       /(?:me llamo|mi nombre es|soy|habla)\s+([A-ZÁÉÍÓÚÑa-záéíóúñ]{2,20}(?:\s+[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,20})?)/i
     );
-    if (nameMatch && nameMatch[1] && !/^(un|una|el|la|de|del|cliente)$/i.test(nameMatch[1])) {
-      nextState.lead_name = nameMatch[1].trim();
-    }
+    if (nameMatch?.[1]) state.lead_name = nameMatch[1].trim();
 
-    const bizMatch = userMessage.match(
-      /(?:tengo\s+un[a]?\s+|vendo\s+|mi\s+empresa\s+es\s+|negocio\s+de\s+|dedico\s+a\s+|somos\s+un[a]?\s+)([^.,;?\n]{3,45})/i
+    const companyMatch = userMessage.match(
+      /(?:empresa se llama|mi empresa es|negocio de|tengo una?|tenemos una?|venta de)\s+([A-ZÁÉÍÓÚÑa-záéíóúñ0-9\s]{3,35})/i
     );
-    if (bizMatch && bizMatch[1]) {
-      nextState.company_name = bizMatch[1].trim();
-      if (nextState.pain_point === "PENDIENTE") nextState.pain_point = userMessage.slice(0, 90);
+    if (companyMatch?.[1]) state.company_name = companyMatch[1].trim();
+
+    if (state.pain_point === "PENDIENTE" && userMessage.length > 8) {
+      state.pain_point = userMessage.slice(0, 100);
     }
 
+    const lower = userMessage.toLowerCase();
+    let readyForCrm = false;
     if (
-      (nextState.lead_name !== "PENDIENTE" || nextState.company_name !== "PENDIENTE" || turnCount >= 2) &&
-      nextState.revenue_tier === "PENDIENTE" &&
-      /\b(supera\w*|m[aá]s\s+de|menos\s+de|etapa\s+inicial|empezando|5000|5,000|10000|2000|1000|3000|8000)\b/i.test(
-        userMessage
-      )
+      state.lead_name !== "PENDIENTE" &&
+      state.revenue_tier === "PENDIENTE" &&
+      /\b(si|sí|supera|mas|más|no|menos|inicial|empezando|5000|5,000)\b/i.test(lower)
     ) {
-      const isHigh = /\b(supera\w*|m[aá]s|5000|5,000|6000|8000|10000)\b/i.test(userMessage);
-      nextState.revenue_tier = isHigh ? "HIGH_TICKET" : "LOW_TICKET";
+      const isHigh = /\b(si|sí|supera|mas|más)\b/i.test(lower) && !/\bno\b/i.test(lower);
+      state.revenue_tier = isHigh ? "HIGH_TICKET" : "LOW_TICKET";
+      readyForCrm = true;
+    }
 
+    // 3. Ejecutar el Motor Dual Pre-Armado con Memoria de 20 Mensajes
+    const { reply, engine } = await executeDualEngineBrain(userMessage, slidingHistory, state);
+
+    // 4. Inyección automática en CRM Oficial si completó calificación
+    if (readyForCrm && (state.revenue_tier === "HIGH_TICKET" || state.revenue_tier === "LOW_TICKET")) {
       const nowVe = new Date().toLocaleString("es-VE", { timeZone: "America/Caracas" });
       await fetch("https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fecha_registro: nowVe,
-          horario_cita: "Calificado en Chat IA V41",
-          nombre_cliente: nextState.lead_name,
-          email_cliente: "Captado en Chat IA Web",
-          empresa_web: nextState.company_name,
-          facturacion_usd: nextState.revenue_tier,
-          clasificacion: nextState.revenue_tier,
-          servicio_elegido: `ASISTENTE IA V41 (${nextState.revenue_tier})`,
-          objetivo_cliente: nextState.pain_point,
-          resumen_crm: `ETIQUETA OCULTA: ${nextState.revenue_tier} || Empresa: ${nextState.company_name} || Necesidad: ${nextState.pain_point}`,
+          horario_cita: "Calificado por Consultor Estratégico IA",
+          nombre_cliente: state.lead_name,
+          email_cliente: "Captado en Chat IA Lhyo Group",
+          empresa_web: state.company_name,
+          facturacion_usd: state.revenue_tier,
+          clasificacion: state.revenue_tier,
+          servicio_elegido: `ADMISIONES IA (${state.revenue_tier})`,
+          objetivo_cliente: state.pain_point,
+          resumen_crm: `MOTOR: ${engine} || ETIQUETA: ${state.revenue_tier} || Empresa: ${state.company_name} || Dolor: ${state.pain_point}`,
           link_videollamada_meet: "https://meet.google.com/krc-vdii-zzh"
         })
       }).catch(() => {});
-
-      return NextResponse.json({
-        ...nextState,
-        ready_for_crm: true,
-        blocked: false,
-        reply: `Excelente${
-          nextState.lead_name !== "PENDIENTE" ? `, ${nextState.lead_name}` : ""
-        }. He registrado formalmente la solicitud de su empresa en el sistema central de Lhyo Group.\n\nToque el botón dorado de abajo para elegir el día y la hora de su preferencia en nuestra Agenda Ejecutiva y descargar nuestro Catálogo Privado PDF de 1 sola página con las 06 Soluciones Oficiales.`
-      });
-    }
-
-    let replyText = "";
-    const geminiKey = process.env.GEMINI_API_KEY || "";
-
-    try {
-      replyText = await callGeminiOfficial(userMessage, history, geminiKey);
-    } catch {
-      try {
-        replyText = await callCloudOpenAICascade(userMessage, history);
-      } catch {
-        replyText = buildStellarBusinessFallback(userMessage, nextState);
-      }
     }
 
     return NextResponse.json({
-      ...nextState,
-      reply: replyText,
-      ready_for_crm: false,
+      reply,
+      engine_used: engine,
+      ...state,
+      ready_for_crm: readyForCrm,
       blocked: false
     });
   } catch {
     return NextResponse.json({
-      reply: OFF_TOPIC_POLITE_MESSAGE,
+      reply: "Bienvenido al canal de Admisiones Estratégicas de Lhyo Group. ¿Con quién tengo el gusto y qué proceso de su empresa busca escalar hoy?",
       ready_for_crm: false,
       blocked: false
     });
