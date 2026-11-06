@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { generateDynamicDossierPdf } from "../lib/generateDynamicDossierPdf";
 
 export function DirectContactSection() {
   const [contactName, setContactName] = useState("");
@@ -8,6 +7,12 @@ export function DirectContactSection() {
   const [contactPhone, setContactPhone] = useState("");
   const [contactMsg, setContactMsg] = useState("");
   const [contactSent, setContactSent] = useState(false);
+
+  const openExecutiveCalendar = () => {
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const mainBtn = buttons.find((b) => (b.textContent || "").toUpperCase().includes("AGENDAR REUNIÓN"));
+    if (mainBtn) { mainBtn.click(); }
+  };
 
   return (
     <section className="px-6 pt-10 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
@@ -20,15 +25,15 @@ export function DirectContactSection() {
             Contacto Directo y Atención Ejecutiva
           </h2>
           <p className="text-sm text-gray-300 mt-2 max-w-2xl">
-            Comuníquese directamente con nuestra dirección general o envíenos su consulta para recibir atención inmediata:
+            Comuníquese directamente con nuestra dirección general. Nuestro Dossier Privado B2B es confidencial y se envía a su correo al agendar su sesión:
           </p>
         </div>
         <button
           type="button"
-          onClick={() => generateDynamicDossierPdf({ companyName: contactName || "Su Empresa", prospectName: contactName || "Dirección Ejecutiva", selectedPlanText: contactMsg })}
+          onClick={openExecutiveCalendar}
           className="px-5 py-3 rounded-xl border border-[#C5A059] bg-[#0A1128]/90 text-[#FCF6BA] text-xs font-extrabold uppercase tracking-wider hover:bg-[#C5A059] hover:text-[#050507] transition cursor-pointer"
         >
-          📄 DESCARGAR DOSSIER CORPORATIVO PDF →
+          🔒 AGENDAR SESIÓN PARA RECIBIR DOSSIER PRIVADO →
         </button>
       </div>
 
@@ -103,11 +108,6 @@ export function DirectContactSection() {
                 e.preventDefault();
                 if (!contactName.trim() || !contactEmail.trim() || !contactMsg.trim()) return;
                 setContactSent(true);
-                generateDynamicDossierPdf({
-                  companyName: contactName,
-                  prospectName: contactName,
-                  selectedPlanText: contactMsg
-                });
               }}
               className="space-y-4"
             >
@@ -116,18 +116,18 @@ export function DirectContactSection() {
                   MENSAJE DIRECTO A DIRECCIÓN GENERAL (ceo@lhyogroup.com)
                 </span>
                 <h3 className="text-xl sm:text-2xl font-semibold text-white">
-                  Envíenos su consulta directa y descargue su Dossier PDF
+                  Envíenos su consulta directa
                 </h3>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-[#FCF6BA] uppercase block mb-1">
-                    Su Nombre o Empresa *
+                    Su Nombre *
                   </label>
                   <input
                     type="text"
-                    placeholder="Ej: Corporación Andina"
+                    placeholder="Ej: Carlos Mendoza"
                     value={contactName}
                     onChange={(e) => setContactName(e.target.value)}
                     className="w-full rounded-xl bg-[#050507] border border-white/15 focus:border-[#C5A059] text-white text-sm px-3.5 py-2.5 outline-none"
@@ -166,7 +166,7 @@ export function DirectContactSection() {
                 </label>
                 <textarea
                   rows={3}
-                  placeholder="Escriba aquí su consulta o las soluciones de su interés (01 a 06)..."
+                  placeholder="Escriba aquí su consulta o requerimiento..."
                   value={contactMsg}
                   onChange={(e) => setContactMsg(e.target.value)}
                   className="w-full rounded-xl bg-[#050507] border border-white/15 focus:border-[#C5A059] text-white text-sm px-3.5 py-2.5 outline-none resize-none"
@@ -177,7 +177,7 @@ export function DirectContactSection() {
                 type="submit"
                 className="w-full h-[50px] rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-bold text-xs uppercase tracking-wider cursor-pointer"
               >
-                ENVIAR MENSAJE Y DESCARGAR DOSSIER CORPORATIVO PDF →
+                ENVIAR MENSAJE DIRECTO A LHYO GROUP →
               </button>
             </form>
           ) : (
@@ -186,10 +186,10 @@ export function DirectContactSection() {
                 ✓
               </div>
               <h4 className="text-xl font-semibold text-white mb-2">
-                ¡Mensaje recibido y Dossier PDF generado!
+                ¡Mensaje recibido en ceo@lhyogroup.com!
               </h4>
               <p className="text-xs sm:text-sm text-gray-300 mb-5">
-                Su Dossier Corporativo personalizado se ha descargado en su dispositivo.
+                Le responderemos a la brevedad.
               </p>
               <button
                 type="button"
