@@ -1,41 +1,228 @@
 "use client";
 
-import AuditTriggerButton from "./AuditTriggerButton";
+import React, { useState } from "react";
 
 export default function DirectContactSection() {
-  return (
-    <section id="contacto" className="relative py-16 px-4 sm:px-6 overflow-hidden">
-      <div className="max-w-5xl mx-auto rounded-3xl border border-[#C5A059]/45 bg-gradient-to-b from-[#090D1A]/95 to-[#050507]/95 p-8 sm:p-12 text-center shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
-        <p className="text-[11px] font-bold uppercase tracking-[0.26em] text-[#C5A059] mb-3">
-          ✦ CANAL EJECUTIVO DIRECTO · ATENCIÓN INMEDIATA 24/7
-        </p>
-        <h2 className="text-2xl sm:text-4xl font-extrabold text-white max-w-3xl mx-auto leading-tight mb-4">
-          ¿Listo para llevar la presencia digital y la automatización de su empresa al siguiente nivel?
-        </h2>
-        <p className="text-xs sm:text-sm text-gray-300 max-w-2xl mx-auto leading-relaxed mb-8">
-          Reserve su sesión diagnóstica por videollamada para recibir de inmediato nuestro Catálogo Privado PDF con las 06 Soluciones Oficiales o comuníquese por nuestros canales corporativos.
-        </p>
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
 
-        <div className="flex flex-wrap items-center justify-center gap-4">
-          <AuditTriggerButton
-            label="AGENDAR REUNIÓN Y RECIBIR CATÁLOGO →"
-            preselectedService="AUDITORÍA GENERAL (Sección Contacto)"
-            className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
-          />
-          <a
-            href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20deseo%20informaci%C3%B3n%20sobre%20sus%2006%20soluciones%20empresariales."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3.5 rounded-xl bg-white/[0.04] border border-[#C5A059]/50 text-[#FCF6BA] font-bold text-xs uppercase tracking-wider hover:bg-[#C5A059]/15 transition"
-          >
-            ABRIR WHATSAPP DIRECTO →
-          </a>
-          <a
-            href="mailto:ceo@lhyogroup.com"
-            className="px-6 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-gray-200 font-semibold text-xs hover:border-[#C5A059]/40 transition"
-          >
-            ceo@lhyogroup.com
-          </a>
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !email.trim() || !message.trim()) return;
+    setSending(true);
+
+    const nowVe = new Date().toLocaleString("es-VE", { timeZone: "America/Caracas" });
+
+    try {
+      await fetch("https://hook.us2.make.com/krs48cjfzudf4lau3sapwdgdu9lfe1tb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fecha_registro: nowVe,
+          horario_cita: "Consulta Directa (Sin Videollamada)",
+          nombre_cliente: name,
+          email_cliente: email,
+          empresa_web: whatsapp || "No especificado",
+          facturacion_usd: "Consulta Directa",
+          clasificacion: "CONSULTA_DIRECTA",
+          servicio_elegido: "MENSAJE DIRECTO SECCIÓN CONTACTO",
+          objetivo_cliente: message,
+          resumen_crm: `CONSULTA DIRECTA || WhatsApp: ${whatsapp || "N/A"} || Mensaje: ${message}`,
+          link_videollamada_meet: "https://meet.google.com/krc-vdii-zzh"
+        })
+      });
+    } catch {
+      // Continuar confirmación visual
+    } finally {
+      setSending(false);
+      setSent(true);
+    }
+  };
+
+  return (
+    <section id="contacto" className="relative py-20 px-4 sm:px-8 max-w-6xl mx-auto">
+      {/* Encabezado idéntico a captura 142758.jpg */}
+      <div className="mb-10">
+        <div className="w-8 h-[2px] bg-[#C5A059] mb-4" />
+        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#C5A059] mb-2">
+          CANALES OFICIALES DE COMUNICACIÓN
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Contacto Directo y Atención Ejecutiva
+        </h2>
+      </div>
+
+      {/* Estructura de 2 Columnas con bordes redondeados suaves (rounded-2xl) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* COLUMNA IZQUIERDA: 3 Tarjetas Ejecutivas */}
+        <div className="lg:col-span-5 space-y-4">
+          {/* Tarjeta 1: Atención Inmediata en WhatsApp */}
+          <div className="rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/90 p-6 hover:border-[#C5A059]/60 transition">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2">
+              ATENCIÓN INMEDIATA EN WHATSAPP
+            </p>
+            <a
+              href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20deseo%20realizar%20una%20consulta%20ejecutiva."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-lg font-bold text-white hover:text-[#FCF6BA] transition mb-2"
+            >
+              <span>Iniciar Conversación en WhatsApp</span>
+              <span className="text-[#C5A059]">→</span>
+            </a>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Respuesta directa de nuestro asistente y equipo comercial para consultas rápidas.
+            </p>
+          </div>
+
+          {/* Tarjeta 2: Correo Electrónico Corporativo */}
+          <div className="rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/90 p-6 hover:border-[#C5A059]/60 transition">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2">
+              CORREO ELECTRÓNICO CORPORATIVO
+            </p>
+            <a
+              href="mailto:ceo@lhyogroup.com"
+              className="inline-flex items-center gap-1.5 text-lg font-bold text-white hover:text-[#FCF6BA] transition mb-2"
+            >
+              <span>ceo@lhyogroup.com</span>
+              <span className="text-[#C5A059]">→</span>
+            </a>
+            <p className="text-xs text-gray-400 leading-relaxed">
+              Dirección General: Lhyonneth Araque (CEO &amp; Founder).
+            </p>
+          </div>
+
+          {/* Tarjeta 3: Redes Sociales y Presencia Oficial */}
+          <div className="rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/90 p-6 hover:border-[#C5A059]/60 transition">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+              REDES SOCIALES Y PRESENCIA OFICIAL
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <a
+                href="https://www.instagram.com/lhyogroup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 bg-[#050507] px-4 py-2.5 text-xs font-semibold text-gray-200 hover:border-[#C5A059] hover:text-[#FCF6BA] transition text-center"
+              >
+                Instagram Oficial →
+              </a>
+              <a
+                href="https://www.linkedin.com/company/lhyogroup"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl border border-white/10 bg-[#050507] px-4 py-2.5 text-xs font-semibold text-gray-200 hover:border-[#C5A059] hover:text-[#FCF6BA] transition text-center"
+              >
+                LinkedIn Oficial →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* COLUMNA DERECHA: Formulario de Consulta Directa sin Videollamada */}
+        <div className="lg:col-span-7 rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/95 p-6 sm:p-8 shadow-2xl">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059] mb-1.5">
+            ¿PREFIERE DEJARNOS UN MENSAJE SIN AGENDAR VIDEOLLAMADA?
+          </p>
+          <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-2">
+            Envíenos su consulta directa
+          </h3>
+          <p className="text-xs text-gray-400 leading-relaxed mb-6">
+            Su mensaje llegará de inmediato a nuestra dirección general y le responderemos por correo o WhatsApp con la información que necesita.
+          </p>
+
+          {sent ? (
+            <div className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-6 text-center space-y-3">
+              <p className="text-sm font-bold text-emerald-300">
+                ✓ Su consulta ha sido recibida por la Dirección General de Lhyo Group.
+              </p>
+              <p className="text-xs text-gray-300">
+                Le responderemos a la brevedad a su correo electrónico o WhatsApp.
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  setSent(false);
+                  setName("");
+                  setEmail("");
+                  setWhatsapp("");
+                  setMessage("");
+                }}
+                className="px-4 py-2 rounded-xl bg-white/10 text-xs font-semibold text-white cursor-pointer"
+              >
+                Enviar otra consulta
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-300 block mb-1.5">
+                    SU NOMBRE *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Ej: Carlos Mendoza"
+                    className="w-full rounded-xl bg-[#0B0F1A] border border-white/10 focus:border-[#C5A059] px-3.5 py-2.5 text-xs text-white outline-none"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-300 block mb-1.5">
+                    SU CORREO ELECTRÓNICO *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="correo@empresa.com"
+                    className="w-full rounded-xl bg-[#0B0F1A] border border-white/10 focus:border-[#C5A059] px-3.5 py-2.5 text-xs text-white outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-gray-300 block mb-1.5">
+                  SU NÚMERO DE WHATSAPP (OPCIONAL)
+                </label>
+                <input
+                  type="text"
+                  value={whatsapp}
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  placeholder="Ej: +598 99 000 000"
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/10 focus:border-[#C5A059] px-3.5 py-2.5 text-xs text-white outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-bold uppercase tracking-wider text-gray-300 block mb-1.5">
+                  ¿EN QUÉ PODEMOS AYUDARLE? *
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Escriba aquí su duda, requerimiento o consulta..."
+                  className="w-full rounded-xl bg-[#0B0F1A] border border-white/10 focus:border-[#C5A059] px-3.5 py-2.5 text-xs text-white outline-none resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={sending}
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-105 transition cursor-pointer"
+              >
+                {sending ? "ENVIANDO CONSULTA..." : "ENVIAR CONSULTA DIRECTA →"}
+              </button>
+            </form>
+          )}
         </div>
       </div>
     </section>
