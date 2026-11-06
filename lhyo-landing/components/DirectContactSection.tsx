@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function DirectContactSection() {
+export function DirectContactSection() {
   const [contactName, setContactName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
@@ -190,3 +190,4 @@ export default function DirectContactSection() {
     </section>
   );
 }
+export default DirectContactSection;

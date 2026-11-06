@@ -5,7 +5,7 @@ const INITIAL_GREETING: ChatMsg = {
   sender: "bot",
   text: "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPuede escribirme o tocar el micrófono para hablarme con total libertad: ¿con quién tengo el gusto y qué le gustaría consultar, crear o automatizar hoy?"
 };
-export default function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: string) => void }) {
+export function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (plan: string) => void }) {
   const [chatOpen, setChatOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([INITIAL_GREETING]);
   const [inputMsg, setInputMsg] = useState("");
@@ -102,7 +102,7 @@ export default function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (p
                 )}
               </div>
             ))}
-            {loading && <div className="text-[11px] text-[#FCF6BA] italic animate-pulse">Analizando y redactando respuesta...</div>}
+            {loading && <div className="text-[11px] text-[#FCF6BA] italic animate-pulse">Analizando...</div>}
           </div>
           {micNote && <div className="px-4 py-1.5 bg-[#12100B] border-t border-[#C5A059]/30 text-[10px] text-[#FCF6BA]">🎙️ {micNote}</div>}
           {sessionBlocked ? (
@@ -137,3 +137,4 @@ export default function FloatingOmniDock({ onOpenBooking }: { onOpenBooking?: (p
     </div>
   );
 }
+export default FloatingOmniDock;

@@ -244,9 +244,7 @@ export default function CollapsibleMasterSections() {
         </main>
       )}
 
-      {activeTab === "contacto" && (
-        <DirectContactSection preselectedService={preselectedInterest} />
-      )}
+      {activeTab === "contacto" && <DirectContactSection />}
     </div>
   );
 }

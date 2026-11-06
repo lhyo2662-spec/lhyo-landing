@@ -1,7 +1,18 @@
 import { NextResponse } from "next/server";
 export const runtime = "edge";
 
-const SEVERE_BLOCK_REGEX = /(porno|porn|xxx|sexo|sexual|desnud|prostit|onlyfans|erotic|webcam|matar|asesinar|suicid|bomba|terroris|sicario|violacion|pedofil|hackear\s+banco|clonar\s+tarjeta|cocaina|marihuana|droga|narco|mierda|malparid|hijueputa|puta|puto|verga|coño|marico|pendejo|imbecil|pene|vagina|tetas|culo)/i;
+const SEVERE_BLOCK_REGEX = /(porno|porn|xxx|sexo|sexual|desnud|prostit|onlyfans|erotic|hentai|webcam|masturb|orgasmo|foll|burdel|escort|pene|vagina|tetas|culo|matar|asesinar|suicid|bomba|terroris|sicario|violacion|violar|pedofil|secuestr|extorsion|pistola|fusil|explosiv|cocaina|marihuana|heroina|fentanilo|droga|narco|hackear|phishing|clonar\s+tarjeta|robar|estafar|mierda|malparid|hijueputa|hdp|puta|puto|verga|coño|marico|maricon|pendejo|imbecil|idiota|estupido|maldito|cabron|mamaguevo|mamahuevo|gonorrea)/i;
+
+function isGibberishOrFlood(text: string, history: any[]) {
+  const clean = String(text || "").trim();
+  if (/(.)\1{6,}/i.test(clean)) return true;
+  if (/^[bcdfghjklmnpqrstvwxyz]{7,}$/i.test(clean.replace(/\s+/g, ""))) return true;
+  const userMsgs = (history || []).filter((m) => m.sender === "user").map((m) => String(m.text || "").toLowerCase().trim());
+  if (userMsgs.length >= 2 && userMsgs[userMsgs.length - 1] === clean.toLowerCase() && userMsgs[userMsgs.length - 2] === clean.toLowerCase()) {
+    return true;
+  }
+  return false;
+}
 
 function pickStrictlyUnique(candidates: string[], history: any[]) {
   const previousBotMessages = (history || [])
@@ -9,16 +20,27 @@ function pickStrictlyUnique(candidates: string[], history: any[]) {
     .map((m) => String(m.text || "").toLowerCase().trim());
   for (const candidate of candidates) {
     const clean = candidate.replace(/\[MOSTRAR_BOTON_AGENDA\]/g, "").trim();
-    const signature = clean.toLowerCase().slice(0, 42);
-    const alreadyUsed = previousBotMessages.some(
-      (prev) => prev.includes(signature) || prev === clean.toLowerCase()
-    );
+    const sig = clean.toLowerCase().slice(0, 42);
+    const alreadyUsed = previousBotMessages.some((prev) => prev.includes(sig) || prev === clean.toLowerCase());
     if (!alreadyUsed) return candidate;
   }
   return null;
 }
 
-const UNIVERSAL_EXECUTIVE_BRIDGES = ["En el mundo actual cada segundo cuenta: mientras otros se distraen, las empresas líderes tienen sistemas trabajando por ellas día y noche. En Lhyo Group instalamos Plataformas Web de alto prestigio y Asistentes IA 24/7 que atienden clientes y agendan citas en automático. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]","Conectando lo que me comenta con el crecimiento empresarial: el 78% de las ventas se las lleva la primera empresa que responde con claridad y rapidez. En Lhyo Group automatizamos su WhatsApp, su Instagram y su página web para que su negocio atienda en menos de 1 segundo las 24 horas. ¿En qué sector opera su empresa? [MOSTRAR_BOTON_AGENDA]","Hoy la verdadera libertad para un dueño de negocio es contar con tecnología propia que funcione sin depender de su presencia manual. En Lhyo Group unificamos su presencia web, su atención al cliente 24/7 y su registro de ventas (CRM) en un solo ecosistema. ¿Qué área de su empresa desea impulsar primero? [MOSTRAR_BOTON_AGENDA]","Toda gran idea necesita una estructura sólida para transformarse en resultados: en Lhyo Group construimos desde Catálogos Web Interactivos (Solución 02) hasta Inteligencia Artificial entrenada con la memoria de su empresa (Solución 05). ¿Cuál de nuestras 06 Soluciones se adapta mejor a su proyecto actual? [MOSTRAR_BOTON_AGENDA]","Cuando una empresa automatiza sus procesos repetitivos, multiplica su rentabilidad y recupera horas valiosas cada semana. En Lhyo Group diseñamos su propia Plataforma Empresarial Todo-en-Uno (Solución 06) con su marca y su logo. ¿Le gustaría recibir nuestro Catálogo Privado PDF? [MOSTRAR_BOTON_AGENDA]","La diferencia entre un negocio estancado y uno en expansión está en cómo recibe y organiza a sus clientes: con nuestro CRM Automático (Solución 03) y nuestros Asistentes 24/7 (Solución 01), cada prospecto queda clasificado al instante sin anotar nada a mano. ¿Cómo manejan hoy la atención al cliente en su negocio? [MOSTRAR_BOTON_AGENDA]","Más allá de cualquier conversación cotidiana, mi función ejecutiva en Lhyo Group es mostrarle cómo llevar su empresa al siguiente nivel tecnológico en solo 10 días de implementación llave en mano. ¿Desea agendar una breve videollamada de 15 minutos con nuestro CEO? [MOSTRAR_BOTON_AGENDA]","Piense en esto: mientras usted conversa conmigo en este chat, un sistema idéntico a este podría estar instalado en el WhatsApp, Instagram y Sitio Web de su empresa cerrando citas y atendiendo clientes en automático. ¿Para qué tipo de negocio le gustaría implementarlo? [MOSTRAR_BOTON_AGENDA]","Las empresas más admiradas proyectan autoridad desde el primer clic: en Lhyo Group combinamos ingeniería de lujo y automatización 24/7 para que su marca destaque por encima de toda su competencia. ¿Tiene actualmente página web o busca crear una desde cero? [MOSTRAR_BOTON_AGENDA]","En Lhyo Group eliminamos los pagos mensuales excesivos instalando tecnología propia (Solución 04): su empresa se vuelve dueña absoluta de su motor de automatización sin límites de mensajes ni recargos por volumen. ¿En qué región opera actualmente su negocio? [MOSTRAR_BOTON_AGENDA]"];
+const UNIVERSAL_EXECUTIVE_BRIDGES = [
+  "En el mundo actual cada segundo cuenta: mientras otros se distraen, las empresas líderes tienen sistemas trabajando por ellas día y noche. En Lhyo Group instalamos Plataformas Web de alto prestigio y Asistentes IA 24/7 que atienden clientes y agendan citas en automático. ¿A qué se dedica su negocio? [MOSTRAR_BOTON_AGENDA]",
+  "Conectando lo que me comenta con el crecimiento empresarial: el 78% de las ventas se las lleva la primera empresa que responde con claridad y rapidez. En Lhyo Group automatizamos su WhatsApp, su Instagram y su página web para que su negocio atienda en menos de 1 segundo las 24 horas. ¿En qué sector opera su empresa? [MOSTRAR_BOTON_AGENDA]",
+  "Hoy la verdadera libertad para un dueño de negocio es contar con tecnología propia que funcione sin depender de su presencia manual. En Lhyo Group unificamos su presencia web, su atención al cliente 24/7 y su registro de ventas (CRM) en un solo ecosistema. ¿Qué área de su empresa desea impulsar primero? [MOSTRAR_BOTON_AGENDA]",
+  "Toda gran decisión necesita una estructura sólida para transformarse en resultados: en Lhyo Group construimos desde Catálogos Web Interactivos (Solución 02) hasta Inteligencia Artificial entrenada con la memoria de su empresa (Solución 05). ¿Cuál de nuestras 06 Soluciones se adapta mejor a su proyecto actual? [MOSTRAR_BOTON_AGENDA]",
+  "Cuando una empresa automatiza sus procesos repetitivos, multiplica su rentabilidad y recupera horas valiosas cada semana. En Lhyo Group diseñamos su propia Plataforma Empresarial Todo-en-Uno (Solución 06) con su marca y su logo. ¿Le gustaría recibir nuestro Catálogo Privado PDF? [MOSTRAR_BOTON_AGENDA]",
+  "La diferencia entre un negocio estancado y uno en expansión está en cómo recibe y organiza a sus clientes: con nuestro CRM Automático (Solución 03) y nuestros Asistentes 24/7 (Solución 01), cada prospecto queda clasificado al instante sin anotar nada a mano. ¿Cómo manejan hoy la atención al cliente en su negocio? [MOSTRAR_BOTON_AGENDA]",
+  "Más allá de cualquier conversación cotidiana, mi función ejecutiva en Lhyo Group es mostrarle cómo llevar su empresa al siguiente nivel tecnológico en solo 10 días de implementación llave en mano. ¿Desea agendar una breve videollamada de 15 minutos con nuestro CEO? [MOSTRAR_BOTON_AGENDA]",
+  "Piense en esto: mientras usted conversa conmigo en este chat, un sistema idéntico a este podría estar instalado en el WhatsApp, Instagram y Sitio Web de su empresa cerrando citas y atendiendo clientes en automático. ¿Para qué tipo de negocio le gustaría implementarlo? [MOSTRAR_BOTON_AGENDA]",
+  "Las empresas más admiradas proyectan autoridad desde el primer clic: en Lhyo Group combinamos ingeniería de lujo y automatización 24/7 para que su marca destaque por encima de toda su competencia. ¿Tiene actualmente página web o busca crear una desde cero? [MOSTRAR_BOTON_AGENDA]",
+  "En Lhyo Group eliminamos los pagos mensuales excesivos instalando tecnología propia (Solución 04): su empresa se vuelve dueña absoluta de su motor de automatización sin límites de mensajes ni recargos por volumen. ¿En qué región opera actualmente su negocio? [MOSTRAR_BOTON_AGENDA]",
+  "Cada cliente que visita su negocio espera atención inmediata y de alto nivel: por eso en Lhyo Group integramos diseño web corporativo, inteligencia artificial 24/7 y organización automática de ventas en un solo lugar. ¿Qué objetivo comercial busca alcanzar este mes? [MOSTRAR_BOTON_AGENDA]",
+  "El activo más valioso de un directivo es su tiempo: nuestros sistemas toman el control de las consultas repetitivas, califican a los interesados y agendan reuniones listas para cerrar. ¿Le gustaría ver una demostración aplicada a su empresa? [MOSTRAR_BOTON_AGENDA]"
+];
 
 function contextualBrain(message: string, history: any[]) {
   const clean = String(message || "").trim();
@@ -121,7 +143,7 @@ function contextualBrain(message: string, history: any[]) {
   if (uniqueBridge) return uniqueBridge;
 
   const turnNum = (history || []).filter((m) => m.sender === "user").length + 1;
-  return `En este punto de nuestra conversación (mensaje #${turnNum}), la mejor forma de mostrarle el poder real de Lhyo Group es aplicarlo directamente a su negocio con una demostración personalizada de nuestras 06 Soluciones. Toque el botón dorado inferior para agendar su sesión de 15 minutos y recibir nuestro Catálogo Privado PDF. [MOSTRAR_BOTON_AGENDA]`;
+  return `En este punto de nuestra conversación (consulta #${turnNum}), la mejor manera de comprobar el impacto de Lhyo Group es verlo aplicado directamente a su empresa. Toque el botón dorado inferior para elegir su horario de videollamada ejecutiva y recibir nuestro Catálogo Privado PDF. [MOSTRAR_BOTON_AGENDA]`;
 }
 
 export async function POST(req: Request) {
@@ -129,13 +151,15 @@ export async function POST(req: Request) {
     const body = await req.json();
     const message = String(body.message || "").trim();
     const history = Array.isArray(body.history) ? body.history : [];
-    if (SEVERE_BLOCK_REGEX.test(message)) {
+
+    if (SEVERE_BLOCK_REGEX.test(message) || isGibberishOrFlood(message, history)) {
       return NextResponse.json({
-        reply: "Protocolo de Seguridad Lhyo Group: Esta infraestructura cognitiva está destinada exclusivamente a consultoría tecnológica y sistemas empresariales. No procesamos contenido adulto, ilegal, violento ni lenguaje inapropiado. Esta sesión ha sido bloqueada permanentemente.",
+        reply: "Protocolo de Seguridad Lhyo Group: Esta infraestructura cognitiva está destinada exclusivamente a consultoría tecnológica y sistemas empresariales. No procesamos contenido adulto, ilegal, violento, spam ni lenguaje inapropiado. Esta sesión ha sido bloqueada permanentemente.",
         blocked: true,
         showBooking: false
       });
     }
+
     const aiReply = contextualBrain(message, history);
     const isBlocked = aiReply.includes("[BLOQUEAR_SESION]");
     const showBooking = aiReply.includes("[MOSTRAR_BOTON_AGENDA]") || /(precio|costo|cotiz|agend|reuni|cita|catalogo|catálogo|valor|clinica|clínica)/i.test(message);
