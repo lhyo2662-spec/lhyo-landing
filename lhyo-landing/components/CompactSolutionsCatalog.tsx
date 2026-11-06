@@ -281,3 +281,4 @@ export default function CompactSolutionsCatalog({ onSelectSolution }: Props) {
   );
 }
 
+

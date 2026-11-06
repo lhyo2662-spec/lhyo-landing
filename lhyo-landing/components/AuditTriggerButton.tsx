@@ -15,48 +15,76 @@ const OFFICIAL_06_SOLUTIONS = [
     code: "SOLUCIÓN 01 · ATENCIÓN INMEDIATA 24/7",
     title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
     summary:
-      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático."
+      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático.",
+    deliverable:
+      "Entregable Ejecutivo: Agente IA entrenado con las reglas de su negocio conectado a su WhatsApp Business e Instagram con agendamiento directo.",
+    impact: "✦ Respuesta en < 1s las 24 horas · 0 clientes perdidos por demora"
   },
   {
     id: "02",
     code: "SOLUCIÓN 02 · PRESENCIA DE ALTO PRESTIGIO",
     title: "Plataformas Web Modernas y Catálogos Interactivos",
     summary:
-      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente."
+      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente.",
+    deliverable:
+      "Entregable Ejecutivo: Sitio web de lujo a medida con catálogo interactivo, optimización en Google (SEO) y embudo de conversión directo.",
+    impact: "✦ Carga en < 0.8 segundos · Imagen de liderazgo inmediato"
   },
   {
     id: "03",
     code: "SOLUCIÓN 03 · CONTROL COMERCIAL TOTAL",
     title: "Organización Automática de Clientes y Ventas (CRM)",
     summary:
-      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano."
+      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano.",
+    deliverable:
+      "Entregable Ejecutivo: Base de datos ejecutiva automatizada con clasificación inteligente de prospectos y alertas en tiempo real.",
+    impact: "✦ 100% de trazabilidad comercial · Cero carga manual"
   },
   {
     id: "04",
     code: "SOLUCIÓN 04 · INDEPENDENCIA SIN LÍMITES",
     title: "Automatización Total de Procesos con Tecnología Propia",
     summary:
-      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen."
+      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen.",
+    deliverable:
+      "Entregable Ejecutivo: Motor central de automatización soberana que enlaza facturación, correos, calendario y atención al cliente.",
+    impact: "✦ $0 en cobros externos por uso · Capacidad ilimitada"
   },
   {
     id: "05",
     code: "SOLUCIÓN 05 · CEREBRO PRIVADO EMPRESARIAL",
     title: "IA Personalizada con la Memoria de su Empresa",
     summary:
-      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo."
+      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo.",
+    deliverable:
+      "Entregable Ejecutivo: Núcleo cognitivo privado alimentado con sus PDFs, tarifarios, inventario y manuales operativos.",
+    impact: "✦ Precisión absoluta · Privacidad corporativa garantizada"
   },
   {
     id: "06",
     code: "SOLUCIÓN 06 · TODA SU EMPRESA EN 1 PANTALLA",
     title: "Su Propia Plataforma Empresarial Todo-en-Uno",
     summary:
-      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa."
+      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa.",
+    deliverable:
+      "Entregable Ejecutivo: Ecosistema centralizado con el nombre y logo de su empresa para dirigir toda su operación desde un solo lugar.",
+    impact: "✦ Control ejecutivo 360° · Su propio software corporativo"
   }
 ];
 
+const PACKAGE_ALL_IN_ONE_META = {
+  id: "ALL",
+  code: "★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO",
+  title: "Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)",
+  summary:
+    "Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.",
+  deliverable:
+    "Entregable Ejecutivo Completo: Despliegue llave en mano de las 06 Soluciones Oficiales (Web de Lujo + Asistentes 24/7 WA/IG + CRM + Automatización Propia + Cerebro IA + Panel Todo-en-Uno).",
+  impact: "✦ Prioridad Ejecutiva · Transformación digital completa en 10 días"
+};
+
 const ALL_TIME_SLOTS = ["09:30 AM", "11:00 AM", "01:00 PM", "03:00 PM", "04:30 PM", "06:00 PM"];
 
-// Matriz de Escasez Ejecutiva: Muestra alta demanda real del CEO con turnos distintos pre-reservados por día
 const BASE_OCCUPIED_BY_DATE: Record<string, string[]> = {
   "06 de Noviembre, 2026": ["09:30 AM", "01:00 PM"],
   "07 de Noviembre, 2026": ["11:00 AM", "04:30 PM"],
@@ -77,6 +105,7 @@ export default function AuditTriggerButton({
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<"form" | "confirmed" | "dossier">("form");
   const [submitting, setSubmitting] = useState(false);
+  const [activeDossierCard, setActiveDossierCard] = useState<string>("01");
 
   const [selectedDate, setSelectedDate] = useState(AVAILABLE_DATES[0]);
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
@@ -91,7 +120,7 @@ export default function AuditTriggerButton({
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = localStorage.getItem("lhyo_booked_slots_v39");
+      const saved = localStorage.getItem("lhyo_booked_slots_v40");
       if (saved) setCustomBooked(JSON.parse(saved));
     } catch {
       // Ignorar errores de storage
@@ -130,7 +159,7 @@ export default function AuditTriggerButton({
     };
     setCustomBooked(updatedBooked);
     try {
-      localStorage.setItem("lhyo_booked_slots_v39", JSON.stringify(updatedBooked));
+      localStorage.setItem("lhyo_booked_slots_v40", JSON.stringify(updatedBooked));
     } catch {
       // Ignorar
     }
@@ -166,10 +195,13 @@ export default function AuditTriggerButton({
   };
 
   const occupiedNow = getOccupiedForDate(selectedDate);
+  const selectedSolutionObj =
+    activeDossierCard === "ALL"
+      ? PACKAGE_ALL_IN_ONE_META
+      : OFFICIAL_06_SOLUTIONS.find((s) => s.id === activeDossierCard) || OFFICIAL_06_SOLUTIONS[0];
 
   const modalContent = open ? (
     <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4 overflow-y-auto">
-      {/* PASO 1: AGENDA EJECUTIVA 100% VISIBLE EN PANTALLA SIN HACER SCROLL */}
       {step === "form" && (
         <div className="w-full max-w-[760px] rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-[0_25px_90px_rgba(0,0,0,0.98)] overflow-hidden my-auto">
           <div className="px-5 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
@@ -349,7 +381,6 @@ export default function AuditTriggerButton({
         </div>
       )}
 
-      {/* PASO 2: CONFIRMACIÓN EJECUTIVA */}
       {step === "confirmed" && (
         <div className="w-full max-w-[680px] rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-2xl overflow-hidden text-center my-auto">
           <div className="px-5 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
@@ -426,10 +457,9 @@ export default function AuditTriggerButton({
         </div>
       )}
 
-      {/* PASO 3: DOSSIER CORPORATIVO PDF (BARRA SUPERIOR 100% VISIBLE + CUADRÍCULA 3X2 SIMÉTRICA SIN CORTES) */}
+      {/* PASO 3: DOSSIER CORPORATIVO INTERACTIVO (CON EL MISMO EFECTO DORADO DE LAS PESTAÑAS DE GARANTÍA) */}
       {step === "dossier" && (
         <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/75 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
-          {/* BARRA SUPERIOR FIJA CON VOLVER ATRÁS, TÍTULO, DESCARGAR PDF Y BOTÓN CERRAR ✕ */}
           <div className="px-5 py-2.5 bg-[#080B14] border-b border-[#C5A059]/35 flex flex-wrap items-center justify-between gap-2">
             <button
               type="button"
@@ -473,8 +503,8 @@ export default function AuditTriggerButton({
               </svg>
             </div>
 
-            <div className="relative z-10 space-y-3">
-              {/* Ficha de Datos del Cliente + Tarjeta Paquete Todo Incluido */}
+            <div className="relative z-10 space-y-2.5">
+              {/* Fila Superior: Ficha del Cliente + Tarjeta Interactiva Paquete Completo Todo Incluido */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
                 <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/95 px-4 py-2.5 flex flex-col justify-center text-xs space-y-1">
                   <div>
@@ -490,46 +520,113 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                <div className="lg:col-span-7 rounded-xl border border-[#C5A059]/55 bg-[#090E1C]/95 px-4 py-2.5 flex items-center justify-between gap-3">
+                <div
+                  onClick={() => setActiveDossierCard("ALL")}
+                  className={`lg:col-span-7 rounded-xl px-4 py-2.5 flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 ${
+                    activeDossierCard === "ALL"
+                      ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border border-[#FCF6BA] shadow-[0_10px_35px_rgba(197,160,89,0.35)]"
+                      : "border border-[#C5A059]/55 bg-[#090E1C]/95 hover:border-[#C5A059] hover:-translate-y-0.5"
+                  }`}
+                >
                   <div>
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-[#FCF6BA] block">
-                      ★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO
+                    <span
+                      className={`text-[9px] font-bold uppercase tracking-widest block ${
+                        activeDossierCard === "ALL" ? "text-[#050507]/80" : "text-[#FCF6BA]"
+                      }`}
+                    >
+                      ★ ARQUITECTURA INTEGRAL CORPORATIVA · TOQUE PARA INSPECCIONAR
                     </span>
-                    <h5 className="text-xs sm:text-sm font-extrabold text-white">
+                    <h5
+                      className={`text-xs sm:text-sm font-extrabold ${
+                        activeDossierCard === "ALL" ? "text-[#050507]" : "text-white"
+                      }`}
+                    >
                       Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)
                     </h5>
-                    <p className="text-[11px] text-gray-300">
+                    <p
+                      className={`text-[11px] ${
+                        activeDossierCard === "ALL" ? "text-[#050507]/90 font-medium" : "text-gray-300"
+                      }`}
+                    >
                       Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.
                     </p>
                   </div>
-                  <span className="px-3 py-1 rounded-full text-[9px] font-bold uppercase border border-[#C5A059] text-[#FCF6BA] shrink-0">
+                  <span
+                    className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase shrink-0 ${
+                      activeDossierCard === "ALL"
+                        ? "bg-[#050507] text-[#FCF6BA]"
+                        : "border border-[#C5A059] text-[#FCF6BA]"
+                    }`}
+                  >
                     PRIORIDAD EJECUTIVA
                   </span>
                 </div>
               </div>
 
-              {/* Cuadrícula Simétrica 3x2 de Igual Altura para las 06 Soluciones Oficiales */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
-                {OFFICIAL_06_SOLUTIONS.map((sol) => (
-                  <div
-                    key={sol.id}
-                    className="rounded-xl border border-white/10 bg-[#080B14]/95 p-3.5 flex flex-col justify-between hover:border-[#C5A059]/45 transition"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[#C5A059] mb-1">
-                        <span>{sol.code}</span>
-                        <span className="text-white text-xs font-black">{sol.id}</span>
+              {/* Cuadrícula Interactiva 3x2 con el Efecto de Pestañas de Garantía */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 items-stretch">
+                {OFFICIAL_06_SOLUTIONS.map((sol) => {
+                  const isActive = activeDossierCard === sol.id;
+                  return (
+                    <div
+                      key={sol.id}
+                      onClick={() => setActiveDossierCard(sol.id)}
+                      className={`rounded-xl p-3 flex flex-col justify-between cursor-pointer transition-all duration-300 ${
+                        isActive
+                          ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] border border-[#FCF6BA] shadow-[0_12px_35px_rgba(197,160,89,0.32)] -translate-y-0.5"
+                          : "border border-white/10 bg-[#080B14]/95 hover:border-[#C5A059]/65 hover:-translate-y-0.5"
+                      }`}
+                    >
+                      <div>
+                        <div
+                          className={`w-6 h-[2px] mb-1.5 ${
+                            isActive ? "bg-[#050507]" : "bg-[#C5A059]"
+                          }`}
+                        />
+                        <div
+                          className={`flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mb-1 ${
+                            isActive ? "text-[#050507]/80" : "text-[#C5A059]"
+                          }`}
+                        >
+                          <span>{sol.code}</span>
+                          <span className={`text-xs font-black ${isActive ? "text-[#050507]" : "text-white"}`}>
+                            {sol.id}
+                          </span>
+                        </div>
+                        <h6
+                          className={`text-xs font-extrabold leading-snug mb-1 ${
+                            isActive ? "text-[#050507]" : "text-white"
+                          }`}
+                        >
+                          {sol.title}
+                        </h6>
+                        <p
+                          className={`text-[11px] leading-relaxed ${
+                            isActive ? "text-[#050507]/90 font-medium" : "text-gray-300"
+                          }`}
+                        >
+                          {sol.summary}
+                        </p>
                       </div>
-                      <h6 className="text-xs font-extrabold text-white leading-snug mb-1.5">
-                        {sol.title}
-                      </h6>
-                      <p className="text-[11px] text-gray-300 leading-relaxed">{sol.summary}</p>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
-              <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
+              {/* Barra Dinámica Inferior de Detalle Ejecutivo (Idéntica al bloque desplegable de Garantía) */}
+              <div className="rounded-xl border border-[#C5A059]/45 bg-[#080B14]/95 px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="space-y-0.5">
+                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FCF6BA] block">
+                    {selectedSolutionObj.code} — {selectedSolutionObj.title}
+                  </span>
+                  <p className="text-[11px] text-gray-200">{selectedSolutionObj.deliverable}</p>
+                </div>
+                <span className="text-[10px] font-bold text-emerald-400 shrink-0">
+                  {selectedSolutionObj.impact}
+                </span>
+              </div>
+
+              <div className="pt-1 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">
                 <span>LHYO GROUP · www.lhyogroup.com · ceo@lhyogroup.com</span>
                 <span className="text-[#FCF6BA] font-semibold">
                   Sala Ejecutiva Google Meet: https://meet.google.com/krc-vdii-zzh

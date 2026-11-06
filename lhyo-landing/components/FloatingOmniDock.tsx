@@ -196,7 +196,8 @@ export default function FloatingOmniDock() {
 
           <div
             ref={scrollRef}
-            className="p-4 space-y-3 max-h-[320px] overflow-y-auto bg-[#050507]"
+            style={{ scrollbarWidth: "thin", scrollbarColor: "#C5A059 #050507" }}
+            className="p-4 space-y-3 max-h-[320px] overflow-y-auto bg-[#050507] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#050507] [&::-webkit-scrollbar-thumb]:bg-[#C5A059]/60 [&::-webkit-scrollbar-thumb]:rounded-full"
           >
             {messages.map((m, i) => (
               <div

@@ -44,8 +44,7 @@ export default function DirectContactSection() {
   };
 
   return (
-    <section id="contacto" className="relative max-w-6xl mx-auto px-6 pt-10 pb-14">
-      {/* Misma medida superior (pt-10) y mismo ancho (max-w-6xl) que SOLUCIONES y GARANTÍA */}
+    <section id="contacto" className="relative max-w-5xl mx-auto px-6 pt-12 pb-14">
       <div className="border-b border-white/10 pb-4 mb-6">
         <div className="w-8 h-[2px] bg-[#C5A059] mb-2.5" />
         <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-[#C5A059] mb-1">
@@ -56,9 +55,7 @@ export default function DirectContactSection() {
         </h2>
       </div>
 
-      {/* Cuadrícula compacta y simétrica (max-w-6xl) con la misma proporción de Garantía */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-        {/* COLUMNA IZQUIERDA: 3 Tarjetas alineadas al milímetro con la altura del formulario */}
         <div className="lg:col-span-5 flex flex-col justify-between gap-3.5">
           <div className="flex-1 rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/95 px-5 py-3.5 flex flex-col justify-center hover:border-[#C5A059]/60 transition">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-1">
@@ -122,7 +119,6 @@ export default function DirectContactSection() {
           </div>
         </div>
 
-        {/* COLUMNA DERECHA: Formulario Compacto alineado al mismo borde izquierdo/derecho que Garantía */}
         <div className="lg:col-span-7 rounded-2xl border border-[#C5A059]/30 bg-[#080B12]/95 px-6 py-4 shadow-2xl flex flex-col justify-between">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-[#C5A059] mb-0.5">
