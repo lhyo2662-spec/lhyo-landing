@@ -15,76 +15,44 @@ const OFFICIAL_06_SOLUTIONS = [
     code: "SOLUCIÓN 01 · ATENCIÓN INMEDIATA 24/7",
     title: "Asistentes Inteligentes para WhatsApp e Instagram (24/7)",
     summary:
-      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 01 — CERO CLIENTES PERDIDOS POR DEMORA",
-    impactDetail:
-      "Entrenamos e instalamos su Asistente IA 24/7 en WhatsApp e Instagram para calificar prospectos en tiempo real, responder objeciones como un consultor experto y agendar citas directamente en su calendario sin intervención humana.",
-    metricBadge: "⚡ Respuesta < 0.8s · Atención 24/7"
+      "Atienden en menos de 1 segundo día y noche, resuelven dudas con la información de su empresa y agendan citas en automático."
   },
   {
     id: "02",
     code: "SOLUCIÓN 02 · PRESENCIA DE ALTO PRESTIGIO",
     title: "Plataformas Web Modernas y Catálogos Interactivos",
     summary:
-      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 02 — AUTORIDAD DIGITAL Y CONVERSIÓN INMEDIATA",
-    impactDetail:
-      "Sustituimos páginas lentas o genéricas por una plataforma de ingeniería de lujo con catálogos interactivos, cotizadores dinámicos y carga instantánea que multiplica la confianza de sus compradores B2B y B2C.",
-    metricBadge: "✦ Carga < 0.8s · Diseño de Élite"
+      "Desarrollamos plataformas corporativas ultrarrápidas (< 0.8s) con estética ejecutiva diseñadas para convertir cada visita en cliente."
   },
   {
     id: "03",
     code: "SOLUCIÓN 03 · CONTROL COMERCIAL TOTAL",
     title: "Organización Automática de Clientes y Ventas (CRM)",
     summary:
-      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 03 — TRAZABILIDAD COMERCIAL AUTOMATIZADA",
-    impactDetail:
-      "Cada cliente que interactúa con su empresa queda registrado automáticamente con su nombre, empresa, necesidad y nivel de presupuesto, eliminando el desorden de chats sueltos y las ventas olvidadas.",
-    metricBadge: "📊 100% Trazabilidad · 0 Carga Manual"
+      "Todo prospecto que escribe por WhatsApp, Instagram o su Web queda registrado y clasificado por prioridad sin anotar nada a mano."
   },
   {
     id: "04",
     code: "SOLUCIÓN 04 · INDEPENDENCIA SIN LÍMITES",
     title: "Automatización Total de Procesos con Tecnología Propia",
     summary:
-      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 04 — SOBERANÍA TECNOLÓGICA SIN COBROS POR USO",
-    impactDetail:
-      "Construimos la tubería invisible propia de su negocio para que sus cotizaciones, correos de confirmación, recordatorios y bases de datos trabajen solos las 24 horas sin depender de licencias caras que suben por volumen.",
-    metricBadge: "♾️ Capacidad Ilimitada · Propiedad 100%"
+      "Instalamos el motor automático propio de su empresa para conectar ventas, agenda y correos sin pagar tarifas mensuales por volumen."
   },
   {
     id: "05",
     code: "SOLUCIÓN 05 · CEREBRO PRIVADO EMPRESARIAL",
     title: "IA Personalizada con la Memoria de su Empresa",
     summary:
-      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 05 — INTELIGENCIA ENTRENADA CON SUS DOCUMENTOS",
-    impactDetail:
-      "Su propio núcleo de Inteligencia Artificial privado que conoce al milímetro sus manuales, tarifas, catálogo e historial operativo para asistir tanto a sus clientes como a su equipo directivo al instante.",
-    metricBadge: "🧠 100% Privado · Precisión Quirúrgica"
+      "Entrenamos un cerebro privado con sus contratos, precios y documentos internos para responder cualquier consulta en 1 segundo."
   },
   {
     id: "06",
     code: "SOLUCIÓN 06 · TODA SU EMPRESA EN 1 PANTALLA",
     title: "Su Propia Plataforma Empresarial Todo-en-Uno",
     summary:
-      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa.",
-    impactTitle: "IMPACTO EJECUTIVO SOLUCIÓN 06 — ECOSISTEMA EJECUTIVO CENTRALIZADO",
-    impactDetail:
-      "Deje de abrir múltiples programas desconectados. Diseñamos su centro de mando privado con la identidad visual de su marca donde usted supervisa ventas, citas, clientes e ingresos desde cualquier dispositivo.",
-    metricBadge: "🏛️ Todo en 1 Pantalla · Marca Propia"
+      "Unificamos ventas, clientes, agenda, finanzas y métricas operativas en un solo panel privado hecho a medida con el logo de su empresa."
   }
 ];
-
-const PAQUETE_COMPLETO_INFO = {
-  id: "ALL",
-  impactTitle: "★ PAQUETE COMPLETO TODO INCLUIDO — LAS 06 SOLUCIONES UNIFICADAS LLAVE EN MANO",
-  impactDetail:
-    "Desplegamos en 10 días su ecosistema completo: Plataforma Web de alto prestigio + Asistentes IA 24/7 en WhatsApp e Instagram + CRM Automático + Motor de Automatización Propia + Cerebro IA con la memoria de su empresa + Panel Todo-en-Uno.",
-  metricBadge: "👑 PRIORIDAD EJECUTIVA · 06 SOLUCIONES"
-};
 
 const ALL_TIME_SLOTS = ["09:30 AM", "11:00 AM", "01:00 PM", "03:00 PM", "04:30 PM", "06:00 PM"];
 
@@ -106,7 +74,6 @@ export default function AuditTriggerButton({
   const [mounted, setMounted] = useState(false);
   const [step, setStep] = useState<"form" | "confirmed" | "dossier">("form");
   const [submitting, setSubmitting] = useState(false);
-  const [activeDossierCard, setActiveDossierCard] = useState<string>("ALL");
 
   const [selectedDate, setSelectedDate] = useState("09 de Noviembre, 2026");
   const [selectedTime, setSelectedTime] = useState("11:00 AM");
@@ -120,7 +87,7 @@ export default function AuditTriggerButton({
   useEffect(() => {
     setMounted(true);
     try {
-      const saved = localStorage.getItem("lhyo_booked_slots_v40");
+      const saved = localStorage.getItem("lhyo_booked_slots_v41");
       if (saved) setUserBookedByDate(JSON.parse(saved));
     } catch {}
     const handleCustomOpen = () => {
@@ -146,6 +113,15 @@ export default function AuditTriggerButton({
     }
   };
 
+  const handlePrintSinglePageDossier = () => {
+    if (typeof window === "undefined") return;
+    document.body.classList.add("lhyo-printing-single-page");
+    window.print();
+    setTimeout(() => {
+      document.body.classList.remove("lhyo-printing-single-page");
+    }, 600);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !email.trim()) return;
@@ -157,7 +133,7 @@ export default function AuditTriggerButton({
     };
     setUserBookedByDate(updatedBookings);
     try {
-      localStorage.setItem("lhyo_booked_slots_v40", JSON.stringify(updatedBookings));
+      localStorage.setItem("lhyo_booked_slots_v41", JSON.stringify(updatedBookings));
     } catch {}
 
     const revNumber = parseFloat(monthlyRev.replace(/[^0-9.]/g, "")) || 0;
@@ -189,13 +165,62 @@ export default function AuditTriggerButton({
   };
 
   const occupiedNow = getOccupiedForDate(selectedDate);
-  const selectedImpactObj =
-    activeDossierCard === "ALL"
-      ? PAQUETE_COMPLETO_INFO
-      : OFFICIAL_06_SOLUTIONS.find((s) => s.id === activeDossierCard) || PAQUETE_COMPLETO_INFO;
 
   const modalContent = open ? (
-    <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4 overflow-y-auto">
+    <div
+      id="lhyo-dossier-print-root"
+      className="fixed inset-0 z-[999999] flex items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-4 overflow-y-auto"
+    >
+      {/* REGLA CSS DE IMPRESIÓN DE 1 SOLA PÁGINA EXACTA (CORRIGE LAS 3 PÁGINAS DE CAPTURA 170047.PNG) */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @media print {
+            @page {
+              size: A4 landscape;
+              margin: 5mm;
+            }
+            html, body {
+              width: 100% !important;
+              height: 100% !important;
+              max-height: 100% !important;
+              margin: 0 !important;
+              padding: 0 !important;
+              overflow: hidden !important;
+              background: #050507 !important;
+              -webkit-print-color-adjust: exact !important;
+              print-color-adjust: exact !important;
+            }
+            body > *:not(#lhyo-dossier-print-root) {
+              display: none !important;
+            }
+            #lhyo-dossier-print-root {
+              position: static !important;
+              width: 100% !important;
+              height: auto !important;
+              max-height: 100% !important;
+              padding: 0 !important;
+              margin: 0 !important;
+              overflow: hidden !important;
+              background: #050507 !important;
+              display: block !important;
+            }
+            #lhyo-dossier-single-sheet {
+              width: 100% !important;
+              max-width: 100% !important;
+              margin: 0 !important;
+              box-shadow: none !important;
+              page-break-after: avoid !important;
+              page-break-before: avoid !important;
+              page-break-inside: avoid !important;
+              break-inside: avoid !important;
+            }
+            .lhyo-no-print {
+              display: none !important;
+            }
+          }
+        `
+      }} />
+
       {step === "form" && (
         <div className="w-full max-w-3xl rounded-2xl border border-[#C5A059]/65 bg-[#050507] shadow-[0_25px_90px_rgba(0,0,0,0.98)] overflow-hidden my-auto">
           <div className="px-6 py-2.5 bg-[#080B14] border-b border-white/10 flex items-center justify-between">
@@ -436,27 +461,30 @@ export default function AuditTriggerButton({
         </div>
       )}
 
-      {/* PASO 3: DOSSIER CORPORATIVO INTERACTIVO CON LOS EFECTOS DE LAS PESTAÑAS DE GARANTÍA */}
+      {/* PASO 3: CATÁLOGO OFICIAL CON DISEÑO REFLECTIVO ELEGANTE DE GARANTÍA + IMPRESIÓN EN 1 SOLA PÁGINA */}
       {step === "dossier" && (
-        <div className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/75 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto">
+        <div
+          id="lhyo-dossier-single-sheet"
+          className="relative w-full max-w-5xl rounded-2xl border border-[#C5A059]/70 bg-[#050507] shadow-[0_25px_100px_rgba(0,0,0,0.98)] overflow-hidden text-left my-auto"
+        >
           <div className="px-5 py-2.5 bg-[#080B14] border-b border-[#C5A059]/30 flex flex-wrap items-center justify-between gap-2">
             <button
               type="button"
               onClick={() => setStep("confirmed")}
-              className="text-xs text-[#C5A059] hover:underline font-semibold cursor-pointer"
+              className="lhyo-no-print text-xs text-[#C5A059] hover:underline font-semibold cursor-pointer"
             >
               ← Volver atrás
             </button>
             <span className="text-[11px] font-bold tracking-[0.22em] text-[#FCF6BA] uppercase">
               LHYO GROUP · CATÁLOGO OFICIAL DE SOLUCIONES TECNOLÓGICAS B2B
             </span>
-            <div className="flex items-center gap-2">
+            <div className="lhyo-no-print flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => window.print()}
+                onClick={handlePrintSinglePageDossier}
                 className="px-3.5 py-1 rounded-full bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-black font-extrabold text-[11px] uppercase cursor-pointer hover:brightness-105 transition"
               >
-                DESCARGAR / IMPRIMIR PDF ↓
+                DESCARGAR / IMPRIMIR PDF (1 PÁGINA) ↓
               </button>
               <button
                 type="button"
@@ -471,7 +499,7 @@ export default function AuditTriggerButton({
           <div className="relative p-4 sm:p-5">
             {/* Marca de agua gigante del monograma L */}
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.045]">
-              <svg className="w-[340px] h-[340px]" viewBox="0 0 120 110" fill="none">
+              <svg className="w-[330px] h-[330px]" viewBox="0 0 120 110" fill="none">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -483,8 +511,10 @@ export default function AuditTriggerButton({
             </div>
 
             <div className="relative z-10 space-y-3">
+              {/* Fila Superior: Datos de Reserva + Paquete Completo con Efecto Reflectivo */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-stretch">
-                <div className="lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/90 px-4 py-2.5 flex flex-col justify-center text-xs space-y-1">
+                <div className="group relative overflow-hidden lg:col-span-5 rounded-xl border border-white/10 bg-[#080B14]/95 px-4 py-2.5 flex flex-col justify-center text-xs space-y-1 transition-all duration-500 hover:border-[#C5A059]/75 hover:shadow-[0_12px_35px_rgba(197,160,89,0.16)]">
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#FCF6BA]/12 to-transparent skew-x-[-25deg] transition-transform duration-700 ease-out group-hover:translate-x-full" />
                   <div>
                     <span className="text-[#FCF6BA] font-bold">Preparado para:</span>{" "}
                     {fullName || "Dirección Ejecutiva"} ({companyWeb || "Su Empresa"})
@@ -498,100 +528,49 @@ export default function AuditTriggerButton({
                   </div>
                 </div>
 
-                <div
-                  onClick={() => setActiveDossierCard("ALL")}
-                  className={`lg:col-span-7 rounded-xl px-5 py-2.5 flex items-center justify-between gap-3 cursor-pointer transition-all duration-300 ${
-                    activeDossierCard === "ALL"
-                      ? "bg-gradient-to-r from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] shadow-[0_12px_35px_rgba(197,160,89,0.3)] -translate-y-0.5"
-                      : "border border-[#C5A059]/50 bg-[#080B14]/90 text-white hover:border-[#C5A059] hover:-translate-y-0.5"
-                  }`}
-                >
+                <div className="group relative overflow-hidden lg:col-span-7 rounded-xl border border-[#C5A059]/55 bg-[#080B14]/95 px-5 py-2.5 flex items-center justify-between gap-3 transition-all duration-500 hover:-translate-y-0.5 hover:border-[#FCF6BA]/90 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.12] hover:to-[#080B14] hover:shadow-[0_14px_40px_rgba(197,160,89,0.22)]">
+                  <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#FCF6BA]/15 to-transparent skew-x-[-25deg] transition-transform duration-700 ease-out group-hover:translate-x-full" />
                   <div>
-                    <span
-                      className={`text-[9px] font-bold uppercase tracking-[0.2em] block mb-0.5 ${
-                        activeDossierCard === "ALL" ? "text-[#050507]/80" : "text-[#FCF6BA]"
-                      }`}
-                    >
+                    <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#FCF6BA] block mb-0.5">
                       ★ ARQUITECTURA INTEGRAL CORPORATIVA · LLAVE EN MANO
                     </span>
-                    <h5 className="text-xs sm:text-sm font-extrabold">
+                    <h5 className="text-xs sm:text-sm font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors">
                       Paquete Completo (Todo Incluido · Las 06 Soluciones Oficiales)
                     </h5>
-                    <p
-                      className={`text-[11px] mt-0.5 ${
-                        activeDossierCard === "ALL" ? "text-[#050507]/90 font-medium" : "text-gray-300"
-                      }`}
-                    >
+                    <p className="text-[11px] text-gray-300 mt-0.5">
                       Integración total de las 06 soluciones conectadas entre sí bajo la marca y el control exclusivo de su empresa.
                     </p>
                   </div>
-                  <span
-                    className={`px-3 py-1 rounded-full text-[9px] font-extrabold uppercase shrink-0 ${
-                      activeDossierCard === "ALL"
-                        ? "bg-[#050507] text-[#FCF6BA]"
-                        : "border border-[#C5A059]/70 text-[#FCF6BA]"
-                    }`}
-                  >
+                  <span className="px-3 py-1 rounded-full text-[9px] font-extrabold uppercase border border-[#C5A059]/80 text-[#FCF6BA] bg-[#C5A059]/10 shrink-0">
                     PRIORIDAD EJECUTIVA
                   </span>
                 </div>
               </div>
 
-              {/* Cuadrícula 3x2 Interactiva con los efectos de las pestañas de Garantía */}
+              {/* Cuadrícula 3x2 con el Diseño Reflectivo Elegante de Garantía (Sin relleno amarillo chillón) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-stretch">
-                {OFFICIAL_06_SOLUTIONS.map((sol) => {
-                  const isActive = activeDossierCard === sol.id;
-                  return (
-                    <div
-                      key={sol.id}
-                      onClick={() => setActiveDossierCard(sol.id)}
-                      className={`group relative overflow-hidden rounded-xl p-3.5 flex flex-col justify-between cursor-pointer transition-all duration-300 ${
-                        isActive
-                          ? "bg-gradient-to-br from-[#C5A059] via-[#FCF6BA] to-[#B38728] text-[#050507] shadow-[0_14px_38px_rgba(197,160,89,0.32)] -translate-y-0.5"
-                          : "border border-white/10 bg-[#080B14]/90 text-white hover:border-[#C5A059]/65 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.08] hover:to-transparent hover:shadow-[0_12px_35px_rgba(197,160,89,0.14)] hover:-translate-y-0.5"
-                      }`}
-                    >
-                      <div>
-                        <div
-                          className={`w-7 h-[2px] mb-2 transition-all duration-300 ${
-                            isActive
-                              ? "w-12 bg-[#050507]"
-                              : "bg-[#C5A059] group-hover:w-12 group-hover:bg-[#FCF6BA]"
-                          }`}
-                        />
-                        <div
-                          className={`flex items-center justify-between text-[9px] font-bold uppercase tracking-wider mb-1 ${
-                            isActive ? "text-[#050507]/80" : "text-[#C5A059]"
-                          }`}
-                        >
-                          <span>{sol.code}</span>
-                          <span className="text-xs font-black">{sol.id}</span>
-                        </div>
-                        <h6 className="text-xs font-extrabold leading-snug mb-1">{sol.title}</h6>
-                        <p
-                          className={`text-[11px] leading-relaxed ${
-                            isActive ? "text-[#050507]/90 font-medium" : "text-gray-300"
-                          }`}
-                        >
-                          {sol.summary}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                {OFFICIAL_06_SOLUTIONS.map((sol) => (
+                  <div
+                    key={sol.id}
+                    className="group relative overflow-hidden rounded-xl border border-white/10 bg-[#080B14]/95 p-3.5 flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#C5A059]/80 hover:bg-gradient-to-b hover:from-[#C5A059]/[0.11] hover:to-[#080B14]/95 hover:shadow-[0_14px_38px_rgba(197,160,89,0.20)]"
+                  >
+                    {/* Haz de luz reflectivo diagonal al pasar el mouse */}
+                    <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-[#FCF6BA]/15 to-transparent skew-x-[-25deg] transition-transform duration-700 ease-out group-hover:translate-x-full" />
+                    <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-[radial-gradient(circle_at_50%_0%,rgba(197,160,89,0.16),transparent_70%)]" />
 
-              {/* Barra Interactiva de Entregable (Exactamente como el panel inferior de Garantía) */}
-              <div className="rounded-xl border border-[#C5A059]/45 bg-[#080B14]/95 px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#FCF6BA] block">
-                    {selectedImpactObj.impactTitle}
-                  </span>
-                  <p className="text-[11px] text-gray-300 mt-0.5">{selectedImpactObj.impactDetail}</p>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/50 text-[#FCF6BA] text-[10px] font-bold shrink-0">
-                  {selectedImpactObj.metricBadge}
-                </span>
+                    <div className="relative z-10">
+                      <div className="w-7 h-[2px] bg-[#C5A059] mb-2 transition-all duration-500 group-hover:w-14 group-hover:bg-[#FCF6BA] group-hover:shadow-[0_0_10px_#FCF6BA]" />
+                      <div className="flex items-center justify-between text-[9px] font-bold uppercase tracking-wider text-[#C5A059] group-hover:text-[#FCF6BA] transition-colors mb-1">
+                        <span>{sol.code}</span>
+                        <span className="text-white/90 text-xs font-black">{sol.id}</span>
+                      </div>
+                      <h6 className="text-xs font-extrabold text-white group-hover:text-[#FCF6BA] transition-colors leading-snug mb-1">
+                        {sol.title}
+                      </h6>
+                      <p className="text-[11px] text-gray-300 leading-relaxed">{sol.summary}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
               <div className="pt-1.5 border-t border-white/10 flex flex-wrap items-center justify-between text-[10px] text-gray-400">

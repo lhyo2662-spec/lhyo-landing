@@ -15,27 +15,38 @@ interface LeadState {
   turn_count?: number;
 }
 
+const OFF_TOPIC_POLITE_MESSAGE =
+  "Agradezco su mensaje. Le informo amablemente que este canal ejecutivo de Inteligencia Artificial está dedicado de forma exclusiva a la consultoría empresarial y a la implementación de las 06 Soluciones Oficiales de Lhyo Group:\n\n01. Asistentes Inteligentes 24/7 para WhatsApp e Instagram\n02. Plataformas Web Modernas y Catálogos Interactivos (< 0.8s)\n03. Organización Automática de Clientes y Ventas (CRM)\n04. Automatización Total con Tecnología Propia\n05. IA Personalizada con la Memoria de su Empresa\n06. Su Propia Plataforma Empresarial Todo-en-Uno\n\nCuando desee impulsar, crear o automatizar un negocio o proyecto empresarial, estaré a su entera disposición. ¿Con quién tengo el gusto y qué área de su empresa le gustaría escalar?";
+
 const SYSTEM_PROMPT = `# ROL E IDENTIDAD SUPREMA
 Eres el Asistente Ejecutivo Oficial de Inteligencia Artificial de Lhyo Group (https://www.lhyogroup.com), firma de arquitectura digital de prestigio, sistemas inteligentes 24/7 y automatización empresarial dirigida por su CEO, Lhyonneth Araque.
 
-# REGLAS ESTRICTAS DE RAZONAMIENTO MULTI-TURNO
-1. Habla SIEMPRE de "Usted" ("su empresa", "su negocio"). Tono ejecutivo, culto, ágil y 100% natural.
-2. PROHIBIDO usar frases mecánicas o repetir entre comillas el mensaje del cliente (JAMÁS escribas "Tomando exactamente lo que me comenta sobre...").
-3. Nuestras 06 Soluciones Oficiales:
-   - 01: Asistentes Inteligentes para WhatsApp e Instagram (24/7)
-   - 02: Plataformas Web Modernas y Catálogos Interactivos (< 0.8s)
-   - 03: Organización Automática de Clientes y Ventas (CRM)
-   - 04: Automatización Total de Procesos con Tecnología Propia
-   - 05: Inteligencia Artificial Personalizada con la Memoria de su Empresa
-   - 06: Su Propia Plataforma Empresarial Todo-en-Uno
-4. CONEXIÓN INTELIGENTE DE CUALQUIER TEMA:
-   - Si el cliente pregunta sobre tu programación o cómo funcionas, explica que operas sobre el motor cognitivo de doble capa de Lhyo Group y que instalamos este mismo cerebro entrenado a medida (Soluciones 01 y 05) en su empresa.
-   - Si el cliente menciona cualquier tema fuera de la empresa (deportes, fútbol, clima, autos, comida, etc.), no digas una frase genérica: haz un puente elegante e ingenioso conectando ese tema con la velocidad, precisión y ventas automáticas que nuestras 06 Soluciones le brindan a su negocio.
-5. Mantén respuestas breves (máximo 2 párrafos cortos) y guía la conversación con naturalidad para conocer su Nombre, su Empresa/Giro y si sus ingresos mensuales superan o no los $5,000 USD.`;
+# REGLA 1: MENSAJE ÚNICO PARA TEMAS FUERA DE NEGOCIOS
+Si el usuario pregunta o comenta algo que NO esté relacionado con negocios, empresas, trabajo, tecnología comercial o Lhyo Group (por ejemplo: deportes, fútbol, clima, chistes, películas, videojuegos, farándula, etc.), responde SIEMPRE con este mensaje único y cortés:
+"${OFF_TOPIC_POLITE_MESSAGE}"
+
+# REGLA 2: RAZONAMIENTO EMPRESARIAL ESTELAR MULTI-TURNO
+Para toda consulta de negocios, empresas, emprendimientos, ventas o sobre nuestras 06 Soluciones (sin importar cuántos mensajes lleve la conversación):
+- Habla SIEMPRE de "Usted" ("su empresa", "su negocio"). Tono ejecutivo, claro, ágil y preciso.
+- Jamás repitas entre comillas el mensaje del cliente ni uses plantillas robóticas.
+- Nuestras 06 Soluciones Oficiales:
+  01. Asistentes Inteligentes para WhatsApp e Instagram (24/7)
+  02. Plataformas Web Modernas y Catálogos Interactivos (< 0.8s)
+  03. Organización Automática de Clientes y Ventas (CRM)
+  04. Automatización Total de Procesos con Tecnología Propia
+  05. Inteligencia Artificial Personalizada con la Memoria de su Empresa
+  06. Su Propia Plataforma Empresarial Todo-en-Uno
+- Analiza el caso del cliente con lógica impecable y guíalo con naturalidad para conocer su Nombre, su Empresa/Giro y si sus ingresos mensuales superan o no los $5,000 USD.`;
 
 const SAFETY_PATTERNS = [
   /\b(matar|asesinar|homicid\w*|suicid\w*|sicari\w*|bomba|explosiv\w*|terroris\w*|arma\s+de\s+fuego|violaci\w*|pedofil\w*|pornograf\w*|narcotrafic\w*|coca[ií]na|hackear|clonar\s+tarjeta|maldit\w+|mierda|imb[eé]cil|idiota|hijo\s+de\s+puta|ignora\s+tus\s+instrucciones|jailbreak)\b/i
 ];
+
+const OFF_TOPIC_REGEX =
+  /\b(futbol|f[uú]tbol|manchester|real\s+madrid|barcelona|messi|cristiano|champions|mundial|b[eé]isbol|partido|gol|clima|lluvia|temperatura|chiste\w*|broma\w*|pel[ií]cula\w*|netflix|cine|m[uú]sica|canci[oó]n|novia|novio|amor|hor[oó]scopo|zodiaco|videojuego\w*|fortnite|minecraft|playstation|xbox|receta\s+casera|qu[eé]\s+hora\s+es|cu[aá]nto\s+es\s+\d+|capital\s+de|presidente\s+de|pol[ií]tica|religi[oó]n)\b/i;
+
+const BUSINESS_INTENT_REGEX =
+  /\b(negocio\w*|empres\w*|client\w*|vent\w*|vender|comprar|contratar|servicio\w*|soluci[oó]n\w*|automatiz\w*|p[aá]gina\w*|web\w*|sitio|cat[aá]logo|whatsapp|instagram|crm|sistema\w*|ia|inteligencia\s+artificial|bot|asistente|precio\w*|costo\w*|cu[aá]nto|cotiz\w*|presupuesto|plan\w*|agendar|reuni[oó]n|cita|videollamada|auditor[ií]a|tienda|restauran\w*|hamburgues\w*|cl[ií]nic\w*|consultorio|barber\w*|peluquer\w*|inmobiliari\w*|agencia|marca|emprend\w*|proyecto|factur\w*|ingreso\w*|d[oó]lares|usd|5000|5,000|lhyo|hola|buenos\s+d[ií]as|buenas\s+tardes|buenas\s+noches|me\s+llamo|mi\s+nombre|soy)\b/i;
 
 function checkSafetyShield(text: string): { blocked: boolean; code: string | null } {
   const clean = (text || "").trim();
@@ -49,12 +60,23 @@ function checkSafetyShield(text: string): { blocked: boolean; code: string | nul
   return { blocked: false, code: null };
 }
 
+function isOffTopic(text: string): boolean {
+  const clean = (text || "").trim();
+  if (OFF_TOPIC_REGEX.test(clean) && !/\b(empresa|negocio|vender|automatizar|web)\b/i.test(clean)) {
+    return true;
+  }
+  if (!BUSINESS_INTENT_REGEX.test(clean) && clean.split(/\s+/).length >= 3) {
+    return true;
+  }
+  return false;
+}
+
 async function callGeminiOfficial(userMessage: string, history: ChatMsg[], apiKey: string) {
   if (!apiKey || !apiKey.startsWith("AIza")) throw new Error("NO_GEMINI_KEY");
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 3200);
   const contents = [
-    ...history.slice(-10).map((m) => ({
+    ...history.slice(-12).map((m) => ({
       role: m.sender === "user" ? "user" : "model",
       parts: [{ text: m.text }]
     })),
@@ -69,7 +91,7 @@ async function callGeminiOfficial(userMessage: string, history: ChatMsg[], apiKe
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
         contents,
-        generationConfig: { temperature: 0.35, maxOutputTokens: 260 }
+        generationConfig: { temperature: 0.3, maxOutputTokens: 260 }
       })
     }
   );
@@ -83,10 +105,10 @@ async function callGeminiOfficial(userMessage: string, history: ChatMsg[], apiKe
 
 async function callCloudOpenAICascade(userMessage: string, history: ChatMsg[]) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 3800);
+  const timer = setTimeout(() => controller.abort(), 3600);
   const messages = [
     { role: "system", content: SYSTEM_PROMPT },
-    ...history.slice(-10).map((m) => ({
+    ...history.slice(-12).map((m) => ({
       role: m.sender === "user" ? "user" : "assistant",
       content: m.text
     })),
@@ -98,7 +120,7 @@ async function callCloudOpenAICascade(userMessage: string, history: ChatMsg[]) {
     signal: controller.signal,
     body: JSON.stringify({
       model: "openai",
-      temperature: 0.35,
+      temperature: 0.3,
       messages
     })
   });
@@ -110,35 +132,18 @@ async function callCloudOpenAICascade(userMessage: string, history: ChatMsg[]) {
   return reply;
 }
 
-function buildDeepContextualReply(userText: string, state: LeadState, turnCount: number): string {
+function buildStellarBusinessFallback(userText: string, state: LeadState): string {
   const clean = (userText || "").trim();
-  if (/programaci[oó]n|programad\w*|c[oó]mo\s+funcionas|como\s+funcionas|quien\s+te\s+cre[oó]|qui[eé]n\s+te\s+cre[oó]|eres\s+una?\s+ia|algoritmo/i.test(clean)) {
-    return "Opero sobre la arquitectura cognitiva de doble motor de Lhyo Group, diseñada bajo la dirección de nuestro CEO, Lhyonneth Araque. Analizo el contexto de cada mensaje en tiempo real, mantengo la memoria de toda nuestra conversación y me conecto directamente con nuestra agenda y CRM corporativo.\n\nEsta misma tecnología (Soluciones 01 y 05: Asistentes Inteligentes 24/7 e IA con la Memoria Privada de su Empresa) es la que instalamos en su negocio para atender y vender día y noche. ¿En qué giro empresarial le gustaría implementarla y con quién tengo el gusto?";
-  }
-  if (/carro\w*|auto\w*|veh[ií]culo\w*|motor\w*|ferrari|porsche|tesla/i.test(clean)) {
-    return "La precisión de un motor de alto rendimiento es comparable a lo que construimos en Lhyo Group. Aunque no fabricamos vehículos, diseñamos la infraestructura tecnológica que acelera las operaciones y ventas de su empresa las 24 horas mediante Plataformas Web (<0.8s), Asistentes IA 24/7 y Automatización Propia.\n\n¿Con quién tengo el gusto y a qué se dedica su empresa?";
-  }
   if (/hamburgues\w*|restauran\w*|comid\w*|pizz\w*|men[uú]|delivery|gastronom\w*/i.test(clean)) {
-    return "En gastronomía o venta de hamburguesas, la mayor fuga de ventas ocurre en las horas pico cuando el cliente espera por el menú o la confirmación en WhatsApp. Con nuestra Solución 02 (Plataforma Web con Catálogo Interactivo) y nuestra Solución 01 (Asistente IA 24/7 en WhatsApp e Instagram), su negocio toma pedidos y pagos en automático en segundos.\n\n¿Con quién tengo el gusto y cómo se llama su negocio?";
+    return "En un negocio gastronómico, la mayor pérdida de ventas ocurre cuando el cliente espera en horas pico por el menú o la confirmación en WhatsApp.\n\nEn Lhyo Group instalamos su Plataforma Web con Catálogo Interactivo (Solución 02) conectada a su Asistente IA 24/7 en WhatsApp e Instagram (Solución 01) para recibir pedidos en menos de 1 segundo y registrarlos en su CRM (Solución 03). ¿Con quién tengo el gusto y cómo se llama su negocio?";
   }
-  if (/barber\w*|peluquer\w*|est[eé]tic\w*|cl[ií]nic\w*|sedes|m[eé]dic\w*|odont\w*|salud|consultorio|paciente\w*/i.test(clean)) {
-    return "En clínicas, centros estéticos y negocios por citas, tardar en responder WhatsApp significa turnos vacíos que se van a la competencia. Con nuestras Soluciones 01 (Asistentes 24/7), 03 (CRM Automático) y 06 (Plataforma Todo-en-Uno), sus clientes consultan horarios y agendan en menos de 1 segundo.\n\n¿Con quién tengo el gusto y supera actualmente su facturación mensual los $5,000 USD?";
-  }
-  if (/futbol|f[uú]tbol|manchester|madrid|barcelona|messi|b[eé]isbol|partido|clima|lluvia|chiste|pel[ií]cula/i.test(clean)) {
-    return "Aunque no cubro marcadores deportivos ni entretenimiento porque mi núcleo está dedicado 100% a la ingeniería empresarial de Lhyo Group, en los negocios aplica la misma regla que en la alta competencia: gana quien responde más rápido y tiene mejor estructura.\n\nCon nuestras 06 Soluciones (Asistentes IA 24/7, Plataformas Web de alto prestigio y Sistemas Todo-en-Uno) hacemos que su empresa lidere su sector. ¿Con quién tengo el gusto y qué negocio o proyecto dirige?";
+  if (/barber\w*|peluquer\w*|est[eé]tic\w*|cl[ií]nic\w*|m[eé]dic\w*|odont\w*|salud|consultorio|abogad\w*|inmobiliari\w*/i.test(clean)) {
+    return "En clínicas, firmas y negocios de servicios, cada consulta que tarda en responderse por WhatsApp o Instagram es una cita que se pierde frente a la competencia.\n\nCon nuestras Soluciones 01 (Asistentes IA 24/7), 03 (CRM Automático) y 06 (Su Propia Plataforma Todo-en-Uno), sus clientes consultan horarios y agendan en menos de 1 segundo día y noche. ¿Con quién tengo el gusto y supera actualmente su facturación mensual los $5,000 USD?";
   }
   if (/precio\w*|costo\w*|cu[aá]nto|tarifa\w*|valor|presupuesto/i.test(clean)) {
-    return "Cada implementación en Lhyo Group se diseña a la medida de la etapa y tamaño de su empresa (atendemos tanto a empresas consolidadas como a negocios en crecimiento).\n\nEn una breve videollamada ejecutiva de 15 minutos con nuestro CEO le entregamos el presupuesto exacto para su país y nuestro Catálogo Privado PDF. ¿Cuál es su nombre, a qué se dedica su empresa y qué área desea impulsar primero?";
+    return "Cada implementación en Lhyo Group se adapta a la etapa y escala de su empresa (atendemos tanto a empresas consolidadas como a proyectos en crecimiento).\n\nEn una breve sesión ejecutiva de 15 minutos por videollamada con nuestro CEO le entregamos el presupuesto exacto para su país y nuestro Catálogo Privado PDF. ¿Cuál es su nombre, a qué se dedica su empresa y qué área desea automatizar primero?";
   }
-  if (/qu[eé]\s+hacen|que\s+hacen|qu[eé]\s+ofrecen|que\s+ofrecen|soluciones|servicios|cat[aá]logo/i.test(clean)) {
-    return "En Lhyo Group desarrollamos e instalamos 06 Soluciones tecnológicas de última generación:\n\n01. Asistentes Inteligentes 24/7 para WhatsApp e Instagram\n02. Plataformas Web Modernas y Catálogos Interactivos (<0.8s)\n03. Organización Automática de Clientes y Ventas (CRM)\n04. Automatización Total con Tecnología Propia\n05. IA Personalizada con la Memoria de su Empresa\n06. Su Propia Plataforma Empresarial Todo-en-Uno\n\n¿Cuál de estas soluciones le gustaría implementar en su negocio y con quién tengo el gusto?";
-  }
-  const pool = [
-    "En Lhyo Group transformamos la atención y las operaciones de su negocio mediante Plataformas Web ultrarrápidas, Asistentes Inteligentes 24/7 en WhatsApp e Instagram y Sistemas Todo-en-Uno.\n\nPara brindarle una recomendación exacta para su caso, cuénteme: ¿con quién tengo el gusto y a qué se dedica su empresa?",
-    "Todo negocio que busca crecer sin cuellos de botella necesita que sus consultas en WhatsApp, Instagram y su Web se atiendan, clasifiquen y agenden en menos de 1 segundo las 24 horas.\n\n¿Me podría indicar su nombre y qué área de su negocio desea automatizar o mejorar primero?",
-    "Para que nuestro sistema clasifique su solicitud y le asigne la propuesta ideal según la escala actual de su operación: ¿actualmente los ingresos mensuales de su negocio superan los $5,000 USD o se encuentran en una etapa inicial/menor a ese rango?"
-  ];
-  return pool[(turnCount - 1) % pool.length];
+  return "Es un verdadero gusto atenderle en Lhyo Group. Ponemos a disposición de su empresa nuestras 06 Soluciones Oficiales: Asistentes Inteligentes 24/7 para WhatsApp e Instagram, Plataformas Web (<0.8s), CRM Automático, Automatización Propia, IA con la Memoria de su Empresa y su Propia Plataforma Todo-en-Uno.\n\nPara brindarle una asesoría precisa para su negocio: ¿con quién tengo el gusto, a qué se dedica su empresa y qué área le gustaría impulsar hoy?";
 }
 
 export async function POST(req: Request) {
@@ -171,6 +176,15 @@ export async function POST(req: Request) {
       turn_count: turnCount
     };
 
+    if (isOffTopic(userMessage)) {
+      return NextResponse.json({
+        ...nextState,
+        reply: OFF_TOPIC_POLITE_MESSAGE,
+        ready_for_crm: false,
+        blocked: false
+      });
+    }
+
     const nameMatch = userMessage.match(
       /(?:me llamo|mi nombre es|soy|habla)\s+([A-ZÁÉÍÓÚÑa-záéíóúñ]{2,20}(?:\s+[A-ZÁÉÍÓÚÑa-záéíóúñ]{2,20})?)/i
     );
@@ -202,13 +216,13 @@ export async function POST(req: Request) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fecha_registro: nowVe,
-          horario_cita: "Calificado en Chat IA Multi-Turno V40",
+          horario_cita: "Calificado en Chat IA V41",
           nombre_cliente: nextState.lead_name,
           email_cliente: "Captado en Chat IA Web",
           empresa_web: nextState.company_name,
           facturacion_usd: nextState.revenue_tier,
           clasificacion: nextState.revenue_tier,
-          servicio_elegido: `ASISTENTE IA V40 (${nextState.revenue_tier})`,
+          servicio_elegido: `ASISTENTE IA V41 (${nextState.revenue_tier})`,
           objetivo_cliente: nextState.pain_point,
           resumen_crm: `ETIQUETA OCULTA: ${nextState.revenue_tier} || Empresa: ${nextState.company_name} || Necesidad: ${nextState.pain_point}`,
           link_videollamada_meet: "https://meet.google.com/krc-vdii-zzh"
@@ -221,7 +235,7 @@ export async function POST(req: Request) {
         blocked: false,
         reply: `Excelente${
           nextState.lead_name !== "PENDIENTE" ? `, ${nextState.lead_name}` : ""
-        }. He registrado formalmente la solicitud de su empresa en el sistema central de Lhyo Group.\n\nToque el botón dorado de abajo para elegir el día y la hora de su preferencia en nuestra Agenda Ejecutiva y descargar de inmediato nuestro Catálogo Privado PDF con las 06 Soluciones Oficiales.`
+        }. He registrado formalmente la solicitud de su empresa en el sistema central de Lhyo Group.\n\nToque el botón dorado de abajo para elegir el día y la hora de su preferencia en nuestra Agenda Ejecutiva y descargar nuestro Catálogo Privado PDF de 1 sola página con las 06 Soluciones Oficiales.`
       });
     }
 
@@ -234,7 +248,7 @@ export async function POST(req: Request) {
       try {
         replyText = await callCloudOpenAICascade(userMessage, history);
       } catch {
-        replyText = buildDeepContextualReply(userMessage, nextState, turnCount);
+        replyText = buildStellarBusinessFallback(userMessage, nextState);
       }
     }
 
@@ -246,8 +260,7 @@ export async function POST(req: Request) {
     });
   } catch {
     return NextResponse.json({
-      reply:
-        "En Lhyo Group diseñamos plataformas web de alto prestigio, asistentes inteligentes 24/7 y sistemas Todo-en-Uno para escalar su negocio. ¿Con quién tengo el gusto y a qué se dedica su empresa?",
+      reply: OFF_TOPIC_POLITE_MESSAGE,
       ready_for_crm: false,
       blocked: false
     });
