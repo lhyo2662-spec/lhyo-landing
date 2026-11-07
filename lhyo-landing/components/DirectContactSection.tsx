@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 
@@ -43,36 +43,35 @@ export default function DirectContactSection() {
   };
 
   return (
-    <section id="contacto" className="relative max-w-5xl mx-auto px-6 pt-11 pb-10 select-none">
-      {/* Encabezado clonado 1:1 en altura, grosor tipográfico y tono de blanco con Soluciones y Garantía */}
-      <div className="mb-6 pb-5 border-b border-white/[0.07] text-left">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#C5A059] mb-2">
+    <section id="contacto" className="lhyo-master-aligned-section relative max-w-7xl mx-auto px-6 pt-10 pb-20 select-none">
+      {/* Encabezado clonado 1:1 con Soluciones y Garantia alineado al limite exacto del Logo */}
+      <div className="mb-8 pb-5 border-b border-white/10 text-left">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C5A059] block mb-1.5">
           CANALES OFICIALES DE COMUNICACIÓN
-        </p>
-        <h2 className="text-3xl sm:text-[38px] font-semibold text-[#F2F2F5] tracking-tight leading-[1.15]">
+        </span>
+        <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
           Contacto Directo y Atención Ejecutiva
         </h2>
       </div>
 
-      {/* Cuadrícula de 2 columnas con la paleta obsidiana cálida y champán de Garantía */}
+      {/* Cuadricula 100% contenida dentro del mismo margen del Logo, Soluciones y Garantia */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch text-left">
-        {/* Columna Izquierda: 3 Tarjetas con Efecto Reflectivo y Tonos Suaves */}
         <div className="lg:col-span-5 flex flex-col justify-between gap-3.5">
           <a
             href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20les%20escribo%20desde%20su%20sitio%20web%20oficial."
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative overflow-hidden rounded-xl border border-[#C5A059]/20 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/55 transition-all duration-500 flex-1 flex flex-col justify-center"
+            className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/25 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/60 transition-all duration-500 flex-1 flex flex-col justify-center"
           >
             <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#C5A059]/[0.07] to-transparent skew-x-[-25deg]" />
-            <div className="w-7 h-[1.5px] bg-[#C5A059]/80 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
+            <div className="w-7 h-[1.5px] bg-[#C5A059]/85 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C5A059] block mb-1">
               ATENCIÓN INMEDIATA EN WHATSAPP
             </span>
-            <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-[#F7E9C4] transition mb-1">
+            <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-white transition mb-1">
               Iniciar Conversación en WhatsApp <span className="text-[#C5A059]">→</span>
             </h3>
-            <p className="text-xs text-[#A3A3AC] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               Respuesta directa de nuestro asistente y equipo comercial para consultas rápidas.
             </p>
           </a>
@@ -81,24 +80,24 @@ export default function DirectContactSection() {
             href="https://mail.google.com/mail/?view=cm&fs=1&to=ceo@lhyogroup.com&su=Consulta%20Corporativa%20-%20Lhyo%20Group"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative overflow-hidden rounded-xl border border-[#C5A059]/20 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/55 transition-all duration-500 flex-1 flex flex-col justify-center"
+            className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/25 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/60 transition-all duration-500 flex-1 flex flex-col justify-center"
           >
             <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#C5A059]/[0.07] to-transparent skew-x-[-25deg]" />
-            <div className="w-7 h-[1.5px] bg-[#C5A059]/80 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
+            <div className="w-7 h-[1.5px] bg-[#C5A059]/85 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C5A059] block mb-1">
               CORREO ELECTRÓNICO CORPORATIVO
             </span>
-            <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-[#F7E9C4] transition mb-1">
+            <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-white transition mb-1">
               ceo@lhyogroup.com <span className="text-[#C5A059]">→</span>
             </h3>
-            <p className="text-xs text-[#A3A3AC] leading-relaxed">
+            <p className="text-xs text-gray-300 leading-relaxed">
               Dirección General: Lhyonneth Araque (CEO & Founder).
             </p>
           </a>
 
-          <div className="group relative overflow-hidden rounded-xl border border-[#C5A059]/20 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/55 transition-all duration-500">
+          <div className="group relative overflow-hidden rounded-2xl border border-[#C5A059]/25 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] px-5 py-4 hover:border-[#C5A059]/60 transition-all duration-500">
             <div className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-[#C5A059]/[0.07] to-transparent skew-x-[-25deg]" />
-            <div className="w-7 h-[1.5px] bg-[#C5A059]/80 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
+            <div className="w-7 h-[1.5px] bg-[#C5A059]/85 group-hover:w-12 group-hover:bg-[#EFE2BA] transition-all duration-500 mb-2.5" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#C5A059] block mb-2.5">
               REDES SOCIALES Y PRESENCIA OFICIAL
             </span>
@@ -107,7 +106,7 @@ export default function DirectContactSection() {
                 href="https://www.instagram.com/lhyogroup"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 rounded-lg bg-[#111015] border border-white/[0.08] text-xs text-[#EFE2BA] font-medium text-center hover:border-[#C5A059]/60 transition"
+                className="py-2 px-3 rounded-xl bg-[#111015] border border-white/10 text-xs text-[#EFE2BA] font-medium text-center hover:border-[#C5A059]/60 transition"
               >
                 Instagram Oficial →
               </a>
@@ -115,7 +114,7 @@ export default function DirectContactSection() {
                 href="https://www.linkedin.com/company/lhyogroup"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-2 px-3 rounded-lg bg-[#111015] border border-white/[0.08] text-xs text-[#EFE2BA] font-medium text-center hover:border-[#C5A059]/60 transition"
+                className="py-2 px-3 rounded-xl bg-[#111015] border border-white/10 text-xs text-[#EFE2BA] font-medium text-center hover:border-[#C5A059]/60 transition"
               >
                 LinkedIn Oficial →
               </a>
@@ -123,8 +122,7 @@ export default function DirectContactSection() {
           </div>
         </div>
 
-        {/* Columna Derecha: Formulario con Tonos Suaves */}
-        <div className="lg:col-span-7 group relative overflow-hidden rounded-xl border border-[#C5A059]/20 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] p-6 flex flex-col justify-between transition-all duration-500 hover:border-[#C5A059]/45">
+        <div className="lg:col-span-7 group relative overflow-hidden rounded-2xl border border-[#C5A059]/25 bg-gradient-to-br from-[#12100E] via-[#0B0B0E] to-[#08080A] p-6 flex flex-col justify-between transition-all duration-500 hover:border-[#C5A059]/50">
           {sent ? (
             <div className="my-auto py-8 text-center space-y-3">
               <div className="w-11 h-11 rounded-full border border-[#C5A059]/60 bg-[#C5A059]/10 text-[#EFE2BA] flex items-center justify-center mx-auto text-base font-semibold">
@@ -133,7 +131,7 @@ export default function DirectContactSection() {
               <h3 className="text-lg font-semibold text-[#EFE2BA]">
                 ¡Su consulta ha sido recibida con éxito!
               </h3>
-              <p className="text-xs text-[#A3A3AC] max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-gray-300 max-w-md mx-auto leading-relaxed">
                 Nuestro equipo directivo responderá a su correo electrónico o WhatsApp a la brevedad.
               </p>
               <button
@@ -159,14 +157,14 @@ export default function DirectContactSection() {
                 <h3 className="text-lg sm:text-xl font-semibold text-[#EFE2BA] mb-1">
                   Envíenos su consulta directa
                 </h3>
-                <p className="text-xs text-[#A3A3AC] leading-relaxed">
+                <p className="text-xs text-gray-300 leading-relaxed">
                   Su mensaje llegará de inmediato a nuestra dirección general y le responderemos por correo o WhatsApp con la información que necesita.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="text-[10px] font-semibold uppercase tracking-wider text-[#D4D4D8] block mb-1">
+                  <label className="text-[10px] font-semibold uppercase tracking-wider text-gray-300 block mb-1">
                     SU NOMBRE *
                   </label>
                   <input
@@ -175,11 +173,11 @@ export default function DirectContactSection() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Ej: Carlos Mendoza"
-                    className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-[#F2F2F5] placeholder-[#71717A] outline-none select-text"
+                    className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white placeholder-gray-500 outline-none select-text"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] font-semibold uppercase tracking-wider text-[#D4D4D8] block mb-1">
+                  <label className="text-[10px] font-semibold uppercase tracking-wider text-gray-300 block mb-1">
                     SU CORREO ELECTRÓNICO *
                   </label>
                   <input
@@ -188,13 +186,13 @@ export default function DirectContactSection() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="correo@empresa.com"
-                    className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-[#F2F2F5] placeholder-[#71717A] outline-none select-text"
+                    className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white placeholder-gray-500 outline-none select-text"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-[10px] font-semibold uppercase tracking-wider text-[#D4D4D8] block mb-1">
+                <label className="text-[10px] font-semibold uppercase tracking-wider text-gray-300 block mb-1">
                   SU NÚMERO DE WHATSAPP (OPCIONAL)
                 </label>
                 <input
@@ -202,12 +200,12 @@ export default function DirectContactSection() {
                   value={whatsapp}
                   onChange={(e) => setWhatsapp(e.target.value)}
                   placeholder="Ej: +598 99 000 000"
-                  className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-[#F2F2F5] placeholder-[#71717A] outline-none select-text"
+                  className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white placeholder-gray-500 outline-none select-text"
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-semibold uppercase tracking-wider text-[#D4D4D8] block mb-1">
+                <label className="text-[10px] font-semibold uppercase tracking-wider text-gray-300 block mb-1">
                   ¿EN QUÉ PODEMOS AYUDARLE? *
                 </label>
                 <textarea
@@ -216,7 +214,7 @@ export default function DirectContactSection() {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Escriba aquí su duda, requerimiento o consulta..."
-                  className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-[#F2F2F5] placeholder-[#71717A] outline-none resize-none select-text"
+                  className="w-full rounded-xl bg-[#111015] border border-white/10 focus:border-[#C5A059] px-3.5 py-2 text-xs text-white placeholder-gray-500 outline-none resize-none select-text"
                 />
               </div>
 
