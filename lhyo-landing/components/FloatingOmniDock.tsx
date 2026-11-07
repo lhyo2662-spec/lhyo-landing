@@ -7,31 +7,38 @@ interface ChatMsg {
   text: string;
 }
 
+interface LeadStateData {
+  lead_name: string;
+  company_name: string;
+  pain_point: string;
+  revenue_tier: string;
+}
+
 const INITIAL_GREETING =
   "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPara brindarle una asesoría a la medida de su negocio, cuénteme: ¿con quién tengo el gusto, a qué se dedica su empresa y qué le gustaría mejorar o automatizar hoy?";
 
 export default function FloatingOmniDock() {
-  const [chatOpen, setChatOpen] = useState(false);
-  const [inputMsg, setInputMsg] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [isListening, setIsListening] = useState(false);
-  const [listenSeconds, setListenSeconds] = useState(0);
-  const [micHint, setMicHint] = useState("");
-  const [isBlocked, setIsBlocked] = useState(false);
+  const [chatOpen, setChatOpen] = useState<boolean>(false);
+  const [inputMsg, setInputMsg] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isListening, setIsListening] = useState<boolean>(false);
+  const [listenSeconds, setListenSeconds] = useState<number>(0);
+  const [micHint, setMicHint] = useState<string>("");
+  const [isBlocked, setIsBlocked] = useState<boolean>(false);
 
   const [messages, setMessages] = useState<ChatMsg[]>([
     { sender: "bot", text: INITIAL_GREETING }
   ]);
-  const [leadState, setLeadState] = useState({
+  const [leadState, setLeadState] = useState<LeadStateData>({
     lead_name: "PENDIENTE",
     company_name: "PENDIENTE",
     pain_point: "PENDIENTE",
     revenue_tier: "PENDIENTE"
   });
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const recognitionRef = useRef<any>(null);
-  const timerRef = useRef<any>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -39,12 +46,11 @@ export default function FloatingOmniDock() {
     }
   }, [messages, loading, isListening]);
 
-  // Contador visual de segundos cuando el micrófono está escuchando
   useEffect(() => {
     if (isListening) {
       setListenSeconds(0);
       timerRef.current = setInterval(() => {
-        setListenSeconds((prev) => prev + 1);
+        setListenSeconds((prev: number) => prev + 1);
       }, 1000);
     } else {
       if (timerRef.current) clearInterval(timerRef.current);
@@ -55,16 +61,18 @@ export default function FloatingOmniDock() {
     };
   }, [isListening]);
 
-  const stopListening = () => {
+  const stopListening = (): void => {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
-      } catch {}
+      } catch {
+        // Ignorar cierre de micrófono
+      }
     }
     setIsListening(false);
   };
 
-  const handleCloseAndReset = () => {
+  const handleCloseAndReset = (): void => {
     stopListening();
     setChatOpen(false);
     if (!isBlocked) {
@@ -80,8 +88,7 @@ export default function FloatingOmniDock() {
     }
   };
 
-  // Micrófono con transcripción en vivo e indicador claro de cuándo hablar
-  const handleVoiceMic = () => {
+  const handleVoiceMic = (): void => {
     if (isBlocked || loading) return;
 
     if (isListening) {
@@ -91,8 +98,38 @@ export default function FloatingOmniDock() {
       return;
     }
 
-    const SpeechRec =
-      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    const win = window as unknown as {
+      SpeechRecognition?: new () => {
+        lang: string;
+        interimResults: boolean;
+        continuous: boolean;
+        maxAlternatives: number;
+        onstart: () => void;
+        onresult: (event: {
+          results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }>;
+        }) => void;
+        onerror: () => void;
+        onend: () => void;
+        start: () => void;
+        stop: () => void;
+      };
+      webkitSpeechRecognition?: new () => {
+        lang: string;
+        interimResults: boolean;
+        continuous: boolean;
+        maxAlternatives: number;
+        onstart: () => void;
+        onresult: (event: {
+          results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }>;
+        }) => void;
+        onerror: () => void;
+        onend: () => void;
+        start: () => void;
+        stop: () => void;
+      };
+    };
+
+    const SpeechRec = win.SpeechRecognition || win.webkitSpeechRecognition;
 
     if (!SpeechRec) {
       setMicHint("⚠️ Su navegador no soporta dictado por voz. Use Google Chrome o Safari.");
@@ -114,12 +151,13 @@ export default function FloatingOmniDock() {
         setMicHint("");
       };
 
-      rec.onresult = (event: any) => {
+      rec.onresult = (event) => {
         let interimTranscript = "";
         let finalTranscript = "";
         for (let i = 0; i < event.results.length; i++) {
-          const transcriptPiece = event.results[i][0]?.transcript || "";
-          if (event.results[i].isFinal) {
+          const item = event.results[i];
+          const transcriptPiece = item?.[0]?.transcript || "";
+          if (item?.isFinal) {
             finalTranscript += transcriptPiece + " ";
           } else {
             interimTranscript += transcriptPiece;
@@ -145,13 +183,13 @@ export default function FloatingOmniDock() {
     }
   };
 
-  const handleOpenAgendaModal = () => {
+  const handleOpenAgendaModal = (): void => {
     window.dispatchEvent(new CustomEvent("lhyo-open-audit-modal"));
     const el = document.getElementById("contacto");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSend = async (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (isListening) stopListening();
     const userText = inputMsg.trim();
@@ -164,7 +202,7 @@ export default function FloatingOmniDock() {
     setMessages(updatedMessages);
     setLoading(true);
 
-    const historyPayload = updatedMessages.slice(1).map((m) => ({
+    const historyPayload = updatedMessages.slice(1).map((m: ChatMsg) => ({
       role: m.sender === "user" ? ("user" as const) : ("assistant" as const),
       text: m.text
     }));
@@ -192,7 +230,7 @@ export default function FloatingOmniDock() {
         revenue_tier: data.revenue_tier || leadState.revenue_tier
       });
 
-      setMessages((prev) => [
+      setMessages((prev: ChatMsg[]) => [
         ...prev,
         {
           sender: "bot",
@@ -202,7 +240,7 @@ export default function FloatingOmniDock() {
         }
       ]);
     } catch {
-      setMessages((prev) => [
+      setMessages((prev: ChatMsg[]) => [
         ...prev,
         {
           sender: "bot",
@@ -214,7 +252,7 @@ export default function FloatingOmniDock() {
     }
   };
 
-  const formatTimer = (sec: number) => {
+  const formatTimer = (sec: number): string => {
     const m = Math.floor(sec / 60)
       .toString()
       .padStart(2, "0");
@@ -226,7 +264,6 @@ export default function FloatingOmniDock() {
     <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[9000] flex flex-col items-end gap-2.5 select-none max-w-[calc(100vw-24px)]">
       {chatOpen && (
         <div className="w-[calc(100vw-24px)] sm:w-[415px] max-w-[415px] rounded-2xl border border-[#C5A059]/75 bg-[#08080A]/98 backdrop-blur-2xl shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden mb-1">
-          {/* Cabecera Ejecutiva */}
           <div className="px-4 py-3 bg-gradient-to-r from-[#12100E] via-[#0B0B0E] to-[#08080A] border-b border-[#C5A059]/25 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 min-w-0">
               <span className="relative flex h-3 w-3 shrink-0">
@@ -267,12 +304,11 @@ export default function FloatingOmniDock() {
             </button>
           </div>
 
-          {/* Historial de Mensajes */}
           <div
             ref={scrollRef}
             className="p-3.5 sm:p-4 space-y-3 max-h-[52vh] sm:max-h-[325px] overflow-y-auto bg-[#08080A] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#08080A] [&::-webkit-scrollbar-thumb]:bg-[#C5A059]/45 [&::-webkit-scrollbar-thumb]:rounded-full"
           >
-            {messages.map((m, i) => (
+            {messages.map((m: ChatMsg, i: number) => (
               <div
                 key={i}
                 className={`flex flex-col ${
@@ -307,11 +343,9 @@ export default function FloatingOmniDock() {
             )}
           </div>
 
-          {/* NUEVO INDICADOR VISUAL DE MICRÓFONO ESCUCHANDO EN VIVO */}
           {isListening && !isBlocked && (
             <div className="px-3.5 py-2.5 bg-gradient-to-r from-emerald-950/90 via-[#0E1F18] to-emerald-950/90 border-t border-emerald-500/45 flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5 min-w-0">
-                {/* Ecualizador animado de 5 barras de voz */}
                 <div className="flex items-end gap-0.5 h-4 shrink-0">
                   <span className="w-1 bg-[#00FF66] rounded-full animate-bounce h-2" />
                   <span
@@ -356,7 +390,6 @@ export default function FloatingOmniDock() {
             </div>
           )}
 
-          {/* Barra de Entrada con Botón de Micrófono Inteligente */}
           <form
             onSubmit={handleSend}
             className="p-2.5 sm:p-3 bg-[#0E0D12] border-t border-white/10 flex items-center gap-1.5 sm:gap-2"
@@ -365,7 +398,7 @@ export default function FloatingOmniDock() {
               type="text"
               disabled={isBlocked}
               value={inputMsg}
-              onChange={(e) => setInputMsg(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMsg(e.target.value)}
               placeholder={
                 isBlocked
                   ? "Sesión bloqueada permanentemente."
@@ -411,7 +444,6 @@ export default function FloatingOmniDock() {
             </button>
           </form>
 
-          {/* Pie de enlace directo a WhatsApp */}
           <div className="px-4 py-2 bg-[#08080A] border-t border-white/10 flex items-center justify-between text-[11px]">
             <span className="text-[#A3A3AC]">¿Prefiere atención en WhatsApp?</span>
             <a
@@ -426,7 +458,6 @@ export default function FloatingOmniDock() {
         </div>
       )}
 
-      {/* Barra Flotante Inferior Responsiva (No se desborda en ningún teléfono) */}
       <div className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#080A10]/95 backdrop-blur-xl border border-[#C5A059]/60 p-1.5 pl-2 sm:pl-2.5 shadow-2xl max-w-full">
         <a
           href="https://www.instagram.com/lhyogroup"
@@ -435,7 +466,11 @@ export default function FloatingOmniDock() {
           aria-label="Instagram Oficial Lhyo Group"
           className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#C5A059] flex items-center justify-center text-[#EFE2BA] transition shrink-0"
         >
-          <InstagramSvg />
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+            <circle cx="12" cy="12" r="4.2" />
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+          </svg>
         </a>
         <a
           href="https://www.linkedin.com/company/lhyogroup"
@@ -444,7 +479,9 @@ export default function FloatingOmniDock() {
           aria-label="LinkedIn Oficial Lhyo Group"
           className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#C5A059] flex items-center justify-center text-[#EFE2BA] transition shrink-0"
         >
-          <LinkedInSvg />
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.02 2.02 0 0 0 3.2 5.04c0 1.12.9 2.03 2.01 2.03h.03c1.14 0 2.04-.91 2.04-2.03A2.02 2.02 0 0 0 5.25 3ZM20.8 13.4c0-3.47-1.85-5.08-4.33-5.08-2 0-2.89 1.1-3.39 1.87V8.5H9.7c.04 1.07 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.13-.93.27-.68.89-1.39 1.93-1.39 1.36 0 1.9 1.04 1.9 2.57V20H20.8v-6.6Z" />
+          </svg>
         </a>
         <button
           type="button"
