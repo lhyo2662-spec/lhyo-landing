@@ -106,7 +106,7 @@ export default function CollapsibleMasterSections() {
                 âœ¦ TECNOLOGÃA DEL FUTURO E INGENIERÃA DE LUJO Â· SISTEMAS INTELIGENTES 24/7
               </div>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08] max-w-[650px]">
                 Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
               </h1>
 

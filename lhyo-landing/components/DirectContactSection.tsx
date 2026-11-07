@@ -43,8 +43,7 @@ export default function DirectContactSection() {
   };
 
   return (
-    <section id="contacto" className="lhyo-master-aligned-section relative max-w-7xl mx-auto px-6 pt-10 pb-20 select-none">
-      {/* Encabezado clonado 1:1 con Soluciones y Garantia alineado al limite exacto del Logo */}
+    <section id="contacto" className="lhyo-redline-container w-full max-w-6xl mx-auto px-6 pt-10 pb-20 select-none">
       <div className="mb-8 pb-5 border-b border-white/10 text-left">
         <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C5A059] block mb-1.5">
           CANALES OFICIALES DE COMUNICACIÓN
@@ -54,7 +53,6 @@ export default function DirectContactSection() {
         </h2>
       </div>
 
-      {/* Cuadricula 100% contenida dentro del mismo margen del Logo, Soluciones y Garantia */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch text-left">
         <div className="lg:col-span-5 flex flex-col justify-between gap-3.5">
           <a
