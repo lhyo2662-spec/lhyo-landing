@@ -43,12 +43,12 @@ export default function DirectContactSection() {
   };
 
   return (
-    <section id="contacto" className="w-full max-w-7xl mx-auto px-6 pt-10 pb-14 select-none">
-      <div className="mb-7 pb-5 border-b border-white/[0.08] text-left">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#C5A059] block mb-2">
+    <section id="contacto" className="w-full max-w-7xl mx-auto px-6 pt-10 pb-20 select-none">
+      <div className="mb-8 pb-5 border-b border-white/10 text-left">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C5A059] block mb-1.5">
           CANALES OFICIALES DE COMUNICACIÓN
         </span>
-        <h2 className="text-3xl sm:text-4xl font-semibold text-[#F2F2F5] tracking-tight leading-tight">
+        <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
           Contacto Directo y Atención Ejecutiva
         </h2>
       </div>
