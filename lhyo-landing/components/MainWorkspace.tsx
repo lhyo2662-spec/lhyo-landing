@@ -241,7 +241,7 @@ export default function MainWorkspace() {
                   <button
                     type="button"
                     onClick={() => switchView("catalogo")}
-                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-normal sm:whitespace-normal sm:whitespace-nowrap cursor-pointer"
+                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap cursor-pointer"
                   >
                     DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
                   </button>
@@ -363,7 +363,7 @@ export default function MainWorkspace() {
                   className="seal-card-lhyo p-6 h-full flex flex-col justify-start"
                 >
                   <div className="w-8 h-[1.5px] bg-[#C5A059] mb-4" />
-                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-normal sm:whitespace-normal sm:whitespace-nowrap">
+                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap">
                     {seal.title}
                   </h3>
                   <p className="text-xs text-gray-300 leading-relaxed">
