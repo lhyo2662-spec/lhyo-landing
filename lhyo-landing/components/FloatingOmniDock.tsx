@@ -1,44 +1,104 @@
-﻿"use client";
+"use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface ChatMsg {
-  sender: "bot" | "user";
+  role: "user" | "assistant";
   text: string;
 }
 
-interface LeadStateData {
+interface LeadData {
   lead_name: string;
   company_name: string;
   pain_point: string;
   revenue_tier: string;
 }
 
+interface SpeechRecognitionResultItem {
+  transcript: string;
+}
+
+interface SpeechRecognitionEventLike {
+  results: {
+    length: number;
+    [index: number]: {
+      isFinal?: boolean;
+      [subIndex: number]: SpeechRecognitionResultItem;
+    };
+  };
+}
+
+interface SpeechRecognitionInstance {
+  lang: string;
+  interimResults: boolean;
+  continuous: boolean;
+  onstart: (() => void) | null;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
 const INITIAL_GREETING =
-  "Está interactuando con la infraestructura cognitiva de Lhyo Group. Soy su Asistente Ejecutivo de Inteligencia Artificial.\n\nPara brindarle una asesoría a la medida de su negocio, cuénteme: ¿con quién tengo el gusto, a qué se dedica su empresa y qué le gustaría mejorar o automatizar hoy?";
+  "Está interactuando con la dirección de admisiones de Lhyo Group. Cuénteme con total confianza: ¿con quién tengo el gusto, a qué se dedica su empresa o proyecto y qué le gustaría mejorar hoy?";
+
+function deduplicateSpokenSegments(resultsList: SpeechRecognitionEventLike["results"]): string {
+  const segments: string[] = [];
+  for (let i = 0; i < resultsList.length; i++) {
+    const seg = (resultsList[i]?.[0]?.transcript || "").trim();
+    if (seg) segments.push(seg);
+  }
+  if (segments.length === 0) return "";
+
+  const merged: string[] = [];
+  for (let i = 0; i < segments.length; i++) {
+    const cur = segments[i];
+    const prev = merged[merged.length - 1] || "";
+    if (!prev) {
+      merged.push(cur);
+    } else if (cur.toLowerCase().startsWith(prev.toLowerCase())) {
+      merged[merged.length - 1] = cur;
+    } else if (!prev.toLowerCase().startsWith(cur.toLowerCase()) && cur.toLowerCase() !== prev.toLowerCase()) {
+      merged.push(cur);
+    }
+  }
+
+  const words = merged.join(" ").replace(/\s+/g, " ").trim().split(" ");
+  const cleanWords: string[] = [];
+  for (let i = 0; i < words.length; i++) {
+    const w = words[i];
+    const last = cleanWords[cleanWords.length - 1];
+    if (!last || w.toLowerCase() !== last.toLowerCase()) {
+      cleanWords.push(w);
+    }
+  }
+  return cleanWords.join(" ");
+}
 
 export default function FloatingOmniDock() {
-  const [chatOpen, setChatOpen] = useState<boolean>(false);
-  const [inputMsg, setInputMsg] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [isListening, setIsListening] = useState<boolean>(false);
-  const [listenSeconds, setListenSeconds] = useState<number>(0);
-  const [micHint, setMicHint] = useState<string>("");
-  const [isBlocked, setIsBlocked] = useState<boolean>(false);
-
+  const [chatOpen, setChatOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMsg[]>([
-    { sender: "bot", text: INITIAL_GREETING }
+    { role: "assistant", text: INITIAL_GREETING }
   ]);
-  const [leadState, setLeadState] = useState<LeadStateData>({
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(false);
+  const [turnCount, setTurnCount] = useState(1);
+  const [leadState, setLeadState] = useState<LeadData>({
     lead_name: "PENDIENTE",
     company_name: "PENDIENTE",
     pain_point: "PENDIENTE",
     revenue_tier: "PENDIENTE"
   });
 
+  const [isListening, setIsListening] = useState(false);
+  const [listenSeconds, setListenSeconds] = useState(0);
+
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const prefixTextRef = useRef<string>("");
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -46,178 +106,115 @@ export default function FloatingOmniDock() {
     }
   }, [messages, loading, isListening]);
 
-  useEffect(() => {
-    if (isListening) {
-      setListenSeconds(0);
-      timerRef.current = setInterval(() => {
-        setListenSeconds((prev: number) => prev + 1);
-      }, 1000);
-    } else {
-      if (timerRef.current) clearInterval(timerRef.current);
-      setListenSeconds(0);
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isListening]);
-
-  const stopListening = (): void => {
+  const stopVoiceRecognition = () => {
     if (recognitionRef.current) {
       try {
         recognitionRef.current.stop();
       } catch {
-        // Ignorar cierre de micrófono
+        // Ignorar cierre
       }
     }
-    setIsListening(false);
-  };
-
-  const handleCloseAndReset = (): void => {
-    stopListening();
-    setChatOpen(false);
-    if (!isBlocked) {
-      setMessages([{ sender: "bot", text: INITIAL_GREETING }]);
-      setLeadState({
-        lead_name: "PENDIENTE",
-        company_name: "PENDIENTE",
-        pain_point: "PENDIENTE",
-        revenue_tier: "PENDIENTE"
-      });
-      setInputMsg("");
-      setMicHint("");
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
     }
+    setIsListening(false);
+    setListenSeconds(0);
   };
 
-  const handleVoiceMic = (): void => {
-    if (isBlocked || loading) return;
+  const handleCloseAndReset = () => {
+    stopVoiceRecognition();
+    setChatOpen(false);
+    setMessages([{ role: "assistant", text: INITIAL_GREETING }]);
+    setInput("");
+    setIsBlocked(false);
+    setTurnCount(1);
+    setLeadState({
+      lead_name: "PENDIENTE",
+      company_name: "PENDIENTE",
+      pain_point: "PENDIENTE",
+      revenue_tier: "PENDIENTE"
+    });
+  };
 
+  const toggleMicrophone = () => {
+    if (isBlocked) return;
     if (isListening) {
-      stopListening();
-      setMicHint("✓ Dictado finalizado. Puede revisar su texto y tocar Enviar.");
-      setTimeout(() => setMicHint(""), 3500);
+      stopVoiceRecognition();
       return;
     }
 
     const win = window as unknown as {
-      SpeechRecognition?: new () => {
-        lang: string;
-        interimResults: boolean;
-        continuous: boolean;
-        maxAlternatives: number;
-        onstart: () => void;
-        onresult: (event: {
-          results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }>;
-        }) => void;
-        onerror: () => void;
-        onend: () => void;
-        start: () => void;
-        stop: () => void;
-      };
-      webkitSpeechRecognition?: new () => {
-        lang: string;
-        interimResults: boolean;
-        continuous: boolean;
-        maxAlternatives: number;
-        onstart: () => void;
-        onresult: (event: {
-          results: ArrayLike<{ isFinal: boolean; 0: { transcript: string } }>;
-        }) => void;
-        onerror: () => void;
-        onend: () => void;
-        start: () => void;
-        stop: () => void;
-      };
+      SpeechRecognition?: new () => SpeechRecognitionInstance;
+      webkitSpeechRecognition?: new () => SpeechRecognitionInstance;
+    };
+    const SpeechRec = win.SpeechRecognition || win.webkitSpeechRecognition;
+    if (!SpeechRec) return;
+
+    prefixTextRef.current = input.trim();
+
+    const recognition = new SpeechRec();
+    recognition.lang = "es-ES";
+    recognition.interimResults = true;
+    recognition.continuous = false;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setListenSeconds(0);
+      timerRef.current = setInterval(() => {
+        setListenSeconds((prev) => prev + 1);
+      }, 1000);
     };
 
-    const SpeechRec = win.SpeechRecognition || win.webkitSpeechRecognition;
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
+      const cleanSpoken = deduplicateSpokenSegments(event.results);
+      const base = prefixTextRef.current;
+      setInput(base ? `${base} ${cleanSpoken}`.trim() : cleanSpoken);
+    };
 
-    if (!SpeechRec) {
-      setMicHint("⚠️ Su navegador no soporta dictado por voz. Use Google Chrome o Safari.");
-      setTimeout(() => setMicHint(""), 4000);
-      return;
-    }
+    recognition.onerror = () => stopVoiceRecognition();
+    recognition.onend = () => stopVoiceRecognition();
 
-    try {
-      const rec = new SpeechRec();
-      rec.lang = "es-ES";
-      rec.interimResults = true;
-      rec.continuous = true;
-      rec.maxAlternatives = 1;
-
-      const baseText = inputMsg ? inputMsg.trim() + " " : "";
-
-      rec.onstart = () => {
-        setIsListening(true);
-        setMicHint("");
-      };
-
-      rec.onresult = (event) => {
-        let interimTranscript = "";
-        let finalTranscript = "";
-        for (let i = 0; i < event.results.length; i++) {
-          const item = event.results[i];
-          const transcriptPiece = item?.[0]?.transcript || "";
-          if (item?.isFinal) {
-            finalTranscript += transcriptPiece + " ";
-          } else {
-            interimTranscript += transcriptPiece;
-          }
-        }
-        setInputMsg((baseText + finalTranscript + interimTranscript).trimStart());
-      };
-
-      rec.onerror = () => {
-        setIsListening(false);
-        setMicHint("⚠️ Permita el acceso al micrófono en su navegador para hablar.");
-        setTimeout(() => setMicHint(""), 4000);
-      };
-
-      rec.onend = () => {
-        setIsListening(false);
-      };
-
-      recognitionRef.current = rec;
-      rec.start();
-    } catch {
-      setIsListening(false);
-    }
+    recognitionRef.current = recognition;
+    recognition.start();
   };
 
-  const handleOpenAgendaModal = (): void => {
-    window.dispatchEvent(new CustomEvent("lhyo-open-audit-modal"));
-    const el = document.getElementById("contacto");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const handleSend = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isListening) stopListening();
-    const userText = inputMsg.trim();
-    if (!userText || loading || isBlocked) return;
+    if (isBlocked || loading) return;
+    if (isListening) stopVoiceRecognition();
 
-    setInputMsg("");
-    setMicHint("");
+    const text = input.trim();
+    if (!text) return;
 
-    const updatedMessages: ChatMsg[] = [...messages, { sender: "user", text: userText }];
-    setMessages(updatedMessages);
+    const updatedHistory: ChatMsg[] = [...messages, { role: "user", text }];
+    setMessages(updatedHistory);
+    setInput("");
     setLoading(true);
-
-    const historyPayload = updatedMessages.slice(1).map((m: ChatMsg) => ({
-      role: m.sender === "user" ? ("user" as const) : ("assistant" as const),
-      text: m.text
-    }));
 
     try {
       const res = await fetch("/api/chat-lhyo", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          message: userText,
-          history: historyPayload,
-          currentLead: leadState
+          message: text,
+          history: updatedHistory,
+          currentLead: leadState,
+          turn_count: turnCount
         })
       });
+
       const data = await res.json();
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          text:
+            data.reply ||
+            "En Lhyo Group estamos listos para escalar su empresa con nuestras 06 Soluciones Oficiales. ¿Con quién tengo el gusto?"
+        }
+      ]);
+      setTurnCount((n) => n + 1);
 
       if (data.blocked) {
         setIsBlocked(true);
@@ -229,22 +226,12 @@ export default function FloatingOmniDock() {
         pain_point: data.pain_point || leadState.pain_point,
         revenue_tier: data.revenue_tier || leadState.revenue_tier
       });
-
-      setMessages((prev: ChatMsg[]) => [
-        ...prev,
-        {
-          sender: "bot",
-          text:
-            data.reply ||
-            "Con todo gusto le orientamos en Lhyo Group. ¿Cuál es el giro de su negocio?"
-        }
-      ]);
     } catch {
-      setMessages((prev: ChatMsg[]) => [
+      setMessages((prev) => [
         ...prev,
         {
-          sender: "bot",
-          text: "Estamos listos para atenderle. Cuénteme: ¿a qué se dedica su empresa y qué área desea impulsar hoy?"
+          role: "assistant",
+          text: "Es un gusto atenderle en Lhyo Group. ¿Con quién tengo el gusto y qué área de su negocio desea automatizar o escalar hoy?"
         }
       ]);
     } finally {
@@ -252,53 +239,29 @@ export default function FloatingOmniDock() {
     }
   };
 
-  const formatTimer = (sec: number): string => {
-    const m = Math.floor(sec / 60)
-      .toString()
-      .padStart(2, "0");
-    const s = (sec % 60).toString().padStart(2, "0");
-    return `${m}:${s}`;
-  };
-
   return (
-    <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-[9000] flex flex-col items-end gap-2.5 select-none max-w-[calc(100vw-24px)]">
+    <div className="fixed bottom-4 right-3 sm:right-5 z-[99990] flex flex-col items-end select-none">
       {chatOpen && (
-        <div className="w-[calc(100vw-24px)] sm:w-[415px] max-w-[415px] rounded-2xl border border-[#C5A059]/75 bg-[#08080A]/98 backdrop-blur-2xl shadow-[0_25px_80px_rgba(0,0,0,0.95)] overflow-hidden mb-1">
-          <div className="px-4 py-3 bg-gradient-to-r from-[#12100E] via-[#0B0B0E] to-[#08080A] border-b border-[#C5A059]/25 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5 min-w-0">
+        <div className="mb-3 w-[calc(100vw-24px)] sm:w-[410px] rounded-2xl border border-[#C5A059]/60 bg-[#070910] shadow-[0_25px_90px_rgba(0,0,0,0.96)] overflow-hidden flex flex-col">
+          <div className="px-4 py-3 bg-[#0B0E18] border-b border-white/10 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
               <span className="relative flex h-3 w-3 shrink-0">
-                <span
-                  className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-90 ${
-                    isBlocked ? "bg-red-500" : "bg-[#00FF66]"
-                  }`}
-                />
-                <span
-                  className={`relative inline-flex rounded-full h-3 w-3 ${
-                    isBlocked
-                      ? "bg-red-500"
-                      : "bg-[#00FF66] shadow-[0_0_12px_#00FF66]"
-                  }`}
-                />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF66] opacity-90" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00FF66] shadow-[0_0_10px_#00FF66]" />
               </span>
-              <div className="truncate">
-                <span className="text-[11px] sm:text-xs font-semibold text-[#EFE2BA] uppercase tracking-wider block truncate">
-                  Asistente Ejecutivo IA · Lhyo Group
-                </span>
-                <span
-                  className={`text-[10px] font-medium block truncate ${
-                    isBlocked ? "text-red-400" : "text-[#00FF66]"
-                  }`}
-                >
-                  {isBlocked
-                    ? "Sesión Bloqueada por Seguridad"
-                    : "En Línea 24/7 · Gem Corporativo en Vivo"}
-                </span>
+              <div>
+                <h3 className="text-[11px] sm:text-xs font-extrabold tracking-wider text-white uppercase">
+                  ASISTENTE EJECUTIVO IA · LHYO GROUP
+                </h3>
+                <p className="text-[10px] font-semibold text-[#00FF66]">
+                  En Línea 24/7 · Inteligencia Artificial en Vivo
+                </p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleCloseAndReset}
-              className="w-7 h-7 rounded-full bg-white/5 text-gray-300 text-xs flex items-center justify-center cursor-pointer hover:text-white shrink-0"
+              className="w-7 h-7 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center text-gray-300 text-xs cursor-pointer"
             >
               ✕
             </button>
@@ -306,151 +269,106 @@ export default function FloatingOmniDock() {
 
           <div
             ref={scrollRef}
-            className="p-3.5 sm:p-4 space-y-3 max-h-[52vh] sm:max-h-[325px] overflow-y-auto bg-[#08080A] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-[#08080A] [&::-webkit-scrollbar-thumb]:bg-[#C5A059]/45 [&::-webkit-scrollbar-thumb]:rounded-full"
+            className="h-[330px] sm:h-[360px] overflow-y-auto p-4 space-y-3 bg-[#06070C]"
           >
-            {messages.map((m: ChatMsg, i: number) => (
+            {messages.map((m, idx) => (
               <div
-                key={i}
-                className={`flex flex-col ${
-                  m.sender === "user" ? "items-end" : "items-start"
-                }`}
+                key={idx}
+                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed whitespace-pre-line break-words ${
-                    m.sender === "user"
-                      ? "bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#08080A] font-semibold"
-                      : "bg-[#111015] border border-[#C5A059]/30 text-[#E4E4E7]"
+                  className={`max-w-[87%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed whitespace-pre-line ${
+                    m.role === "user"
+                      ? "bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#050507] font-semibold"
+                      : "bg-[#0B0F1C] border border-[#C5A059]/25 text-[#F2F2F5]"
                   }`}
                 >
                   {m.text}
                 </div>
-                {m.sender === "bot" && i > 0 && !isBlocked && (
-                  <button
-                    type="button"
-                    onClick={handleOpenAgendaModal}
-                    className="mt-1.5 px-3 py-1.5 rounded-xl bg-[#C5A059]/15 border border-[#C5A059]/45 text-[#EFE2BA] text-[10px] font-semibold hover:bg-[#C5A059]/25 transition cursor-pointer"
-                  >
-                    📅 Agendar Reunión y Recibir Catálogo PDF →
-                  </button>
-                )}
               </div>
             ))}
+
             {loading && (
-              <div className="flex items-center gap-2 text-[11px] text-[#EFE2BA] italic px-1">
+              <div className="flex items-center gap-2 text-xs text-[#EFE2BA] px-2">
                 <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-ping" />
-                <span>Analizando y redactando respuesta para su negocio...</span>
+                <span>Analizando y redactando respuesta ejecutiva...</span>
               </div>
             )}
           </div>
 
-          {isListening && !isBlocked && (
-            <div className="px-3.5 py-2.5 bg-gradient-to-r from-emerald-950/90 via-[#0E1F18] to-emerald-950/90 border-t border-emerald-500/45 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2.5 min-w-0">
-                <div className="flex items-end gap-0.5 h-4 shrink-0">
-                  <span className="w-1 bg-[#00FF66] rounded-full animate-bounce h-2" />
-                  <span
-                    className="w-1 bg-[#00FF66] rounded-full animate-bounce h-4"
-                    style={{ animationDelay: "120ms" }}
-                  />
-                  <span
-                    className="w-1 bg-[#00FF66] rounded-full animate-bounce h-3"
-                    style={{ animationDelay: "240ms" }}
-                  />
-                  <span
-                    className="w-1 bg-[#00FF66] rounded-full animate-bounce h-4"
-                    style={{ animationDelay: "360ms" }}
-                  />
-                  <span
-                    className="w-1 bg-[#00FF66] rounded-full animate-bounce h-2"
-                    style={{ animationDelay: "480ms" }}
-                  />
+          {isListening && (
+            <div className="px-4 py-2 bg-[#071F15] border-t border-[#00FF66]/40 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex items-end gap-0.5 h-3.5">
+                  <span className="w-1 bg-[#00FF66] animate-pulse h-2 rounded-full" />
+                  <span className="w-1 bg-[#00FF66] animate-bounce h-3.5 rounded-full" />
+                  <span className="w-1 bg-[#00FF66] animate-pulse h-2.5 rounded-full" />
+                  <span className="w-1 bg-[#00FF66] animate-bounce h-3 rounded-full" />
                 </div>
-                <div className="truncate">
-                  <span className="text-[11px] font-bold text-[#00FF66] block truncate">
-                    🎙️ ESCUCHANDO AHORA ({formatTimer(listenSeconds)}) · Hable con normalidad
-                  </span>
-                  <span className="text-[10px] text-emerald-200/80 block truncate">
-                    Su voz se está escribiendo abajo en tiempo real...
-                  </span>
-                </div>
+                <span className="text-[11px] font-bold text-[#00FF66]">
+                  🎙️ ESCUCHANDO AHORA (00:0{listenSeconds}) · Hable con normalidad
+                </span>
               </div>
               <button
                 type="button"
-                onClick={handleVoiceMic}
-                className="px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-400/50 text-red-200 text-[10px] font-bold shrink-0 hover:bg-red-500/35 cursor-pointer"
+                onClick={stopVoiceRecognition}
+                className="px-2.5 py-0.5 rounded-md bg-red-500/20 border border-red-400/40 text-[10px] text-red-200 font-bold cursor-pointer"
               >
-                Detener ⏹
+                Listo ⏹
               </button>
-            </div>
-          )}
-
-          {micHint && !isListening && (
-            <div className="px-3.5 py-1.5 bg-[#12100E] border-t border-[#C5A059]/25 text-[10px] text-[#EFE2BA]">
-              {micHint}
             </div>
           )}
 
           <form
             onSubmit={handleSend}
-            className="p-2.5 sm:p-3 bg-[#0E0D12] border-t border-white/10 flex items-center gap-1.5 sm:gap-2"
+            className="p-2.5 sm:p-3 bg-[#090C15] border-t border-white/10 flex items-center gap-2"
           >
             <input
               type="text"
               disabled={isBlocked}
-              value={inputMsg}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMsg(e.target.value)}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
               placeholder={
                 isBlocked
-                  ? "Sesión bloqueada permanentemente."
-                  : isListening
-                  ? "Hable ahora... estamos transcribiendo su voz"
-                  : "Escriba o toque el micrófono 🎙️ para hablar..."
+                  ? "Sesión bloqueada por protocolo de seguridad."
+                  : "Haga cualquier consulta sobre su negocio..."
               }
-              className={`flex-1 min-w-0 bg-[#08080A] border rounded-xl px-3 py-2 text-xs text-white outline-none transition ${
-                isListening
-                  ? "border-[#00FF66] shadow-[0_0_12px_rgba(0,255,102,0.25)]"
-                  : "border-white/15 focus:border-[#C5A059]"
-              } disabled:opacity-40`}
+              className="flex-1 min-w-0 rounded-xl bg-[#05070C] border border-[#C5A059]/35 focus:border-[#C5A059] px-3 py-2 text-xs text-white placeholder-gray-500 outline-none disabled:opacity-40 select-text"
             />
             <button
               type="button"
-              disabled={isBlocked || loading}
-              onClick={handleVoiceMic}
+              disabled={isBlocked}
+              onClick={toggleMicrophone}
               title={isListening ? "Detener micrófono" : "Hablar por micrófono"}
-              className={`w-9 h-9 rounded-xl border flex items-center justify-center transition cursor-pointer shrink-0 disabled:opacity-40 ${
+              className={`w-9 h-9 rounded-xl border flex items-center justify-center transition cursor-pointer shrink-0 ${
                 isListening
-                  ? "border-[#00FF66] bg-[#00FF66]/20 text-[#00FF66] shadow-[0_0_15px_rgba(0,255,102,0.45)] animate-pulse"
-                  : "border-white/15 bg-white/5 text-[#EFE2BA] hover:border-[#C5A059]"
-              }`}
+                  ? "bg-[#00FF66]/20 border-[#00FF66] text-[#00FF66] shadow-[0_0_12px_rgba(0,255,102,0.45)]"
+                  : "bg-[#0D111E] border-[#C5A059]/40 text-[#EFE2BA] hover:border-[#C5A059]"
+              } disabled:opacity-40`}
             >
-              <svg
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
                 <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-                <line x1="12" y1="19" x2="12" y2="22" />
+                <line x1="12" y1="19" x2="12" y2="23" />
+                <line x1="8" y1="23" x2="16" y2="23" />
               </svg>
             </button>
             <button
               type="submit"
-              disabled={loading || isBlocked}
-              className="px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#08080A] font-bold text-xs cursor-pointer shrink-0 disabled:opacity-40"
+              disabled={isBlocked || loading}
+              className="px-3.5 sm:px-4 h-9 rounded-xl bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#050507] font-extrabold text-xs uppercase tracking-wider shadow cursor-pointer disabled:opacity-40 shrink-0"
             >
               Enviar
             </button>
           </form>
 
-          <div className="px-4 py-2 bg-[#08080A] border-t border-white/10 flex items-center justify-between text-[11px]">
-            <span className="text-[#A3A3AC]">¿Prefiere atención en WhatsApp?</span>
+          <div className="px-4 py-2 bg-[#05070C] border-t border-white/5 flex items-center justify-between text-[11px]">
+            <span className="text-gray-400">¿Prefiere atención en WhatsApp?</span>
             <a
               href="https://wa.me/584247383164?text=Hola%20Lhyo%20Group%2C%20les%20escribo%20desde%20su%20sitio%20web%20oficial."
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#EFE2BA] font-semibold hover:underline"
+              className="font-bold text-[#EFE2BA] hover:text-[#C5A059] transition"
             >
               Abrir WhatsApp →
             </a>
@@ -458,42 +376,50 @@ export default function FloatingOmniDock() {
         </div>
       )}
 
-      <div className="flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#080A10]/95 backdrop-blur-xl border border-[#C5A059]/60 p-1.5 pl-2 sm:pl-2.5 shadow-2xl max-w-full">
+      <div className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-[#C5A059]/45 bg-[#08090E]/95 backdrop-blur-xl px-2 py-1.5 shadow-[0_12px_40px_rgba(0,0,0,0.9)]">
         <a
           href="https://www.instagram.com/lhyogroup"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Instagram Oficial Lhyo Group"
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#C5A059] flex items-center justify-center text-[#EFE2BA] transition shrink-0"
+          aria-label="Instagram Oficial"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/15 bg-[#10121A] hover:border-[#C5A059] text-[#F2F2F5] flex items-center justify-center transition"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
-            <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.85">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" />
             <circle cx="12" cy="12" r="4.2" />
-            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none" />
           </svg>
         </a>
+
         <a
           href="https://www.linkedin.com/company/lhyogroup"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="LinkedIn Oficial Lhyo Group"
-          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/10 bg-white/[0.03] hover:border-[#C5A059] flex items-center justify-center text-[#EFE2BA] transition shrink-0"
+          aria-label="LinkedIn Oficial"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-white/15 bg-[#10121A] hover:border-[#C5A059] text-[#F2F2F5] flex items-center justify-center transition"
         >
-          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.02 2.02 0 0 0 3.2 5.04c0 1.12.9 2.03 2.01 2.03h.03c1.14 0 2.04-.91 2.04-2.03A2.02 2.02 0 0 0 5.25 3ZM20.8 13.4c0-3.47-1.85-5.08-4.33-5.08-2 0-2.89 1.1-3.39 1.87V8.5H9.7c.04 1.07 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.13-.93.27-.68.89-1.39 1.93-1.39 1.36 0 1.9 1.04 1.9 2.57V20H20.8v-6.6Z" />
+          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="4.5" stroke="currentColor" strokeWidth="1.85" />
+            <circle cx="8.1" cy="8.2" r="1.35" fill="currentColor" />
+            <path d="M6.9 10.6H9.3V17.2H6.9V10.6Z" fill="currentColor" />
+            <path
+              d="M11.1 10.6H13.35V11.55C13.72 10.92 14.48 10.42 15.52 10.42C17.22 10.42 18.1 11.45 18.1 13.38V17.2H15.7V13.82C15.7 12.88 15.32 12.35 14.55 12.35C13.78 12.35 13.45 12.88 13.45 13.82V17.2H11.1V10.6Z"
+              fill="currentColor"
+            />
           </svg>
         </a>
+
         <button
           type="button"
           onClick={() => (chatOpen ? handleCloseAndReset() : setChatOpen(true))}
-          className="px-3.5 sm:px-5 h-8 sm:h-9 rounded-full bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#08080A] font-bold text-[10px] sm:text-xs tracking-wider uppercase flex items-center gap-2 hover:brightness-105 transition cursor-pointer truncate"
+          className="px-3.5 sm:px-5 h-8 sm:h-9 rounded-full bg-gradient-to-r from-[#C5A059] via-[#E5C77D] to-[#B38728] text-[#08080A] font-bold text-[10px] sm:text-xs tracking-wider uppercase flex items-center gap-2 shadow-md hover:brightness-105 transition cursor-pointer"
         >
           <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF66] opacity-95" />
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#00FF66] shadow-[0_0_10px_#00FF66]" />
           </span>
           <span className="truncate">
-            {chatOpen ? "Cerrar Asistente IA" : "✦ Asistente IA 24/7 / WhatsApp"}
+            {chatOpen ? "CERRAR ASISTENTE IA" : "✦ ASISTENTE IA 24/7 / WHATSAPP"}
           </span>
         </button>
       </div>

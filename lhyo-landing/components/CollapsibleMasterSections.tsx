@@ -48,7 +48,7 @@ export default function CollapsibleMasterSections() {
   const currentClave = CLAVES_EJECUTIVAS[activeClaveIdx];
 
   return (
-    <div className="min-h-screen bg-[#050507] text-white">
+    <div className="min-h-0 bg-[#050507] text-white">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050507]/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button

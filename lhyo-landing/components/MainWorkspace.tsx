@@ -132,7 +132,7 @@ export default function MainWorkspace() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col justify-between bg-[#050507] text-white">
+    <div className="min-h-0 flex flex-col justify-between bg-[#050507] text-white">
       <header className="border-b border-white/10 bg-[#050507]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <div onClick={() => switchView("inicio")} className="cursor-pointer">
@@ -181,10 +181,10 @@ export default function MainWorkspace() {
         </div>
       </header>
 
-      <div className="flex-1">
+      <div className="flex-1 min-w-0">
         {activeView === "inicio" && (
           <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            <div className="min-h-[calc(100vh-5rem)] pt-8 pb-7 flex flex-col justify-between">
+            <div className="min-h-0 pt-8 pb-7 flex flex-col justify-between">
               <div>
                 <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.2em] block mb-3">
                   ✦ TECNOLOGÍA DEL FUTURO E INGENIERÍA DE LUJO · SISTEMAS INTELIGENTES 24/7
@@ -241,7 +241,7 @@ export default function MainWorkspace() {
                   <button
                     type="button"
                     onClick={() => switchView("catalogo")}
-                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-nowrap cursor-pointer"
+                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-normal sm:whitespace-nowrap cursor-pointer"
                   >
                     DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
                   </button>
@@ -251,7 +251,7 @@ export default function MainWorkspace() {
               <div className="max-w-[740px] pt-6 select-none">
                 <div className="flex items-center gap-3 mb-3.5">
                   <span className="w-1.5 h-1.5 rotate-45 bg-[#C5A059] shadow-[0_0_10px_#C5A059]" />
-                  <div className="h-[1px] flex-1 bg-gradient-to-r from-[#C5A059]/60 via-[#FCF6BA]/25 to-transparent" />
+                  <div className="h-[1px] flex-1 min-w-0 bg-gradient-to-r from-[#C5A059]/60 via-[#FCF6BA]/25 to-transparent" />
                 </div>
                 <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[10px] font-semibold tracking-[0.18em] uppercase text-gray-400">
                   <div className="flex items-center gap-2">
@@ -363,7 +363,7 @@ export default function MainWorkspace() {
                   className="seal-card-lhyo p-6 h-full flex flex-col justify-start"
                 >
                   <div className="w-8 h-[1.5px] bg-[#C5A059] mb-4" />
-                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-nowrap">
+                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-normal sm:whitespace-nowrap">
                     {seal.title}
                   </h3>
                   <p className="text-xs text-gray-300 leading-relaxed">
