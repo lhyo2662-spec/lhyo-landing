@@ -160,8 +160,8 @@ section *, main * {
   max-width: 100% !important;
   min-width: 0 !important;
   box-sizing: border-box !important;
-  overflow-wrap: break-word !important;
-  word-wrap: break-word !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
 }
 @media (max-width: 640px) {
   section h2 { font-size: 1.42rem !important; line-height: 1.25 !important; white-space: normal !important; }
@@ -193,5 +193,65 @@ header, header *, nav, nav * {
   }
   main > section:first-of-type {
     padding-bottom: 96px !important;
+  }
+}
+
+
+/* === CALIBRACION MAESTRA V58.0: CERO PALABRAS PARTIDAS + HEADER MOVIL ORDENADO === */
+html, body {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  background-color: #050507 !important;
+}
+
+/* Prohibido partir palabras por la mitad ("contr / ol") en ninguna parte de la web */
+body, main, section, div, h1, h2, h3, h4, h5, h6, p, span, a, button, li {
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  word-wrap: normal !important;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+}
+
+/* Barra superior ordenada con separacion limpia entre INICIO · SOLUCIONES · GARANTIA · CONTACTO */
+header, header *, nav, nav * {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+@media (max-width: 640px) {
+  header > div {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+  }
+  header nav {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 9px !important;
+  }
+  header nav a, header nav button {
+    font-size: 9.5px !important;
+    letter-spacing: 0.04em !important;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    white-space: nowrap !important;
+  }
+  /* Ajuste de titulos en tarjetas moviles para que todas las palabras quepan enteras sin partirse */
+  section h2 {
+    font-size: 1.38rem !important;
+    line-height: 1.25 !important;
+  }
+  section h3, section h4 {
+    font-size: 1.05rem !important;
+    line-height: 1.34 !important;
+  }
+  section p {
+    font-size: 0.80rem !important;
+    line-height: 1.52 !important;
   }
 }
