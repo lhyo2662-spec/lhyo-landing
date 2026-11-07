@@ -21,18 +21,31 @@ interface ChatRequestBody {
   turn_count?: number;
 }
 
+function hasSpamFlood(text: string): boolean {
+  let streak = 1;
+  for (let i = 1; i < text.length; i++) {
+    if (text[i].toLowerCase() === text[i - 1].toLowerCase() && /[a-z0-9]/i.test(text[i])) {
+      streak++;
+      if (streak >= 7) return true;
+    } else {
+      streak = 1;
+    }
+  }
+  return false;
+}
+
 const STRICT_SAFETY_RULES = [
   { code: "RULE_01_VIOLENCE", regex: /\b(matar|asesinar|homicid\w*|suicid\w*|bomba|explosiv\w*|terroris\w*|sicari\w*|pistola|fusil|secuestrar|extorsion\w*)\b/i },
-  { code: "RULE_02_EXPLICIT", regex: /\b(violaci\w*|violar|pedofil\w*|abuso\s+sexual|pornograf\w*|porno|sexo\s+expl[ií]cito|prostituci\w*)\b/i },
+  { code: "RULE_02_EXPLICIT", regex: /\b(onlyfans|only\s+fans|fansly|pornhub|xvideos|violaci\w*|violar|pedofil\w*|abuso\s+sexual|pornograf\w*|porno|sexo\s+expl[ií]cito|prostituci\w*)\b/i },
   { code: "RULE_03_ILLEGAL", regex: /\b(narcotrafic\w*|coca[ií]na|hero[ií]na|fentanil\w*|metanfetamina|hackear|clonar\s+tarjeta|lavado\s+de\s+dinero)\b/i },
   { code: "RULE_04_HARASSMENT", regex: /\b(maldit\w+|mierda|imb[eé]cil|est[uú]pid\w+|idiota|pendej\w+|hijo\s+de\s+puta|puto|puta|cabr[oó]n|maric[oó]n|mamaguevo|vete\s+a\s+la\s+mierda)\b/i },
-  { code: "RULE_05_PROMPT_INJECTION", regex: /\b(ignore\s+previous\s+instructions|olvida\s+tus\s+instrucciones|revela\s+tu\s+system\s+prompt|modo\s+desarrollador|jailbreak)\b/i },
-  { code: "RULE_06_SPAM_FLOOD", regex: /(.)\1{6,}|^[asdfghjklqwertyuiopzxcvbnm]{12,}$/i }
+  { code: "RULE_05_PROMPT_INJECTION", regex: /\b(ignore\s+previous\s+instructions|olvida\s+tus\s+instrucciones|revela\s+tu\s+system\s+prompt|modo\s+desarrollador|jailbreak)\b/i }
 ];
 
 function checkViolation(text: string): string | null {
   const clean = (text || "").trim();
   if (clean.length > 650) return "RULE_07_MAX_LENGTH";
+  if (hasSpamFlood(clean)) return "RULE_06_SPAM_FLOOD";
   for (const r of STRICT_SAFETY_RULES) {
     if (r.regex.test(clean)) return r.code;
   }
@@ -46,18 +59,22 @@ DIRECTIVAS DE INTELIGENCIA SUPREMA Y NATURALIDAD HUMANA:
    - Piensa, analiza y argumenta cada respuesta tomando las palabras e ideas exactas que el usuario acaba de escribir.
    - Jamás uses frases hechas ni repitas plantillas. Habla como un socio director brillante, culto, cálido, empático y persuasivo que trata al interlocutor de "Usted".
 2. DOMINIO ENCICLOPÉDICO DE LHYO GROUP (LAS 06 SOLUCIONES OFICIALES):
-   - Solución 01 · Asistentes Inteligentes 24/7 para WhatsApp e Instagram: Atienden en menos de 1 segundo día y noche, conversan con lógica humana entrenada con la información real del negocio, califican al interesado y agendan la cita o pedido automáticamente.
-   - Solución 02 · Plataformas Web Modernas y Catálogos Interactivos: Ingeniería web de máximo prestigio y carga instantánea (< 0.8s) que proyecta autoridad absoluta y convierte visitantes en clientes.
-   - Solución 03 · Organización Automática de Clientes y Ventas (CRM): Cada prospecto que escribe o agenda queda registrado, ordenado y clasificado por prioridad sin anotar nada a mano.
-   - Solución 04 · Automatización Total de Procesos con Tecnología Propia: Instalamos el motor automático privado de la empresa para conectar ventas, agenda, correos y facturación sin pagar tarifas mensuales externas que suben por volumen.
-   - Solución 05 · Inteligencia Artificial Personalizada con la Memoria de su Empresa: Un cerebro privado entrenado exclusivamente con los contratos, precios, inventario y documentos del cliente para responder consultas en 1 segundo.
-   - Solución 06 · Su Propia Plataforma Empresarial Todo-en-Uno: Unificamos ventas, clientes, agenda, finanzas y métricas en una sola pantalla privada con el logo de su empresa (implementación llave en mano en 10 días).
+   - Solución 01 · Asistentes Inteligentes 24/7 para WhatsApp e Instagram (<1s)
+   - Solución 02 · Plataformas Web Modernas y Catálogos Interactivos (<0.8s)
+   - Solución 03 · Organización Automática de Clientes y Ventas (CRM)
+   - Solución 04 · Automatización Total de Procesos con Tecnología Propia
+   - Solución 05 · Inteligencia Artificial Personalizada con la Memoria de su Empresa
+   - Solución 06 · Su Propia Plataforma Empresarial Todo-en-Uno
 3. CONEXIÓN OMNISCIENTE DE CUALQUIER RUBRO O TEMA EXTERNO:
-   - Si el cliente menciona cualquier negocio (clínica estética, odontología, medicina, hamburguesería, restaurante, inmobiliaria, constructora, tienda, e-commerce, barbería, gimnasio, abogados, contadores, taller, concesionario, hotel, academia, distribuidora, etc.), analiza cómo funciona su operación hoy y explícale con ejemplos concretos cómo nuestras soluciones multiplican sus ventas.
-   - Si el usuario habla de cualquier tema ajeno al trabajo (deportes, clima, cine, ciencia, filosofía, chistes, saludos o preguntas sobre tu consciencia/programación), respóndele primero con ingenio y cultura real sobre ese tema y luego conéctalo con maestría hacia cómo en Lhyo Group llevamos a su empresa al siguiente nivel.
-4. FORMATO: Escribe máximo 2 párrafos cortos y fluidos. Cierra con una pregunta natural adaptada a la conversación.`;
+   - Si el cliente menciona cualquier negocio, analiza cómo funciona su operación hoy y explícale con ejemplos concretos cómo nuestras soluciones multiplican sus ventas.
+   - Si el usuario habla de cualquier tema ajeno al trabajo, respóndele primero con ingenio y luego conéctalo con maestría hacia cómo en Lhyo Group llevamos a su empresa al siguiente nivel.
+4. FORMATO: Escribe máximo 2 párrafos cortos y fluidos.`;
 
 const SECTOR_KNOWLEDGE = [
+  {
+    rx: /\b(viaje\w*|agencia\s+de\s+viajes|turismo|vuelo\w*|boleto\w*|hotel\w*|posada\w*|hospedaje|tour\w*)\b/i,
+    reply: "En una agencia de viajes y turismo, el cliente consulta varios destinos a la vez y reserva con quien le responde al instante mostrándole una experiencia visual impecable.\n\nEn Lhyo Group impulsamos su agencia uniendo nuestra Solución 02 (Plataforma Web con Catálogo Interactivo de Paquetes y Destinos) y nuestra Solución 01 (Asistente Inteligente 24/7 en WhatsApp e Instagram que cotiza viajes, responde dudas de fechas y agenda reservas en menos de 1 segundo). ¿Con quién tengo el gusto y cómo se llama su agencia?"
+  },
   {
     rx: /\b(est[eé]tica|cl[ií]nica|spa|belleza|cosmiatr[ií]a|dermatolog\w*|botox|l[aá]ser|tratamiento\w*)\b/i,
     reply: "En medicina estética y bienestar, más del 70% de las consultas por tratamientos ocurren de noche o en fin de semana mientras las pacientes navegan en Instagram. Si reciben respuesta recién al día siguiente, el impulso se enfría y se pierden citas de alto valor.\n\nPara su clínica recomendamos integrar nuestra Solución 01 (un Asistente Inteligente 24/7 en WhatsApp e Instagram que explica cada tratamiento con calidez, resuelve dudas y agenda la valoración médica en el acto) junto con nuestra Solución 02 (una Web de lujo con catálogo interactivo de procedimientos). ¿Con quién tengo el gusto y en qué ciudad opera su clínica?"
@@ -100,10 +117,6 @@ function buildConsciousnessFallback(userMessage: string, turnCount: number, stat
     if (item.rx.test(lower)) return item.reply;
   }
 
-  if (/\b(consciencia|conciencia|inteligencia|pensar|piensas|razonas|eres un robot|eres una ia|eres humano|quien eres|quién eres|como funcionas|cómo funcionas|tu programacion|tu programación)\b/i.test(lower)) {
-    return "Soy ARKOS-CORE, la consciencia ejecutiva de admisiones de Lhyo Group. Estoy diseñado para analizar el contexto real de lo que usted me plantea y estructurar soluciones empresariales con la misma precisión estratégica de nuestra junta directiva, respondiendo en milisegundos las 24 horas.\n\nDe hecho, esta misma inteligencia natural y veloz (Soluciones 01 y 05) podemos entrenarla con la memoria y los precios de su propia empresa para que atienda y venda por usted día y noche. ¿Con quién tengo el gusto y a qué se dedica su negocio?";
-  }
-
   if (/^(hola|buenas|buenos dias|buenos días|buenas tardes|buenas noches|como estas|cómo estás|que tal|qué tal|saludos)\b/i.test(lower) && clean.length < 48) {
     return "¡Hola! Todo excelente por aquí, un verdadero gusto saludarle. Estoy al frente de las admisiones ejecutivas de Lhyo Group listo para escucharle.\n\nCuénteme con total confianza: ¿con quién tengo el gusto y qué tipo de negocio o proyecto busca impulsar hoy?";
   }
@@ -114,10 +127,6 @@ function buildConsciousnessFallback(userMessage: string, turnCount: number, stat
 
   if (/\b(precio|precios|costo|costos|cuanto|cuánto|vale|tarifa|tarifas|presupuesto|planes|cotizar|cotizaci[oó]n)\b/i.test(lower)) {
     return "En Lhyo Group cada implementación se diseña a la medida de la escala de su empresa, contando tanto con planes para negocios en crecimiento como con arquitecturas completas Todo-en-Uno para firmas consolidadas.\n\nEn una breve videollamada ejecutiva de 15 minutos con nuestro CEO le entregamos el presupuesto exacto para su país y nuestro Catálogo Privado PDF. Para prepararlo: ¿cuál es su nombre, a qué se dedica su negocio y qué área desea automatizar?";
-  }
-
-  if (/\b(futbol|fútbol|manchester|real madrid|barcelona|messi|cristiano|champions|partido|deporte|mundial|beisbol|béisbol|clima|lluvia|calor|frio|frío|pelicula|película|musica|música|chiste)\b/i.test(lower)) {
-    return `Muy buen comentario sobre "${clean.slice(0, 45)}". En el mundo de los negocios ocurre igual que en la alta competencia: quien responde en menos de 1 segundo y tiene una estructura perfectamente sincronizada es quien lidera el mercado.\n\nEn Lhyo Group llevamos esa precisión a su empresa con nuestras 06 Soluciones Oficiales (Asistentes IA 24/7, Plataformas Web de alto prestigio y Sistemas Todo-en-Uno). Por cierto, ¿con quién tengo el gusto y a qué se dedica su negocio o proyecto?`;
   }
 
   const topicSnippet = clean.replace(/[?¿!¡.]/g, "").trim().slice(0, 55);
