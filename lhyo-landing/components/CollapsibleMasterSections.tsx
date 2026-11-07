@@ -48,7 +48,7 @@ export default function CollapsibleMasterSections() {
   const currentClave = CLAVES_EJECUTIVAS[activeClaveIdx];
 
   return (
-    <div className="min-h-0 bg-[#050507] text-white">
+    <div className="min-h-0 lg:min-h-[calc(100vh-84px)] lg:flex lg:flex-col lg:justify-center bg-[#050507] text-white">
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#050507]/95 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
@@ -106,11 +106,11 @@ export default function CollapsibleMasterSections() {
                 âœ¦ TECNOLOGÃA DEL FUTURO E INGENIERÃA DE LUJO Â· SISTEMAS INTELIGENTES 24/7
               </div>
 
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08] max-w-[650px]">
+              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08] max-w-[580px]">
                 Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
               </h1>
 
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed max-w-[580px]">
                 Creamos e instalamos exactamente lo que su empresa necesita para liderar su mercado: desde plataformas web de mÃ¡ximo prestigio y atenciÃ³n inteligente 24/7 hasta ecosistemas propios que organizan y multiplican sus ventas en automÃ¡tico.
               </p>
 
@@ -194,7 +194,7 @@ export default function CollapsibleMasterSections() {
             </div>
 
             <div className="rounded-2xl border border-[#C5A059]/35 bg-[#050507] p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-              <div className="space-y-3 max-w-3xl">
+              <div className="space-y-3 w-full min-w-0 max-w-full lg:max-w-3xl overflow-hidden">
                 <span className="inline-block px-3.5 py-1 rounded-full bg-[#0A1128] border border-[#C5A059]/40 text-[11px] font-semibold text-[#FCF6BA]">
                   {currentClave.badge}
                 </span>
@@ -237,7 +237,7 @@ export default function CollapsibleMasterSections() {
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
               GarantÃ­a de Funcionamiento, Propiedad Total y Entrega Llave en Mano
             </h2>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed max-w-3xl">
+            <p className="text-sm sm:text-base text-gray-300 leading-relaxed w-full min-w-0 max-w-full lg:max-w-3xl overflow-hidden">
               En Lhyo Group diseÃ±amos, instalamos y dejamos funcionando cada sistema a la medida exacta de su empresa con respaldo directo de ingenierÃ­a.
             </p>
           </div>

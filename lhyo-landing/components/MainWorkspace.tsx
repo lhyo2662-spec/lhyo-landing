@@ -132,7 +132,7 @@ export default function MainWorkspace() {
   ];
 
   return (
-    <div className="min-h-0 flex flex-col justify-between bg-[#050507] text-white">
+    <div className="min-h-0 lg:min-h-[calc(100vh-84px)] lg:flex lg:flex-col lg:justify-center flex flex-col justify-between bg-[#050507] text-white">
       <header className="border-b border-white/10 bg-[#050507]/95 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-16 lg:px-24 h-20 flex justify-between items-center">
           <div onClick={() => switchView("inicio")} className="cursor-pointer">
@@ -184,15 +184,15 @@ export default function MainWorkspace() {
       <div className="flex-1 min-w-0">
         {activeView === "inicio" && (
           <section className="px-6 pb-20 md:px-16 lg:px-24 max-w-7xl mx-auto">
-            <div className="min-h-0 pt-8 pb-7 flex flex-col justify-between">
+            <div className="min-h-0 lg:min-h-[calc(100vh-84px)] lg:flex lg:flex-col lg:justify-center pt-8 pb-7 flex flex-col justify-between">
               <div>
                 <span className="text-[11px] font-semibold text-[#C5A059] uppercase tracking-[0.2em] block mb-3">
                   ✦ TECNOLOGÍA DEL FUTURO E INGENIERÍA DE LUJO · SISTEMAS INTELIGENTES 24/7
                 </span>
 
                 <div className="relative mb-9">
-                  <div className="relative z-10 max-w-[685px]">
-                    <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white max-w-[650px]">
+                  <div className="relative z-10 max-w-[580px]">
+                    <h1 className="text-4xl sm:text-5xl md:text-[52px] font-semibold tracking-tight leading-[1.08] mb-5 text-white max-w-[580px]">
                       Construimos la presencia digital, los sistemas y la inteligencia que llevan su empresa al siguiente nivel
                     </h1>
                     <p className="text-base md:text-lg text-gray-300/90 max-w-[605px] mb-0 font-normal leading-relaxed">
@@ -241,7 +241,7 @@ export default function MainWorkspace() {
                   <button
                     type="button"
                     onClick={() => switchView("catalogo")}
-                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap cursor-pointer"
+                    className="h-[52px] px-7 rounded-md border border-[#C5A059]/60 bg-[#0A1128]/70 text-xs font-semibold tracking-[0.06em] uppercase text-[#FCF6BA] hover:border-[#FCF6BA] hover:bg-[#C5A059]/15 transition inline-flex items-center justify-center whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap cursor-pointer"
                   >
                     DESCUBRIR QUÉ HACEMOS POR SU NEGOCIO →
                   </button>
@@ -314,7 +314,7 @@ export default function MainWorkspace() {
                 </div>
 
                 <div className="p-5 sm:p-6 rounded-2xl bg-[#050507]/95 border border-[#C5A059]/40 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                  <div className="space-y-2 max-w-3xl">
+                  <div className="space-y-2 w-full min-w-0 max-w-full lg:max-w-3xl overflow-hidden">
                     <span className="inline-block px-3 py-1 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/40 text-[11px] font-semibold text-[#FCF6BA]">
                       ✦ {INTRIGUE_PILLS[intrigueIndex].proofStat}
                     </span>
@@ -363,7 +363,7 @@ export default function MainWorkspace() {
                   className="seal-card-lhyo p-6 h-full flex flex-col justify-start"
                 >
                   <div className="w-8 h-[1.5px] bg-[#C5A059] mb-4" />
-                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap">
+                  <h3 className="font-semibold text-sm tracking-wide text-[#FCF6BA] mb-2.5 whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-normal sm:whitespace-nowrap">
                     {seal.title}
                   </h3>
                   <p className="text-xs text-gray-300 leading-relaxed">
@@ -407,7 +407,7 @@ export default function MainWorkspace() {
               </div>
 
               <div className="p-5 rounded-2xl bg-[#050507] border border-[#C5A059]/40 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5">
-                <div className="space-y-1.5 max-w-2xl">
+                <div className="space-y-1.5 max-w-[580px]">
                   <div className="text-xs font-bold text-[#FCF6BA] uppercase">
                     {GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].step} ({GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].days}) —{" "}
                     {GUARANTEE_TIMELINE_STEPS[activeGuaranteeStep].title}

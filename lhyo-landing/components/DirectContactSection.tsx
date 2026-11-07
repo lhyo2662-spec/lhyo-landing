@@ -30,7 +30,7 @@ export default function DirectContactSection() {
           clasificacion: "CONSULTA_DIRECTA",
           servicio_elegido: "Formulario de Contacto Directo",
           objetivo_cliente: message,
-          resumen_crm: `CONSULTA DIRECTA || WhatsApp: ${whatsapp} || Mensaje: ${message}`,
+          resumen_crm: "CONSULTA DIRECTA || WhatsApp: " + whatsapp + " || Mensaje: " + message,
           link_videollamada_meet: "https://meet.google.com/krc-vdii-zzh"
         })
       });
@@ -43,12 +43,12 @@ export default function DirectContactSection() {
   };
 
   return (
-    <section id="contacto" className="lhyo-redline-container w-full max-w-6xl mx-auto px-6 pt-10 pb-20 select-none">
-      <div className="mb-8 pb-5 border-b border-white/10 text-left">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.16em] text-[#C5A059] block mb-1.5">
+    <section id="contacto" className="w-full max-w-7xl mx-auto px-6 pt-10 pb-14 select-none">
+      <div className="mb-7 pb-5 border-b border-white/[0.08] text-left">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.20em] text-[#C5A059] block mb-2">
           CANALES OFICIALES DE COMUNICACIÓN
         </span>
-        <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-[#F2F2F5] tracking-tight leading-tight">
           Contacto Directo y Atención Ejecutiva
         </h2>
       </div>
@@ -69,7 +69,7 @@ export default function DirectContactSection() {
             <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-white transition mb-1">
               Iniciar Conversación en WhatsApp <span className="text-[#C5A059]">→</span>
             </h3>
-            <p className="text-xs text-gray-300 leading-relaxed">
+            <p className="text-xs text-[#A3A3AC] leading-relaxed">
               Respuesta directa de nuestro asistente y equipo comercial para consultas rápidas.
             </p>
           </a>
@@ -88,7 +88,7 @@ export default function DirectContactSection() {
             <h3 className="text-[15px] font-semibold text-[#EFE2BA] group-hover:text-white transition mb-1">
               ceo@lhyogroup.com <span className="text-[#C5A059]">→</span>
             </h3>
-            <p className="text-xs text-gray-300 leading-relaxed">
+            <p className="text-xs text-[#A3A3AC] leading-relaxed">
               Dirección General: Lhyonneth Araque (CEO & Founder).
             </p>
           </a>
@@ -129,7 +129,7 @@ export default function DirectContactSection() {
               <h3 className="text-lg font-semibold text-[#EFE2BA]">
                 ¡Su consulta ha sido recibida con éxito!
               </h3>
-              <p className="text-xs text-gray-300 max-w-md mx-auto leading-relaxed">
+              <p className="text-xs text-[#A3A3AC] max-w-md mx-auto leading-relaxed">
                 Nuestro equipo directivo responderá a su correo electrónico o WhatsApp a la brevedad.
               </p>
               <button
@@ -155,7 +155,7 @@ export default function DirectContactSection() {
                 <h3 className="text-lg sm:text-xl font-semibold text-[#EFE2BA] mb-1">
                   Envíenos su consulta directa
                 </h3>
-                <p className="text-xs text-gray-300 leading-relaxed">
+                <p className="text-xs text-[#A3A3AC] leading-relaxed">
                   Su mensaje llegará de inmediato a nuestra dirección general y le responderemos por correo o WhatsApp con la información que necesita.
                 </p>
               </div>

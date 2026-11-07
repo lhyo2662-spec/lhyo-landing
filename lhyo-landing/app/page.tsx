@@ -94,7 +94,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="min-h-0 bg-[#050507] text-white selection:bg-[#C5A059] selection:text-[#050507]">
+    <main className="min-h-0 lg:min-h-[calc(100vh-84px)] lg:flex lg:flex-col lg:justify-center bg-[#050507] text-white selection:bg-[#C5A059] selection:text-[#050507]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

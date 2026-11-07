@@ -142,15 +142,12 @@ body {
 h3 { white-space: pre-line; }
 
 html, body { max-width: 100vw; overflow-x: hidden; }
-
-/* === ARQUITECTURA GEOMETRICA V60.0: LIMITES LINEAS ROJAS + PORTADA L GIGANTE + MOVIL PERFECTO === */
+/* === ARQUITECTURA LIMPIA V61.0: SIMETRIA EXACTA + PORTADA L GIGANTE + MOVIL PERFECTO === */
 html, body {
   max-width: 100vw !important;
   overflow-x: hidden !important;
   background-color: #050507 !important;
 }
-
-/* 1. Prohibido partir palabras por la mitad en ningun dispositivo */
 body, main, section, div, h1, h2, h3, h4, h5, h6, p, span, a, button, li {
   word-break: normal !important;
   overflow-wrap: normal !important;
@@ -158,26 +155,6 @@ body, main, section, div, h1, h2, h3, h4, h5, h6, p, span, a, button, li {
   hyphens: none !important;
   -webkit-hyphens: none !important;
 }
-
-/* 2. En Escritorio (>=1024px):
-   - Primera pantalla de Inicio muestra SOLO el Hero + L Gigante + Barra 01-02-03 (Las 3 Claves quedan abajo al hacer scroll).
-   - El texto del Hero se mantiene en el 60% izquierdo (max-width: 650px) para NO pisar la "L" gigante de la derecha (igual que tu imagen 2.png pero al ancho completo de las lineas rojas). */
-@media (min-width: 1024px) {
-  main > section:first-of-type > div:first-of-type,
-  main > div > section:first-of-type {
-    min-height: calc(100vh - 86px) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-  }
-  main h1 {
-    max-width: 650px !important;
-  }
-}
-
-/* 3. En Telefonos (<=640px — Solucion exacta a tu imagen 6.jpg):
-   - Barra superior compacta para que CONTACTO nunca se salga de la linea roja derecha.
-   - La insignia dorada y la tarjeta inferior de las 3 Claves se ajustan al 100% del ancho movil sin empujar el borde derecho. */
 @media (max-width: 640px) {
   header > div {
     padding-left: 12px !important;
@@ -194,17 +171,10 @@ body, main, section, div, h1, h2, h3, h4, h5, h6, p, span, a, button, li {
     gap: 7px !important;
   }
   header nav a, header nav button {
-    font-size: 9px !important;
-    letter-spacing: 0.02em !important;
+    font-size: 9.2px !important;
+    letter-spacing: 0.03em !important;
     padding-left: 1px !important;
     padding-right: 1px !important;
     white-space: nowrap !important;
   }
-  section span, section div {
-    max-width: 100% !important;
-  }
-  section span.rounded-full, section div.rounded-full {
-    white-space: normal !important;
-  }
 }
-
