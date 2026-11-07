@@ -35,3 +35,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 \n.env\n.env.*\n!.env.example\nlhyo-dual-engine-server/\nLHYO_ADMISSIONS_AI/\n
+
+.env
+.env.*
+!.env.example
+lhyo-dual-engine-server/
+LHYO_ADMISSIONS_AI/
+
