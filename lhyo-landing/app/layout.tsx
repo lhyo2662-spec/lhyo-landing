@@ -12,39 +12,48 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.lhyogroup.com"),
   title: {
-    default: "Lhyo Group | Sistemas Inteligentes 24/7, Páginas Web y Automatización",
-    template: "%s | Lhyo Group",
+    default: "LHYO GROUP | Inteligencia Artificial, Webs de Lujo y Automatización B2B",
+    template: "%s | LHYO GROUP"
   },
-  description:
-    "Lhyo Group (lhyogroup): Desarrollamos Asistentes Inteligentes 24/7 para WhatsApp e Instagram, Plataformas Web de alto prestigio, CRM Automático, IA Personalizada y Sistemas Todo-en-Uno para empresas.",
+  description: "Firma global de Inteligencia Artificial 24/7, plataformas web de lujo y sistemas Todo-en-Uno para escalar su empresa. Entrega en 10 días.",
+  applicationName: "LHYO GROUP",
+  authors: [{ name: "Lhyonneth Araque", url: "https://www.lhyogroup.com" }],
+  creator: "Lhyonneth Araque (CEO & Founder - Lhyo Group)",
+  publisher: "LHYO GROUP",
   keywords: [
-    "lhyogroup",
-    "LhyoGroup",
-    "Lhyo Group",
-    "Lhyo",
-    "Grupo Lhyo",
-    "automatización de empresas",
-    "asistentes inteligentes whatsapp 24/7",
-    "diseño de páginas web corporativas",
-    "inteligencia artificial para empresas",
-    "sistema todo en uno para negocios",
-    "crm automático",
+    "Lhyo Group", "LhyoGroup", "lhyogroup", "lhyo group", "Lhyo", "Lhyonneth Araque",
+    "Lhyo AI", "Lhyo Business Architecture", "agencia de inteligencia artificial",
+    "asistentes inteligentes para whatsapp", "chatbots con ia para instagram",
+    "automatizacion de empresas", "desarrollo web de lujo", "crm automatico",
+    "sistemas todo en uno para empresas", "agencia de automatizacion uruguay",
+    "agencia de automatizacion venezuela", "agencia de ia espana", "lhyogroup.com"
   ],
   alternates: {
     canonical: "https://www.lhyogroup.com",
   },
-  openGraph: {
-    title: "Lhyo Group | Presencia Digital, Sistemas e Inteligencia Artificial 24/7",
-    description:
-      "Instalamos la infraestructura digital, los asistentes 24/7 y el sistema Todo-en-Uno que llevan su empresa al siguiente nivel.",
-    url: "https://www.lhyogroup.com",
-    siteName: "Lhyo Group",
-    locale: "es_ES",
-    type: "website",
-  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "https://www.lhyogroup.com",
+    siteName: "LHYO GROUP",
+    title: "LHYO GROUP | Ingeniería Digital, IA 24/7 y Automatización Empresarial",
+    description: "Firma global de Inteligencia Artificial 24/7, plataformas web de lujo y sistemas Todo-en-Uno para escalar su empresa. Entrega en 10 días.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LHYO GROUP | Inteligencia Artificial y Sistemas Empresariales",
+    description: "Firma global de Inteligencia Artificial 24/7, plataformas web de lujo y sistemas Todo-en-Uno para escalar su empresa. Entrega en 10 días.",
   },
 };
 
@@ -77,6 +86,19 @@ export default function RootLayout({
       <body
         className={`${jakarta.className} antialiased bg-[#050507] text-white selection:bg-[#BF953F] selection:text-[#070707]`}
       >
+        {/* GOOGLE ANALYTICS 4 OFICIAL (G-CZSK4G05JG) + KNOWLEDGE GRAPH JSON-LD V69.0 */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CZSK4G05JG"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "G-CZSK4G05JG", { page_path: window.location.pathname });`,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":["Corporation","ProfessionalService","SoftwareApplication"],"@id":"https://www.lhyogroup.com/#organization","name":"LHYO GROUP","legalName":"Lhyo Group Corporate Systems & AI Architecture","alternateName":["LhyoGroup","Lhyo","Lhyo Group AI","Lhyo Business Architecture"],"url":"https://www.lhyogroup.com","logo":"https://www.lhyogroup.com/icon","image":"https://www.lhyogroup.com/icon","description":"Firma global de ingeniería digital, Inteligencia Artificial 24/7, plataformas web de alto prestigio y automatización empresarial Todo-en-Uno fundada por su CEO Lhyonneth Araque.","disambiguatingDescription":"LHYO GROUP (lhyogroup.com) es una corporación multinacional de ingeniería de software, Inteligencia Artificial B2B y automatización empresarial dirigida por su CEO Lhyonneth Araque. Entidad corporativa tecnológica estrictamente independiente y sin ninguna relación con artistas musicales urbanos ni con empresas de logística homónimas.","founder":{"@type":"Person","@id":"https://www.lhyogroup.com/#ceo","name":"Lhyonneth Araque","alternateName":"Lhyo Araque","jobTitle":"Founder & Chief Executive Officer (CEO)","url":"https://www.lhyogroup.com"},"email":"ceo@lhyogroup.com","telephone":"+58-424-7383164","areaServed":[{"@type":"Country","name":"Uruguay"},{"@type":"Country","name":"Venezuela"},{"@type":"Country","name":"Spain"},{"@type":"Country","name":"United States"},{"@type":"Country","name":"Colombia"},{"@type":"Country","name":"Mexico"},{"@type":"Country","name":"Argentina"},{"@type":"Country","name":"Chile"}],"sameAs":["https://www.instagram.com/lhyogroup","https://www.linkedin.com/company/lhyogroup"],"knowsAbout":["Asistentes Inteligentes 24/7 para WhatsApp e Instagram","Plataformas Web Modernas y Catálogos Interactivos","Organización Automática de Clientes y Ventas CRM","Automatización Total de Procesos Empresariales","Inteligencia Artificial Personalizada para Empresas","Plataformas Empresariales Todo-en-Uno"]},{"@type":"WebSite","@id":"https://www.lhyogroup.com/#website","url":"https://www.lhyogroup.com","name":"LHYO GROUP","alternateName":["LhyoGroup","Lhyo Group Oficial"],"publisher":{"@id":"https://www.lhyogroup.com/#organization"},"inLanguage":"es"}]}),
+          }}
+        />
         {children}
       </body>
     </html>

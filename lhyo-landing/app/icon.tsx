@@ -1,7 +1,7 @@
 ﻿import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const size = { width: 64, height: 64 };
+export const size = { width: 512, height: 512 };
 export const contentType = "image/png";
 
 export default function Icon() {
@@ -14,16 +14,25 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#070707",
-          border: "2px solid #BF953F",
-          borderRadius: "12px",
-          color: "#FCF6BA",
-          fontSize: 38,
-          fontWeight: 900,
-          letterSpacing: "-2px",
+          background: "#050507",
+          borderRadius: "110px",
+          border: "16px solid #C5A059",
+          position: "relative",
         }}
       >
-        L
+        <div
+          style={{
+            fontSize: 310,
+            fontWeight: 900,
+            color: "#EFE2BA",
+            fontFamily: "sans-serif",
+            letterSpacing: "-0.06em",
+            lineHeight: 1,
+            display: "flex",
+          }}
+        >
+          L
+        </div>
       </div>
     ),
     { ...size }
