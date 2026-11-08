@@ -99,8 +99,7 @@ export default function FloatingOmniDock() {
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const prefixTextRef = useRef<string>("");
-
-    // SMART_VIEWPORT_FRAMING_V66: Auto-encuadre suave en pantalla al hacer clic en cualquier tarjeta, acordeon o seccion
+  // SMART_VIEWPORT_FRAMING_V67: Encuadre Optico Exacto (Imagen 002520.jpg - 0px de tarjeta anterior visible)
   useEffect(() => {
     const handleSmartFrameClick = (ev: MouseEvent) => {
       const rawTarget = ev.target as HTMLElement | null;
@@ -120,12 +119,24 @@ export default function FloatingOmniDock() {
       const card = clickable.closest('article, [id="portal-intriga-lhyo"], section > div.rounded-3xl, section > div.rounded-2xl') as HTMLElement | null;
       if (card) {
         setTimeout(() => {
-          const headerEl = document.querySelector('header');
-          const headerOffset = (headerEl ? headerEl.getBoundingClientRect().height : 68) + 14;
           const rect = card.getBoundingClientRect();
-          const targetTop = window.scrollY + rect.top - headerOffset;
+          const vh = window.innerHeight;
+          const headerEl = document.querySelector('header');
+          let stickyOffset = 0;
+          if (headerEl) {
+            const pos = window.getComputedStyle(headerEl).position;
+            const hRect = headerEl.getBoundingClientRect();
+            if ((pos === 'fixed' || pos === 'sticky') && hRect.bottom > 0 && hRect.top <= 0) {
+              stickyOffset = hRect.height;
+            }
+          }
+          const availableVh = vh - stickyOffset;
+          const idealTopGap = rect.height < availableVh - 24
+            ? Math.max(14, Math.floor((availableVh - rect.height) / 2))
+            : 16;
+          const targetTop = window.scrollY + rect.top - stickyOffset - idealTopGap;
           window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
-        }, 95);
+        }, 115);
       }
     };
     document.addEventListener('click', handleSmartFrameClick, { passive: true });
