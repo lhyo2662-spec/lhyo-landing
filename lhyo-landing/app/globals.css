@@ -142,7 +142,10 @@ body {
 h3 { white-space: pre-line; }
 
 html, body { max-width: 100vw; overflow-x: hidden; }
-/* === AUDITORIA DEFINITIVA V65.0: INICIO EXACTO IMAGEN 1 (183721_2.jpg) + RESTO Y MOVIL 100% INTACTOS === */
+/* === AUDITORIA DEFINITIVA V66.0: PORTADA 100VH IDENTICA A IMAGEN 1 + AUTO-ENCUADRE INTELIGENTE AL CLIC === */
+html {
+  scroll-behavior: smooth !important;
+}
 html, body {
   max-width: 100vw !important;
   overflow-x: hidden !important;
@@ -163,9 +166,16 @@ main *:not(header):not(header *):not(h1):not(p) {
   box-sizing: border-box !important;
 }
 
-/* 2. ESCRITORIO (>=1024px): RESTAURACION EXACTA DEL INICIO DE TU IMAGEN 1 (6 LINEAS DE TITULO + L GIGANTE) */
+/* 2. ESCRITORIO (>=1024px): ENCUADRE EXACTO DE LA IMAGEN 1 (201945.jpg) PARA QUE LA BARRA 01-02-03 SE VEA DESDE EL PRIMER SEGUNDO */
 @media (min-width: 1024px) {
-  header > div,
+  header > div {
+    max-width: 100vw !important;
+    width: 100% !important;
+    height: 4.1rem !important;
+    padding-left: 6rem !important;
+    padding-right: 6rem !important;
+    box-sizing: border-box !important;
+  }
   section#contacto {
     max-width: 100vw !important;
     width: 100% !important;
@@ -173,19 +183,34 @@ main *:not(header):not(header *):not(h1):not(p) {
     padding-right: 6rem !important;
     box-sizing: border-box !important;
   }
+  /* Contenedor del primer pantallazo de Inicio calibrado para que quepa completo con la barra 01-02-03 visible abajo */
+  main > section:first-of-type > div:first-of-type {
+    min-height: calc(100vh - 4.4rem) !important;
+    padding-top: 1.15rem !important;
+    padding-bottom: 1.15rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
   html body main section:first-of-type h1,
   html body main h1 {
-    max-width: 485px !important;
-    width: 485px !important;
+    max-width: 465px !important;
+    width: 465px !important;
+    font-size: clamp(2.35rem, 3.25vw, 2.95rem) !important;
+    line-height: 1.06 !important;
+    margin-bottom: 0.75rem !important;
   }
   html body main section:first-of-type h1 + p,
   html body main h1 + p {
-    max-width: 520px !important;
-    width: 520px !important;
+    max-width: 500px !important;
+    width: 500px !important;
+    font-size: 0.94rem !important;
+    line-height: 1.48 !important;
   }
 }
 
-/* 3. INTACTO: REGLAS DE TELEFONO DE LA V64.0 (NO SE TOCA NADA) */
+/* 3. INTACTO: REGLAS DE TELEFONO DE LA V64/V65 (NO SE TOCA NADA) */
 @media (max-width: 767px) {
   header > div > nav ~ *,
   header > div:first-child > *:nth-child(n+3),

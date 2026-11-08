@@ -100,6 +100,38 @@ export default function FloatingOmniDock() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const prefixTextRef = useRef<string>("");
 
+    // SMART_VIEWPORT_FRAMING_V66: Auto-encuadre suave en pantalla al hacer clic en cualquier tarjeta, acordeon o seccion
+  useEffect(() => {
+    const handleSmartFrameClick = (ev: MouseEvent) => {
+      const rawTarget = ev.target as HTMLElement | null;
+      if (!rawTarget) return;
+      if (rawTarget.closest('.fixed')) return;
+      const clickable = rawTarget.closest('button, a, [role="button"], article > div:first-child') as HTMLElement | null;
+      if (!clickable) return;
+      if (clickable.closest('header')) {
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50);
+        return;
+      }
+      const txt = (clickable.textContent || '').toUpperCase();
+      if (txt.includes('DESCUBRIR QUÉ HACEMOS') || txt.includes('EXPLORAR LAS 6 SOLUCIONES') || txt.includes('VER LAS 6 SOLUCIONES')) {
+        setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 60);
+        return;
+      }
+      const card = clickable.closest('article, [id="portal-intriga-lhyo"], section > div.rounded-3xl, section > div.rounded-2xl') as HTMLElement | null;
+      if (card) {
+        setTimeout(() => {
+          const headerEl = document.querySelector('header');
+          const headerOffset = (headerEl ? headerEl.getBoundingClientRect().height : 68) + 14;
+          const rect = card.getBoundingClientRect();
+          const targetTop = window.scrollY + rect.top - headerOffset;
+          window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+        }, 95);
+      }
+    };
+    document.addEventListener('click', handleSmartFrameClick, { passive: true });
+    return () => document.removeEventListener('click', handleSmartFrameClick);
+  }, []);
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
